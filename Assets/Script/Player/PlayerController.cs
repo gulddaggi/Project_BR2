@@ -27,8 +27,33 @@ public class PlayerController : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
     }
 
+    // !! Player Input은 Invoke Unity Events로 구성해놓았음 !!
+    // Send Messages 방식은 차후에 헷갈릴 가능성 UP 
+    // 닷지 리비전후 벽뜷는 현상 발생. 차후에 해결필요
+
     public void OnMoveInput(InputAction.CallbackContext context) { 
         Vector2 input = context.ReadValue<Vector2>(); PlayerMoveDirection = new Vector3(input.x, 0f, input.y); }
+
+    public void OnDodge(InputAction.CallbackContext context)
+    {
+        if(context.performed) // 닷지 키가 눌렸는지 체크. 여기서부터 닷지 로직 작성
+        {
+            if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime)
+            {
+                DodgeVec = PlayerMoveDirection;
+                transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.eulerAngles.y - 90, transform.rotation.z));
+                PlayerAnimator.SetTrigger("Basic Dodge");
+                player.Player_MoveSpeed_Multiplier();
+                isDodge = true;
+
+                Debug.Log("플레이어 기본 회피");
+                // PlayerColor.material.color = Color.red; 디버그용
+                Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
+            }
+        }
+    }
+
+
     // Player Input 컴포넌트 이벤트 함수용
 
     protected void PlayerMove()
@@ -59,7 +84,7 @@ public class PlayerController : MonoBehaviour
         // PlayerMove();
         // 뉴 인풋 시스템이 업데이트문에서는 제대로 작동 안함. 좀 더 알아봐야할 듯
 
-        if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
+        // if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
         Basic_Dodge_Cooltime_Management();
     }
 
@@ -70,8 +95,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // 여기서부터는 플레이어 회피 관련
+    // 하기 함수는 Old Input System 당시 레거시 닷지 함수
 
-    void Basic_Dodge()
+    /* void Dodge()
     {
         if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime)
         {
@@ -86,7 +112,7 @@ public class PlayerController : MonoBehaviour
             // PlayerColor.material.color = Color.red; 
             Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
         }
-    }
+    } */
 
     void Basic_Dodge_Out()
     {

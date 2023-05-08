@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    // Script Player가 임시로 DB 역할도 대행
+
     private Vector3 PlayerMoveDirection;
 
     public float FullHP { get { return fullHP; } }
