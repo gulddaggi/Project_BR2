@@ -4,72 +4,41 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Renderer PlayerColor;
-    public float PlayerSpeed;
 
-    float hAxis;
-    float vAxis;
+    // Script Player�� �ӽ÷� DB ���ҵ� ����
 
-    [SerializeField] float Basic_Dodge_CoolDown;
-    [SerializeField] float Basic_Dodge_CoolTime = 2.0f;
-    [SerializeField] float Basic_Dodge_Time = 0.3f;
-    [SerializeField] bool isDodge;
-    [SerializeField] Vector3 moveVec; // 디버그용
-    [SerializeField] Vector3 DodgeVec; // 디버그용
+    private Vector3 PlayerMoveDirection;
 
-    void Basic_Move() { // 플레이어 기본 움직임
-       hAxis = Input.GetAxisRaw("Horizontal");
-       vAxis = Input.GetAxisRaw("Vertical");
+    public float FullHP { get { return fullHP; } }
+    public float CurrentHP { get { return currentHP; } }
+    public float MoveSpeed { get { return moveSpeed; } }
 
-       moveVec = new Vector3(hAxis, 0, vAxis).normalized;
+    [SerializeField] protected float fullHP;
+    [SerializeField] protected float currentHP;
+    [SerializeField] protected float moveSpeed;
 
-        if(isDodge)
-            moveVec = DodgeVec;
-
-       transform.position += moveVec * PlayerSpeed * Time.deltaTime;
-       
-        transform.LookAt(transform.position + moveVec); // 플레이어가 바라보는 방향으로 Rotation 변환               
-    }
-
-    void Basic_Dodge() {
-        if(moveVec != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime) {
-
-            DodgeVec = moveVec;
-
-            PlayerSpeed *= 4;
-            isDodge = true;
-
-            Debug.Log("플레이어 기본 회피");
-            PlayerColor.material.color = Color.red;
-
-            Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
-        }
-    }
-
-    void Basic_Dodge_Out() {
-        PlayerSpeed *= 0.25f;
-        isDodge = false;
-        Basic_Dodge_CoolDown = 0f;
-        PlayerColor.material.color = Color.white;
-    }
-
-    void Basic_Dodge_Cooltime_Management()
+    public void PlayerStat(float fullHP, float currentHP, float moveSpeed)
     {
-        if(isDodge == false)
-            Basic_Dodge_CoolDown += Time.deltaTime;
+        this.fullHP = fullHP;
+        this.currentHP = currentHP;
+        this.moveSpeed = moveSpeed;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Player_Direction_Check()
     {
-        PlayerColor = gameObject.GetComponent<Renderer>();
+        bool isMoving = (PlayerMoveDirection != Vector3.zero);
+        if (isMoving) { transform.rotation = Quaternion.LookRotation(PlayerMoveDirection); transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Player_MoveSpeed_Multiplier()
     {
-       Basic_Move();
-       if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
-       Basic_Dodge_Cooltime_Management();
+        moveSpeed *= 4;
     }
+
+    public void Player_MoveSpeed_Reclaimer()
+    {
+        moveSpeed /= 4;
+    }
+
+
 }
