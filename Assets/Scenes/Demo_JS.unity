@@ -618,7 +618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &264447382
 RectTransform:
   m_ObjectHideFlags: 0
@@ -907,7 +907,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1148178497}
+      - m_Target: {fileID: 1133160115}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: SwitchToChoice
         m_Mode: 1
@@ -1041,7 +1041,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1148178497}
+      - m_Target: {fileID: 1133160115}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1
@@ -1186,7 +1186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &623596405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1564,6 +1564,25 @@ MonoBehaviour:
   Basic_Dodge_Time: 0.3
   isDodge: 0
   isAttack: 0
+--- !u!114 &1133160115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133160106}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256517670d2d2624981d3d8db0b840af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  choiceEvent: {fileID: 623596404}
+  choiceDialogue: {fileID: 879375287}
+  choiceMain: {fileID: 1191893217}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  range: 0
 --- !u!1 &1148178495
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,7 +1592,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1148178496}
-  - component: {fileID: 1148178497}
+  - component: {fileID: 1148178499}
   m_Layer: 0
   m_Name: EventContoller
   m_TagString: Untagged
@@ -1596,7 +1615,7 @@ Transform:
   m_Father: {fileID: 1133160111}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1148178497
+--- !u!114 &1148178499
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1611,6 +1630,10 @@ MonoBehaviour:
   choiceEvent: {fileID: 623596404}
   choiceDialogue: {fileID: 879375287}
   choiceMain: {fileID: 1191893217}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  range: 50
 --- !u!1 &1191893217
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,7 +2054,7 @@ GameObject:
   - component: {fileID: 1467574107}
   - component: {fileID: 1467574106}
   - component: {fileID: 1467574105}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EventObject
   m_TagString: EventTrigger
   m_Icon: {fileID: 0}
@@ -2109,8 +2132,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467574104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.87, y: 1, z: 7.96}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.87, y: 1.5, z: 7.96}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2525,7 +2548,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1148178497}
+      - m_Target: {fileID: 1133160115}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1
@@ -2794,7 +2817,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1148178497}
+      - m_Target: {fileID: 1133160115}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1

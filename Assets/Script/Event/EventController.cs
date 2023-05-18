@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EventController : MonoBehaviour
 {
-
     [SerializeField]
     GameObject choiceEvent;
 
@@ -14,7 +13,13 @@ public class EventController : MonoBehaviour
     [SerializeField]
     GameObject choiceMain;
 
+    [SerializeField]
+    LayerMask layerMask;
+
     RaycastHit hit;
+
+    [SerializeField]
+    float range;
 
     // Start is called before the first frame update
     void Start()
@@ -25,27 +30,28 @@ public class EventController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        EventCheck();
     }
 
-    private void FixedUpdate()
+    void EventCheck()
     {
-        // Start searching event trigger
-        Physics.Raycast(transform.position, Vector3.forward, out hit, 100.0f);
-
-        Debug.Log(hit.transform.tag);
-
         // event trigger detected
-        if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
-            Debug.Log("Event trigger on");
-            ChoiceEventStart();
+            //event type : choice
+            if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
+            {
+                //Debug.Log("Event trigger on");
+                ChoiceEventStart();
+            }
         }
     }
 
     void ChoiceEventStart()
     {
         choiceEvent.SetActive(true);
+        Time.timeScale = 0f;
+        // add function about stopping all objects
     }
 
     public void SwitchToChoice()
@@ -64,5 +70,7 @@ public class EventController : MonoBehaviour
     {
         choiceDialogue.SetActive(true);
         choiceMain.SetActive(false);
+        Time.timeScale = 1f;
+        // add function about restarting move of all objects
     }
 }
