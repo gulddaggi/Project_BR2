@@ -18,6 +18,9 @@ public class EventController : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
 
+    //public Text[] texts;
+    public List<Transform> texts = new List<Transform>();
+
     RaycastHit hit;
 
     ChoiceGetter choiceGetter;
@@ -54,8 +57,8 @@ public class EventController : MonoBehaviour
     public void SwitchToChoice()
     {
         choiceDialogue.SetActive(false);
-        ChoiceTextSet();
         choiceMain.SetActive(true);
+        ChoiceTextSet();
     }
 
     public void ChoiceEventEnd()
@@ -76,14 +79,25 @@ public class EventController : MonoBehaviour
     void ChoiceTextSet()
     {
         choiceGetter = choiceMain.GetComponent<ChoiceGetter>();
-        for (int i = 0; i < choiceGetter.choices.Length; i++)
+
+        // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. 
+        int DBAccessNum = 0;
+
+        for (int i = 0; i < choiceGetter.choices.Count; i++)
         {
-            // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. 
-            int DBAccessNum = i;
-            // 선택지 양식 하나의 텍스트들을 변수에 입력
-            Text[] texts = choiceGetter.choices[i].GetComponentsInChildren<Text>();
+            DBAccessNum = i + 1;
+            
+            for (int j = 0; j < choiceGetter.choices[0].childCount; j++)
+            {
+                // 선택지 양식 하나의 텍스트들을 변수에 입력
+                texts.Add(choiceGetter.choices[i].GetChild(j));
+            }
+
             // 해당 텍스트에 DB 데이터 입력
-            EventDBManager.instance.ChoiceTextDisplay(texts, i);
+            EventDBManager.instance.ChoiceTextDisplay(texts, DBAccessNum);
+            texts.Clear();
         }
+
+
     }
 }

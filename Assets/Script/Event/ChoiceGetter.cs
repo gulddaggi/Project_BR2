@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class ChoiceGetter : MonoBehaviour
 {
+    public List<Transform> choices = new List<Transform>();
 
-    public Button[] choices;
-
-    void Start()
+    void Awake()
     {
-        choices = GetComponentsInChildren<Button>();
+        for (int i = 1; i < transform.childCount; i++)
+        {
+            choices.Add(this.transform.GetChild(i));
+        }
     }
 }
