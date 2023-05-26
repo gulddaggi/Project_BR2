@@ -145,4 +145,5 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttack == true) { PlayerRigid.velocity = Vector3.zero; }
     }
+
 }

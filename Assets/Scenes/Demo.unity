@@ -891,7 +891,7 @@ MonoBehaviour:
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1133160106}
         m_TargetAssemblyTypeName: 
         m_MethodName: 
         m_Mode: 1
@@ -1515,8 +1515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d7067283e3bc74ea5d1d49dc3cb203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1133160112}
-  Guage_Bar: {fileID: 1704556597}
 --- !u!1 &1818253639
 GameObject:
   m_ObjectHideFlags: 0
