@@ -104,7 +104,7 @@
                     "name": "",
                     "id": "eed10e09-8dd1-43b3-a0cc-8fe23dd682f0",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold,Press(behavior=1)",
                     "processors": "",
                     "groups": "Personal Computer(x64)",
                     "action": "Attack",

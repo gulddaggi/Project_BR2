@@ -164,6 +164,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1585
     y: 0
+
     width: 247
     height: 1307
   m_MinSize: {x: 202, y: 221}
@@ -427,6 +428,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
+
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
