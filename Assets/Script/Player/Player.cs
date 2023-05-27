@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    // Script Player°¡ ÀÓ½Ã·Î DB ¿ªÇÒµµ ´ëÇà
+    // Script Playerê°€ ì„ì‹œë¡œ DB ì—­í• ë„ ëŒ€í–‰
 
     private Vector3 PlayerMoveDirection;
 
@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
+
+    float temp;
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed)
     {
@@ -38,6 +40,17 @@ public class Player : MonoBehaviour
     public void Player_MoveSpeed_Reclaimer()
     {
         moveSpeed /= 4;
+    }
+
+    public void AttackManagement_Start()
+    {
+        temp = moveSpeed;
+        moveSpeed = 0;
+    }
+
+    public void AttackManagement_End()
+    {
+        moveSpeed = temp;
     }
 
 

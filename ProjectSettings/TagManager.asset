@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Collide
   - EventTrigger
+  - PlayerAttack
+  - Enemy
   layers:
   - Default
   - TransparentFX

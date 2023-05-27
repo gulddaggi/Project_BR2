@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StrongAttackGuage : MonoBehaviour
 {
+    /* 
+     
     [SerializeField] Attack player;
     public Slider Guage_Bar;
     float max = 2f;
@@ -25,4 +27,6 @@ public class StrongAttackGuage : MonoBehaviour
         float Charging_Guage = player.Strong_Attack_Hold_Time;
         Guage_Bar.value = Charging_Guage / max;
     }
+
+    */
 }
