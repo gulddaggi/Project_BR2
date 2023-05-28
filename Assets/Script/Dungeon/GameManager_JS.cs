@@ -20,9 +20,18 @@ public class GameManager_JS : MonoBehaviour
 
     GameObject curStage;
 
+    //플레이어 Transform 전달을 위한 임시 변수
+    Transform tmpPlayerPos;
+
+    //보상 정보 전달을 위한 임시 변수
+    GameObject tmpReward;
+
     [SerializeField]
     //스테이지 객체를 저장하는 큐
     private Queue<GameObject> stageQueue = new Queue<GameObject>();
+
+    //스테이지 이동 가능 여부
+    private bool isMoveOn = true;
 
     private void Awake()
     {
@@ -52,7 +61,7 @@ public class GameManager_JS : MonoBehaviour
 
     private void Start()
     {
-
+        Debug.Log("Start Dungeon count : " + dungeonCount);
     }
 
     public Image GetPanel()
@@ -86,7 +95,9 @@ public class GameManager_JS : MonoBehaviour
         }
         else
         {
-            curStage = transform.gameObject;
+            curStage = transform.parent.gameObject;
+            tmpPlayerPos = curStage.GetComponent<Stage>().GetPlayerPos();
+
             curStage.SetActive(false);
             curStage = null;
 
@@ -99,8 +110,30 @@ public class GameManager_JS : MonoBehaviour
             {
                 curStage = stageQueue.Dequeue();
                 curStage.SetActive(true);
+                curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
             }
         }
+
+        isMoveOn = false;
         ++dungeonCount;
+        Debug.Log("Dungeon count : " + dungeonCount);
+    }
+
+    public int GetDungeonCount()
+    {
+        return dungeonCount;
+    }
+
+    public void SetIsMoveOn(bool isClear)
+    {
+        if (isClear)
+        {
+            isMoveOn = true;
+        }
+    }
+
+    public bool GetIsMoveOn()
+    {
+        return isMoveOn;
     }
 }

@@ -37,7 +37,7 @@ public class DungeonCreator : MonoBehaviour
                 index = Random.Range(1, 4);
             }
 
-            GameObject obj = Instantiate(stages[index], new Vector3(-4.8f, -0.15f, 0.12f), Quaternion.identity);
+            GameObject obj = Instantiate(stages[index], new Vector3(-4.8f, 9.0f, 0.12f), Quaternion.identity);
             obj.SetActive(false);
             GameManager_JS.Instance.StageInput(obj);
         }

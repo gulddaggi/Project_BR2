@@ -11,6 +11,11 @@ public class Exit : MonoBehaviour
     [SerializeField]
     Image panelImage;
 
+    [SerializeField]
+    GameObject rewardSocket;
+    
+    bool moveTrigger = false;
+
     private void Start()
     {
         panelImage = GameManager_JS.Instance.GetPanel();
@@ -20,7 +25,7 @@ public class Exit : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.tag == "Player" && panelImage != null)
+        if (other.tag == "Player" && GameManager_JS.Instance.GetIsMoveOn())
         {
             StartCoroutine(FadeOutPanel());
         }
@@ -49,7 +54,7 @@ public class Exit : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        GameManager_JS.Instance.NextStage(this.gameObject.transform.parent);
+        GameManager_JS.Instance.NextStage(this.gameObject.transform);
     }
 
     private IEnumerator FadeInPanel()

@@ -895,7 +895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 1438546959266459337, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2297,11 +2297,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7277314358209131271, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 331364456}
     - target: {fileID: 8704667448288041497, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
       propertyPath: m_Name
       value: Start Stage
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8004125690235688496, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
 --- !u!1 &1574192793
 GameObject:
