@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool isDodge;
     [SerializeField] public bool isAttack;
 
-    // Á÷·ÄÈ­¹®Àº µğ¹ö±ë ¿ëµµ. ½ÇÁ¦ ¸±¸®½º½Ã¿¡´Â Á¦°ÅÇØ¾ß ÇÔ
+    // ì§ë ¬í™”ë¬¸ì€ ë””ë²„ê¹… ìš©ë„. ì‹¤ì œ ë¦´ë¦¬ìŠ¤ì‹œì—ëŠ” ì œê±°í•´ì•¼ í•¨
 
     // Start is called before the first frame update
     void Start()
@@ -29,20 +29,21 @@ public class PlayerController : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
     }
 
-    // !! Player InputÀº Invoke Unity Events·Î ±¸¼ºÇØ³õ¾ÒÀ½ !!
-    // Send Messages ¹æ½ÄÀº Â÷ÈÄ¿¡ Çò°¥¸± °¡´É¼º UP 
-    // ´åÁö ¸®ºñÀüÈÄ º®µ´Â Çö»ó ¹ß»ı. Â÷ÈÄ¿¡ ÇØ°áÇÊ¿ä
+
+    // !! Player Inputì€ Invoke Unity Eventsë¡œ êµ¬ì„±í•´ë†“ì•˜ìŒ !!
+    // Send Messages ë°©ì‹ì€ ì°¨í›„ì— í—·ê°ˆë¦´ ê°€ëŠ¥ì„± UP 
 
     #region * Player Input Contextive Functions
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>(); PlayerMoveDirection = new Vector3(input.x, 0f, input.y);
+        Vector2 input = context.ReadValue<Vector2>();
+        PlayerMoveDirection = new Vector3(input.x, 0f, input.y);
     }
 
     public void OnDodge(InputAction.CallbackContext context)
     {
-        if(context.performed) // ´åÁö Å°°¡ ´­·È´ÂÁö Ã¼Å©. ¿©±â¼­ºÎÅÍ ´åÁö ·ÎÁ÷ ÀÛ¼º
+        if(context.performed) // ë‹·ì§€ í‚¤ê°€ ëˆŒë ¸ëŠ”ì§€ ì²´í¬. ì—¬ê¸°ì„œë¶€í„° ë‹·ì§€ ë¡œì§ ì‘ì„±
         {
             if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime)
             {
@@ -52,8 +53,8 @@ public class PlayerController : MonoBehaviour
                 player.Player_MoveSpeed_Multiplier();
                 isDodge = true;
 
-                Debug.Log("ÇÃ·¹ÀÌ¾î ±âº» È¸ÇÇ");
-                // PlayerColor.material.color = Color.red; µğ¹ö±×¿ë
+                Debug.Log("í”Œë ˆì´ì–´ ê¸°ë³¸ íšŒí”¼");
+                // PlayerColor.material.color = Color.red; ë””ë²„ê·¸ìš©
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
             }
         }
@@ -61,51 +62,56 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    // Player Input ÄÄÆ÷³ÍÆ® ÀÌº¥Æ® ÇÔ¼ö¿ë
 
-    #region * Player Inpit Component Event Functions
+    // Player Input ì»´í¬ë„ŒíŠ¸ ì´ë²¤íŠ¸ í•¨ìˆ˜ìš©
+
+    #region * Player Input Component Event Functions
 
     protected void PlayerMove()
     {
         if (PlayerMoveDirection != Vector3.zero)
             { Quaternion LookAngle = Quaternion.LookRotation(PlayerMoveDirection); PlayerRigid.rotation = LookAngle; }
-        // ¿©±â±îÁö ÀÎÇ²°ª¿¡ µû¸¥ ÇÃ·¹ÀÌ¾î ÇÁ¸®ÆÕ È¸Àü
+        // ì—¬ê¸°ê¹Œì§€ ì¸í’‹ê°’ì— ë”°ë¥¸ í”Œë ˆì´ì–´ í”„ë¦¬íŒ¹ íšŒì „
         PlayerRigid.velocity = PlayerMoveDirection * player.MoveSpeed + Vector3.up * PlayerRigid.velocity.y;
     }
 
     #endregion
 
+
+    // í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´ì…˜ í•¨ìˆ˜
+
+    #region * í”Œë ˆì´ì–´ ì• ë‹ˆë©”ì´ì…˜ Perpetuity ê´€ë ¨ í•¨ìˆ˜
+
     protected void PlayerAnimation()
     {
         if (PlayerRigid.velocity != Vector3.zero)
         {
-            // ¼Ó·Âº¤ÅÍ°¡ 0ÀÌ ¾Æ´Ò ½Ã
+            // ì†ë ¥ë²¡í„°ê°€ 0ì´ ì•„ë‹ ì‹œ
             PlayerAnimator.SetTrigger("Run");
         }
-        // ¿©±â±îÁö ¶Ù´Â ¾Ö´Ï¸ŞÀÌ¼Ç °ü·Ã Ã¼Å©
+        // ì—¬ê¸°ê¹Œì§€ ë›°ëŠ” ì• ë‹ˆë©”ì´ì…˜ ê´€ë ¨ ì²´í¬
         if (PlayerRigid.velocity == Vector3.zero) { PlayerAnimator.SetTrigger("Idle"); }
     }
 
+    #endregion
+
+
+    // ì—…ë°ì´íŠ¸ë¬¸ì—ì„œ ì›€ì§ì„-ì• ë‹ˆë©”ì´ì…˜-ë‹·ì§€ê¹Œì§€ ì „ë¶€ ì²´í¬
+
     private void Update()
     {
-        // PlayerMove();
-        // ´º ÀÎÇ² ½Ã½ºÅÛÀÌ ¾÷µ¥ÀÌÆ®¹®¿¡¼­´Â Á¦´ë·Î ÀÛµ¿ ¾ÈÇÔ. Á» ´õ ¾Ë¾ÆºÁ¾ßÇÒ µí
         PlayerMove();
         PlayerAnimation();
         // if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
         Basic_Dodge_Cooltime_Management();
     }
 
-    private void FixedUpdate()
-    {
-        // is_Player_Attack_Check();
-    }
 
-    // ¿©±â¼­ºÎÅÍ´Â ÇÃ·¹ÀÌ¾î È¸ÇÇ °ü·Ã
+    // ì—¬ê¸°ì„œë¶€í„°ëŠ” í”Œë ˆì´ì–´ íšŒí”¼ ê´€ë ¨
 
     #region * Player Basic Dodge
 
-    // ÇÏ±â ÇÔ¼ö´Â Old Input System ´ç½Ã ·¹°Å½Ã ´åÁö ÇÔ¼ö
+    // í•˜ê¸° í•¨ìˆ˜ëŠ” Old Input System ë‹¹ì‹œ ë ˆê±°ì‹œ ë‹·ì§€ í•¨ìˆ˜
 
     /* void Dodge()
     {
@@ -118,7 +124,7 @@ public class PlayerController : MonoBehaviour
             player.Player_MoveSpeed_Multiplier();
             isDodge = true;
 
-            Debug.Log("ÇÃ·¹ÀÌ¾î ±âº» È¸ÇÇ");
+            Debug.Log("í”Œë ˆì´ì–´ ê¸°ë³¸ íšŒí”¼");
             // PlayerColor.material.color = Color.red; 
             Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
         }
@@ -139,11 +145,22 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    // 
 
-    private void is_Player_Attack_Check()
+
+    // ì—¬ê¸°ì„œë¶€í„°ëŠ” í”Œë ˆì´ì–´ ì¶©ëŒì²˜ë¦¬
+
+    #region * Player Collision Check
+
+    void OnCollisionEnter(Collision collision)
     {
-        if (isAttack == true) { PlayerRigid.velocity = Vector3.zero; }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            var damagedata = collision.gameObject.GetComponent<Ghoul>(); // ë°ëª¨ìš©ì´ë¼ Ghoul.csë¡œ í•œ ê²ƒì„! ì°¨í›„ì— Enemy ì¶”ìƒí™” ì´ë£¨ì–´ì§€ë©´ ìˆ˜ì •í•´ì•¼ í•¨!
+            player.TakeDamage(damagedata.Damage);
+
+        }
     }
+
+    #endregion
 
 }
