@@ -12,21 +12,52 @@ public class Player : MonoBehaviour
     public float FullHP { get { return fullHP; } }
     public float CurrentHP { get { return currentHP; } }
     public float MoveSpeed { get { return moveSpeed; } }
+    public float PlayerAttackDamage { get { return playerAttackDamage; } }
+    public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } }
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float playerAttackDamage;
+    [SerializeField] protected float playerStrongAttackDamage;
 
-    float temp;
-
-    public void PlayerStat(float fullHP, float currentHP, float moveSpeed)
+    public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
     {
         this.fullHP = fullHP;
         this.currentHP = currentHP;
         this.moveSpeed = moveSpeed;
+        this.playerAttackDamage = playerAttackDamage;
+        this.playerStrongAttackDamage = playerStrongAttackDamage;
+
     }
 
-    private void Player_Direction_Check()
+    private void Awake()
+    {
+        currentHP = fullHP;
+    }
+
+    public void TakeDamage(float Damage)
+    {
+        currentHP -= Damage;
+    }
+
+   public float PlayerAttack(float EnemyHP)
+    {
+        float RemainedHP = EnemyHP;
+        RemainedHP -= playerAttackDamage;
+
+        return RemainedHP;
+    }
+
+    public float PlayerStrongAttack(float EnemyHP)
+    {
+        float RemainedHP = EnemyHP;
+        RemainedHP -= playerStrongAttackDamage;
+
+        return RemainedHP;    
+    }
+
+    private void Player_Direction_Check() // 왜 만들었더라..?
     {
         bool isMoving = (PlayerMoveDirection != Vector3.zero);
         if (isMoving) { transform.rotation = Quaternion.LookRotation(PlayerMoveDirection); transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); }
@@ -40,17 +71,6 @@ public class Player : MonoBehaviour
     public void Player_MoveSpeed_Reclaimer()
     {
         moveSpeed /= 4;
-    }
-
-    public void AttackManagement_Start()
-    {
-        temp = moveSpeed;
-        moveSpeed = 0;
-    }
-
-    public void AttackManagement_End()
-    {
-        moveSpeed = temp;
     }
 
 

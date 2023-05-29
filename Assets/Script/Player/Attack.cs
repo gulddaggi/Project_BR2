@@ -14,19 +14,23 @@ public class Attack : MonoBehaviour
 
     public Vector3 MouseDirection { get; private set; }
 
-    [SerializeField] GameObject AttackRange_Demo;
+    // [SerializeField] GameObject AttackRange_Demo; 차후 추상화 작업시에 주석 풀 것.
+
+    #region * 주의! 해당 섹터 내 코드들은 데모용으로 작성됨. 당 변수들은 차후에 추상화 작업시에 자식 클래스로의 이동이 필요.
+
+    [SerializeField] GameObject AttackRange_Demo_1;
+    [SerializeField] GameObject AttackRange_Demo_2;
+    [SerializeField] GameObject AttackRange_Demo_3;
+
+    #endregion
 
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
+    #region * 마우스 위치 받아오기 및 레이캐스팅
     protected Vector3 GetMouseWorldPosition() // 마우스 위치 받아오기
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
@@ -43,7 +47,9 @@ public class Attack : MonoBehaviour
 
         return Vector3.zero;
     }
+    #endregion
 
+    #region * New Input System Invoke Events 관련 코드. !!잘못 건들면 인풋시스템 다 망가짐!!
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed) // 공격키가 눌렸는지 체크
@@ -58,7 +64,10 @@ public class Attack : MonoBehaviour
             // StartCoroutine(AttackDelay());
         }
     }
+    #endregion
 
+    #region * 극초기 스냅샷 당시 공격 딜레이 관련 레거시 코드.
+    /* 
     public IEnumerator AttackDelay()
     {
         player.Player_MoveSpeed_Reclaimer();
@@ -67,6 +76,8 @@ public class Attack : MonoBehaviour
         // playercontroller.isAttack = false;
         player.Player_MoveSpeed_Multiplier();
     }
+    */
+    #endregion
 
     #region * 콤보 공격 레거시 코드. 코루틴헬퍼 지원 종료에 따라 사용불가
 
@@ -110,10 +121,13 @@ public class Attack : MonoBehaviour
 
     #endregion
 
+    #region * 이 코드들은 차후에 Attack.cs 추상화 작업시에 사용할 것.
+
+    /*
     void AttackStart()
     {
         PlayerAnimator.applyRootMotion = true;
-        player.AttackManagement_Start();
+        // player.AttackManagement_Start();
         AttackRange_Demo.SetActive(true);
         Debug.Log("Start");
     }
@@ -121,9 +135,60 @@ public class Attack : MonoBehaviour
     void AttackEnd()
     {
         PlayerAnimator.applyRootMotion = false;
-        player.AttackManagement_End();
+        // player.AttackManagement_End();
         AttackRange_Demo.SetActive(false);
         Debug.Log("End");
     }
+    */
 
+    #endregion
+
+    #region * 해당 섹터 코드들은 차후에 SwordAttack.cs로 이동 필요. 데모이므로 여기에 총체적으로 작성.
+
+    void FirstAttack_Sword_Start()
+    {
+        PlayerAnimator.applyRootMotion = true;
+        // player.AttackManagement_Start();
+        AttackRange_Demo_1.SetActive(true);
+        Debug.Log("First Combo Start");
+    }
+    void FirstAttack_Sword_End()
+    {
+        PlayerAnimator.applyRootMotion = false;
+        // player.AttackManagement_Start();
+        AttackRange_Demo_1.SetActive(false);
+        Debug.Log("First Combo End");
+    }
+    void SecondAttack_Sword_Start()
+    {
+        PlayerAnimator.applyRootMotion = true;
+        // player.AttackManagement_Start();
+        AttackRange_Demo_1.SetActive(false);
+        AttackRange_Demo_2.SetActive(true);
+        Debug.Log("Second Combo Start");
+    }
+    void SecondAttack_Sword_End()
+    {
+        PlayerAnimator.applyRootMotion = false;
+        // player.AttackManagement_Start();
+        AttackRange_Demo_2.SetActive(false);
+        Debug.Log("Second Combo End");
+    }
+    void ThirdAttack_Sword_Start()
+    {
+        PlayerAnimator.applyRootMotion = true;
+        AttackRange_Demo_2.SetActive(false);
+        // player.AttackManagement_Start();
+        AttackRange_Demo_3.SetActive(true);
+        Debug.Log("Third Combo Start");
+    }
+    void ThirdAttack_Sword_End()
+    {
+        PlayerAnimator.applyRootMotion = false;
+        // player.AttackManagement_Start();
+        AttackRange_Demo_3.SetActive(false);
+        Debug.Log("Third Combo End");
+    }
+
+    #endregion
 }

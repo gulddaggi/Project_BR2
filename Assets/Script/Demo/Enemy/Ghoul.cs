@@ -6,18 +6,28 @@ using UnityEngine.AI;
 public class Ghoul : MonoBehaviour
 {
 
-    public Transform Player;
-    Animator GhoulAnimator;
-    Rigidbody GhoulRigid;
-    public float Movespeed;
+    // 데모용 구울 조정 스크립트. 차후에 추상클래스로 이월 필요
+
+    GameObject player;
+
+    Animator EnemyAnimator;
+    Rigidbody EnemyRigid;
+
+    public float EnemyHP = 10;
+
+    public float EnemyMovespeed;
+    public float Damage = 10f;
+
     private NavMeshAgent nav;
     public bool Screamed = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        GhoulRigid = GetComponent<Rigidbody>();
-        GhoulAnimator = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        EnemyRigid = GetComponent<Rigidbody>();
+        EnemyAnimator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
     }
 
@@ -26,45 +36,46 @@ public class Ghoul : MonoBehaviour
     {
         Track_Player();
         Ghoul_Anim_Manage();
+        DIeCheck();
     }
 
     void Track_Player()
     {
-        float distance = Vector3.Distance(Player.position, transform.position);
+        float distance = Vector3.Distance(player.transform.position, transform.position);
         if (distance < 15f)
         {
             StartCoroutine(Nav_Ghoul());
         }
         else
         {
-            GhoulRigid.velocity = Vector3.zero;
+            EnemyRigid.velocity = Vector3.zero;
         }
 
     }
 
     IEnumerator Nav_Ghoul()
     {
-        transform.LookAt(Player.position);
+        transform.LookAt(player.transform.position);
         if (Screamed == false)
         {
-            GhoulAnimator.SetTrigger("Scream");
+            EnemyAnimator.SetTrigger("Scream");
             Screamed = true;
             yield return new WaitForSeconds(2.0f);
         }
-        nav.destination = Player.position;
+        nav.destination = player.transform.position;
 
     }
 
     void Ghoul_Anim_Manage()
     {
-        if (GhoulRigid.velocity.normalized != Vector3.zero)
+        if (EnemyRigid.velocity.normalized != Vector3.zero)
         {
             // 속력벡터가 0이 아닐 시
-            GhoulAnimator.SetTrigger("Track");
+            EnemyAnimator.SetTrigger("Track");
         }
-        else if (GhoulRigid.velocity == Vector3.zero)
+        else if (EnemyRigid.velocity == Vector3.zero)
         {
-            GhoulAnimator.SetTrigger("Idle");
+            EnemyAnimator.SetTrigger("Idle");
         }
     }
 
@@ -73,7 +84,23 @@ public class Ghoul : MonoBehaviour
         if (other.tag == "PlayerAttack")
         {
             Debug.Log("Ghoul Damaged!");
+            var playerdata = player.GetComponent<Player>();
+            EnemyHP = (playerdata.PlayerAttack(EnemyHP));
 
+        }
+        else if (other.tag == "StrongPlayerAttack")
+        {
+            Debug.Log("Ghoul Strongly Damaged!");
+            var playerdata = player.GetComponent<Player>();
+            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
+        }
+    }
+
+    void DIeCheck()
+    {
+        if(EnemyHP <= 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 }

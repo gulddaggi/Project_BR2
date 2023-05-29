@@ -29,9 +29,9 @@ public class PlayerController : MonoBehaviour
         PlayerAnimator = GetComponent<Animator>();
     }
 
+
     // !! Player Input은 Invoke Unity Events로 구성해놓았음 !!
     // Send Messages 방식은 차후에 헷갈릴 가능성 UP 
-    // 닷지 리비전후 벽뜷는 현상 발생. 차후에 해결필요
 
     #region * Player Input Contextive Functions
 
@@ -62,9 +62,10 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+
     // Player Input 컴포넌트 이벤트 함수용
 
-    #region * Player Inpit Component Event Functions
+    #region * Player Input Component Event Functions
 
     protected void PlayerMove()
     {
@@ -75,6 +76,11 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+
+    // 플레이어 애니메이션 함수
+
+    #region * 플레이어 애니메이션 Perpetuity 관련 함수
 
     protected void PlayerAnimation()
     {
@@ -87,20 +93,19 @@ public class PlayerController : MonoBehaviour
         if (PlayerRigid.velocity == Vector3.zero) { PlayerAnimator.SetTrigger("Idle"); }
     }
 
+    #endregion
+
+
+    // 업데이트문에서 움직임-애니메이션-닷지까지 전부 체크
+
     private void Update()
     {
-        // PlayerMove();
-        // 뉴 인풋 시스템이 업데이트문에서는 제대로 작동 안함. 좀 더 알아봐야할 듯
         PlayerMove();
         PlayerAnimation();
         // if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
         Basic_Dodge_Cooltime_Management();
     }
 
-    private void FixedUpdate()
-    {
-        // is_Player_Attack_Check();
-    }
 
     // 여기서부터는 플레이어 회피 관련
 
@@ -140,6 +145,22 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    // 
+
+
+    // 여기서부터는 플레이어 충돌처리
+
+    #region * Player Collision Check
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            var damagedata = collision.gameObject.GetComponent<Ghoul>(); // 데모용이라 Ghoul.cs로 한 것임! 차후에 Enemy 추상화 이루어지면 수정해야 함!
+            player.TakeDamage(damagedata.Damage);
+
+        }
+    }
+
+    #endregion
 
 }
