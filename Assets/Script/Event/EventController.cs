@@ -41,6 +41,7 @@ public class EventController : MonoBehaviour
             //event type : choice
             if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
             {
+                Destroy(hit.transform, 1f);
                 //Debug.Log("Event trigger on");
                 ChoiceEventStart();
             }
