@@ -9,13 +9,17 @@ public class Dungeon : Stage
     int exitCount;
 
     [SerializeField]
-    Transform rewardPos;
+    protected Transform rewardPos;
 
     [SerializeField]
     GameObject[] exitObjects;
 
     [SerializeField]
-    GameObject reward;
+    protected GameObject reward;
+
+    // 보상 생성 스크립트
+    [SerializeField]
+    protected RewardCreator rewardCreator;
 
     public int enemyCount = 0;
     private bool isClear = false;
@@ -23,19 +27,28 @@ public class Dungeon : Stage
     protected override void Start()
     {
         //base.Start();
-        //SetNextReward();
+        rewardCreator = this.gameObject.GetComponent<RewardCreator>();
+        if (rewardCreator != null)
+        {
+            SetNextReward();
+        }
     }
 
     public void SetReward(GameObject Obj)
     {
         reward = Obj;
+        GameObject rewardObj = Instantiate(reward, rewardPos.position, Quaternion.identity);
+        rewardObj.transform.SetParent(this.gameObject.transform);
+        rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
     }
 
     void SetNextReward()
     {
+
         for (int i = 0; i < exitObjects.Length; i++)
         {
-
+            reward = rewardCreator.CreateReward();
+            exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
         }
     }
 
@@ -46,7 +59,7 @@ public class Dungeon : Stage
         GameManager_JS.Instance.SetIsMoveOn(isClear);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (enemyCount == 0 & !isClear)
         {

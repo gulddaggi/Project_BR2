@@ -13,6 +13,8 @@ public class Exit : MonoBehaviour
 
     [SerializeField]
     GameObject rewardSocket;
+
+    GameObject reward = null;
     
     bool moveTrigger = false;
 
@@ -24,7 +26,6 @@ public class Exit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.tag == "Player" && GameManager_JS.Instance.GetIsMoveOn())
         {
             StartCoroutine(FadeOutPanel());
@@ -73,5 +74,22 @@ public class Exit : MonoBehaviour
             elapsedTime += Time.deltaTime * 0.5f;
             yield return null;
         }
+
+        Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        panelImage.color = color;
+
+    }
+
+    public void CreateSampleReward(GameObject obj)
+    {
+        reward = Instantiate(obj, rewardSocket.transform.position, Quaternion.identity);
+        reward.transform.SetParent(this.gameObject.transform);
+        reward.GetComponent<SphereCollider>().enabled = false;
+    }
+
+    public GameObject GetRewardObj()
+    {
+        reward.GetComponent<SphereCollider>().enabled = true;
+        return reward;
     }
 }

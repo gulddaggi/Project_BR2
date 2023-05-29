@@ -59,8 +59,10 @@ public class GameManager_JS : MonoBehaviour
         }
     }
 
+    
     private void Start()
     {
+        //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
     }
 
@@ -104,6 +106,7 @@ public class GameManager_JS : MonoBehaviour
             if (stageQueue.Count == 0)
             {
                 InitStage();
+                SceneManager.LoadScene("HomeScene");
                 return;
             }
             else
@@ -111,6 +114,7 @@ public class GameManager_JS : MonoBehaviour
                 curStage = stageQueue.Dequeue();
                 curStage.SetActive(true);
                 curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
+                curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
             }
         }
 

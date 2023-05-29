@@ -7,14 +7,21 @@ public class RewardCreator : MonoBehaviour
     [SerializeField]
     List<GameObject> rewardprefs = new List<GameObject>();
 
-    void Start()
+    public GameObject CreateReward()
     {
-        
+        int index = Random.Range(0, rewardprefs.Count); // 무작위 난수 생성
+        Debug.Log("reward index : " + index);
+        GameObject reward = rewardprefs[index];
+        rewardprefs.Remove(rewardprefs[index]);
+        return reward;
     }
 
-    void Update()
+    public GameObject CreateReward(int max)
     {
-        
+        int index = Random.Range(0, max); // 무작위 난수 생성
+        GameObject reward = rewardprefs[index];
+        rewardprefs.Remove(reward);
+        return reward;
     }
 
 }
