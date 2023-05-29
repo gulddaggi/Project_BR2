@@ -77,19 +77,19 @@ public class Exit : MonoBehaviour
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
-
     }
 
     public void CreateSampleReward(GameObject obj)
     {
         reward = Instantiate(obj, rewardSocket.transform.position, Quaternion.identity);
         reward.transform.SetParent(this.gameObject.transform);
-        reward.GetComponent<SphereCollider>().enabled = false;
+        reward.gameObject.SetActive(true);
+        //reward.GetComponent<SphereCollider>().enabled = false;
     }
 
     public GameObject GetRewardObj()
     {
-        reward.GetComponent<SphereCollider>().enabled = true;
+        //reward.GetComponent<SphereCollider>().enabled = true;
         return reward;
     }
 }

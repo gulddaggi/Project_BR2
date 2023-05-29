@@ -21,13 +21,19 @@ public class Dungeon : Stage
     [SerializeField]
     protected RewardCreator rewardCreator;
 
+    [SerializeField]
+    EnemySpawner enemySpawner;
+
     public int enemyCount = 0;
-    private bool isClear = false;
+    protected bool isClear = false;
 
     protected override void Start()
     {
         //base.Start();
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
+        //적 생성
+        enemyCount = enemySpawner.Spawn_ReturnCount();
+
         if (rewardCreator != null)
         {
             SetNextReward();
@@ -37,6 +43,11 @@ public class Dungeon : Stage
     public void SetReward(GameObject Obj)
     {
         reward = Obj;
+
+    }
+
+    void CreateReward()
+    {
         GameObject rewardObj = Instantiate(reward, rewardPos.position, Quaternion.identity);
         rewardObj.transform.SetParent(this.gameObject.transform);
         rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -55,7 +66,7 @@ public class Dungeon : Stage
     void Clear()
     {
         isClear = true;
-        //GameObject obj = Instantiate(reward, rewardPos);
+        CreateReward();
         GameManager_JS.Instance.SetIsMoveOn(isClear);
     }
 
@@ -65,5 +76,16 @@ public class Dungeon : Stage
         {
             Clear();
         }
+    }
+
+    public void DecEnemyCount()
+    {
+        --enemyCount;
+    }
+
+    //테스트용
+    public void Die()
+    {
+        GameManager_JS.Instance.InitStage();
     }
 }

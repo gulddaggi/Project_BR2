@@ -18,6 +18,9 @@ public class EventController : MonoBehaviour
     [SerializeField]
     LayerMask layerMask;
 
+    [SerializeField]
+    GameObject player;
+
     //public Text[] texts;
     public List<Transform> texts = new List<Transform>();
 
@@ -27,6 +30,11 @@ public class EventController : MonoBehaviour
 
     [SerializeField]
     float range;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+    }
 
     void Update()
     {
@@ -41,7 +49,7 @@ public class EventController : MonoBehaviour
             //event type : choice
             if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
             {
-                Destroy(hit.transform, 1f);
+                Destroy(hit.transform.gameObject, 0.01f);
                 //Debug.Log("Event trigger on");
                 ChoiceEventStart();
             }
@@ -51,7 +59,9 @@ public class EventController : MonoBehaviour
     void ChoiceEventStart()
     {
         choiceEvent.SetActive(true);
+        GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
+        player.SetActive(false);
         // add function about stopping all objects
     }
 
@@ -72,6 +82,8 @@ public class EventController : MonoBehaviour
     {
         choiceDialogue.SetActive(true);
         choiceMain.SetActive(false);
+        GameManager_JS.Instance.PanelOn();
+        player.SetActive(true);
         Time.timeScale = 1f;
         // add function about restarting move of all objects
     }
