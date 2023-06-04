@@ -17,6 +17,9 @@ public class Dungeon : Stage
     [SerializeField]
     protected GameObject reward;
 
+    [SerializeField]
+    protected GameObject curReward = null;
+
     // 보상 생성 스크립트
     [SerializeField]
     protected RewardCreator rewardCreator;
@@ -42,15 +45,19 @@ public class Dungeon : Stage
 
     public void SetReward(GameObject Obj)
     {
-        reward = Obj;
-
+        curReward = Obj;
     }
 
     void CreateReward()
     {
-        GameObject rewardObj = Instantiate(reward, rewardPos.position, Quaternion.identity);
-        rewardObj.transform.SetParent(this.gameObject.transform);
-        rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        if (curReward != null)
+        {
+            GameObject rewardObj = Instantiate(curReward, rewardPos.position, Quaternion.identity);
+            rewardObj.transform.SetParent(this.gameObject.transform);
+            reward.gameObject.SetActive(true);
+            rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+
     }
 
     void SetNextReward()

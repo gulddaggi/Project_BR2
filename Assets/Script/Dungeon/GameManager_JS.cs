@@ -105,19 +105,18 @@ public class GameManager_JS : MonoBehaviour
             curStage.SetActive(false);
             curStage = null;
 
-            if (stageQueue.Count == 0)
+            /*if (stageQueue.Count == 0)
             {
                 InitStage();
                 SceneManager.LoadScene("HomeScene");
                 return;
-            }
-            else
-            {
-                curStage = stageQueue.Dequeue();
-                curStage.SetActive(true);
-                curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
-                curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
-            }
+            }*/
+
+            curStage = stageQueue.Dequeue();
+            curStage.SetActive(true);
+            curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
+            curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
+            
         }
 
         isMoveOn = false;
