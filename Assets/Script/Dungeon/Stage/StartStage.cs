@@ -20,5 +20,10 @@ public class StartStage : Dungeon
     protected override void Update()
     {
         base.Update();
+
+        if (isClear)
+        {
+            reward.SetActive(false);
+        }
     }
 }

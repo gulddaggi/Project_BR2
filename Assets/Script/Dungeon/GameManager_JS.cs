@@ -86,6 +86,8 @@ public class GameManager_JS : MonoBehaviour
     {
         stageQueue.Clear();
         dungeonCount = 0;
+        SceneManager.LoadScene("HomeScene");
+        isMoveOn = true;
     }
 
     // 다음 스테이지 활성화
@@ -103,19 +105,18 @@ public class GameManager_JS : MonoBehaviour
             curStage.SetActive(false);
             curStage = null;
 
-            if (stageQueue.Count == 0)
+            /*if (stageQueue.Count == 0)
             {
                 InitStage();
                 SceneManager.LoadScene("HomeScene");
                 return;
-            }
-            else
-            {
-                curStage = stageQueue.Dequeue();
-                curStage.SetActive(true);
-                curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
-                curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
-            }
+            }*/
+
+            curStage = stageQueue.Dequeue();
+            curStage.SetActive(true);
+            curStage.GetComponent<Stage>().SetPlayerPos(tmpPlayerPos);
+            curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
+            
         }
 
         isMoveOn = false;
@@ -139,5 +140,15 @@ public class GameManager_JS : MonoBehaviour
     public bool GetIsMoveOn()
     {
         return isMoveOn;
+    }
+
+    public void PanelOff()
+    {
+        panelImage.gameObject.SetActive(false);
+    }
+
+    public void PanelOn()
+    {
+        panelImage.gameObject.SetActive(true);
     }
 }

@@ -150,44 +150,44 @@ public class Attack : MonoBehaviour
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
         AttackRange_Demo_1.SetActive(true);
-        Debug.Log("First Combo Start");
+        //Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
-        AttackRange_Demo_1.SetActive(false);
-        Debug.Log("First Combo End");
+         AttackRange_Demo_1.SetActive(false);
+        // Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        AttackRange_Demo_1.SetActive(false);
-        AttackRange_Demo_2.SetActive(true);
-        Debug.Log("Second Combo Start");
+         AttackRange_Demo_1.SetActive(false);
+         AttackRange_Demo_2.SetActive(true);
+        // Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
-        AttackRange_Demo_2.SetActive(false);
-        Debug.Log("Second Combo End");
+         AttackRange_Demo_2.SetActive(false);
+        // Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
-        AttackRange_Demo_2.SetActive(false);
+         AttackRange_Demo_2.SetActive(false);
         // player.AttackManagement_Start();
-        AttackRange_Demo_3.SetActive(true);
-        Debug.Log("Third Combo Start");
+         AttackRange_Demo_3.SetActive(true);
+        // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
-        AttackRange_Demo_3.SetActive(false);
-        Debug.Log("Third Combo End");
+         AttackRange_Demo_3.SetActive(false);
+        // Debug.Log("Third Combo End");
     }
 
     #endregion

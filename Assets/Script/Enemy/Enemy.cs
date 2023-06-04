@@ -63,7 +63,6 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerAttack")
         {
             Debug.Log("Enemy Damaged!");
-
         }
     }
 }

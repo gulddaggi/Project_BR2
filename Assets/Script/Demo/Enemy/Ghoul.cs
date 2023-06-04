@@ -21,6 +21,9 @@ public class Ghoul : MonoBehaviour
     private NavMeshAgent nav;
     public bool Screamed = false;
 
+    [SerializeField]
+    EnemySpawner enemySpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +51,7 @@ public class Ghoul : MonoBehaviour
         }
         else
         {
+            
             EnemyRigid.velocity = Vector3.zero;
         }
 
@@ -101,6 +105,12 @@ public class Ghoul : MonoBehaviour
         if(EnemyHP <= 0)
         {
             gameObject.SetActive(false);
+            enemySpawner.EnemyDead();
         }
+    }
+
+    public void SetSpawner(EnemySpawner _enemySpawner)
+    {
+        enemySpawner = _enemySpawner;
     }
 }
