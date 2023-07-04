@@ -66,6 +66,7 @@ public class GameManager_JS : MonoBehaviour
         Debug.Log("Start Dungeon count : " + dungeonCount);
     }
 
+    // fadeout에 사용되는 panel 반환
     public Image GetPanel()
     {
         if (panelImage == null)
@@ -93,6 +94,7 @@ public class GameManager_JS : MonoBehaviour
     // 다음 스테이지 활성화
     public void NextStage(Transform transform)
     {
+        // 마을에서 던전 입장 or 하나의 던전 클리어 시 던전 씬으로 전환하여 던전 스테이지 생성
         if (dungeonCount == 0)
         {
             SceneManager.LoadScene("DungeonScene");

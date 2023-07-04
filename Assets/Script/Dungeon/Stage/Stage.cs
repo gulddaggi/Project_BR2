@@ -14,14 +14,17 @@ public class Stage : MonoBehaviour
 
     protected virtual void Start()
     {
-        playerPos.position = startPoint.position;
+        // 플레이어를 시작 위치로 이동
+        // playerPos.position = startPoint.position; // SetPlayerPos가 존재하여 불필요.
     }
 
+    // 현재 플레이어 위치 반환
     public Transform GetPlayerPos()
     {
         return playerPos;
     }
 
+    // 플레이어 위치 지정
     public void SetPlayerPos(Transform pos)
     {
         playerPos = pos;
