@@ -67,14 +67,17 @@ public class Dungeon : Stage
     // 출구에 표시하기 위한 다음 보상을 생성.
     void SetNextReward()
     {
-        // 
+        // 출구 개수만큼 다음 보상 생성.
         for (int i = 0; i < exitObjects.Length; i++)
         {
+            // 랜덤 보상 생성 후 변수 저장.
             reward = rewardCreator.CreateReward();
+            // 생성된 보상을 해당 인덱스 출구에 표시
             exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
         }
     }
 
+    // 클리어 시 실행 함수. 스테이지 이동 허용 및 보상 생성.
     void Clear()
     {
         isClear = true;

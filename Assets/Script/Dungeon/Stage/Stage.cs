@@ -24,8 +24,8 @@ public class Stage : MonoBehaviour
         return playerPos;
     }
 
-    // 플레이어 위치 지정
-    public void SetPlayerPos(Transform pos)
+    // 플레이어를 시작 위치로 이동.
+    public void PlayerPosToStart(Transform pos)
     {
         playerPos = pos;
         playerPos.position = startPoint.position; // 스테이지 시작 시 플레이어 위치 지정

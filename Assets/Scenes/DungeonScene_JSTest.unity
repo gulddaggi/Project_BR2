@@ -1637,6 +1637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonCount: 0
+  tryCount: 0
   panelImage: {fileID: 0}
 --- !u!4 &580337973
 Transform:
@@ -2290,7 +2291,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1357512834706730552, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
   m_PrefabInstance: {fileID: 1410028810}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1444698363}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7663161101202846a24eb64e628b01e, type: 3}
@@ -2944,6 +2945,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: []
   enemy: {fileID: 2809309624668386628, guid: 5b94f60ca5e4baa4f9cf37e635bfec47, type: 3}
+--- !u!1 &1444698363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8704667448288041497, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+  m_PrefabInstance: {fileID: 1410028810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1444698366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444698363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c61a6d88422a14e821d0e8de274a91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1574192793
 GameObject:
   m_ObjectHideFlags: 0
