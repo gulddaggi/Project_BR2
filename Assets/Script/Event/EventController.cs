@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EventController : MonoBehaviour
 {
+    [SerializeField]
+    GameObject[] events;
 
     [SerializeField]
     GameObject choiceEvent;
@@ -21,6 +23,10 @@ public class EventController : MonoBehaviour
     [SerializeField]
     GameObject player;
 
+    // 각 보상의 색상 정보(RGBA -> Vector3(color.r, color.g, color.b)를 담고있는 딕셔너리.
+    [SerializeField]
+    Dictionary<Vector3, string> itemMap;
+
     //public Text[] texts;
     public List<Transform> texts = new List<Transform>();
 
@@ -34,6 +40,10 @@ public class EventController : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
+        itemMap = new Dictionary<Vector3, string>();
+
+        // 보상 오브젝트의 색상 값을 키값으로 하여 딕셔너리 구성
+        itemMap.Add(new Vector3(1f, 0f, 0f), "Ability"); // 능력
     }
 
     void Update()
@@ -43,12 +53,24 @@ public class EventController : MonoBehaviour
 
     void EventCheck()
     {
-        // event trigger detected
+        // event trigger detectedslxl 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
             //event type : choice
             if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
             {
+                Material mr =  hit.transform.GetComponent<Renderer>().material;
+                Vector3 tmp = new Vector3(mr.color.r, mr.color.g, mr.color.b);
+                Debug.Log("color : " + tmp);
+                if (itemMap.ContainsKey(tmp))
+                {
+                    Debug.Log(itemMap[tmp]);
+                }
+                else
+                {
+                    Debug.Log("df");
+                }
+                
                 Destroy(hit.transform.gameObject, 0.01f);
                 //Debug.Log("Event trigger on");
                 ChoiceEventStart();
