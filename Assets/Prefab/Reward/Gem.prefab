@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1190463306390893930}
   m_Layer: 3
   m_Name: Gem
-  m_TagString: EventTrigger
+  m_TagString: Event_Gem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

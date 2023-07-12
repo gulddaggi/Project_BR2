@@ -9,6 +9,10 @@ TagManager:
   - PlayerAttack
   - Enemy
   - StrongPlayerAttack
+  - Event_Ability
+  - Event_Coin
+  - Event_Enchant
+  - Event_Gem
   layers:
   - Default
   - TransparentFX

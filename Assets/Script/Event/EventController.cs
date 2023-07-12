@@ -57,20 +57,9 @@ public class EventController : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
             //event type : choice
-            if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag == "EventTrigger")
+            // tag.Contains(value)사용하여 특정 문자열 포함하는지 확인
+            if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag.Contains("Event")) 
             {
-                Material mr =  hit.transform.GetComponent<Renderer>().material;
-                Vector3 tmp = new Vector3(mr.color.r, mr.color.g, mr.color.b);
-                Debug.Log("color : " + tmp);
-                if (itemMap.ContainsKey(tmp))
-                {
-                    Debug.Log(itemMap[tmp]);
-                }
-                else
-                {
-                    Debug.Log("df");
-                }
-                
                 Destroy(hit.transform.gameObject, 0.01f);
                 //Debug.Log("Event trigger on");
                 ChoiceEventStart();
