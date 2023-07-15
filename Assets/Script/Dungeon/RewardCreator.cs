@@ -5,30 +5,56 @@ using UnityEngine;
 public class RewardCreator : MonoBehaviour
 {
     [SerializeField]
-    List<GameObject> rewardprefs = new List<GameObject>();
+    List<GameObject> rewardPrefs = new List<GameObject>();
 
+    [SerializeField]
+    List<GameObject> abilityPrefs = new List<GameObject>();
+
+    // 보상 생성
     public GameObject CreateReward()
     {
-        int index = Random.Range(0, rewardprefs.Count); // 무작위 난수 생성
+        int index = Random.Range(0, rewardPrefs.Count); // 무작위 난수 생성
+        GameObject reward;
         //Debug.Log("reward index : " + index);
         if (index == 0) // 0은 능력 
         {
             // 능력 생성 함수 실행.
-            this.gameObject.GetComponent<AbilityCreator>().AbilityCrate();
+            reward = CreateAbility();
         }
-        GameObject reward = rewardprefs[index];
+        else
+        {
+            reward = rewardPrefs[index];
+        }
+
         //rewardprefs.Remove(rewardprefs[index]);
         return reward;
     }
 
-    // 오버로딩 함수. 시작 스테이지에서 
+    // CreateReward 오버로딩. 시작 스테이지에서 
     public GameObject CreateReward(int max)
     {
         int index = Random.Range(0, max); // 무작위 난수 생성
-        GameObject reward = rewardprefs[index];
+        GameObject reward;
+        if (index == 0) // 0은 능력 
+        {
+            // 능력 생성 함수 실행.
+            reward = CreateAbility();
+        }
+        else
+        {
+            reward = rewardPrefs[index];
+        }
+
         //rewardprefs.Remove(rewardprefs[index]);
         //rewardprefs.Sort();
         return reward;
     }
 
+    // 능력 생성
+    private GameObject CreateAbility()
+    {
+        int index = Random.Range(0, abilityPrefs.Count); // 무작위 난수 생성
+        GameObject ability = abilityPrefs[index];
+        return ability;
+    }
 }

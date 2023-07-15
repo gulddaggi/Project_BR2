@@ -58,7 +58,7 @@ public class EventController : MonoBehaviour
         {
             //event type : choice
             // tag.Contains(value)사용하여 특정 문자열 포함하는지 확인
-            if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag.Contains("Event")) 
+            if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag.Contains("Event"))
             {
                 Destroy(hit.transform.gameObject, 0.01f);
                 //Debug.Log("Event trigger on");

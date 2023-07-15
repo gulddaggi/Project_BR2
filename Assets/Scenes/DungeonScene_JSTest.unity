@@ -2952,6 +2952,54 @@ PrefabInstance:
       propertyPath: playerPos
       value: 
       objectReference: {fileID: 473105557}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: rewardPrefs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: rewardPrefs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1713416704636973071, guid: 7485a417969be7445a7ffba4ce5acb18, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: rewardPrefs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1713416704636973071, guid: cb9f1918fd8543e458e74ff80918f246, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: rewardPrefs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1713416704636973071, guid: 0d6aede3f06a6af44818aa0b4607dd91, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: rewardPrefs.Array.data[3]
+      value: 
+      objectReference: {fileID: 1713416704636973071, guid: 4313a2c083f209344882f14382eec75c, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1730505500892672122, guid: 43fb7723849960d46886df087d3196eb, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1383268528513449817, guid: 1e9c725d1cf7ab24cbd9516e47f6d908, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1219918898106686457, guid: ce7ebc800c37ace48a6294b1b5e6d377, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[3]
+      value: 
+      objectReference: {fileID: 5807706627265659821, guid: b26ab95f971b44940a68a3f8bde9d032, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[4]
+      value: 
+      objectReference: {fileID: 1998034127036554764, guid: 4bece5101b72bf24ca86fb9b2014135e, type: 3}
+    - target: {fileID: 2050256423063515084, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
+      propertyPath: abilityPrefs.Array.data[5]
+      value: 
+      objectReference: {fileID: 7939117737218285153, guid: 2f1aaa7ef5d6caa4f9c1aaff6bed6a8d, type: 3}
     - target: {fileID: 7277314358209131271, guid: 121a361e6e8e17e4680ba0050e5d3a5e, type: 3}
       propertyPath: playerPos
       value: 
