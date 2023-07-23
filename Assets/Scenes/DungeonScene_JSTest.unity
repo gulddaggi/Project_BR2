@@ -3400,6 +3400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DBFileName: DB_Choice
+  DBFiles:
+  - DB_Ability_Water
 --- !u!1 &1777296290
 GameObject:
   m_ObjectHideFlags: 0

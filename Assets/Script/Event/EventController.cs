@@ -80,7 +80,7 @@ public class EventController : MonoBehaviour
     {
         choiceDialogue.SetActive(false);
         choiceMain.SetActive(true);
-        ChoiceTextSet();
+        TextSet_Ability();
     }
 
     public void ChoiceEventEnd()
@@ -100,7 +100,7 @@ public class EventController : MonoBehaviour
     }
 
     // 능력 선택지 세팅
-    void ChoiceTextSet()
+    void TextSet_Ability()
     {
         choiceGetter = choiceMain.GetComponent<ChoiceGetter>();
 
@@ -118,7 +118,7 @@ public class EventController : MonoBehaviour
             }
 
             // 해당 텍스트에 DB 데이터 입력
-            EventDBManager.instance.ChoiceTextDisplay(texts, DBAccessNum);
+            EventDBManager.instance.TextDisplay_Ability(texts, i);
             texts.Clear();
         }
 
