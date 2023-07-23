@@ -13,6 +13,8 @@ TagManager:
   - Event_Coin
   - Event_Enchant
   - Event_Gem
+  - Event_Ability_0
+  - Event_Ability_1
   layers:
   - Default
   - TransparentFX

@@ -3347,6 +3347,7 @@ GameObject:
   - component: {fileID: 1746293037}
   - component: {fileID: 1746293039}
   - component: {fileID: 1746293038}
+  - component: {fileID: 1746293040}
   m_Layer: 5
   m_Name: ChoiceEvent
   m_TagString: Untagged
@@ -3402,6 +3403,19 @@ MonoBehaviour:
   DBFileName: DB_Choice
   DBFiles:
   - DB_Ability_Water
+  abilityCountArr: 000000000000000000000000
+--- !u!114 &1746293040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746293036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92870349e8cbf06498e299eb1939ff2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1777296290
 GameObject:
   m_ObjectHideFlags: 0

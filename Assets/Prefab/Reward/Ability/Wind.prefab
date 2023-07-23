@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8898828213720827901}
   m_Layer: 3
   m_Name: Wind
-  m_TagString: Event_Ability
+  m_TagString: Event_Ability_0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

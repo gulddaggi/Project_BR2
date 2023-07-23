@@ -19,4 +19,17 @@ public class Ability : MonoBehaviour
 
     [Tooltip("가산 수치")]
     public string[] plus_Value; // 등급별로 수치가 나눠져 배열로
+
+    [Tooltip("레벨")]
+    public int level;
+
+    public void LevelUp()
+    {
+        level++;
+    }
+
+    public void LevelInit()
+    {
+        level = 0;
+    }
 }

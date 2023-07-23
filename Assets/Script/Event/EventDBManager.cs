@@ -21,8 +21,11 @@ public class EventDBManager : MonoBehaviour
     [SerializeField]
     Dictionary<int, Ability> eventDic;
 
+    // 능력 타입 별 개수 저장 배열
+    [SerializeField]
+    int[] abilityCountArr = {0, 0, 0};
 
-
+    AbilitySelector abilitySelector;
 
     private void Awake()
     {
@@ -30,8 +33,9 @@ public class EventDBManager : MonoBehaviour
         {
             instance = this;
             DBImporter DBimporter = GetComponent<DBImporter>();
+            abilitySelector = this.gameObject.GetComponent<AbilitySelector>();
 
-
+            // 모든 DB 임포트를 위해 반복. DB별로 형식이 달라 개별적으로 해야할수도
             for (int i = 0; i < DBFiles.Length; i++)
             {
                 // 전체 이벤트 DB 임포트 시작. 지금은 능력만.
@@ -46,12 +50,17 @@ public class EventDBManager : MonoBehaviour
 
                 choiceDic.Add(i, eventDic);
             }
+
+            DBimporter.GetCount(abilityCountArr);
         }
     }
 
     // 선택지 텍스트 표현. 이후에는 추첨된 능력을 출력해야함.
-    public void TextDisplay_Ability(List<Transform> format, int index) // 인덱스 변경 필요
+    public void TextDisplay_Ability(int index_event, List<Transform> format, int index) // 인덱스 변경 필요
     {
+        // 추출 대상 인덱스와 가산 수치.
+        int[] selected = abilitySelector.Select(abilityCountArr[index]);
+
         // 이후 개발 시에는 지정된 ID
         format[0].GetComponent<Text>().text = choiceDic[0][index].name;
         format[1].GetComponent<Text>().text = choiceDic[0][index].description;

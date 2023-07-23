@@ -60,6 +60,7 @@ public class EventController : MonoBehaviour
             // tag.Contains(value)사용하여 특정 문자열 포함하는지 확인
             if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag.Contains("Event"))
             {
+                GameManager_JS.Instance.SetAbilityIndex(hit.transform.tag[tag.Length - 1]); // 능력 오브젝트의 tag 끝의 index를 지정.
                 Destroy(hit.transform.gameObject, 0.01f);
                 //Debug.Log("Event trigger on");
                 ChoiceEventStart();
@@ -104,21 +105,20 @@ public class EventController : MonoBehaviour
     {
         choiceGetter = choiceMain.GetComponent<ChoiceGetter>();
 
-        // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. 
-        int DBAccessNum = 0;
+        // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. -> GameManager에 인덱스 저장 변수 구현
+        int DBAccessNum = GameManager_JS.Instance.GetAbilityIndex(); // 보상 오브젝트의 tag로부터 저장된 인덱스 값
 
+        // 선택지 개수만큼 반복 수행.
         for (int i = 0; i < choiceGetter.choices.Count; i++)
         {
-            DBAccessNum = i + 1;
-            
             for (int j = 0; j < choiceGetter.choices[0].childCount; j++)
             {
                 // 선택지 양식 하나의 텍스트들을 변수에 입력
                 texts.Add(choiceGetter.choices[i].GetChild(j));
             }
 
-            // 해당 텍스트에 DB 데이터 입력
-            EventDBManager.instance.TextDisplay_Ability(texts, i);
+            // 해당 텍스트에 DB 데이터 입력.
+            EventDBManager.instance.TextDisplay_Ability(DBAccessNum, texts, i);
             texts.Clear();
         }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3549935395591008227}
   m_Layer: 3
   m_Name: Luna
-  m_TagString: Event_Ability
+  m_TagString: Event_Ability_0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
