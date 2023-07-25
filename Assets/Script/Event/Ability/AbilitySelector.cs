@@ -9,18 +9,6 @@ public class AbilitySelector : MonoBehaviour
 
     float total = 100.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // 추출할 인덱스를 지정하여 반환
     public int[] Select(int index, int numOfType)
     {
@@ -29,7 +17,8 @@ public class AbilitySelector : MonoBehaviour
 
         // 추출 능력 지정. 3가지 타입이 3개의 선택지에 하나씩 나오도록.
         numbers[0] = (2*index) + Random.Range(0, numOfType);
-        Debug.Log(numOfType + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
+
+        //Debug.Log(numOfType + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
 
         float randomValue = Random.value * total;
 

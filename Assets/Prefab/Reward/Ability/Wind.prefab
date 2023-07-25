@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2254457763419869671}
   - component: {fileID: 2083338657982872532}
   - component: {fileID: 8898828213720827901}
+  - component: {fileID: -4982471722215765156}
   m_Layer: 3
   m_Name: Wind
   m_TagString: Event_Ability_0
@@ -98,3 +99,17 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4982471722215765156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219918898106686457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1f83d1e506e2c4ab3234bc6c16f07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventType: 0
+  typeIndex: 0

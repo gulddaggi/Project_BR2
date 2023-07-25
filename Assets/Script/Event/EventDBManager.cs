@@ -64,9 +64,9 @@ public class EventDBManager : MonoBehaviour
         int grade = selected[1];
 
         // 이후 개발 시에는 지정된 ID
-        format[0].GetComponent<Text>().text = abilityDic[0][line].ability_name;
-        format[1].GetComponent<Text>().text = abilityDic[0][line].description;
-        format[2].GetComponent<Text>().text = abilityDic[0][line].option_Name;
-        format[3].GetComponent<Text>().text = abilityDic[0][line].plus_Value[grade];
+        format[0].GetComponent<Text>().text = abilityDic[ab_index][line].ability_name;
+        format[1].GetComponent<Text>().text = abilityDic[ab_index][line].description;
+        format[2].GetComponent<Text>().text = abilityDic[ab_index][line].option_Name;
+        format[3].GetComponent<Text>().text = abilityDic[ab_index][line].plus_Value[grade];
     }
 }
