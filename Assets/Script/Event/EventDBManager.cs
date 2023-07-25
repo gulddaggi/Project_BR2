@@ -16,14 +16,14 @@ public class EventDBManager : MonoBehaviour
 
     // import된 선택지 객체를 담는 딕셔너리
     [SerializeField]
-    Dictionary<int, Dictionary<int, Ability>> choiceDic = new Dictionary<int, Dictionary<int, Ability>>();
+    Dictionary<int, Dictionary<int, Ability>> abilityDic = new Dictionary<int, Dictionary<int, Ability>>();
 
     [SerializeField]
     Dictionary<int, Ability> eventDic;
 
     // 능력 타입 별 개수 저장 배열
     [SerializeField]
-    int[] abilityCountArr = {0, 0, 0};
+    int[] abilityCountArr = new int[3]{0, 0, 0};
 
     AbilitySelector abilitySelector;
 
@@ -33,7 +33,7 @@ public class EventDBManager : MonoBehaviour
         {
             instance = this;
             DBImporter DBimporter = GetComponent<DBImporter>();
-            abilitySelector = this.gameObject.GetComponent<AbilitySelector>();
+            abilitySelector = this.gameObject.transform.parent.GetComponentInChildren<AbilitySelector>();
 
             // 모든 DB 임포트를 위해 반복. DB별로 형식이 달라 개별적으로 해야할수도
             for (int i = 0; i < DBFiles.Length; i++)
@@ -48,7 +48,7 @@ public class EventDBManager : MonoBehaviour
                     eventDic.Add(j, abilityArray[j]); // 임포트된 능력 하나씩 담당 딕셔너리에 삽입
                 }
 
-                choiceDic.Add(i, eventDic);
+                abilityDic.Add(i, eventDic);
             }
 
             DBimporter.GetCount(abilityCountArr);
@@ -56,15 +56,17 @@ public class EventDBManager : MonoBehaviour
     }
 
     // 선택지 텍스트 표현. 이후에는 추첨된 능력을 출력해야함.
-    public void TextDisplay_Ability(int index_event, List<Transform> format, int index) // 인덱스 변경 필요
+    public void TextDisplay_Ability(int ab_index, List<Transform> format, int index)
     {
         // 추출 대상 인덱스와 가산 수치.
-        int[] selected = abilitySelector.Select(abilityCountArr[index]);
+        int[] selected = abilitySelector.Select(index, abilityCountArr[index]);
+        int line = selected[0];
+        int grade = selected[1];
 
         // 이후 개발 시에는 지정된 ID
-        format[0].GetComponent<Text>().text = choiceDic[0][index].name;
-        format[1].GetComponent<Text>().text = choiceDic[0][index].description;
-        format[2].GetComponent<Text>().text = choiceDic[0][index].option_Name;
-        format[3].GetComponent<Text>().text = choiceDic[0][index].plus_Value[0];
+        format[0].GetComponent<Text>().text = abilityDic[0][line].ability_name;
+        format[1].GetComponent<Text>().text = abilityDic[0][line].description;
+        format[2].GetComponent<Text>().text = abilityDic[0][line].option_Name;
+        format[3].GetComponent<Text>().text = abilityDic[0][line].plus_Value[grade];
     }
 }

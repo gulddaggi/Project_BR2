@@ -6,10 +6,10 @@ using UnityEngine;
 public class Ability : MonoBehaviour
 {
     [Tooltip("능력 타입")]
-    public string id;
+    public string type;
 
     [Tooltip("능력명")]
-    public string name;
+    public string ability_name;
 
     [Tooltip("설명")]
     public string description;

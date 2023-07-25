@@ -29,8 +29,8 @@ public class DBImporter : MonoBehaviour
             Ability ability = new Ability(); // 선택 지문 객체 생성
 
             // 객체에 데이터 삽입
-            ability.id = row[0]; // 타입
-            ability.name = row[1]; // 능력명
+            ability.type = row[0]; // 타입
+            ability.ability_name = row[1]; // 능력명
             ability.description = row[2]; // 설명
             ability.option_Name = row[3]; // 옵션명
             ability.plus_Value = row[4].Split('/'); // 가산 수치. 등급별로 값을 구분하여 삽입
@@ -38,17 +38,6 @@ public class DBImporter : MonoBehaviour
 
             abliityContentList.Add(ability); // 배열 변환을 위해 리스트에 저장
         }
-
-        /*
-        foreach (Choice item in choiceContentList)
-        {
-            Debug.Log(item.choice_Name);
-            Debug.Log(item.description);
-            Debug.Log(item.option_Name);
-            Debug.Log(item.plus_Value);
-            Debug.Log("-------------");
-        }
-        */
 
         return abliityContentList.ToArray(); // 데이터가 저장된 리스트를 배열로 변환하여 반환
     }

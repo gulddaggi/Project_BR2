@@ -60,9 +60,9 @@ public class EventController : MonoBehaviour
             // tag.Contains(value)사용하여 특정 문자열 포함하는지 확인
             if (Input.GetKeyDown(KeyCode.E) && hit.transform.tag.Contains("Event"))
             {
-                GameManager_JS.Instance.SetAbilityIndex(hit.transform.tag[tag.Length - 1]); // 능력 오브젝트의 tag 끝의 index를 지정.
+                GameManager_JS.Instance.SetAbilityIndex(hit.transform.tag[tag.Length - 1]); // 능력 오브젝트의 tag 끝의 index를 지정. -> 실패. 다른 방안 시도 예정.
                 Destroy(hit.transform.gameObject, 0.01f);
-                //Debug.Log("Event trigger on");
+
                 ChoiceEventStart();
             }
         }
