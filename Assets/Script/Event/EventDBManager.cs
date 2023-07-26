@@ -67,6 +67,6 @@ public class EventDBManager : MonoBehaviour
         format[0].GetComponent<Text>().text = abilityDic[ab_index][line].ability_name;
         format[1].GetComponent<Text>().text = abilityDic[ab_index][line].description;
         format[2].GetComponent<Text>().text = abilityDic[ab_index][line].option_Name;
-        format[3].GetComponent<Text>().text = abilityDic[ab_index][line].plus_Value[grade];
+        format[3].GetComponent<Text>().text = "+" + abilityDic[ab_index][line].plus_Value[grade] + "%";
     }
 }
