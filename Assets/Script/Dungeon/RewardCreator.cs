@@ -50,6 +50,22 @@ public class RewardCreator : MonoBehaviour
         return reward;
     }
 
+    public GameObject CreateReward(int index, bool trigger)
+    {
+        GameObject reward;
+        if (index == 0) // 0은 능력 
+        {
+            // 능력 생성 함수 실행.
+            reward = CreateAbility();
+        }
+        else
+        {
+            reward = rewardPrefs[index];
+        }
+
+        return reward;
+    }
+
     // 능력 생성
     private GameObject CreateAbility()
     {

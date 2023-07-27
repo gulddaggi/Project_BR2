@@ -16,10 +16,16 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private int tryCount = 0;
 
+    [SerializeField]
+    private int coin = 0;
+
     GameObject canvas;
 
     [SerializeField]
     Image panelImage;
+
+    [SerializeField]
+    Text coinText;
 
     GameObject curStage;
 
@@ -95,6 +101,8 @@ public class GameManager_JS : MonoBehaviour
         stageQueue.Clear();
         dungeonCount = 0;
         SceneManager.LoadScene("HomeScene");
+        Coin = 0;
+        coinText.transform.gameObject.SetActive(false);
         isMoveOn = true;
     }
 
@@ -183,5 +191,25 @@ public class GameManager_JS : MonoBehaviour
     public int GetAbilityIndex()
     {
         return abilityIndex;
+    }
+
+    public int Coin
+    {
+        get { return coin; }
+        set 
+        { 
+            coin += value;
+            CoinUpdate();
+        }
+    }
+
+    public void CoinUpdate()
+    {
+        coinText.text = coinText.text + coin;
+    }
+
+    public void CoinOnOff(bool _bool)
+    {
+        coinText.gameObject.SetActive(_bool);
     }
 }
