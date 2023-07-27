@@ -71,7 +71,8 @@ public class Dungeon : Stage
         for (int i = 0; i < exitObjects.Length; i++)
         {
             // 랜덤 보상 생성 후 변수 저장.
-            reward = rewardCreator.CreateReward();
+            //reward = rewardCreator.CreateReward();
+            reward = rewardCreator.CreateReward(1, true);
             // 생성된 보상을 해당 인덱스 출구에 표시
             exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
         }

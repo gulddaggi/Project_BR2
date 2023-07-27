@@ -9,13 +9,7 @@ public class EventController : MonoBehaviour
     GameObject[] events;
 
     [SerializeField]
-    GameObject choiceEvent;
-
-    [SerializeField]
-    GameObject choiceDialogue;
-
-    [SerializeField]
-    GameObject choiceMain;
+    GameObject[] event_Ability;
 
     [SerializeField]
     LayerMask layerMask;
@@ -48,14 +42,17 @@ public class EventController : MonoBehaviour
 
     void Update()
     {
-        EventCheck();
+        // 상호작용 키 입력시 이벤트 감지 수행.
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EventCheck();
+        }
     }
 
     void EventCheck()
     {
-        // 이벤트 감지. 레이케스트 감지와 상호작용 키 입력 확인.
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask)
-            && Input.GetKeyDown(KeyCode.E))
+        // 이벤트 감지.
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
             // 보상 오브젝트의 이벤트 관련 데이터 저장.
             int type = hit.transform.gameObject.GetComponent<EventData>().EventType;
@@ -69,6 +66,10 @@ public class EventController : MonoBehaviour
                     ChoiceEventStart();
                     break;
 
+                case 1:
+                    CoinEvent(index);
+                    break;
+
                 default:
                     break;
             }
@@ -78,42 +79,57 @@ public class EventController : MonoBehaviour
         }
     }
 
+    // 능력 선택 이벤트 시작
     void ChoiceEventStart()
     {
-        choiceEvent.SetActive(true);
+        // 선택 전체 UI 활성화
+        events[0].SetActive(true);
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
         player.SetActive(false);
-        // add function about stopping all objects
+    }
+
+    // 코인 획득 이벤트
+    void CoinEvent(int value)
+    {
+        GameObject obj = Instantiate(events[1], player.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        obj.GetComponent<TextMesh>().text = "+" + value.ToString();
+        obj.transform.SetParent(this.gameObject.transform.parent);
+        Destroy(obj, 2f);
+        GameManager_JS.Instance.Coin = value;
     }
 
     public void SwitchToChoice()
     {
-        choiceDialogue.SetActive(false);
-        choiceMain.SetActive(true);
+        // 대화 UI 비활성화
+        event_Ability[0].SetActive(false);
+        // 선택 UI 활성화
+        event_Ability[1].SetActive(true);
         TextSet_Ability();
     }
 
     public void ChoiceEventEnd()
     {
+        // UI 설정 초기화
         ChoiceEventInit();
-        choiceEvent.SetActive(false);
+        // 선택 전체 UI 비활성화
+        events[0].SetActive(false);
     }
 
+    // 이벤트 실행 전 상태로 초기화 실행
     void ChoiceEventInit()
     {
-        choiceDialogue.SetActive(true);
-        choiceMain.SetActive(false);
+        event_Ability[0].SetActive(true);
+        event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
         player.SetActive(true);
         Time.timeScale = 1f;
-        // add function about restarting move of all objects
     }
 
     // 능력 선택지 세팅
     void TextSet_Ability()
     {
-        choiceGetter = choiceMain.GetComponent<ChoiceGetter>();
+        choiceGetter = event_Ability[1].GetComponent<ChoiceGetter>();
 
         // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. -> GameManager에 인덱스 저장 변수 구현
         int DBAccessNum = GameManager_JS.Instance.GetAbilityIndex(); // 보상 오브젝트로부터 전달받은 세부(능력) 인덱스 값.
@@ -131,7 +147,5 @@ public class EventController : MonoBehaviour
             EventDBManager.instance.TextDisplay_Ability(DBAccessNum, texts, i);
             texts.Clear();
         }
-
-
     }
 }

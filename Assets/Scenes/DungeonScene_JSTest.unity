@@ -1932,7 +1932,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonCount: 0
   tryCount: 0
+  coin: 0
   panelImage: {fileID: 0}
+  coinText: {fileID: 2114396191}
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -1961,7 +1963,7 @@ GameObject:
   - component: {fileID: 731812438}
   - component: {fileID: 731812437}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: ResetButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3018,7 +3020,7 @@ GameObject:
   - component: {fileID: 1257796755}
   - component: {fileID: 1257796757}
   - component: {fileID: 1257796756}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3417,6 +3419,7 @@ RectTransform:
   - {fileID: 1257796755}
   - {fileID: 731812436}
   - {fileID: 444424080}
+  - {fileID: 2114396190}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3717,6 +3720,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c61a6d88422a14e821d0e8de274a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1540407234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2799411905594108528, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
+  m_PrefabInstance: {fileID: 2071629100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1605688589
 GameObject:
   m_ObjectHideFlags: 0
@@ -3748,13 +3756,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   events:
   - {fileID: 1746293036}
-  choiceEvent: {fileID: 1746293036}
-  choiceDialogue: {fileID: 1092180265}
-  choiceMain: {fileID: 839271901}
+  - {fileID: 4166162146691869422, guid: a937c08457eec1546ba9faaacdc99393, type: 3}
+  event_Ability:
+  - {fileID: 1092180265}
+  - {fileID: 839271901}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  player: {fileID: 0}
+  player: {fileID: 1540407234}
   texts: []
   range: 50
 --- !u!4 &1605688591
@@ -4600,6 +4609,86 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087846604}
+  m_CullTransparentMesh: 1
+--- !u!1 &2114396189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114396190}
+  - component: {fileID: 2114396192}
+  - component: {fileID: 2114396191}
+  m_Layer: 0
+  m_Name: CoinValue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2114396190
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114396189}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1359476790}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -826.26, y: -500}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2114396191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114396189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 'Coin : '
+--- !u!222 &2114396192
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114396189}
   m_CullTransparentMesh: 1
 --- !u!1 &2133620212
 GameObject:

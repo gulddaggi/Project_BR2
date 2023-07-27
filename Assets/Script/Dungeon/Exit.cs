@@ -36,6 +36,7 @@ public class Exit : MonoBehaviour
     {
         Color startColor = panelImage.color;
         float elapsedTime = 0f;
+        GameManager_JS.Instance.CoinOnOff(false);
 
         while (elapsedTime < duration)
         {
@@ -73,12 +74,13 @@ public class Exit : MonoBehaviour
             Color newColor = new Color(startColor.r, startColor.g, startColor.b, currentAlpha);
             panelImage.color = newColor;
 
-            elapsedTime += Time.deltaTime * 0.5f;
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
+        GameManager_JS.Instance.CoinOnOff(true);
     }
 
     // 지정된 다음 보상 생성 후 출구에 표시

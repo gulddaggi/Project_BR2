@@ -749,11 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398f71cff14809f4398ecd113df7e231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardprefs:
-  - {fileID: 1713416704636973071, guid: 7485a417969be7445a7ffba4ce5acb18, type: 3}
-  - {fileID: 1713416704636973071, guid: 0d6aede3f06a6af44818aa0b4607dd91, type: 3}
-  - {fileID: 1713416704636973071, guid: cb9f1918fd8543e458e74ff80918f246, type: 3}
-  - {fileID: 1713416704636973071, guid: 4313a2c083f209344882f14382eec75c, type: 3}
+  rewardPrefs: []
+  abilityPrefs: []
 --- !u!114 &1357512834706730552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,6 +770,7 @@ MonoBehaviour:
   exitObjects:
   - {fileID: 2172383533096303775}
   reward: {fileID: 0}
+  curReward: {fileID: 0}
   rewardCreator: {fileID: 0}
   enemySpawner: {fileID: 6544533187215975232}
   enemyCount: 0
