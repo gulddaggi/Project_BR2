@@ -198,7 +198,7 @@ public class GameManager_JS : MonoBehaviour
         get { return coin; }
         set 
         { 
-            coin = value;
+            coin += value;
             CoinUpdate();
         }
     }
