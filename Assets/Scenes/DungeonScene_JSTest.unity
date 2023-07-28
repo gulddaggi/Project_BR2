@@ -2641,8 +2641,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DBFileName: DB_Choice
-  DBFiles:
+  DBFiles_Ability:
   - DB_Ability_Water
+  DBFiles_Dialogue:
+  - DB_Dialogue_Water
   abilityCountArr: 000000000000000000000000
 --- !u!1 &1167565177
 GameObject:

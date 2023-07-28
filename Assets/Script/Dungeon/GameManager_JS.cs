@@ -42,9 +42,6 @@ public class GameManager_JS : MonoBehaviour
     //출구를 통한 스테이지 이동 가능 여부
     private bool isMoveOn = true;
 
-    //능력 보상 추출 시 DB 접근을 위한 인덱스
-    private int abilityIndex;
-
     private void Awake()
     {
         if (instance == null)
@@ -181,16 +178,6 @@ public class GameManager_JS : MonoBehaviour
     public int GetTryCount()
     {
         return tryCount;
-    }
-
-    public void SetAbilityIndex(int _index)
-    {
-        abilityIndex = _index;
-    }
-
-    public int GetAbilityIndex()
-    {
-        return abilityIndex;
     }
 
     public int Coin
