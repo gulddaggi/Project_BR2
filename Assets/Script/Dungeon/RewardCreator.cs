@@ -50,13 +50,16 @@ public class RewardCreator : MonoBehaviour
         return reward;
     }
 
+    // 테스트용 보상 생성 함수.
     public GameObject CreateReward(int index, bool trigger)
     {
         GameObject reward;
         if (index == 0) // 0은 능력 
         {
-            // 능력 생성 함수 실행.
-            reward = CreateAbility();
+            // 능력 생성 함수 실행. 무작위 능력 대상
+            //reward = CreateAbility();
+            // 특정 능력 대상. 테스트용
+            reward = CreateAbility(0);
         }
         else
         {
@@ -71,6 +74,14 @@ public class RewardCreator : MonoBehaviour
     {
         int index = Random.Range(0, abilityPrefs.Count); // 무작위 난수 생성
         GameObject ability = abilityPrefs[index];
+        return ability;
+    }
+
+    // 능력 생성. 테스트용
+    private GameObject CreateAbility(int testTarget)
+    {
+        //int index = Random.Range(0, abilityPrefs.Count); // 무작위 난수 생성
+        GameObject ability = abilityPrefs[testTarget];
         return ability;
     }
 }

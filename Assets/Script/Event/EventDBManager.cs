@@ -40,19 +40,26 @@ public class EventDBManager : MonoBehaviour
 
     AbilitySelector abilitySelector;
 
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DBImporter DBImporter = GetComponent<DBImporter>();
-            abilitySelector = this.gameObject.transform.parent.GetComponentInChildren<AbilitySelector>();
+            DBImporter DBImporter = this.gameObject.GetComponentInChildren<DBImporter>();
+            abilitySelector = this.gameObject.GetComponentInChildren<AbilitySelector>();
 
             // 능력 DB 전체 임포트 수행.
             Import_Ability(DBImporter);
 
             // 대화 DB 전체 임포트 수행.
             Import_Dialogue(DBImporter);
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -94,11 +101,24 @@ public class EventDBManager : MonoBehaviour
         }
     }
 
-    // 선택지 텍스트 표현. 이후에는 추첨된 능력을 출력해야함.
-    public void TextDisplay_Ability(int ab_index, List<Transform> format, int index)
+    // 대화 텍스트 출력.
+    public List<string> TextDisplay_Ability_Dialogue(int dia_index, int _id)
+    {
+        List<string> dialogues = new List<string>();
+
+        for (int i = 0; i < totalDialogueDic[dia_index][_id-1].texts.Length; i++)
+        {
+            dialogues.Add(totalDialogueDic[dia_index][_id - 1].texts[i]);
+        }
+
+        return dialogues;
+    }
+
+    // 선택지 텍스트 출력.
+    public void TextDisplay_Ability_Choice(int ab_index, List<Transform> format, int index)
     {
         // 추출 대상 인덱스와 가산 수치.
-        int[] selected = abilitySelector.Select(index, abilityCountArr[index]);
+        int[] selected = abilitySelector.Select(index-1, abilityCountArr[index-1]);
         int line = selected[0];
         int grade = selected[1];
 
