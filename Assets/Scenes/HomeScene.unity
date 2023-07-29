@@ -1498,7 +1498,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1712,7 +1712,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonCount: 0
+  tryCount: 0
+  coin: 0
   panelImage: {fileID: 0}
+  coinText: {fileID: 0}
 --- !u!4 &728007587
 Transform:
   m_ObjectHideFlags: 0
@@ -2401,10 +2404,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1896172575}
   - {fileID: 431468989}
   - {fileID: 1820901221}
   - {fileID: 1746293037}
-  - {fileID: 1896172575}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2974,7 +2977,7 @@ RectTransform:
   m_Children:
   - {fileID: 1669519633}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3006,6 +3009,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DBFileName: DB_Choice
+  DBFiles_Ability: []
+  DBFiles_Dialogue: []
+  abilityCountArr: 000000000000000000000000
 --- !u!1 &1777296290
 GameObject:
   m_ObjectHideFlags: 0
@@ -3271,7 +3277,7 @@ RectTransform:
   m_Children:
   - {fileID: 211751535}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -3410,7 +3416,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

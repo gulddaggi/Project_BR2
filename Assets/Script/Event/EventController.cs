@@ -17,33 +17,36 @@ public class EventController : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    // 각 보상의 색상 정보(RGBA -> Vector3(color.r, color.g, color.b)를 담고있는 딕셔너리.
-    [SerializeField]
-    Dictionary<Vector3, string> itemMap;
-
     //public Text[] texts;
     public List<Transform> texts = new List<Transform>();
 
     RaycastHit hit;
 
     ChoiceGetter choiceGetter;
+    DialogueGetter dialogueGetter;
+
+    [SerializeField]
+    List<string> dialogues = new List<string>();
 
     [SerializeField]
     float range;
 
+    // 감지된 이벤트 중 ability의 NPCNAME을 임시저장하는 변수
+    string tmpName;
+
+    // 감지된 이벤트의 TypeIndex를 임시저장하는 변수 
+    int tmpTypeIndex;
+
+    bool eventOn = false;
+
     private void Start()
     {
         player = GameObject.Find("Player");
-        itemMap = new Dictionary<Vector3, string>();
-
-        // 보상 오브젝트의 색상 값을 키값으로 하여 딕셔너리 구성
-        itemMap.Add(new Vector3(1f, 0f, 0f), "Ability"); // 능력
     }
 
     void Update()
     {
-        // 상호작용 키 입력시 이벤트 감지 수행.
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!eventOn)
         {
             EventCheck();
         }
@@ -52,22 +55,26 @@ public class EventController : MonoBehaviour
     void EventCheck()
     {
         // 이벤트 감지.
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
+        if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
+            eventOn = true;
+            EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
+
             // 보상 오브젝트의 이벤트 관련 데이터 저장.
-            int type = hit.transform.gameObject.GetComponent<EventData>().EventType;
-            int index = hit.transform.gameObject.GetComponent<EventData>().TypeIndex;
+            int type = eventData.EventType;
+            tmpTypeIndex = eventData.TypeIndex;
 
             switch (type)
             {
                 // 이벤트 : 능력
                 case 0:
-                    GameManager_JS.Instance.SetAbilityIndex(index);
+                    tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
                     ChoiceEventStart();
+                    
                     break;
-
+                // 이벤트 : 코인
                 case 1:
-                    CoinEvent(index);
+                    CoinEvent(tmpTypeIndex);
                     break;
 
                 default:
@@ -84,19 +91,20 @@ public class EventController : MonoBehaviour
     {
         // 선택 전체 UI 활성화
         events[0].SetActive(true);
+
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
         player.SetActive(false);
-    }
 
-    // 코인 획득 이벤트
-    void CoinEvent(int value)
-    {
-        GameObject obj = Instantiate(events[1], player.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
-        obj.GetComponent<TextMesh>().text = "+" + value.ToString();
-        obj.transform.SetParent(this.gameObject.transform.parent);
-        Destroy(obj, 2f);
-        GameManager_JS.Instance.Coin = value;
+        if (!GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter)
+        {
+            event_Ability[0].SetActive(true);
+            TextSet_Ability_Dialogue();
+        }
+        else
+        {
+            SwitchToChoice();
+        }
     }
 
     public void SwitchToChoice()
@@ -105,7 +113,7 @@ public class EventController : MonoBehaviour
         event_Ability[0].SetActive(false);
         // 선택 UI 활성화
         event_Ability[1].SetActive(true);
-        TextSet_Ability();
+        TextSet_Ability_Choice();
     }
 
     public void ChoiceEventEnd()
@@ -119,33 +127,80 @@ public class EventController : MonoBehaviour
     // 이벤트 실행 전 상태로 초기화 실행
     void ChoiceEventInit()
     {
-        event_Ability[0].SetActive(true);
         event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
         player.SetActive(true);
         Time.timeScale = 1f;
+        eventOn = false;
+    }
+
+    // 대화 내용 세팅
+    void TextSet_Ability_Dialogue()
+    {
+        dialogueGetter = event_Ability[0].GetComponent<DialogueGetter>();
+
+        // 이름 세팅
+        dialogueGetter.objs[0].GetComponentInChildren<Text>().text = tmpName;
+
+        int count = GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count;
+
+        // 대화 세팅. DB에 접근. 
+        dialogues = EventDBManager.instance.TextDisplay_Ability_Dialogue(tmpTypeIndex, count + 1);
+
+        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count += 1;
+        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter = true;
+
+        // 대화 진행
+        DialogueContinue();
+    }
+
+    public void DialogueContinue()
+    {
+        if (dialogues.Count != 0)
+        {
+            string output = dialogues[0];
+            output = output.Replace("'", ",");
+            // 이후에 개행 부분도 추가 예정.
+            dialogueGetter.objs[1].GetComponentInChildren<Text>().text = output;
+            dialogues.Remove(dialogues[0]);
+        }
+        else
+        {
+            SwitchToChoice();
+        }
     }
 
     // 능력 선택지 세팅
-    void TextSet_Ability()
+    void TextSet_Ability_Choice()
     {
         choiceGetter = event_Ability[1].GetComponent<ChoiceGetter>();
 
-        // 접근할 DB 딕셔너리 인덱스. 이후에 인덱스 지정 메서드를 구현하여 변수 입력 필요. -> GameManager에 인덱스 저장 변수 구현
-        int DBAccessNum = GameManager_JS.Instance.GetAbilityIndex(); // 보상 오브젝트로부터 전달받은 세부(능력) 인덱스 값.
+        // 이름 세팅.
+        choiceGetter.choices[0].GetComponentInChildren<Text>().text = tmpName;
 
-        // 선택지 개수만큼 반복 수행.
-        for (int i = 0; i < choiceGetter.choices.Count; i++)
+        // 선택지 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
+        for (int i = 1; i < choiceGetter.choices.Count; i++)
         {
-            for (int j = 0; j < choiceGetter.choices[0].childCount; j++)
+            for (int j = 0; j < choiceGetter.choices[i].childCount; j++)
             {
                 // 선택지 양식 하나의 텍스트들을 변수에 입력
                 texts.Add(choiceGetter.choices[i].GetChild(j));
             }
 
             // 해당 텍스트에 DB 데이터 입력.
-            EventDBManager.instance.TextDisplay_Ability(DBAccessNum, texts, i);
+            EventDBManager.instance.TextDisplay_Ability_Choice(tmpTypeIndex, texts, i);
             texts.Clear();
         }
+    }
+
+    // 코인 획득 이벤트
+    void CoinEvent(int value)
+    {
+        GameObject obj = Instantiate(events[1], player.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        obj.GetComponent<TextMesh>().text = "+" + value.ToString();
+        obj.transform.SetParent(this.gameObject.transform.parent);
+        Destroy(obj, 2f);
+        GameManager_JS.Instance.Coin = value;
+        eventOn = false;
     }
 }

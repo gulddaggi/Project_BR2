@@ -154,12 +154,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1092180266}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -426.5, y: 50}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -110, y: 25}
+  m_SizeDelta: {x: 1100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &33629145
 MonoBehaviour:
@@ -186,15 +186,15 @@ MonoBehaviour:
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MinSize: 14
+    m_MaxSize: 114
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Event detected : Choice event'
+  m_Text: 
 --- !u!222 &33629146
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1605688590}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-        m_MethodName: SwitchToChoice
+        m_MethodName: DialogueContinue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1169,7 +1169,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1383,7 +1383,7 @@ RectTransform:
   m_Children:
   - {fileID: 1746293037}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1471,7 +1471,7 @@ RectTransform:
   m_Children:
   - {fileID: 781780413}
   m_Father: {fileID: 1092180266}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1877,6 +1877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575170313}
+  - component: {fileID: 575170314}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -1901,6 +1902,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &575170314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575170312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DBFileName: DB_Choice
+  DBFiles_Ability:
+  - DB_Ability_Water
+  DBFiles_Dialogue:
+  - DB_Dialogue_Water
+  abilityCountArr: 000000000000000000000000
 --- !u!1 &580337971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,7 +1953,7 @@ MonoBehaviour:
   tryCount: 0
   coin: 0
   panelImage: {fileID: 0}
-  coinText: {fileID: 2114396191}
+  coinText: {fileID: 0}
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -1983,7 +2002,7 @@ RectTransform:
   m_Children:
   - {fileID: 2001684979}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2155,7 +2174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC774\uB984"
+  m_Text: 
 --- !u!222 &781780415
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2447,13 +2466,14 @@ GameObject:
   - component: {fileID: 1092180266}
   - component: {fileID: 1092180268}
   - component: {fileID: 1092180267}
+  - component: {fileID: 1092180269}
   m_Layer: 5
   m_Name: DialogueBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1092180266
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2467,8 +2487,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 179133267}
-  - {fileID: 33629144}
   - {fileID: 510186837}
+  - {fileID: 33629144}
   m_Father: {fileID: 1669519633}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2515,6 +2535,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092180265}
   m_CullTransparentMesh: 1
+--- !u!114 &1092180269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092180265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c0bea238a92614aa7fb7d5643b548c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objs: []
 --- !u!1 &1131547799
 GameObject:
   m_ObjectHideFlags: 0
@@ -2592,7 +2625,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1150474244}
-  - component: {fileID: 1150474246}
   - component: {fileID: 1150474245}
   m_Layer: 0
   m_Name: DBManager
@@ -2628,22 +2660,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe9081c9acd62d438af71fc2b7ed181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1150474246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150474243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DBFileName: DB_Choice
-  DBFiles:
-  - DB_Ability_Water
-  abilityCountArr: 000000000000000000000000
 --- !u!1 &1167565177
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,7 +3056,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3414,12 +3430,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1257796755}
+  - {fileID: 2114396190}
   - {fileID: 431468989}
   - {fileID: 1820901221}
-  - {fileID: 1257796755}
   - {fileID: 731812436}
   - {fileID: 444424080}
-  - {fileID: 2114396190}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3765,6 +3781,7 @@ MonoBehaviour:
     m_Bits: 8
   player: {fileID: 1540407234}
   texts: []
+  dialogues: []
   range: 50
 --- !u!4 &1605688591
 Transform:
@@ -4024,7 +4041,7 @@ RectTransform:
   m_Children:
   - {fileID: 211751535}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -4283,7 +4300,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Click
+  m_Text: 
 --- !u!222 &1974610934
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4627,7 +4644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2114396190
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4641,7 +4658,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4681,7 +4698,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Coin : '
+  m_Text: 
 --- !u!222 &2114396192
 CanvasRenderer:
   m_ObjectHideFlags: 0

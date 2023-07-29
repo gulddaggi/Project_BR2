@@ -8,8 +8,8 @@ public class DBImporter : MonoBehaviour
     // 능력 타입 별 개수 저장 배열
     int[] abilityCountArr = { 0, 0, 0 };
 
-    // 전달받은 파일 명의 DB 파일 임포트를 수행. 능력 DB
-    public Ability[] DBImport(string _DBFileName)
+    // 전달받은 파일 명의 능력 DB 파일 임포트를 수행.
+    public Ability[] DBImport_Ability(string _DBFileName)
     {
         List<Ability> abliityContentList = new List<Ability>(); // 선택 양식 리스트
         TextAsset DBData = Resources.Load<TextAsset>(_DBFileName); // csv 파일 변수 저장
@@ -40,6 +40,27 @@ public class DBImporter : MonoBehaviour
         }
 
         return abliityContentList.ToArray(); // 데이터가 저장된 리스트를 배열로 변환하여 반환
+    }
+
+    public Dialogue[] DBImporter_Dialogue(string _DBFileName)
+    {
+        List<Dialogue> dialogueContentList = new List<Dialogue>(); // 선택 양식 리스트
+        TextAsset DBData = Resources.Load<TextAsset>(_DBFileName); // csv 파일 변수 저장
+
+        string[] data = DBData.text.Split(new char[] { '\n' }); // 엔터 단위로 행 구분
+                                                                // 항목별 저장 수행
+        for (int i = 1; i < data.Length; i++)
+        {
+            string[] row = data[i].Split(new char[] { ',' }); // 콤마 단위로 각 항목 구분
+            Dialogue dialogue = new Dialogue(); // 선택 지문 객체 생성
+
+            dialogue.ID = row[0]; // ID. 던전 진입 후 처음 마주친 횟수
+            dialogue.texts = row[1].Split('/'); // 대사. /를 행구분 값으로 사용하여 삽입
+
+            dialogueContentList.Add(dialogue); // 배열 변환을 위해 리스트에 저장
+        }
+
+        return dialogueContentList.ToArray(); // 데이터가 저장된 리스트를 배열로 변환하여 반환
     }
 
     // 타입별 능력 개수 반환

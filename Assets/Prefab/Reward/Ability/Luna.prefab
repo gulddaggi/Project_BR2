@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4487226779365064772}
   - component: {fileID: 1584738378244496830}
   - component: {fileID: 3549935395591008227}
-  - component: {fileID: 1607808635817691946}
+  - component: {fileID: -4944050626284265504}
   m_Layer: 3
   m_Name: Luna
   m_TagString: Event_Ability_0
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1607808635817691946
+--- !u!114 &-4944050626284265504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +107,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7939117737218285153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1f83d1e506e2c4ab3234bc6c16f07a, type: 3}
+  m_Script: {fileID: 11500000, guid: 02d427d4ef4d51046aa26f970d01fa4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eventType: 0
   typeIndex: 0
+  NPCName: "\uBB3C\uC758 \uC815\uB839"

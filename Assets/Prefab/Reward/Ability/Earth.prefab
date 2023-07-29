@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1846242065250620565}
   - component: {fileID: 1053867996295943987}
   - component: {fileID: 575234332171602373}
-  - component: {fileID: 6555737296272199252}
+  - component: {fileID: -3148238907466328026}
   m_Layer: 3
   m_Name: Earth
   m_TagString: Event_Ability_0
@@ -99,7 +99,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &6555737296272199252
+--- !u!114 &-3148238907466328026
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,8 +108,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5807706627265659821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1f83d1e506e2c4ab3234bc6c16f07a, type: 3}
+  m_Script: {fileID: 11500000, guid: 02d427d4ef4d51046aa26f970d01fa4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eventType: 0
   typeIndex: 0
+  NPCName: "\uBB3C\uC758 \uC815\uB839"

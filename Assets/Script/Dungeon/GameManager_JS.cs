@@ -4,6 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// 해당 보상 NPC와의 대화 출력 여부 확인 클래스
+public class DialogueCheck{
+    // 만난 횟수
+    int count = 0;
+    // 이번 회차에서 만났는가
+    bool isEncounter = false;
+
+    public int Count
+    {
+        get { return count; }
+        set { count = value; }
+    }
+
+    public bool IsEncounter
+    {
+        get { return isEncounter; }
+        set { isEncounter = value; }
+    }
+}
 
 public class GameManager_JS : MonoBehaviour
 {
@@ -42,21 +61,27 @@ public class GameManager_JS : MonoBehaviour
     //출구를 통한 스테이지 이동 가능 여부
     private bool isMoveOn = true;
 
-    //능력 보상 추출 시 DB 접근을 위한 인덱스
-    private int abilityIndex;
+    public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(this.gameObject);
+
+            for (int i = 0; i < dialogueChecks.Length; i++)
+            {
+                dialogueChecks[i] = new DialogueCheck();
+            }
+
         }
         else
         {
             Destroy(this.gameObject);
         }
+
+
     }
 
     public static GameManager_JS Instance
@@ -76,6 +101,7 @@ public class GameManager_JS : MonoBehaviour
     {
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
+
     }
 
     // fadeout에 사용되는 panel 반환
@@ -104,6 +130,16 @@ public class GameManager_JS : MonoBehaviour
         Coin = 0;
         coinText.transform.gameObject.SetActive(false);
         isMoveOn = true;
+        ResetEncounter();
+
+    }
+
+    void ResetEncounter()
+    {
+        for (int i = 0; i < dialogueChecks.Length; i++)
+        {
+            dialogueChecks[i].IsEncounter = false;
+        }
     }
 
     // 다음 스테이지 활성화
@@ -113,10 +149,11 @@ public class GameManager_JS : MonoBehaviour
         if (dungeonCount == 0)
         {
             //마을에서 던전 입장 시 tryCount 증가. 추후 제일 처음 입장에 대한 시도 수 증가도 고려해야함.
-            if (SceneManager.GetActiveScene().name == "HomeScene") ++tryCount; 
+            if (SceneManager.GetActiveScene().name == "HomeScene") ++tryCount;
 
-            SceneManager.LoadScene("DungeonScene");
-
+            //SceneManager.LoadScene("DungeonScene");
+            // 테스트용
+            SceneManager.LoadScene("DungeonScene_JSTest");
         }
         // 던전 씬 내에서 스테이지 이동 시 스테이지 변경 수행
         else
@@ -183,16 +220,6 @@ public class GameManager_JS : MonoBehaviour
         return tryCount;
     }
 
-    public void SetAbilityIndex(int _index)
-    {
-        abilityIndex = _index;
-    }
-
-    public int GetAbilityIndex()
-    {
-        return abilityIndex;
-    }
-
     public int Coin
     {
         get { return coin; }
@@ -205,11 +232,20 @@ public class GameManager_JS : MonoBehaviour
 
     public void CoinUpdate()
     {
-        coinText.text = coinText.text + coin;
+        coinText.text = "Coin : " + coin;
     }
 
     public void CoinOnOff(bool _bool)
     {
-        coinText.gameObject.SetActive(_bool);
+        if (SceneManager.GetActiveScene().name != "HomeScene")
+        {
+            if (coinText == null)
+            {
+                coinText = canvas.GetComponentInChildren<Text>();
+            }
+            CoinUpdate();
+            coinText.gameObject.SetActive(_bool);
+
+        }
     }
 }
