@@ -70,6 +70,7 @@ public class EventController : MonoBehaviour
                 case 0:
                     tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
                     ChoiceEventStart();
+                    
                     break;
                 // 이벤트 : 코인
                 case 1:
@@ -90,10 +91,20 @@ public class EventController : MonoBehaviour
     {
         // 선택 전체 UI 활성화
         events[0].SetActive(true);
-        TextSet_Ability_Dialogue();
+
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
         player.SetActive(false);
+
+        if (!GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter)
+        {
+            event_Ability[0].SetActive(true);
+            TextSet_Ability_Dialogue();
+        }
+        else
+        {
+            SwitchToChoice();
+        }
     }
 
     public void SwitchToChoice()
@@ -116,7 +127,6 @@ public class EventController : MonoBehaviour
     // 이벤트 실행 전 상태로 초기화 실행
     void ChoiceEventInit()
     {
-        event_Ability[0].SetActive(true);
         event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
         player.SetActive(true);
@@ -132,8 +142,13 @@ public class EventController : MonoBehaviour
         // 이름 세팅
         dialogueGetter.objs[0].GetComponentInChildren<Text>().text = tmpName;
 
+        int count = GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count;
+
         // 대화 세팅. DB에 접근. 
-        dialogues = EventDBManager.instance.TextDisplay_Ability_Dialogue(tmpTypeIndex, 1);
+        dialogues = EventDBManager.instance.TextDisplay_Ability_Dialogue(tmpTypeIndex, count + 1);
+
+        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count += 1;
+        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter = true;
 
         // 대화 진행
         DialogueContinue();

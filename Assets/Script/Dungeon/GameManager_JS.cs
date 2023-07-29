@@ -4,6 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// 해당 보상 NPC와의 대화 출력 여부 확인 클래스
+public class DialogueCheck{
+    // 만난 횟수
+    int count = 0;
+    // 이번 회차에서 만났는가
+    bool isEncounter = false;
+
+    public int Count
+    {
+        get { return count; }
+        set { count = value; }
+    }
+
+    public bool IsEncounter
+    {
+        get { return isEncounter; }
+        set { isEncounter = value; }
+    }
+}
 
 public class GameManager_JS : MonoBehaviour
 {
@@ -42,17 +61,27 @@ public class GameManager_JS : MonoBehaviour
     //출구를 통한 스테이지 이동 가능 여부
     private bool isMoveOn = true;
 
+    public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            for (int i = 0; i < dialogueChecks.Length; i++)
+            {
+                dialogueChecks[i] = new DialogueCheck();
+            }
+
         }
         else
         {
             Destroy(this.gameObject);
         }
+
+
     }
 
     public static GameManager_JS Instance
@@ -101,6 +130,16 @@ public class GameManager_JS : MonoBehaviour
         Coin = 0;
         coinText.transform.gameObject.SetActive(false);
         isMoveOn = true;
+        ResetEncounter();
+
+    }
+
+    void ResetEncounter()
+    {
+        for (int i = 0; i < dialogueChecks.Length; i++)
+        {
+            dialogueChecks[i].IsEncounter = false;
+        }
     }
 
     // 다음 스테이지 활성화
