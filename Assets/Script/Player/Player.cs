@@ -1,19 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CharacterController;
 
 public class Player : MonoBehaviour
 {
 
-    // Script Player가 임시로 DB 역할도 대행
+    public static Player Instance { get { return instance; } }
+    public StateMachine stateMachine { get; private set; }
+    public Rigidbody rigidBody { get; private set; }
+    public Animator animator { get; private set; }
+    public CapsuleCollider capsuleCollider { get; private set; }
 
     private Vector3 PlayerMoveDirection;
+    private static Player instance;
 
     public float FullHP { get { return fullHP; } }
     public float CurrentHP { get { return currentHP; } }
     public float MoveSpeed { get { return moveSpeed; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } }
+
+    [Header("Player Stat")]
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
@@ -34,7 +42,38 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         currentHP = fullHP;
+        if (instance == null)
+        {
+            instance = this;
+            rigidBody = GetComponent<Rigidbody>();
+            animator = GetComponent<Animator>();
+            capsuleCollider = GetComponent<CapsuleCollider>();
+            DontDestroyOnLoad(gameObject);
+            return;
+        }
+        DestroyImmediate(gameObject);
     }
+
+    #region * FSM 처리
+    private void InitStateMachine()
+    {
+        PlayerController controller = GetComponent<PlayerController>();
+        stateMachine = new StateMachine(StateName.MOVE, new MoveState(controller));
+    }
+    void Start()
+    {
+        InitStateMachine();
+    }
+    void Update()
+    {
+        stateMachine?.UpdateState();
+    }
+
+    void FixedUpdate()
+    {
+        stateMachine?.FixedUpdateState();
+    }
+    #endregion
 
     public void TakeDamage(float Damage)
     {
@@ -49,7 +88,7 @@ public class Player : MonoBehaviour
         return RemainedHP;
     }
 
-    public float PlayerStrongAttack(float EnemyHP)
+    public float PlayerStrongAttack(float EnemyHP) 
     {
         float RemainedHP = EnemyHP;
         RemainedHP -= playerStrongAttackDamage;
@@ -57,7 +96,7 @@ public class Player : MonoBehaviour
         return RemainedHP;    
     }
 
-    private void Player_Direction_Check() // 왜 만들었더라..?
+    private void Player_Direction_Check() // 플레이어 방향 디버깅용
     {
         bool isMoving = (PlayerMoveDirection != Vector3.zero);
         if (isMoving) { transform.rotation = Quaternion.LookRotation(PlayerMoveDirection); transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); }
@@ -72,6 +111,4 @@ public class Player : MonoBehaviour
     {
         moveSpeed /= 4;
     }
-
-
 }

@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
+using CharacterController;
 
 [RequireComponent(typeof(Player))]
 public class PlayerController : MonoBehaviour
 {
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
-    protected Player player;
+    public Player player;
 
-    [SerializeField] private Vector3 PlayerMoveDirection;
+    [SerializeField] public Vector3 PlayerMoveDirection;
 
     protected Vector3 DodgeVec;
     [SerializeField] float Basic_Dodge_CoolDown;
@@ -104,6 +106,14 @@ public class PlayerController : MonoBehaviour
         PlayerAnimation();
         // if (Input.GetKeyDown(KeyCode.Space)) { Basic_Dodge(); }
         Basic_Dodge_Cooltime_Management();
+    }
+    public void LookAt(Vector3 direction)
+    {
+        if (direction != Vector3.zero)
+        {
+            Quaternion targetAngle = Quaternion.LookRotation(direction);
+            transform.rotation = targetAngle;
+        }
     }
 
 

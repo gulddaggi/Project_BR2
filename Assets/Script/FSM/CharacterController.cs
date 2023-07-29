@@ -87,7 +87,56 @@ namespace CharacterController
     #endregion
 
     #region * MOVE State
+    public class MoveState : BaseState
+    {
+        public const float CONVERT_UNIT_VALUE = 0.01f;
+        public const float DEFAULT_CONVERT_MOVESPEED = 3f;
+        public const float DEFAULT_ANIMATION_PLAYSPEED = 0.9f;
+        private int hashMoveAnimation;
 
+        public MoveState(PlayerController controller) : base(controller)
+        {
+            hashMoveAnimation = Animator.StringToHash("Velocity"); // 애니메이션 패러미터 접근. 현재로서는 미사용
+        }
+
+        protected float GetAnimationSyncWithMovement(float changedMoveSpeed)
+        {
+            if (Controller.PlayerMoveDirection == Vector3.zero)
+            {
+                return -DEFAULT_ANIMATION_PLAYSPEED;
+            }
+
+            // (바뀐 이동 속도 - 기본 이동속도) * 0.1f
+            return (changedMoveSpeed - DEFAULT_CONVERT_MOVESPEED) * 0.1f;
+        }
+
+        public override void OnEnterState()
+        {
+            // 필요없는 부분이지만, 추상 메소드는 구현해야 하므로 비어 둔다.
+        }
+
+        public override void OnUpdateState()
+        {
+            // 필요없는 부분이지만, 추상 메소드는 구현해야 하므로 비어 둔다.
+        }
+
+        // 이동은 Rigidbody 기반이므로, FixedUpdate()에서 구현해줍니다.
+        public override void OnFixedUpdateState()
+        {
+            float currentMoveSpeed = Controller.player.MoveSpeed * CONVERT_UNIT_VALUE;
+            float animationPlaySpeed = DEFAULT_ANIMATION_PLAYSPEED + GetAnimationSyncWithMovement(currentMoveSpeed);
+            Controller.LookAt(Controller.PlayerMoveDirection);
+            Player.Instance.rigidBody.velocity = Controller.PlayerMoveDirection * Controller.player.MoveSpeed + Vector3.up * Controller.PlayerRigid.velocity.y;
+            Player.Instance.animator.SetFloat(hashMoveAnimation, animationPlaySpeed);
+        }
+
+        // 이동 상태를 종료할 때는 애니메이션과 물리 속도를 초기화 해줘야 한다.
+        public override void OnExitState()
+        {
+            Player.Instance.animator.SetFloat(hashMoveAnimation, 0f);
+            Player.Instance.rigidBody.velocity = Vector3.zero;
+        }
     }
+
     #endregion
 }
