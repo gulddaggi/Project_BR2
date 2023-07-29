@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DungeonScene.unity
     guid: 50140cade69a79043aecdde6d9a91e8c
+  - enabled: 1
+    path: Assets/Scenes/DungeonScene_JSTest.unity
+    guid: 1bc379a1de06c34419414738c208b4ca
   m_configObjects: {}

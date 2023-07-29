@@ -47,7 +47,6 @@ public class GameManager_JS : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -73,6 +72,7 @@ public class GameManager_JS : MonoBehaviour
     {
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
+
     }
 
     // fadeout에 사용되는 panel 반환
@@ -110,10 +110,11 @@ public class GameManager_JS : MonoBehaviour
         if (dungeonCount == 0)
         {
             //마을에서 던전 입장 시 tryCount 증가. 추후 제일 처음 입장에 대한 시도 수 증가도 고려해야함.
-            if (SceneManager.GetActiveScene().name == "HomeScene") ++tryCount; 
+            if (SceneManager.GetActiveScene().name == "HomeScene") ++tryCount;
 
-            SceneManager.LoadScene("DungeonScene");
-
+            //SceneManager.LoadScene("DungeonScene");
+            // 테스트용
+            SceneManager.LoadScene("DungeonScene_JSTest");
         }
         // 던전 씬 내에서 스테이지 이동 시 스테이지 변경 수행
         else
@@ -192,11 +193,20 @@ public class GameManager_JS : MonoBehaviour
 
     public void CoinUpdate()
     {
-        coinText.text = coinText.text + coin;
+        coinText.text = "Coin : " + coin;
     }
 
     public void CoinOnOff(bool _bool)
     {
-        coinText.gameObject.SetActive(_bool);
+        if (SceneManager.GetActiveScene().name != "HomeScene")
+        {
+            if (coinText == null)
+            {
+                coinText = canvas.GetComponentInChildren<Text>();
+            }
+            CoinUpdate();
+            coinText.gameObject.SetActive(_bool);
+
+        }
     }
 }
