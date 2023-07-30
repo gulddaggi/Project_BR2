@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
     // !! Player Input은 Invoke Unity Events로 구성해놓았음 !!
     // Send Messages 방식은 차후에 헷갈릴 가능성 UP 
 
@@ -43,8 +44,9 @@ public class PlayerController : MonoBehaviour
         PlayerMoveDirection = new Vector3(input.x, 0f, input.y);
     }
 
-    public void OnDodge(InputAction.CallbackContext context)
+    public void OnDodge(InputAction.CallbackContext context, DashState dashState)
     {
+        /*
         if(context.performed) // 닷지 키가 눌렸는지 체크. 여기서부터 닷지 로직 작성
         {
             if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime)
@@ -59,6 +61,32 @@ public class PlayerController : MonoBehaviour
                 // PlayerColor.material.color = Color.red; 디버그용
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
             }
+        }
+        */
+        if (context.performed && context.interaction is PressInteraction)
+        {
+            // 대시 입력을 막아야 하는 상황이 있을 경우 return;
+
+
+            if (dashState.CurrentDashCount >= player.DodgeBuffer)
+                return;
+
+            // 대시 중에 버퍼에 입력 가능한 프레임일 때 입력 받을 경우
+            if (dashState.CanAddInputBuffer)
+            {
+                dashState.CurrentDashCount++;
+                dashState.inputDirectionBuffer.Enqueue(PlayerMoveDirection);
+                return;
+            }
+
+            // Idle 상태에서 대시를 입력받을 경우
+            if (!dashState.IsDash)
+            {
+                dashState.CurrentDashCount++;
+                dashState.inputDirectionBuffer.Enqueue(PlayerMoveDirection);
+                player.stateMachine.ChangeState(StateName.DASH);
+            }
+
         }
     }
 

@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public float MoveSpeed { get { return moveSpeed; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } }
+    public int DodgeBuffer {  get { return DodgeBuffer; } }
+
+    public object PlayerController { get; internal set; }
 
     [Header("Player Stat")]
 
@@ -28,6 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float playerAttackDamage;
     [SerializeField] protected float playerStrongAttackDamage;
+    [SerializeField] protected int dodgeBuffer;
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
     {
