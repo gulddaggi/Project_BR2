@@ -3585,7 +3585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4050466261536947305
 Transform:
   m_ObjectHideFlags: 0
@@ -4422,7 +4422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4546920882058171661
 Transform:
   m_ObjectHideFlags: 0
@@ -5157,6 +5157,8 @@ GameObject:
   - component: {fileID: 2185440051443720148}
   - component: {fileID: 2185440051443720150}
   - component: {fileID: 7132301695816503184}
+  - component: {fileID: 6292285479350817224}
+  - component: {fileID: -1257682576200242285}
   m_Layer: 0
   m_Name: Cyclops
   m_TagString: Untagged
@@ -5172,8 +5174,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4899848627645275925}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -12.2, y: 7.966812, z: 67.1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1074920510450546508}
@@ -5187,7 +5189,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2185440051443720149
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5204,7 +5206,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &5710189996487779618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5386,6 +5388,40 @@ MonoBehaviour:
   useNextAnimationInTransitions: 1
   forceToIndex: -1
   dampening: 1
+--- !u!195 &6292285479350817224
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899848627645275925}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 15
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &-1257682576200242285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899848627645275925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd006bd791fab94eb4341984a0eacdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4926668109611843148
 GameObject:
   m_ObjectHideFlags: 0
@@ -5904,7 +5940,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3607117104066233819
 Transform:
   m_ObjectHideFlags: 0
@@ -6493,7 +6529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1130963942399725728
 Transform:
   m_ObjectHideFlags: 0
