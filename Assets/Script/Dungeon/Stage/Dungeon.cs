@@ -33,10 +33,14 @@ public class Dungeon : Stage
     protected override void Start()
     {
         //base.Start();
+
+        // 보상 생성기 Get
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
+
         //적 생성
         enemyCount = enemySpawner.Spawn_ReturnCount();
 
+        // 다음 보상 세팅
         if (rewardCreator != null)
         {
             SetNextReward();
@@ -60,16 +64,23 @@ public class Dungeon : Stage
 
     }
 
+    // 출구에 표시하기 위한 다음 보상을 생성.
     void SetNextReward()
     {
-
+        // 출구 개수만큼 다음 보상 생성.
         for (int i = 0; i < exitObjects.Length; i++)
         {
-            reward = rewardCreator.CreateReward();
+            // 랜덤 보상 생성 후 변수 저장.
+            //reward = rewardCreator.CreateReward();
+            
+            // 테스트용 보상 생성 함수 실행.
+            reward = rewardCreator.CreateReward(0, true);
+            // 생성된 보상을 해당 인덱스 출구에 표시
             exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
         }
     }
 
+    // 클리어 시 실행 함수. 스테이지 이동 허용 및 보상 생성.
     void Clear()
     {
         isClear = true;

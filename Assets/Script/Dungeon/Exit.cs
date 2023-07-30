@@ -36,6 +36,7 @@ public class Exit : MonoBehaviour
     {
         Color startColor = panelImage.color;
         float elapsedTime = 0f;
+        GameManager_JS.Instance.CoinOnOff(false);
 
         while (elapsedTime < duration)
         {
@@ -44,7 +45,7 @@ public class Exit : MonoBehaviour
             {
                 break;
             }
-            Debug.Log(currentAlpha);
+            //Debug.Log(currentAlpha);
 
             // 현재 알파 값을 새로운 색상으로 설정
             Color newColor = new Color(startColor.r, startColor.g, startColor.b, currentAlpha);
@@ -55,6 +56,8 @@ public class Exit : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
+
+        // 다음 스테이지로 이동
         GameManager_JS.Instance.NextStage(this.gameObject.transform);
     }
 
@@ -71,14 +74,16 @@ public class Exit : MonoBehaviour
             Color newColor = new Color(startColor.r, startColor.g, startColor.b, currentAlpha);
             panelImage.color = newColor;
 
-            elapsedTime += Time.deltaTime * 0.5f;
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
+        GameManager_JS.Instance.CoinOnOff(true);
     }
 
+    // 지정된 다음 보상 생성 후 출구에 표시
     public void CreateSampleReward(GameObject obj)
     {
         reward = Instantiate(obj, rewardSocket.transform.position, Quaternion.identity);
