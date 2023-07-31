@@ -391,6 +391,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1358198771867655687, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: stages.Array.data[1]
+      value: 
+      objectReference: {fileID: 7304732254309880038, guid: d0245c1e7ab06c04e8bde0d0ee2e7d61, type: 3}
+    - target: {fileID: 1358198771867655687, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: stages.Array.data[2]
+      value: 
+      objectReference: {fileID: 7304732254309880038, guid: d0245c1e7ab06c04e8bde0d0ee2e7d61, type: 3}
+    - target: {fileID: 1358198771867655687, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: stages.Array.data[3]
+      value: 
+      objectReference: {fileID: 7304732254309880038, guid: d0245c1e7ab06c04e8bde0d0ee2e7d61, type: 3}
+    - target: {fileID: 1358198771867655687, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: stages.Array.data[4]
+      value: 
+      objectReference: {fileID: 7304732254309880038, guid: d0245c1e7ab06c04e8bde0d0ee2e7d61, type: 3}
     - target: {fileID: 1804206454743434787, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_Convex
       value: 0
@@ -459,6 +475,10 @@ PrefabInstance:
       propertyPath: abilityPrefs.Array.data[5]
       value: 
       objectReference: {fileID: 7939117737218285153, guid: 2f1aaa7ef5d6caa4f9c1aaff6bed6a8d, type: 3}
+    - target: {fileID: 3127805909624388291, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 473105557}
     - target: {fileID: 3127805909624388291, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: enemySpawner
       value: 

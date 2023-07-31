@@ -34,7 +34,7 @@ public class EnemyManagerTest : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager_JS.Instance.GetIsMoveOn() && (GameManager_JS.Instance.GetDungeonCount() != 0))
+        if (!GameManager_JS.Instance.GetIsMoveOn() && (GameManager_JS.Instance.GetDungeonCount() != 1))
         {
             //시간이 흐름
             currentTime += Time.deltaTime;
@@ -60,8 +60,9 @@ public class EnemyManagerTest : MonoBehaviour
     }
 
     // 스폰할 적의 수 지정 및 반환
-    public int ReturnMaxCount()
+    public int ReturnMaxCount(int value)
     {
+        maxEnemy = value;
         return maxEnemy;
     }
 }

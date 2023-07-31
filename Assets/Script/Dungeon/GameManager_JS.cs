@@ -49,6 +49,7 @@ public class GameManager_JS : MonoBehaviour
     Text coinText;
 
     GameObject curStage;
+    GameObject nextStage;
 
     //플레이어 Transform 전달을 위한 임시 변수
     Transform tmpPlayerPos;
@@ -161,11 +162,12 @@ public class GameManager_JS : MonoBehaviour
         else
         {
             curStage = transform.parent.gameObject;
+            GameObject tmpReward = transform.GetComponent<Exit>().GetRewardObj();
             tmpPlayerPos = curStage.GetComponent<Stage>().GetPlayerPos();
 
             // 현재 스테이지 비활성화
             curStage.SetActive(false);
-            curStage = null;
+            //curStage = null;
 
             /*if (stageQueue.Count == 0)
             {
@@ -175,12 +177,14 @@ public class GameManager_JS : MonoBehaviour
             }*/
 
             // 다음 스테이지 큐로부터 전달 후 활성화.
-            curStage = stageQueue.Dequeue();
-            curStage.SetActive(true);
+            nextStage = stageQueue.Dequeue();
+            nextStage.SetActive(true);
             // 플레이어를 스테이지 시작 위치로 이동
-            curStage.GetComponent<Stage>().PlayerPosToStart(tmpPlayerPos); 
+            nextStage.GetComponent<Stage>().PlayerPosToStart(tmpPlayerPos);
             // 출구에 표시된 보상을 스테이지 보상으로 지정
-            curStage.GetComponent<Dungeon>().SetReward(transform.GetComponent<Exit>().GetRewardObj());
+            nextStage.GetComponent<Dungeon>().SetReward(tmpReward);
+            curStage = null;
+            curStage = nextStage;
         }
 
         // 출구를 통한 스테이지 이동 불가로 설정

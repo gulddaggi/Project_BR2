@@ -834,7 +834,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1345639829195932055}
   - component: {fileID: 7350209919116572467}
-  - component: {fileID: 6849101510898454563}
+  - component: {fileID: 8447991015298685849}
   m_Layer: 0
   m_Name: Stage 1
   m_TagString: Untagged
@@ -849,9 +849,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7304732254309880038}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -75.100006, y: 33.515827, z: -93.2}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8426226120556950532}
@@ -889,9 +889,9 @@ MonoBehaviour:
   reward: {fileID: 0}
   curReward: {fileID: 0}
   rewardCreator: {fileID: 0}
-  enemySpawner: {fileID: 4938871452405231167}
+  enemySpawner: {fileID: 0}
   enemyCount: 0
---- !u!114 &6849101510898454563
+--- !u!114 &8447991015298685849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -903,8 +903,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398f71cff14809f4398ecd113df7e231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardPrefs: []
-  abilityPrefs: []
+  rewardPrefs:
+  - {fileID: 1713416704636973071, guid: 7485a417969be7445a7ffba4ce5acb18, type: 3}
+  - {fileID: 1713416704636973071, guid: cb9f1918fd8543e458e74ff80918f246, type: 3}
+  - {fileID: 1713416704636973071, guid: 0d6aede3f06a6af44818aa0b4607dd91, type: 3}
+  - {fileID: 1713416704636973071, guid: 4313a2c083f209344882f14382eec75c, type: 3}
+  abilityPrefs:
+  - {fileID: 1730505500892672122, guid: 43fb7723849960d46886df087d3196eb, type: 3}
+  - {fileID: 1383268528513449817, guid: 1e9c725d1cf7ab24cbd9516e47f6d908, type: 3}
+  - {fileID: 1219918898106686457, guid: ce7ebc800c37ace48a6294b1b5e6d377, type: 3}
+  - {fileID: 5807706627265659821, guid: b26ab95f971b44940a68a3f8bde9d032, type: 3}
+  - {fileID: 1998034127036554764, guid: 4bece5101b72bf24ca86fb9b2014135e, type: 3}
+  - {fileID: 7939117737218285153, guid: 2f1aaa7ef5d6caa4f9c1aaff6bed6a8d, type: 3}
 --- !u!1 &8098381304174367467
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,6 +925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273668576674705886}
   - component: {fileID: 4938871452405231167}
+  - component: {fileID: 1226867407}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -954,6 +965,23 @@ MonoBehaviour:
   - {fileID: 1597189687200746184}
   - {fileID: 5110549369660323176}
   enemy: {fileID: 2809309624668386628, guid: 5b94f60ca5e4baa4f9cf37e635bfec47, type: 3}
+--- !u!114 &1226867407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098381304174367467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe660544cfb30fa4aaadb47d1211401f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: {fileID: 4899848627645275925, guid: cd51f09facf7d5a499b40a77dda0da71, type: 3}
+  place:
+  - {fileID: 126933378432172602}
+  - {fileID: 1797215066382978630}
+  - {fileID: 6383223745180113827}
 --- !u!1001 &39098721536701171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1357,6 +1385,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130958696492497109}
     m_Modifications:
+    - target: {fileID: 200864487664385346, guid: 512b72c73a22e904d87662ebca8eb1e1, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 200864487664385347, guid: 512b72c73a22e904d87662ebca8eb1e1, type: 3}
       propertyPath: m_Name
       value: PP_Forest_Mountain_Moss_01 (2)
@@ -1579,6 +1611,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2130958696492497109}
     m_Modifications:
+    - target: {fileID: 200864487664385346, guid: 512b72c73a22e904d87662ebca8eb1e1, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 200864487664385347, guid: 512b72c73a22e904d87662ebca8eb1e1, type: 3}
       propertyPath: m_Name
       value: PP_Forest_Mountain_Moss_01 (1)
