@@ -5,7 +5,7 @@ using UnityEngine;
 public class RangeAITest : MonoBehaviour
 {
     private Transform player;
-    private UnityEngine.AI.NavMeshAgent nvAgent;
+    public UnityEngine.AI.NavMeshAgent nvAgent;
 
     Animator animator;
 
@@ -26,7 +26,6 @@ public class RangeAITest : MonoBehaviour
         {
             animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
-
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
             if (dis <= 2)
             {

@@ -18,7 +18,7 @@ public class AbilitySelector : MonoBehaviour
         // 추출 능력 지정. 3가지 타입이 3개의 선택지에 하나씩 나오도록.
         numbers[0] = (2*index) + Random.Range(0, numOfType);
 
-        //Debug.Log(numOfType + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
+        Debug.Log(index + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
 
         float randomValue = Random.value * total;
 

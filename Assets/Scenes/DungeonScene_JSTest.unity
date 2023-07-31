@@ -3068,9 +3068,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605688590}
-        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-        m_MethodName: ChoiceEventEnd
+      - m_Target: {fileID: 1223581175}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3080,9 +3080,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1223581175}
-        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
-        m_MethodName: ChoiceClicked
+      - m_Target: {fileID: 1605688590}
+        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+        m_MethodName: ChoiceEventEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3145,6 +3145,7 @@ MonoBehaviour:
   typeIndex: 0
   statIndex: 0
   plusValue: 0
+  player: {fileID: 1540407235}
 --- !u!1 &1256368529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,9 +3234,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605688590}
-        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-        m_MethodName: ChoiceEventEnd
+      - m_Target: {fileID: 1256368534}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3245,9 +3246,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1256368534}
-        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
-        m_MethodName: ChoiceClicked
+      - m_Target: {fileID: 1605688590}
+        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+        m_MethodName: ChoiceEventEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3310,6 +3311,7 @@ MonoBehaviour:
   typeIndex: 0
   statIndex: 0
   plusValue: 0
+  player: {fileID: 1540407235}
 --- !u!1 &1257796754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4070,6 +4072,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2799411905594108528, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
   m_PrefabInstance: {fileID: 2071629100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1540407235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3033433396910465853, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
+  m_PrefabInstance: {fileID: 2071629100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540407234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d0134899fd0e4e4f95a609921e5c9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1605688589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5161,9 +5174,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605688590}
-        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-        m_MethodName: ChoiceEventEnd
+      - m_Target: {fileID: 2087846609}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5173,9 +5186,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2087846609}
-        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
-        m_MethodName: ChoiceClicked
+      - m_Target: {fileID: 1605688590}
+        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+        m_MethodName: ChoiceEventEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5238,6 +5251,7 @@ MonoBehaviour:
   typeIndex: 0
   statIndex: 0
   plusValue: 0
+  player: {fileID: 1540407235}
 --- !u!1 &2114396189
 GameObject:
   m_ObjectHideFlags: 0

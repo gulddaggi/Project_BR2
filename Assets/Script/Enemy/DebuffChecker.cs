@@ -11,6 +11,7 @@ public class DebuffChecker : MonoBehaviour
     bool timerOn = false;
     Color originColor;
     int curDebuffIndex = 0;
+    float originvelocity = 3.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,7 @@ public class DebuffChecker : MonoBehaviour
             case 0:
                 time = 0f;
                 objColor.material.color = Color.blue;
+                this.gameObject.GetComponentInParent<RangeAITest>().nvAgent.speed *= 0.5f;
                 break;
             default:
                 break;
@@ -53,6 +55,7 @@ public class DebuffChecker : MonoBehaviour
         time = 0f;
         timerOn = false;
         objColor.material.color = originColor;
+        this.gameObject.GetComponentInParent<RangeAITest>().nvAgent.speed = originvelocity;
         //GameObject.Find("Player").GetComponent<Player>().DebuffOff(curDebuffIndex);
 
     }

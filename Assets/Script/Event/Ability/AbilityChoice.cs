@@ -18,17 +18,27 @@ public class AbilityChoice : MonoBehaviour
     [SerializeField]
     int plusValue;
 
+    int[] tmpArray = new int[3];
+
+    [SerializeField]
+    Player player;
+
     public void SetChoiceValue(int[] indexArray)
     {
         typeIndex = indexArray[0];
         statIndex = indexArray[1];
         plusValue = indexArray[2];
+
+        tmpArray[0] = typeIndex;
+        tmpArray[1] = statIndex;
+        tmpArray[2] = plusValue;
     }
 
     public void ChoiceClicked()
     {
-        List<int> indexList = new List<int> { typeIndex, statIndex, plusValue };
-        Player playerStat = GameObject.Find("Player").GetComponent<Player>();
-        playerStat.AbilityOnStat(indexList);
+        //List<int> indexList = new List<int> { typeIndex, statIndex, plusValue };
+        Debug.Log(tmpArray[1]);
+        //Player playerStat = GameObject.Find("Player").GetComponent<Player>();
+        player.AbilityOnStat(tmpArray);
     }
 }

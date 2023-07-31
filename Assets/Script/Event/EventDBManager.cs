@@ -131,6 +131,7 @@ public class EventDBManager : MonoBehaviour
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
         Debug.Log(totalAbilityDic[ab_index][line].plus_Value[grade]);
         returnArray[0] = StatIndex(line);
+        Debug.Log(returnArray[0]);
         returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
 
         return returnArray;
@@ -155,9 +156,13 @@ public class EventDBManager : MonoBehaviour
             return 2;
         }
         // 6
-        else
+        else if(_value >= 6)
         {
             return 3;
+        }
+        else
+        {
+            return -1;
         }
     }
 }

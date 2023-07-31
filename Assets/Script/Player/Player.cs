@@ -101,11 +101,11 @@ public class Player : MonoBehaviour
         moveSpeed /= 4;
     }
 
-    public void AbilityOnStat(List<int> indexList)
+    public void AbilityOnStat(int[] indexList)
     {
         DebuffOn(indexList[0]);
         Debug.Log("indexList[1] : " + (indexList[1] - 1));
-        switch ((indexList[1] - 1))
+        switch (indexList[1])
         {
             // 약공격
             case 0:
