@@ -5161,6 +5161,7 @@ GameObject:
   - component: {fileID: -4067761684992490864}
   - component: {fileID: 8173415092312588084}
   - component: {fileID: -8662304115171211182}
+  - component: {fileID: 7652229387325939545}
   - component: {fileID: 3649911331882638654}
   m_Layer: 0
   m_Name: Cyclops_DemoVersion
@@ -5462,6 +5463,19 @@ MonoBehaviour:
   EnemyHP: 30
   Damage: 10
   attackRangeObj: {fileID: 7938674357570977839}
+--- !u!114 &7652229387325939545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899848627645275925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objColor: {fileID: 2283587223786628100}
 --- !u!65 &3649911331882638654
 BoxCollider:
   m_ObjectHideFlags: 0

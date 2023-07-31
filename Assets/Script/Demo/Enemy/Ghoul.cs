@@ -83,7 +83,7 @@ public class Ghoul : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PlayerAttack")
         {
@@ -98,7 +98,7 @@ public class Ghoul : MonoBehaviour
             var playerdata = player.GetComponent<Player>();
             EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
         }
-    }
+    }*/
 
     void DIeCheck()
     {

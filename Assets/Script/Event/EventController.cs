@@ -187,8 +187,14 @@ public class EventController : MonoBehaviour
                 texts.Add(choiceGetter.choices[i].GetChild(j));
             }
 
+            int[] indexArray = new int[3] { 0, 0, 0 };
+            indexArray[0] = tmpTypeIndex;
+
             // 해당 텍스트에 DB 데이터 입력.
-            EventDBManager.instance.TextDisplay_Ability_Choice(tmpTypeIndex, texts, i);
+            int[] tmp = EventDBManager.instance.TextDisplay_Ability_Choice(tmpTypeIndex, texts, i);
+            indexArray[1] = tmp[0];
+            indexArray[2] = tmp[1];
+            choiceGetter.choices[i].GetComponent<AbilityChoice>().SetChoiceValue(indexArray);
             texts.Clear();
         }
     }

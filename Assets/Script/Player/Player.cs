@@ -9,17 +9,21 @@ public class Player : MonoBehaviour
 
     private Vector3 PlayerMoveDirection;
 
+    bool[] debuffOnArray = new bool[6];
+
     public float FullHP { get { return fullHP; } }
     public float CurrentHP { get { return currentHP; } set { currentHP = value; } }
-    public float MoveSpeed { get { return moveSpeed; } }
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
-    public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } }
+    public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
+    public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackDamage = value; } }
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float playerAttackDamage;
     [SerializeField] protected float playerStrongAttackDamage;
+    [SerializeField] protected float playerFieldAttackDamage;
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
     {
@@ -34,6 +38,10 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         currentHP = fullHP;
+        for (int i = 0; i < debuffOnArray.Length; i++)
+        {
+            debuffOnArray[i] = false;
+        }
     }
 
     public void TakeDamage(float Damage)
@@ -53,12 +61,20 @@ public class Player : MonoBehaviour
         GameManager_JS.Instance.InitStage();
     }
 
-   public float PlayerAttack(float EnemyHP)
+   public float[] PlayerAttack(float EnemyHP)
     {
-        float RemainedHP = EnemyHP;
-        RemainedHP -= playerAttackDamage;
-
-        return RemainedHP;
+        float[] returnArray = new float[2] { EnemyHP, -1f};
+        // 체력 계산
+        returnArray[0] -= playerAttackDamage;
+        // 디버프 확인
+        for (int i = 0; i < debuffOnArray.Length; i++)
+        {
+            if (debuffOnArray[i] == true)
+            {
+                returnArray[1] = (float)i;
+            }
+        }
+        return returnArray;
     }
 
     public float PlayerStrongAttack(float EnemyHP)
@@ -85,5 +101,44 @@ public class Player : MonoBehaviour
         moveSpeed /= 4;
     }
 
+    public void AbilityOnStat(List<int> indexList)
+    {
+        DebuffOn(indexList[0]);
+        Debug.Log("indexList[1] : " + (indexList[1] - 1));
+        switch ((indexList[1] - 1))
+        {
+            // 약공격
+            case 0:
+                PlayerAttackDamage *= (1f + (indexList[2] * 0.01f));
+                break;
 
+            // 강공격
+            case 1:
+                PlayerStrongAttackDamage *= (1f + (indexList[2] * 0.01f));
+                break;
+
+            // 장판 & 돌진공격
+            case 2:
+                PlayerFieldAttackDamage = PlayerAttackDamage * (indexList[2] * 0.01f);
+                break;
+
+            // 이동속도
+            case 3:
+                MoveSpeed *= (1f + (indexList[2] * 0.01f));
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    void DebuffOn(int typeIndex)
+    {
+        debuffOnArray[typeIndex] = true;
+    }
+
+    public void DebuffOff(int typeIndex)
+    {
+        debuffOnArray[typeIndex] = false;
+    }
 }

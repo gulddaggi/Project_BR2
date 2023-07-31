@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     public float Damage = 10f;
 
     protected EnemyManagerTest enemySpawner;
+    protected DebuffChecker debuffChecker;
 
     [SerializeField]
     protected GameObject attackRangeObj;
@@ -31,6 +32,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         enemySpawner = this.gameObject.GetComponentInParent<EnemyManagerTest>();
+        debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
         //EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();

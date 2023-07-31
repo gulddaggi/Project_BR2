@@ -2992,6 +2992,7 @@ GameObject:
   - component: {fileID: 1223581174}
   - component: {fileID: 1223581173}
   - component: {fileID: 1223581172}
+  - component: {fileID: 1223581175}
   m_Layer: 5
   m_Name: Ability3
   m_TagString: Untagged
@@ -3079,6 +3080,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1223581175}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1223581173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3117,6 +3130,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223581170}
   m_CullTransparentMesh: 1
+--- !u!114 &1223581175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223581170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759d8439f06caad41839a36a7aaab820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeIndex: 0
+  statIndex: 0
+  plusValue: 0
 --- !u!1 &1256368529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3129,6 +3157,7 @@ GameObject:
   - component: {fileID: 1256368533}
   - component: {fileID: 1256368532}
   - component: {fileID: 1256368531}
+  - component: {fileID: 1256368534}
   m_Layer: 5
   m_Name: Ability1
   m_TagString: Untagged
@@ -3216,6 +3245,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1256368534}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1256368532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3254,6 +3295,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256368529}
   m_CullTransparentMesh: 1
+--- !u!114 &1256368534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256368529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759d8439f06caad41839a36a7aaab820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeIndex: 0
+  statIndex: 0
+  plusValue: 0
 --- !u!1 &1257796754
 GameObject:
   m_ObjectHideFlags: 0
@@ -5029,6 +5085,7 @@ GameObject:
   - component: {fileID: 2087846608}
   - component: {fileID: 2087846607}
   - component: {fileID: 2087846606}
+  - component: {fileID: 2087846609}
   m_Layer: 5
   m_Name: Ability2
   m_TagString: Untagged
@@ -5116,6 +5173,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2087846609}
+        m_TargetAssemblyTypeName: AbilityChoice, Assembly-CSharp
+        m_MethodName: ChoiceClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2087846607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5154,6 +5223,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087846604}
   m_CullTransparentMesh: 1
+--- !u!114 &2087846609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087846604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759d8439f06caad41839a36a7aaab820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeIndex: 0
+  statIndex: 0
+  plusValue: 0
 --- !u!1 &2114396189
 GameObject:
   m_ObjectHideFlags: 0

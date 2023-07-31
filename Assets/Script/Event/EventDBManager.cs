@@ -115,8 +115,10 @@ public class EventDBManager : MonoBehaviour
     }
 
     // 선택지 텍스트 출력.
-    public void TextDisplay_Ability_Choice(int ab_index, List<Transform> format, int index)
+    public int[] TextDisplay_Ability_Choice(int ab_index, List<Transform> format, int index)
     {
+        int[] returnArray = new int[2];
+
         // 추출 대상 인덱스와 가산 수치.
         int[] selected = abilitySelector.Select(index-1, abilityCountArr[index-1]);
         int line = selected[0];
@@ -127,5 +129,35 @@ public class EventDBManager : MonoBehaviour
         format[1].GetComponent<Text>().text = totalAbilityDic[ab_index][line].description;
         format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option_Name;
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
+        Debug.Log(totalAbilityDic[ab_index][line].plus_Value[grade]);
+        returnArray[0] = StatIndex(line);
+        returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
+
+        return returnArray;
+    }
+
+    // 적용 능력치 인덱스 지정. 테스트용
+    int StatIndex(int _value)
+    {
+        // 0, 1
+        if (_value < 2)
+        {
+            return 0;
+        }
+        // 2, 3
+        else if (_value >= 2 && _value < 4)
+        {
+            return 1;
+        }
+        //4, 5
+        else if(_value >= 4 && _value < 6)
+        {
+            return 2;
+        }
+        // 6
+        else
+        {
+            return 3;
+        }
     }
 }
