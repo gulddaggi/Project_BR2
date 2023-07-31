@@ -59,7 +59,7 @@ public class GameManager_JS : MonoBehaviour
     private Queue<GameObject> stageQueue = new Queue<GameObject>();
 
     //출구를 통한 스테이지 이동 가능 여부
-    private bool isMoveOn = true;
+    private bool isMoveOn = false;
 
     public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
 
@@ -129,9 +129,8 @@ public class GameManager_JS : MonoBehaviour
         SceneManager.LoadScene("HomeScene");
         Coin = 0;
         coinText.transform.gameObject.SetActive(false);
-        isMoveOn = true;
+        isMoveOn = false;
         ResetEncounter();
-
     }
 
     void ResetEncounter()

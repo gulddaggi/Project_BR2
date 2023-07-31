@@ -34,7 +34,7 @@ public class EnemyManagerTest : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager_JS.Instance.GetIsMoveOn())
+        if (!GameManager_JS.Instance.GetIsMoveOn() && (GameManager_JS.Instance.GetDungeonCount() != 0))
         {
             //시간이 흐름
             currentTime += Time.deltaTime;
@@ -45,8 +45,8 @@ public class EnemyManagerTest : MonoBehaviour
             if (currentTime > createTime && enemycnt < maxEnemy)
             {
                 GameObject enemy = Instantiate(enemies);
+                enemy.transform.SetParent(this.gameObject.transform);
                 enemy.transform.position = place[i].transform.position;
-                //place.RemoveAt(i);
 
                 enemycnt++;
                 currentTime = 0;
