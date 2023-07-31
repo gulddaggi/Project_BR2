@@ -65,4 +65,5 @@ public class EnemyManagerTest : MonoBehaviour
         maxEnemy = value;
         return maxEnemy;
     }
+
 }

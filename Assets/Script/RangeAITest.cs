@@ -6,7 +6,6 @@ public class RangeAITest : MonoBehaviour
 {
     private Transform player;
     public UnityEngine.AI.NavMeshAgent nvAgent;
-
     Animator animator;
 
     // Start is called before the first frame update
@@ -51,6 +50,7 @@ public class RangeAITest : MonoBehaviour
                 if (cols[i].tag == "Player")
                 {
                     //Debug.Log("Enemy find Target");
+
                     player = cols[i].gameObject.transform;
                 }
             }
@@ -58,6 +58,7 @@ public class RangeAITest : MonoBehaviour
         else
         {
             //Debug.Log("Enemy lost Target");
+
             animator.SetBool("isAttack", false);
             player = null;
         }
