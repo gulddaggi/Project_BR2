@@ -13,6 +13,8 @@ public class EnemyManagerTest : MonoBehaviour
     //생성된 적 개수
     int enemycnt = 0;
 
+    int maxEnemy = 5;
+
     //임시 변수
     int i;
     int tmp;
@@ -31,21 +33,35 @@ public class EnemyManagerTest : MonoBehaviour
     }
 
     void Update()
-    { 
-        //시간이 흐름
-        currentTime += Time.deltaTime;
-
-        i = Random.Range(0, place.Count);
-
-        //만약 현재 시간이 일정 시간이 된다면
-        if (currentTime > createTime && enemycnt < 5)
+    {
+        if (!GameManager_JS.Instance.GetIsMoveOn())
         {
-            GameObject enemy = Instantiate(enemies);
-            enemy.transform.position = place[i].transform.position;
-            place.RemoveAt(i);
+            //시간이 흐름
+            currentTime += Time.deltaTime;
 
-            enemycnt++;
-            currentTime = 0;
+            i = Random.Range(0, place.Count);
+
+            //만약 현재 시간이 일정 시간이 된다면
+            if (currentTime > createTime && enemycnt < maxEnemy)
+            {
+                GameObject enemy = Instantiate(enemies);
+                enemy.transform.position = place[i].transform.position;
+                //place.RemoveAt(i);
+
+                enemycnt++;
+                currentTime = 0;
+            }
         }
+    }
+
+    public void EnemyDead()
+    {
+        this.gameObject.GetComponentInParent<Dungeon>().DecEnemyCount();
+    }
+
+    // 스폰할 적의 수 지정 및 반환
+    public int ReturnMaxCount()
+    {
+        return maxEnemy;
     }
 }
