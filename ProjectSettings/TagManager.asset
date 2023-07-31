@@ -15,6 +15,7 @@ TagManager:
   - Event_Gem
   - Event_Ability_0
   - Event_Ability_1
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX

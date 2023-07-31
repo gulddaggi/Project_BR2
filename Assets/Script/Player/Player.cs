@@ -10,9 +10,9 @@ public class Player : MonoBehaviour
     private Vector3 PlayerMoveDirection;
 
     public float FullHP { get { return fullHP; } }
-    public float CurrentHP { get { return currentHP; } }
+    public float CurrentHP { get { return currentHP; } set { currentHP = value; } }
     public float MoveSpeed { get { return moveSpeed; } }
-    public float PlayerAttackDamage { get { return playerAttackDamage; } }
+    public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } }
 
     [SerializeField] protected float fullHP;
@@ -39,6 +39,18 @@ public class Player : MonoBehaviour
     public void TakeDamage(float Damage)
     {
         currentHP -= Damage;
+
+        if (currentHP <= 0)
+        {
+            this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
+            this.gameObject.GetComponent<PlayerController>().enabled = false;
+            Invoke("Die", 3f);
+        }
+    }
+
+    void Die()
+    {
+        GameManager_JS.Instance.InitStage();
     }
 
    public float PlayerAttack(float EnemyHP)

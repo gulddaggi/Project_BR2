@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
 
     protected EnemyManagerTest enemySpawner;
 
+    [SerializeField]
+    protected GameObject attackRangeObj;
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
@@ -65,5 +68,16 @@ public class Enemy : MonoBehaviour
         {
             EnemyAnimator.SetTrigger("Idle");
         }
+    }
+
+    public void EnemyAttackOn()
+    {
+        attackRangeObj.SetActive(true);
+        Invoke("EnemyAttackOff", 1f);
+    }
+
+    protected void EnemyAttackOff()
+    {
+        attackRangeObj.SetActive(false);
     }
 }

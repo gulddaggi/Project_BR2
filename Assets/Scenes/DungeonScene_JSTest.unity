@@ -4916,6 +4916,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1060433274}
     - target: {fileID: 3033433396910465852, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
+      propertyPath: m_Height
+      value: 2.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033433396910465852, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
+      propertyPath: m_Radius
+      value: 0.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033433396910465852, guid: 41903286dd92ca54f94452767c4b9715, type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}

@@ -11,6 +11,8 @@ public class DialogueCheck{
     // 이번 회차에서 만났는가
     bool isEncounter = false;
 
+
+    
     public int Count
     {
         get { return count; }
@@ -58,7 +60,7 @@ public class GameManager_JS : MonoBehaviour
     //스테이지 객체를 저장하는 큐
     private Queue<GameObject> stageQueue = new Queue<GameObject>();
 
-    //출구를 통한 스테이지 이동 가능 여부
+    //출구를 통한 스테이지 이동 가능 여부.
     private bool isMoveOn = false;
 
     public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
@@ -124,12 +126,13 @@ public class GameManager_JS : MonoBehaviour
 
     public void InitStage()
     {
+        StartCoroutine(FadeInPanel());
         stageQueue.Clear();
         dungeonCount = 0;
         SceneManager.LoadScene("HomeScene");
         Coin = 0;
         coinText.transform.gameObject.SetActive(false);
-        isMoveOn = false;
+        isMoveOn = true;
         ResetEncounter();
     }
 
@@ -246,5 +249,28 @@ public class GameManager_JS : MonoBehaviour
             coinText.gameObject.SetActive(_bool);
 
         }
+    }
+
+    private IEnumerator FadeInPanel()
+    {
+        Color startColor = panelImage.color;
+        float elapsedTime = 0f;
+        float duration = 2f;
+
+        while (elapsedTime < duration)
+        {
+            float currentAlpha = Mathf.Lerp(startColor.a, 0f, elapsedTime / duration);
+
+            // 현재 알파 값을 새로운 색상으로 설정
+            Color newColor = new Color(startColor.r, startColor.g, startColor.b, currentAlpha);
+            panelImage.color = newColor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
+        panelImage.color = color;
+        GameManager_JS.Instance.CoinOnOff(true);
     }
 }

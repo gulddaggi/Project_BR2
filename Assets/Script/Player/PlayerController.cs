@@ -161,6 +161,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "EnemyAttack")
+        {
+            Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
+            player.TakeDamage(enemy.Damage);
+            Debug.Log("Player Damaged : " + enemy.Damage);
+        }
+    }
+
     #endregion
 
 }
