@@ -8,6 +8,7 @@ public class StartStage : Dungeon
     {
         base.Start();
         StartReward();
+        enemyCount = enemySpawner.ReturnMaxCount(2);
     }
 
     void StartReward()

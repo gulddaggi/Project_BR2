@@ -3003,14 +3003,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256517670d2d2624981d3d8db0b840af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  choiceEvent: {fileID: 1746293036}
-  choiceDialogue: {fileID: 789432194}
-  choiceMain: {fileID: 736646610}
+  events: []
+  event_Ability: []
   layerMask:
     serializedVersion: 2
     m_Bits: 8
   player: {fileID: 0}
   texts: []
+  dialogues: []
   range: 50
 --- !u!4 &1605688591
 Transform:
@@ -3249,6 +3249,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DBFileName: DB_Choice
+  DBFiles_Ability: []
+  DBFiles_Dialogue: []
+  abilityCountArr: 000000000000000000000000
 --- !u!1 &1777296290
 GameObject:
   m_ObjectHideFlags: 0

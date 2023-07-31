@@ -5,8 +5,7 @@ using UnityEngine;
 public class RangeAITest : MonoBehaviour
 {
     private Transform player;
-    private UnityEngine.AI.NavMeshAgent nvAgent;
-
+    public UnityEngine.AI.NavMeshAgent nvAgent;
     Animator animator;
 
     // Start is called before the first frame update
@@ -26,9 +25,8 @@ public class RangeAITest : MonoBehaviour
         {
             animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
-
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
-            if (dis <= 16)
+            if (dis <= 2)
             {
                 animator.SetBool("isAttack", true);
             }
@@ -51,14 +49,16 @@ public class RangeAITest : MonoBehaviour
                 //반경 내에 플레이어가 존재할 경우 추적
                 if (cols[i].tag == "Player")
                 {
-                    Debug.Log("Enemy find Target");
+                    //Debug.Log("Enemy find Target");
+
                     player = cols[i].gameObject.transform;
                 }
             }
         }
         else
         {
-            Debug.Log("Enemy lost Target");
+            //Debug.Log("Enemy lost Target");
+
             animator.SetBool("isAttack", false);
             player = null;
         }

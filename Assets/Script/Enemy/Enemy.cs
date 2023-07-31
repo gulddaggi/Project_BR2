@@ -16,19 +16,33 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] public float Enemy_Recognition_Range;
 
+    [SerializeField]
+    public float EnemyHP = 10;
+
+    [SerializeField]
+    public float Damage = 10f;
+
+    protected EnemyManagerTest enemySpawner;
+    protected DebuffChecker debuffChecker;
+
+    [SerializeField]
+    protected GameObject attackRangeObj;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        EnemyRigid = GetComponent<Rigidbody>();
-        EnemyAnimator = GetComponent<Animator>();
-        nav = GetComponent<NavMeshAgent>();
+        enemySpawner = this.gameObject.GetComponentInParent<EnemyManagerTest>();
+        debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
+        //EnemyRigid = GetComponent<Rigidbody>();
+        //EnemyAnimator = GetComponent<Animator>();
+        //nav = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Track_Player();
-        Enemy_Anim_Manage();
+        //Track_Player();
+        //Enemy_Anim_Manage();
     }
 
     void Track_Player()
@@ -58,11 +72,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public void EnemyAttackOn()
     {
-        if (other.tag == "PlayerAttack")
-        {
-            Debug.Log("Enemy Damaged!");
-        }
+        attackRangeObj.SetActive(true);
+        Invoke("EnemyAttackOff", 1f);
+    }
+
+    protected void EnemyAttackOff()
+    {
+        attackRangeObj.SetActive(false);
     }
 }

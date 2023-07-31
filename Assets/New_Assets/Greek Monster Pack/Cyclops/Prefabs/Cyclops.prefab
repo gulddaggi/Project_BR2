@@ -5158,7 +5158,6 @@ GameObject:
   - component: {fileID: 2185440051443720150}
   - component: {fileID: 7132301695816503184}
   - component: {fileID: 6292285479350817224}
-  - component: {fileID: -1257682576200242285}
   m_Layer: 0
   m_Name: Cyclops
   m_TagString: Untagged
@@ -5410,18 +5409,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-1257682576200242285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4899848627645275925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cd006bd791fab94eb4341984a0eacdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4926668109611843148
 GameObject:
   m_ObjectHideFlags: 0
