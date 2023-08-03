@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-35212
+  m_Name: pb_Mesh29116
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -960,7 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540ed6b2e9dbee1448f00508f7507b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 0
+  attackDamage: 10
   StrongAttackDamage: 0
 --- !u!4 &880941166 stripped
 Transform:
@@ -2215,23 +2215,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: af0f52f6a2594b4418a24bb0f6744f26, type: 3}
   m_PrefabInstance: {fileID: 124028729}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1977860539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977860536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc0ec1c98973414dad9f4f8dafa0724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyHP: 10
-  EnemyMovespeed: 0
-  Damage: 10
-  Screamed: 0
-  enemySpawner: {fileID: 0}
 --- !u!136 &1977860540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2284,6 +2267,44 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1977860546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977860536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc0ec1c98973414dad9f4f8dafa0724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  EnemyAnimator: {fileID: 0}
+  EnemyRigid: {fileID: 0}
+  EnemyHP: 10
+  EnemyMovespeed: 0
+  Damage: 10
+  nav: {fileID: 0}
+  Screamed: 0
+  enemySpawner: {fileID: 0}
+--- !u!114 &1977860547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977860536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ded060dc7f15742aff72db22882307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyHP: 10
+  EnemyMovespeed: 0
+  Damage: 10
+  Screamed: 0
+  enemySpawner: {fileID: 0}
 --- !u!1 &2116924566
 GameObject:
   m_ObjectHideFlags: 0

@@ -1228,8 +1228,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playercontroller: {fileID: 3033433396910465826}
   PlayerAnimator: {fileID: 8895310974926596784}
-  Strong_Attack_Hold_Time: 0
-  Strong_Attack_Hold_Time_Waiting: 2
+  PlayerRigid: {fileID: 0}
+  AttackRange_Demo_1: {fileID: 0}
+  AttackRange_Demo_2: {fileID: 0}
+  AttackRange_Demo_3: {fileID: 0}
 --- !u!114 &3033433396910465853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1245,6 +1247,9 @@ MonoBehaviour:
   fullHP: 0
   currentHP: 0
   moveSpeed: 20
+  playerAttackDamage: 0
+  playerStrongAttackDamage: 0
+  playerFieldAttackDamage: 0
 --- !u!1 &2884496056982951271
 GameObject:
   m_ObjectHideFlags: 0

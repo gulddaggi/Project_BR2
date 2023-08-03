@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 
     public Transform Player;
 
-    Animator EnemyAnimator;
+    protected Animator EnemyAnimator;
     Rigidbody EnemyRigid;
 
     public float Movespeed;
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
         enemySpawner = this.gameObject.GetComponentInParent<EnemyManagerTest>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
-        //EnemyAnimator = GetComponent<Animator>();
+        EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
     }
 
