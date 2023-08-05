@@ -129,9 +129,9 @@ public class EventDBManager : MonoBehaviour
         format[1].GetComponent<Text>().text = totalAbilityDic[ab_index][line].description;
         format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option_Name;
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
-        Debug.Log(totalAbilityDic[ab_index][line].plus_Value[grade]);
+        SetRank(format[4], grade);
+
         returnArray[0] = StatIndex(line);
-        Debug.Log(returnArray[0]);
         returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
 
         return returnArray;
@@ -163,6 +163,31 @@ public class EventDBManager : MonoBehaviour
         else
         {
             return -1;
+        }
+    }
+
+    void SetRank(Transform transform, int grade)
+    {
+        Text tr_Text = transform.GetComponent<Text>();
+
+        switch (grade)
+        {
+            case 0:
+                tr_Text.text = "일반";
+                break;
+
+            case 1:
+                tr_Text.text = "희귀";
+                tr_Text.color = Color.blue;
+                break;
+
+            case 2:
+                tr_Text.text = "영웅";
+                tr_Text.color = new Color(195f, 0f, 173f, 255f);
+                break;
+
+            default:
+                break;
         }
     }
 }
