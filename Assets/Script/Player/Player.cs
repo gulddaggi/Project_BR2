@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
         this.moveSpeed = moveSpeed;
         this.playerAttackDamage = playerAttackDamage;
         this.playerStrongAttackDamage = playerStrongAttackDamage;
-
     }
 
     private void Awake()
@@ -64,8 +63,10 @@ public class Player : MonoBehaviour
    public float[] PlayerAttack(float EnemyHP)
     {
         float[] returnArray = new float[2] { EnemyHP, -1f};
+
         // 체력 계산
         returnArray[0] -= playerAttackDamage;
+        
         // 디버프 확인
         for (int i = 0; i < debuffOnArray.Length; i++)
         {
@@ -74,6 +75,7 @@ public class Player : MonoBehaviour
                 returnArray[1] = (float)i;
             }
         }
+
         return returnArray;
     }
 
