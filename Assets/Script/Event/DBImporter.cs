@@ -19,7 +19,7 @@ public class DBImporter : MonoBehaviour
         for (int i = 0; i < abilityCountArr.Length; i++)
         {
             string[] row = data[0].Split(new char[] { ',' }); // 콤마 단위로 각 항목 구분
-            abilityCountArr[i] = int.Parse(row[i + 6]);
+            abilityCountArr[i] = int.Parse(row[i + 6]);  // DB에 기록되어있는 개수를 전달
         }
 
         // 항목별 저장 수행

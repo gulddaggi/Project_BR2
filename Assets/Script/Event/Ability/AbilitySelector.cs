@@ -5,9 +5,12 @@ using UnityEngine;
 public class AbilitySelector : MonoBehaviour
 {
     // 등급별 확률
-    float[] probs = new float[3]{ 70.0f, 20.0f, 10.0f };
+    float[] probs = new float[3]{ 70.0f, 25.0f, 5.0f };
 
     float total = 100.0f;
+
+    // 알맞은 line number를 찾아가도록 가산되는 임시 변수
+    int tmp = 0;
 
     // 추출할 인덱스를 지정하여 반환
     public int[] Select(int index, int numOfType)
@@ -16,9 +19,12 @@ public class AbilitySelector : MonoBehaviour
         int[] numbers = new int[2]{ 0, 0 };
 
         // 추출 능력 지정. 3가지 타입이 3개의 선택지에 하나씩 나오도록.
-        numbers[0] = (2*index) + Random.Range(0, numOfType);
+        numbers[0] = ( index == 0 ? 0 : tmp ) + Random.Range(0, numOfType);
 
-        Debug.Log(index + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
+        // 다음 index에 대해 사용 가능하도록 현재 타입 개수만큼 더함
+        tmp += numOfType;
+
+        Debug.Log((index+1) + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
 
         float randomValue = Random.value * total;
 
