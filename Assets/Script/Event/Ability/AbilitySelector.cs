@@ -41,6 +41,12 @@ public class AbilitySelector : MonoBehaviour
             }
         }
 
+        if (index == 2)
+        {
+            tmp = 0;
+            Debug.Log("변수 초기화 : " + tmp);
+        }
+
         return numbers;
     }
 
