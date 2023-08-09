@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            var damagedata = collision.gameObject.GetComponent<Ghoul>(); // 데모용이라 Ghoul.cs로 한 것임! 차후에 Enemy 추상화 이루어지면 수정해야 함!
+            var damagedata = collision.gameObject.GetComponent<Enemy>(); // 데모용이라 Ghoul.cs로 한 것임! 차후에 Enemy 추상화 이루어지면 수정해야 함!
             player.TakeDamage(damagedata.Damage);
 
         }
