@@ -11,6 +11,7 @@ public class Attack : MonoBehaviour
     [SerializeField] PlayerController playercontroller;
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
+    public Transform bulletSpawnPoint;
 
     public Vector3 MouseDirection { get; private set; }
 
@@ -149,7 +150,8 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        AttackRange_Demo_1.SetActive(true);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
         //Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
