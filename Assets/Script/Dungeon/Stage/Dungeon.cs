@@ -25,9 +25,9 @@ public class Dungeon : Stage
     protected RewardCreator rewardCreator;
 
     [SerializeField]
-    protected EnemyManagerTest enemySpawner;
+    protected EnemySpawner enemySpawner;
 
-    public int enemyCount = 0;
+    protected int enemyCount = 0;
     protected bool isClear = false;
 
     protected override void Start()
@@ -37,7 +37,7 @@ public class Dungeon : Stage
         // 보상 생성기 Get
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
 
-        enemyCount = enemySpawner.ReturnMaxCount(5);
+        enemySpawner = this.gameObject.GetComponent<EnemySpawner>();
 
         // 다음 보상 세팅
         if (rewardCreator != null)
@@ -64,7 +64,7 @@ public class Dungeon : Stage
     }
 
     // 출구에 표시하기 위한 다음 보상을 생성.
-    void SetNextReward()
+    protected void SetNextReward()
     {
         // 출구 개수만큼 다음 보상 생성.
         for (int i = 0; i < exitObjects.Length; i++)
@@ -98,6 +98,11 @@ public class Dungeon : Stage
     public void DecEnemyCount()
     {
         --enemyCount;
+    }
+
+    public void SetEnemyCount(int _value)
+    {
+        enemyCount = _value;
     }
 
     //테스트용

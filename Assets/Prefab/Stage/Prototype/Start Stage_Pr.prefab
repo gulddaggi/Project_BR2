@@ -788,8 +788,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2931882499159166552}
-  - component: {fileID: 7164156213280536507}
-  - component: {fileID: 1320717415}
+  - component: {fileID: 2574338331090814290}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -814,24 +813,7 @@ Transform:
   m_Father: {fileID: 3927398029359685523}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7164156213280536507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1107793940841726582}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b79e6e02800d9c4abda68607be4655e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 890429975041319616}
-  - {fileID: 7802645362779374257}
-  - {fileID: 1553445446202550908}
-  enemy: {fileID: 2809309624668386628, guid: 5b94f60ca5e4baa4f9cf37e635bfec47, type: 3}
---- !u!114 &1320717415
+--- !u!114 &2574338331090814290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -840,14 +822,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1107793940841726582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe660544cfb30fa4aaadb47d1211401f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b79e6e02800d9c4abda68607be4655e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: {fileID: 4899848627645275925, guid: cd51f09facf7d5a499b40a77dda0da71, type: 3}
-  place:
-  - {fileID: 5867204582475508713}
-  - {fileID: 4932227343662026120}
-  - {fileID: 643105849519303202}
+  spawnPoints: []
+  enemy: {fileID: 0}
+  curEnemyCount: 2
+  spawnCount: 0000000000000000
 --- !u!1 &1224999481615851488
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,8 +2007,7 @@ MonoBehaviour:
   reward: {fileID: 0}
   curReward: {fileID: 0}
   rewardCreator: {fileID: 2723852069648005943}
-  enemySpawner: {fileID: 1320717415}
-  enemyCount: 0
+  enemySpawner: {fileID: 0}
 --- !u!1 &4870534331850796103
 GameObject:
   m_ObjectHideFlags: 0
