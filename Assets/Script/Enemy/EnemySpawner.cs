@@ -29,15 +29,7 @@ public class EnemySpawner : MonoBehaviour
     // 스폰 제어 트리거
     bool spawnTrigger = false;
 
-    private void Awake()
-    {
-        if (spawnPoints.Count != 0)
-        {
-            curEnemyCount = spawnPoints[0].transform.childCount;
-            this.gameObject.GetComponentInParent<Dungeon>().SetEnemyCount(curEnemyCount);
-        }
-
-    }
+    public bool SPAWNTRIGGER { get { return spawnTrigger; } }
 
     void Start()
     {
@@ -50,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
         if (spawnPoints.Count != 0)
         {
             EnemySpawn();
+            this.gameObject.GetComponentInParent<Dungeon>().SetEnemyCount(curEnemyCount);
         }
 
     }
@@ -58,51 +51,51 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnTrigger && curEnemyCount == 0)
         {
-            Debug.Log("적 스폰");
+            //Debug.Log("적 스폰");
             spawnTrigger = false;
             EnemySpawn();
         }
-    }
-
-    // 스폰할 적의 수 지정 및 반환
-    public int Spawn_ReturnCount()
-    {
-        int count = Random.Range(1, spawnPoints.Count);
-        //EnemySpawn(count);
-        return count;
     }
 
     // 적 스폰
     void EnemySpawn()
     {
         int points;
+        points = 3;
+        float rad = 2f;
+        float angle;
 
         if (curWaveCount == 0)
         {
-            points = spawnPoints[0].childCount;
-
             for (int i = 0; i < points; i++)
             {
-                GameObject spawnEnemy = Instantiate(enemy, spawnPoints[i].GetChild(i).position, Quaternion.identity);
+                angle = i * (Mathf.PI * 2.0f) / points;
+
+                GameObject spawnEnemy = Instantiate(enemy, 
+                    (spawnPoints[curWaveCount].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
+                     Quaternion.identity);
                 spawnEnemy.transform.SetParent(this.gameObject.transform);
-                Debug.Log("적 생성");
                 ++curEnemyCount;
             }
+            ++curWaveCount;
         }
         else
         {
             for (int i = curWaveCount; i < spawnPoints.Count; i++)
             {
-                points = spawnPoints[i].childCount;
                 for (int j = 0; j < points; j++)
                 {
-                    GameObject spawnEnemy = Instantiate(enemy, spawnPoints[i].GetChild(i).position, Quaternion.identity);
+                    angle = j * (Mathf.PI * 2.0f) / points;
+
+                    GameObject spawnEnemy = Instantiate(enemy,
+                        (spawnPoints[i].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
+                         Quaternion.identity);
                     spawnEnemy.transform.SetParent(this.gameObject.transform);
                     ++curEnemyCount;
                 }
+                ++curWaveCount;
             }
         }
-        ++curWaveCount;
         this.gameObject.GetComponentInParent<Dungeon>().SetEnemyCount(curEnemyCount);
     }
 
@@ -111,13 +104,17 @@ public class EnemySpawner : MonoBehaviour
         --curEnemyCount;
         this.gameObject.GetComponentInParent<Dungeon>().DecEnemyCount();
 
-        Debug.Log("EnemyCount : " + curEnemyCount);
+        //Debug.Log("EnemyCount : " + curEnemyCount);
         if (curEnemyCount == 0 && curWaveCount != 0)
         {
-            Debug.Log("트리거 전환");
+            //Debug.Log("트리거 전환");
             spawnTrigger = true;
 
         }
     }
 
+    public bool IsAllWaveEnd()
+    {
+        return (curWaveCount > maxWaveCount);
+    }
 }

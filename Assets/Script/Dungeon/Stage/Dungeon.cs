@@ -37,8 +37,6 @@ public class Dungeon : Stage
         // 보상 생성기 Get
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
 
-        enemySpawner = this.gameObject.GetComponent<EnemySpawner>();
-
         // 다음 보상 세팅
         if (rewardCreator != null)
         {
@@ -82,14 +80,26 @@ public class Dungeon : Stage
     // 클리어 시 실행 함수. 스테이지 이동 허용 및 보상 생성.
     void Clear()
     {
-        isClear = true;
-        CreateReward();
-        GameManager_JS.Instance.SetIsMoveOn(isClear);
+        if (GameManager_JS.Instance.GetDungeonCount() == 1)
+        {
+            isClear = true;
+            CreateReward();
+            GameManager_JS.Instance.SetIsMoveOn(isClear);
+        }
+        else
+        {
+            if (enemySpawner.IsAllWaveEnd())
+            {
+                isClear = true;
+                CreateReward();
+                GameManager_JS.Instance.SetIsMoveOn(isClear);
+            }
+        }
     }
 
     protected virtual void Update()
     {
-        if (enemyCount == 0 & !isClear)
+        if (enemyCount == 0 && !isClear)
         {
             Clear();
         }
