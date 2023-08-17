@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Dungeon : Stage
 {
@@ -36,6 +37,7 @@ public class Dungeon : Stage
 
         // 보상 생성기 Get
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
+        BakeNavMesh();
 
         // 다음 보상 세팅
         if (rewardCreator != null)
@@ -119,5 +121,12 @@ public class Dungeon : Stage
     public void Die()
     {
         GameManager_JS.Instance.InitStage();
+    }
+
+    void BakeNavMesh()
+    {
+        NavMeshSurface navMeshSurface = this.gameObject.GetComponent<NavMeshSurface>();
+        navMeshSurface.RemoveData();
+        navMeshSurface.BuildNavMesh();
     }
 }
