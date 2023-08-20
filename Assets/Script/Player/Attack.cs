@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
 
+    public enum Weapon { Sword, Axe };
+    public Weapon PlayerWeapon = Weapon.Axe;
+
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
     [SerializeField] PlayerController playercontroller;
