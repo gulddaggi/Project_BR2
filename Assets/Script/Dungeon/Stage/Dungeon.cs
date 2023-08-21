@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Dungeon : Stage
 {
@@ -25,9 +26,9 @@ public class Dungeon : Stage
     protected RewardCreator rewardCreator;
 
     [SerializeField]
-    protected EnemyManagerTest enemySpawner;
+    protected EnemySpawner enemySpawner;
 
-    public int enemyCount = 0;
+    protected int enemyCount = 0;
     protected bool isClear = false;
 
     protected override void Start()
@@ -36,8 +37,7 @@ public class Dungeon : Stage
 
         // 보상 생성기 Get
         rewardCreator = this.gameObject.GetComponent<RewardCreator>();
-
-        enemyCount = enemySpawner.ReturnMaxCount(5);
+        BakeNavMesh();
 
         // 다음 보상 세팅
         if (rewardCreator != null)
@@ -64,7 +64,7 @@ public class Dungeon : Stage
     }
 
     // 출구에 표시하기 위한 다음 보상을 생성.
-    void SetNextReward()
+    protected void SetNextReward()
     {
         // 출구 개수만큼 다음 보상 생성.
         for (int i = 0; i < exitObjects.Length; i++)
@@ -82,14 +82,26 @@ public class Dungeon : Stage
     // 클리어 시 실행 함수. 스테이지 이동 허용 및 보상 생성.
     void Clear()
     {
-        isClear = true;
-        CreateReward();
-        GameManager_JS.Instance.SetIsMoveOn(isClear);
+        if (GameManager_JS.Instance.GetDungeonCount() == 1)
+        {
+            isClear = true;
+            CreateReward();
+            GameManager_JS.Instance.SetIsMoveOn(isClear);
+        }
+        else
+        {
+            if (enemySpawner.IsAllWaveEnd())
+            {
+                isClear = true;
+                CreateReward();
+                GameManager_JS.Instance.SetIsMoveOn(isClear);
+            }
+        }
     }
 
     protected virtual void Update()
     {
-        if (enemyCount == 0 & !isClear)
+        if (enemyCount == 0 && !isClear)
         {
             Clear();
         }
@@ -100,9 +112,21 @@ public class Dungeon : Stage
         --enemyCount;
     }
 
+    public void SetEnemyCount(int _value)
+    {
+        enemyCount = _value;
+    }
+
     //테스트용
     public void Die()
     {
         GameManager_JS.Instance.InitStage();
+    }
+
+    void BakeNavMesh()
+    {
+        NavMeshSurface navMeshSurface = this.gameObject.GetComponent<NavMeshSurface>();
+        navMeshSurface.RemoveData();
+        navMeshSurface.BuildNavMesh();
     }
 }
