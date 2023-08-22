@@ -168,7 +168,9 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-         AttackRange_Demo_1.SetActive(false);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
+        AttackRange_Demo_1.SetActive(false);
          AttackRange_Demo_2.SetActive(true);
         // Debug.Log("Second Combo Start");
     }
@@ -183,8 +185,10 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
          AttackRange_Demo_2.SetActive(false);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
         // player.AttackManagement_Start();
-         AttackRange_Demo_3.SetActive(true);
+        AttackRange_Demo_3.SetActive(true);
         // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()

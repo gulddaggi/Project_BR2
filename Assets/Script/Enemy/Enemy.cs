@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public Transform Player;
 
     protected Animator EnemyAnimator;
+    protected bool isAttack;
     Rigidbody EnemyRigid;
 
     public float Movespeed;
@@ -74,6 +75,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyAttackOn()
     {
+        isAttack = true;
         attackRangeObj.SetActive(true);
         Invoke("EnemyAttackOff", 1f);
     }
@@ -81,5 +83,6 @@ public class Enemy : MonoBehaviour
     protected void EnemyAttackOff()
     {
         attackRangeObj.SetActive(false);
+        isAttack = false;
     }
 }

@@ -51,10 +51,15 @@ public class Cyclops : Enemy
 
     IEnumerator GetDamaged()
     {
-        EnemyAnimator.SetTrigger("Damaged");
-        EnemyAnimator.applyRootMotion = true;
-        yield return new WaitForSeconds(1.0f);
-        EnemyAnimator.applyRootMotion = false;
+
+        // 
+        if (isAttack = false)
+        {
+            EnemyAnimator.SetTrigger("Damaged");
+            EnemyAnimator.applyRootMotion = true;
+            yield return new WaitForSeconds(1.0f);
+            EnemyAnimator.applyRootMotion = false;
+        }
     }
 }
     
