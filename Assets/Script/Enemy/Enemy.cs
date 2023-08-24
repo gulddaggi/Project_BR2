@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
 {
     public Transform Player;
 
-    Animator EnemyAnimator;
+    protected Animator EnemyAnimator;
+    protected bool isAttack;
     Rigidbody EnemyRigid;
 
     public float Movespeed;
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
-        //EnemyAnimator = GetComponent<Animator>();
+        EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
     }
 
@@ -73,6 +74,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyAttackOn()
     {
+        isAttack = true;
         attackRangeObj.SetActive(true);
         Invoke("EnemyAttackOff", 1f);
     }
@@ -80,5 +82,6 @@ public class Enemy : MonoBehaviour
     protected void EnemyAttackOff()
     {
         attackRangeObj.SetActive(false);
+        isAttack = false;
     }
 }
