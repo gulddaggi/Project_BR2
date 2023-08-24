@@ -45,7 +45,6 @@ public class Cyclops : Enemy
         {
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
-
         }
     }
 

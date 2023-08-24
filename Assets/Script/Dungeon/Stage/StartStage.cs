@@ -6,9 +6,19 @@ public class StartStage : Dungeon
 {
     protected override void Start()
     {
-        base.Start();
+        // 보상 생성기 Get
+        rewardCreator = this.gameObject.GetComponent<RewardCreator>();
+
+        // 다음 보상 세팅
+        if (rewardCreator != null)
+        {
+            SetNextReward();
+        }
+
         StartReward();
-        enemyCount = enemySpawner.ReturnMaxCount(2);
+
+        // 첫 스테이지에 소환된 적의 수. 직접 입력해야함.
+        enemyCount = 2;
     }
 
     void StartReward()
@@ -29,10 +39,5 @@ public class StartStage : Dungeon
     protected override void Update()
     {
         base.Update();
-
-        if (isClear)
-        {
-            reward.SetActive(false);
-        }
     }
 }

@@ -30,15 +30,15 @@ public class DungeonCreator : MonoBehaviour
             }
             else if(i == stageSize - 1)
             {
-                index = 4;
+                index = stages.Length - 1;
             }
             else
             {
-                index = Random.Range(1, 4);
+                index = Random.Range(1, stages.Length - 1);
             }
 
             // 스테이지 생성. 좌표 지정이 이상하게 되어 있어 수정 필요.
-            GameObject obj = Instantiate(stages[index], new Vector3(-4.8f, 9.0f, 0.12f), Quaternion.identity);
+            GameObject obj = Instantiate(stages[index], new Vector3(-4.8f, 9.0f, 0.12f), Quaternion.Euler(0f, 45f, 0f));
             // 생성과 동시에 비활성화
             obj.SetActive(false);
             // 생성된 스테이지 관리 및 접근을 위해 큐에 삽입.

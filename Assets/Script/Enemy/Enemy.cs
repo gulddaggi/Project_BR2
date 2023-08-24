@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-
     public Transform Player;
 
     protected Animator EnemyAnimator;
@@ -23,7 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     public float Damage = 10f;
 
-    protected EnemyManagerTest enemySpawner;
+    protected EnemySpawner enemySpawner;
     protected DebuffChecker debuffChecker;
 
     [SerializeField]
@@ -32,7 +31,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        enemySpawner = this.gameObject.GetComponentInParent<EnemyManagerTest>();
+        enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
         EnemyAnimator = GetComponent<Animator>();
