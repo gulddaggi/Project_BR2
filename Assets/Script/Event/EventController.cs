@@ -70,11 +70,16 @@ public class EventController : MonoBehaviour
                 case 0:
                     tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
                     ChoiceEventStart();
-                    
                     break;
+
                 // 이벤트 : 코인
                 case 1:
                     CoinEvent(tmpTypeIndex);
+                    break;
+
+                // 이벤트 : 상점
+                case 2:
+                    MerchantEvent();
                     break;
 
                 default:
@@ -204,5 +209,10 @@ public class EventController : MonoBehaviour
         Destroy(obj, 2f);
         GameManager_JS.Instance.Coin = value;
         eventOn = false;
+    }
+
+    void MerchantEvent()
+    {
+
     }
 }
