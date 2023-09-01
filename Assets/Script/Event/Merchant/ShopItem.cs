@@ -20,5 +20,5 @@ public class ShopItem : MonoBehaviour
     public string value;
 
     // 적용 턴 수
-    public int turn;
+    public string turn;
 }

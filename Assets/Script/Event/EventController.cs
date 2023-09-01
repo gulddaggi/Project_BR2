@@ -12,6 +12,9 @@ public class EventController : MonoBehaviour
     GameObject[] event_Ability;
 
     [SerializeField]
+    GameObject[] event_Merchant;
+
+    [SerializeField]
     LayerMask layerMask;
 
     [SerializeField]
@@ -24,6 +27,7 @@ public class EventController : MonoBehaviour
 
     ChoiceGetter choiceGetter;
     DialogueGetter dialogueGetter;
+    ItemFormGetter itemFormGetter;
 
     [SerializeField]
     List<string> dialogues = new List<string>();
@@ -79,7 +83,7 @@ public class EventController : MonoBehaviour
 
                 // 이벤트 : 상점
                 case 2:
-                    MerchantEvent();
+                    MerchantEventStart();
                     break;
 
                 default:
@@ -211,8 +215,44 @@ public class EventController : MonoBehaviour
         eventOn = false;
     }
 
-    void MerchantEvent()
+    void MerchantEventStart()
     {
+        // 선택 전체 UI 활성화
+        events[2].SetActive(true);
+        GameManager_JS.Instance.PanelOff();
+        Time.timeScale = 0f;
+        player.SetActive(false);
+        TextSet_Merchant();
+    }
 
+    public void MerchantEventEnd()
+    {
+        events[2].SetActive(false);
+        GameManager_JS.Instance.PanelOn();
+        player.SetActive(true);
+        Time.timeScale = 1f;
+        eventOn = false;
+    }
+
+    void TextSet_Merchant()
+    {
+        itemFormGetter = event_Merchant[0].GetComponent<ItemFormGetter>();
+
+        // 코인 세팅
+        itemFormGetter.objs[1].GetComponent<Text>().text = "Coin : " + GameManager_JS.Instance.Coin.ToString();
+
+        // 상품 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
+        for (int i = 2; i < itemFormGetter.objs.Count; i++)
+        {
+            for (int j = 0; j < itemFormGetter.objs[i].childCount; j++)
+            {
+                // 선택지 양식 하나의 텍스트들을 변수에 입력
+                texts.Add(choiceGetter.choices[i].GetChild(j));
+            }
+
+            // 해당 텍스트에 DB 데이터 입력.
+            EventDBManager.instance.TextDisplay_Merchant(texts);
+            texts.Clear();
+        }
     }
 }

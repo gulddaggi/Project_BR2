@@ -200,4 +200,38 @@ public class EventDBManager : MonoBehaviour
                 break;
         }
     }
+
+    // 상품 텍스트 출력.
+    public void TextDisplay_Merchant(List<Transform> format)
+    {
+        // 추출 대상 인덱스와 가산 수치.
+        int line = Random.Range(0, merchantDic.Count);
+
+        // 이후 개발 시에는 지정된 ID
+        format[0].GetComponent<Text>().text = merchantDic[line].item_Name;
+        format[1].GetComponent<Text>().text = merchantDic[line].description;
+        format[2].GetComponent<Text>().text = merchantDic[line].option_Name;
+        format[3].GetComponent<Text>().text = Value(merchantDic[line].value);
+        format[4].GetComponent<Text>().text = merchantDic[line].turn;
+    }
+
+    private string Value(string _value)
+    {
+        string returnValue = "+";
+
+        if (_value[_value.Length - 1] == '!')
+        {
+            for (int i = 0; i < _value.Length - 1; i++)
+            {
+                returnValue += _value[i];
+            }
+        }
+        else
+        {
+            returnValue += _value;
+        }
+
+        return returnValue;
+    }
+
 }

@@ -3412,11 +3412,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DBFileName: DB_Choice
   DBFiles_Ability:
   - DB_Ability_Water
   DBFiles_Dialogue:
   - DB_Dialogue_Water
+  DBFiles_Merchant: 
   abilityCountArr: 000000000000000000000000
 --- !u!1 &580337971
 GameObject:
@@ -3615,7 +3615,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Turn
 --- !u!222 &724835276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4103,13 +4103,14 @@ GameObject:
   - component: {fileID: 1012348180}
   - component: {fileID: 1012348182}
   - component: {fileID: 1012348181}
+  - component: {fileID: 1012348183}
   m_Layer: 5
   m_Name: MerchantBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1012348180
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4123,6 +4124,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 619882981}
+  - {fileID: 1553492222}
   - {fileID: 1792289033}
   - {fileID: 1310055966}
   - {fileID: 1765543989}
@@ -4172,6 +4174,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012348179}
   m_CullTransparentMesh: 1
+--- !u!114 &1012348183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012348179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5cabf4fe2880749b612237c7421692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objs: []
 --- !u!1 &1060433274
 GameObject:
   m_ObjectHideFlags: 0
@@ -4434,7 +4449,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Title
+  m_Text: "\uC0C1\uC810"
 --- !u!222 &1130896960
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5239,7 +5254,7 @@ RectTransform:
   - {fileID: 1824956743}
   - {fileID: 724835274}
   m_Father: {fileID: 1012348180}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5776,6 +5791,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0134899fd0e4e4f95a609921e5c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1553492221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1553492222}
+  - component: {fileID: 1553492224}
+  - component: {fileID: 1553492223}
+  m_Layer: 0
+  m_Name: CoinValue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1553492222
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553492221}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1012348180}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 550, y: 400}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1553492223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553492221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1553492224
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553492221}
+  m_CullTransparentMesh: 1
 --- !u!1 &1605688589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5808,9 +5903,12 @@ MonoBehaviour:
   events:
   - {fileID: 1746293036}
   - {fileID: 4166162146691869422, guid: a937c08457eec1546ba9faaacdc99393, type: 3}
+  - {fileID: 1956296403}
   event_Ability:
   - {fileID: 1092180265}
   - {fileID: 839271901}
+  event_Merchant:
+  - {fileID: 1012348179}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -5904,7 +6002,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Turn
 --- !u!222 &1638294831
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6145,7 +6243,7 @@ RectTransform:
   - {fileID: 1994639629}
   - {fileID: 1638294829}
   m_Father: {fileID: 1012348180}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6469,7 +6567,7 @@ RectTransform:
   - {fileID: 1743911894}
   - {fileID: 1918670570}
   m_Father: {fileID: 1012348180}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7035,7 +7133,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Turn
 --- !u!222 &1918670572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7484,7 +7582,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh84816
+  m_Name: pb_Mesh29132
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
