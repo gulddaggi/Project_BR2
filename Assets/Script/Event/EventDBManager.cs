@@ -7,9 +7,6 @@ public class EventDBManager : MonoBehaviour
 {
     public static EventDBManager instance;
 
-    [SerializeField]
-    string DBFileName;
-
     //import할 능력 DB 목록
     [SerializeField]
     string[] DBFiles_Ability;
@@ -17,6 +14,10 @@ public class EventDBManager : MonoBehaviour
     //import할 대화 DB 목록
     [SerializeField]
     string[] DBFiles_Dialogue;
+
+    //import할 상점 DB 목록
+    [SerializeField]
+    string DBFiles_Merchant;
 
     // 한 종류(정령)의 선택지 딕셔너리를 담는 딕셔너리. 전체 능력에 대한 자료구조.
     [SerializeField]
@@ -34,6 +35,10 @@ public class EventDBManager : MonoBehaviour
     [SerializeField]
     Dictionary<int, Dialogue> dialogueDic;
 
+    // 상점 객체 딕셔너리
+    [SerializeField]
+    Dictionary<int, ShopItem> merchantDic = new Dictionary<int, ShopItem>();
+
     // 능력 타입 별 개수 저장 배열
     [SerializeField]
     int[] abilityCountArr = new int[3]{0, 0, 0};
@@ -46,7 +51,7 @@ public class EventDBManager : MonoBehaviour
         {
             instance = this;
             DBImporter DBImporter = this.gameObject.GetComponentInChildren<DBImporter>();
-            abilitySelector = this.gameObject.GetComponentInChildren<AbilitySelector>();
+            abilitySelector = this.gameObject.GetComponentInChildren<AbilitySelector>(); // 콜백으로 바꿔야함
 
             // 능력 DB 전체 임포트 수행.
             Import_Ability(DBImporter);
@@ -54,11 +59,14 @@ public class EventDBManager : MonoBehaviour
             // 대화 DB 전체 임포트 수행.
             Import_Dialogue(DBImporter);
 
+            // 상점 DB 임포트 수행.
+            Import_Merchant(DBImporter);
+
             DontDestroyOnLoad(this.gameObject);
         }
         else
         {
-            Destroy(this.gameObject);
+            DestroyImmediate(this.gameObject);
         }
     }
 
@@ -97,6 +105,16 @@ public class EventDBManager : MonoBehaviour
             }
 
             totalDialogueDic.Add(i, dialogueDic);
+        }
+    }
+
+    //상정 DB 임포트
+    void Import_Merchant(DBImporter _DBImporter)
+    {
+        ShopItem[] shopItemArray = _DBImporter.DBImporter_Merchant(DBFiles_Merchant);
+        for (int i = 0; i < shopItemArray.Length; i++)
+        {
+            merchantDic.Add(i, shopItemArray[i]);
         }
     }
 
