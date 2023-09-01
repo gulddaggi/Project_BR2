@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemFormGetter : MonoBehaviour
 {
     public List<Transform> objs = new List<Transform>();
+    List<ShopItem> shopItemList = new List<ShopItem>();
 
     private void Awake()
     {
@@ -13,5 +14,21 @@ public class ItemFormGetter : MonoBehaviour
         {
             objs.Add(this.transform.GetChild(i));
         }
+    }
+
+    public void AddShopItem(ShopItem shopItem)
+    {
+        shopItemList.Add(shopItem);
+    }
+
+    public void ClearList()
+    {
+        shopItemList.Clear();
+    }
+
+    public void SelectShopItem(int _index)
+    {
+        shopItemList[_index].EventOccur();
+        ClearList();
     }
 }

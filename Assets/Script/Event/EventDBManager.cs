@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,6 +45,7 @@ public class EventDBManager : MonoBehaviour
     int[] abilityCountArr = new int[3]{0, 0, 0};
 
     AbilitySelector abilitySelector;
+    List<int> lineList;
 
     private void Awake()
     {
@@ -116,6 +118,7 @@ public class EventDBManager : MonoBehaviour
         {
             merchantDic.Add(i, shopItemArray[i]);
         }
+        lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
     }
 
     // 대화 텍스트 출력.
@@ -202,10 +205,11 @@ public class EventDBManager : MonoBehaviour
     }
 
     // 상품 텍스트 출력.
-    public void TextDisplay_Merchant(List<Transform> format)
+    public ShopItem TextDisplay_And_ClassReturn_Merchant(List<Transform> format)
     {
         // 추출 대상 인덱스와 가산 수치.
         int line = Random.Range(0, merchantDic.Count);
+        lineList.Remove(line);
 
         // 이후 개발 시에는 지정된 ID
         format[0].GetComponent<Text>().text = merchantDic[line].item_Name;
@@ -213,12 +217,14 @@ public class EventDBManager : MonoBehaviour
         format[2].GetComponent<Text>().text = merchantDic[line].option_Name;
         format[3].GetComponent<Text>().text = Value(merchantDic[line].value);
         format[4].GetComponent<Text>().text = merchantDic[line].turn;
+        format[5].GetComponent<Text>().text = "- " + merchantDic[line].price.ToString();
+        return merchantDic[line];
     }
 
     private string Value(string _value)
     {
-        string returnValue = "+";
-
+        string returnValue = "+ ";
+        Debug.Log(_value[_value.Length - 1]);
         if (_value[_value.Length - 1] == '!')
         {
             for (int i = 0; i < _value.Length - 1; i++)
@@ -228,10 +234,16 @@ public class EventDBManager : MonoBehaviour
         }
         else
         {
-            returnValue += _value;
+            returnValue += _value + "%";
         }
 
         return returnValue;
     }
 
+    // 이벤트 종료 후 초기화
+    public void InitData()
+    {
+        lineList.Clear();
+        lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
+    }
 }

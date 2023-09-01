@@ -247,11 +247,11 @@ public class EventController : MonoBehaviour
             for (int j = 0; j < itemFormGetter.objs[i].childCount; j++)
             {
                 // 선택지 양식 하나의 텍스트들을 변수에 입력
-                texts.Add(choiceGetter.choices[i].GetChild(j));
+                texts.Add(itemFormGetter.objs[i].GetChild(j));
             }
 
             // 해당 텍스트에 DB 데이터 입력.
-            EventDBManager.instance.TextDisplay_Merchant(texts);
+            itemFormGetter.AddShopItem(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
             texts.Clear();
         }
     }

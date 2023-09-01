@@ -80,7 +80,9 @@ public class DBImporter : MonoBehaviour
             shopItem.item_Name = row[1]; // 이름
             shopItem.description = row[2]; // 설명
             shopItem.option_Name = row[3]; // 적용 옵션
-            shopItem.value = row[4]; // 가산 수치. % 단위 사용 여부 구분 필요
+            shopItem.eventType = int.Parse(row[4]); // 이벤트타입
+            shopItem.value = row[5]; // 가산 수치. % 단위 사용 여부 구분 필요
+            shopItem.turn = row[6];
 
             shopItemList.Add(shopItem); // 배열 변환을 위해 리스트에 저장
         }
