@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform Player;
+    public GameObject Player;
 
     protected Animator EnemyAnimator;
     protected bool isAttack;
@@ -29,8 +29,9 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeObj;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    public virtual void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
@@ -47,10 +48,10 @@ public class Enemy : MonoBehaviour
 
     void Track_Player()
     {
-        float distance = Vector3.Distance(Player.position, transform.position);
+        float distance = Vector3.Distance(Player.transform.position, transform.position);
         if (distance < Enemy_Recognition_Range)
         {
-            nav.destination = Player.position;
+            nav.destination = Player.transform.position;
         }
         else
         {
