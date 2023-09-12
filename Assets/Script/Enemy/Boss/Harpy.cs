@@ -7,6 +7,8 @@ public class Harpy : Enemy
     public Transform AttackPO1;
     public Transform AttackPO2;
 
+    public GameObject Harpy_point;
+    public GameObject Harpy_Big_Projecter;
 
     Vector3 LookVec;
     Vector3 TauntVec;
@@ -64,15 +66,19 @@ public class Harpy : Enemy
                 break;
 
             case 1:
+                StartCoroutine(Harpy_Fire_2());
                 break;
 
             case 2:
+                StartCoroutine(Harpy_Fire_1());
                 break;
 
             case 3:
+                StartCoroutine(Harpy_Fire_1());
                 break;
 
             case 4:
+                StartCoroutine(Harpy_Fire_1());
                 break;
         }
     }
@@ -110,6 +116,23 @@ public class Harpy : Enemy
             }
             yield return new WaitForSeconds(0.5f);
         }
+        yield return new WaitForSeconds(3.0f);
+        Harpy_Pattern_Management();
+    }
+
+    IEnumerator Harpy_Fire_2() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
+    {
+        int ran = Random.Range(0, 360); //랜덤으로 0~360도
+        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+
+        Vector3 pos = transform.position + new Vector3(x, 2.58f, z); 
+
+        gameObject.transform.position = Harpy_point.transform.position + new Vector3(x, 2.58f, z);
+
+        yield return new WaitForSeconds(0.5f);
+        GameObject Big_Projecter = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
+
         yield return new WaitForSeconds(3.0f);
         Harpy_Pattern_Management();
     }
