@@ -244,6 +244,7 @@ public class EventDBManager : MonoBehaviour
     public void InitData()
     {
         lineList.Clear();
+        // 리스트 다시 채우기
         lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
     }
 }

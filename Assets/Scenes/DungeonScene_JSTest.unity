@@ -3456,6 +3456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 575170313}
   - component: {fileID: 575170314}
+  - component: {fileID: 575170315}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -3498,6 +3499,18 @@ MonoBehaviour:
   - DB_Dialogue_Water
   DBFiles_Merchant: DB_Merchant
   abilityCountArr: 000000000000000000000000
+--- !u!114 &575170315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575170312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d4334f1cb0da19439ab665e496bd47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &580337971
 GameObject:
   m_ObjectHideFlags: 0
@@ -5490,13 +5503,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1605688590}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: MerchantEventEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6572,6 +6585,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1605688590}
+        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+        m_MethodName: MerchantEventEnd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1765543991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6889,6 +6914,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: ItemFormGetter, Assembly-CSharp
         m_MethodName: SelectShopItem
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1605688590}
+        m_TargetAssemblyTypeName: EventController, Assembly-CSharp
+        m_MethodName: MerchantEventEnd
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7837,7 +7874,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh29132
+  m_Name: pb_Mesh29162
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

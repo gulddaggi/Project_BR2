@@ -58,6 +58,17 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public void TurnBasedEventPost()
+    {
+        foreach (var item in ListenerDic.Values)
+        {
+            for (int i = 0; i < item.Count; i++)
+            {
+                item[i].TurnBasedEventOn();
+            }
+        }
+    }
+
     public void RemoveEvent(SHOP_EVENT_TYPE sEventType)
     {
         ListenerDic.Remove(sEventType);
@@ -95,17 +106,5 @@ public class EventManager : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         RemoveDestroies();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

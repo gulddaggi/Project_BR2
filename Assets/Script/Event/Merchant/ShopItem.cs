@@ -26,7 +26,6 @@ public class ShopItem : MonoBehaviour
 
     public void EventOccur()
     {
-        Debug.Log("Event occur : " + item_Name);
         EventManager.Instance.EventPostToManager(TypeReturn(eventType), this, price); // 일단 매개변수 param은 안씀.
     }
 

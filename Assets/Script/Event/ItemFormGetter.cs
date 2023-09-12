@@ -29,6 +29,5 @@ public class ItemFormGetter : MonoBehaviour
     public void SelectShopItem(int _index)
     {
         shopItemList[_index].EventOccur();
-        ClearList();
     }
 }
