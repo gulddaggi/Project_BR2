@@ -18,9 +18,8 @@ public class Harpy : Enemy
 
     public BossBullet BossBullet1_Harpy;
     private List<BossBullet> BossBulletPool = new List<BossBullet>();
-    [SerializeField] private int BossBullet_Count = 7;
-    private readonly int BossBulletMaxCount = 10;
-    private int currentBulletIndex;
+    private readonly int BossBulletMaxCount = 20;
+    private int currentBulletIndex = 0;
 
     public override void Start()
     {
@@ -86,23 +85,20 @@ public class Harpy : Enemy
     IEnumerator Harpy_Fire_1() // 무작위 방향으로 투사체 난사
     {
 
-        for (int j = 0; j < BossBullet_Count; j++)
+        for (int j = 0; j < BossBulletMaxCount; j++)
         {
             if (!BossBulletPool[currentBulletIndex].gameObject.activeSelf)
             {
 
-                int AttackPosition_Random = Random.Range(1, 3);
+                int AttackPosition_Random = Random.Range(1, 2);
 
-                if (AttackPosition_Random == 1) {
-                    BossBulletPool[currentBulletIndex].transform.position = AttackPO1.position;
-                }
-                else if (AttackPosition_Random == 2)
-                {
-                    BossBulletPool[currentBulletIndex].transform.position = AttackPO2.position;
-                } // 공격 위치 난수설정
+
+                BossBulletPool[currentBulletIndex].transform.position = AttackPO1.position;
+// 공격 위치 난수설정
 
                 // 총알 활성화
                 BossBulletPool[currentBulletIndex].gameObject.SetActive(true);
+                // Debug.Log("Pattern 1 Activated!");
 
                 // 방금 9번째 총알을 발사했다면 다시 0번째 총알을 발사할 준비를 한다.
                 if (currentBulletIndex >= BossBulletMaxCount - 1)
@@ -114,10 +110,10 @@ public class Harpy : Enemy
                     currentBulletIndex++;
                 }
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
         yield return new WaitForSeconds(3.0f);
-        Harpy_Pattern_Management();
+        StartCoroutine(Harpy_Pattern_Management());
     }
 
     IEnumerator Harpy_Fire_2() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
@@ -126,7 +122,7 @@ public class Harpy : Enemy
         float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
         float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
 
-        Vector3 pos = transform.position + new Vector3(x, 2.58f, z); 
+        Vector3 pos = transform.position + new Vector3(x, 0f, z); 
 
         gameObject.transform.position = Harpy_point.transform.position + new Vector3(x, 2.58f, z);
 
@@ -134,6 +130,6 @@ public class Harpy : Enemy
         GameObject Big_Projecter = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
 
         yield return new WaitForSeconds(3.0f);
-        Harpy_Pattern_Management();
+        StartCoroutine(Harpy_Pattern_Management());
     }
 }

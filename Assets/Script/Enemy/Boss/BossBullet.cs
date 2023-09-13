@@ -22,7 +22,7 @@ public class BossBullet : MonoBehaviour
 
     IEnumerator Self_Destroy() // 3초 후에 unabled된 후 풀로 복귀
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         gameObject.SetActive(false);
     }
 

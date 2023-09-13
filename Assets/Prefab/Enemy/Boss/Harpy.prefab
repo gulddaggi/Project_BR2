@@ -10047,9 +10047,10 @@ MonoBehaviour:
   attackRangeObj: {fileID: 0}
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
+  Harpy_point: {fileID: 0}
+  Harpy_Big_Projecter: {fileID: 0}
   isLook: 1
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
-  BossBullet_Count: 3
 --- !u!1 &8825019177895794812
 GameObject:
   m_ObjectHideFlags: 0
