@@ -9,13 +9,13 @@ public class BossBullet : MonoBehaviour
     public Rigidbody rb;
 
     // Start is called before the first frame update
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
         StartCoroutine(Self_Destroy());
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         rb.AddForce(transform.forward * bulletSpeed);
     }

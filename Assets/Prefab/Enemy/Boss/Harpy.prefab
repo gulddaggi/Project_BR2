@@ -10043,6 +10043,7 @@ MonoBehaviour:
   Movespeed: 0
   Enemy_Recognition_Range: 0
   EnemyHP: 10
+  PrimitiveHP: 0
   Damage: 10
   attackRangeObj: {fileID: 0}
   AttackPO1: {fileID: 0}
@@ -10050,6 +10051,8 @@ MonoBehaviour:
   Harpy_point: {fileID: 0}
   Harpy_Big_Projecter: {fileID: 0}
   isLook: 1
+  isOverdriving: 0
+  Boss_Pattern_Waiting_Time: 3
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
 --- !u!1 &8825019177895794812
 GameObject:

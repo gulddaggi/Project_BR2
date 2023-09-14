@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     public float EnemyHP = 10;
+    public float PrimitiveHP; // 원 HP 수치. 보스 폭주 체크시에 사용 
 
     [SerializeField]
     public float Damage = 10f;
@@ -37,10 +38,11 @@ public class Enemy : MonoBehaviour
         //EnemyRigid = GetComponent<Rigidbody>();
         EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
-    }
+        PrimitiveHP = EnemyHP;
+}
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
         //Track_Player();
         //Enemy_Anim_Manage();
