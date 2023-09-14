@@ -242,7 +242,7 @@ public class EventController : MonoBehaviour
         itemFormGetter.objs[1].GetComponent<Text>().text = "Coin : " + GameManager_JS.Instance.Coin.ToString();
 
         // 상품 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
-        for (int i = 2; i < itemFormGetter.objs.Count; i++)
+        for (int i = 3; i < itemFormGetter.objs.Count; i++)
         {
             for (int j = 0; j < itemFormGetter.objs[i].childCount; j++)
             {

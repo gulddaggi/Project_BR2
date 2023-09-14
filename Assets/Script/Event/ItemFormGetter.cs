@@ -28,6 +28,12 @@ public class ItemFormGetter : MonoBehaviour
 
     public void SelectShopItem(int _index)
     {
-        shopItemList[_index].EventOccur();
+        int price = shopItemList[_index].price;
+
+        if (GameManager_JS.Instance.Coin >= price)
+        {
+            GameManager_JS.Instance.Coin = -price;
+            shopItemList[_index].EventOccur();
+        }
     }
 }

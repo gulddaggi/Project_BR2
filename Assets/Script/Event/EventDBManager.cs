@@ -46,6 +46,7 @@ public class EventDBManager : MonoBehaviour
 
     AbilitySelector abilitySelector;
     List<int> lineList;
+    List<int> indexList = new List<int>();
 
     private void Awake()
     {
@@ -208,17 +209,31 @@ public class EventDBManager : MonoBehaviour
     public ShopItem TextDisplay_And_ClassReturn_Merchant(List<Transform> format)
     {
         // 추출 대상 인덱스와 가산 수치.
-        int line = Random.Range(0, merchantDic.Count);
-        lineList.Remove(line);
+        int line = ReturnRandom();
+        // lineList.Remove(line);
 
         // 이후 개발 시에는 지정된 ID
         format[0].GetComponent<Text>().text = merchantDic[line].item_Name;
         format[1].GetComponent<Text>().text = merchantDic[line].description;
         format[2].GetComponent<Text>().text = merchantDic[line].option_Name;
         format[3].GetComponent<Text>().text = Value(merchantDic[line].value);
-        format[4].GetComponent<Text>().text = merchantDic[line].turn;
+        if (merchantDic[line].turn == "0") format[4].GetComponent<Text>().text = "즉시";
+        else format[4].GetComponent<Text>().text = merchantDic[line].turn;
         format[5].GetComponent<Text>().text = "- " + merchantDic[line].price.ToString();
         return merchantDic[line];
+    }
+
+    // 인덱스 추출. 바꿔야함.
+    public int ReturnRandom()
+    {
+        while (true)
+        {
+            int tmp = Random.Range(0, merchantDic.Count);
+            if (!indexList.Contains(tmp))
+            {
+                return tmp;
+            }
+        }
     }
 
     private string Value(string _value)
@@ -246,5 +261,6 @@ public class EventDBManager : MonoBehaviour
         lineList.Clear();
         // 리스트 다시 채우기
         lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
+        indexList.Clear();
     }
 }

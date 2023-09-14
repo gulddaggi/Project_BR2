@@ -159,11 +159,13 @@ public class Player : MonoBehaviour, IListener
         {
             // 최대 체력을 20만큼 늘려준다.
             case SHOP_EVENT_TYPE.sHPReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPReinforce.ToString());
                 FullHP += 20f;
                 break;
 
             // 약공격의 피해량이 25% 증가한다.
             case SHOP_EVENT_TYPE.sWeaponReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sWeaponReinforce.ToString());
                 playerAttackDamage *= 1.25f;
                 break;
 
@@ -198,6 +200,7 @@ public class Player : MonoBehaviour, IListener
                 case SHOP_EVENT_TYPE.sWeaponReinforce:
                     break;
                 case SHOP_EVENT_TYPE.sHPPotion:
+                    Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
                     CurrentHP += (FullHP * 0.1f);
                     break;
                 default:
