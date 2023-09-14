@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IListener
 {
+    public UnityEvent<float, float> OnPlayerHPUpdated;
 
     // Script Player가 임시로 DB 역할도 대행
 
@@ -13,8 +15,8 @@ public class Player : MonoBehaviour, IListener
 
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
-    public float FullHP { get { return fullHP; } set { fullHP = value; } }
-    public float CurrentHP { get { return currentHP; } set { currentHP = value; } }
+    public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
+    public float CurrentHP { get { return currentHP; } set { currentHP = value; OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); } }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour, IListener
     private void Start()
     {
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
+        OnPlayerHPUpdated.Invoke(FullHP, currentHP);
     }
 
     public void TakeDamage(float Damage)
