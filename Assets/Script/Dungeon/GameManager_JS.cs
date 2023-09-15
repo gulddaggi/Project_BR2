@@ -103,6 +103,7 @@ public class GameManager_JS : MonoBehaviour
     {
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
+        CoinOnOff(true);
 
     }
 
@@ -274,6 +275,6 @@ public class GameManager_JS : MonoBehaviour
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
-        GameManager_JS.Instance.CoinOnOff(true);
+        //GameManager_JS.Instance.CoinOnOff(true); // 코인 텍스트 on/off 기능. 이후에 활성화.
     }
 }

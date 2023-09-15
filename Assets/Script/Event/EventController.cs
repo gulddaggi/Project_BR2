@@ -61,6 +61,7 @@ public class EventController : MonoBehaviour
         // 이벤트 감지.
         if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
+            if (eventOn) return;
             eventOn = true;
             EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
 
