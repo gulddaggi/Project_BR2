@@ -5,14 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 // 해당 보상 NPC와의 대화 출력 여부 확인 클래스
-public class DialogueCheck{
+public class DialogueCheck
+{
     // 만난 횟수
     int count = 0;
     // 이번 회차에서 만났는가
     bool isEncounter = false;
 
-
-    
     public int Count
     {
         get { return count; }

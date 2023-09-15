@@ -672,7 +672,7 @@ MonoBehaviour:
       displayed: 1
       snapOffset: {x: 0, y: -194.4}
       snapOffsetDelta: {x: 0, y: 0}
-      snapCorner: 2
+      snapCorner: 0
       id: unity-transform-toolbar
       index: 0
       layout: 2

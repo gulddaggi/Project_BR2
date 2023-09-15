@@ -22,6 +22,7 @@ public class Exit : MonoBehaviour
     {
         panelImage = GameManager_JS.Instance.GetPanel();
         StartCoroutine(FadeInPanel());
+        EventManager.Instance.TurnBasedEventPost();
     }
 
     private void OnTriggerEnter(Collider other)
