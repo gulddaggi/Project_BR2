@@ -5,9 +5,10 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform Player;
+    public GameObject Player;
 
-    Animator EnemyAnimator;
+    protected Animator EnemyAnimator;
+    protected bool isAttack;
     Rigidbody EnemyRigid;
 
     public float Movespeed;
@@ -17,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     public float EnemyHP = 10;
+    public float PrimitiveHP; // 원 HP 수치. 보스 폭주 체크시에 사용 
 
     [SerializeField]
     public float Damage = 10f;
@@ -28,17 +30,19 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeObj;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    public virtual void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
         //EnemyRigid = GetComponent<Rigidbody>();
-        //EnemyAnimator = GetComponent<Animator>();
+        EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
-    }
+        PrimitiveHP = EnemyHP;
+}
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
         //Track_Player();
         //Enemy_Anim_Manage();
@@ -46,10 +50,10 @@ public class Enemy : MonoBehaviour
 
     void Track_Player()
     {
-        float distance = Vector3.Distance(Player.position, transform.position);
+        float distance = Vector3.Distance(Player.transform.position, transform.position);
         if (distance < Enemy_Recognition_Range)
         {
-            nav.destination = Player.position;
+            nav.destination = Player.transform.position;
         }
         else
         {
@@ -73,6 +77,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyAttackOn()
     {
+        isAttack = true;
         attackRangeObj.SetActive(true);
         Invoke("EnemyAttackOff", 1f);
     }
@@ -80,5 +85,6 @@ public class Enemy : MonoBehaviour
     protected void EnemyAttackOff()
     {
         attackRangeObj.SetActive(false);
+        isAttack = false;
     }
 }

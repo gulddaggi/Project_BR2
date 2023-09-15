@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cyclops : Enemy
 {
     // Start is called before the first frame update
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
     }
@@ -25,7 +25,9 @@ public class Cyclops : Enemy
             Debug.Log("Damaged!");
             var playerdata = other.transform.GetComponentInParent<Player>();
             tmpArray = playerdata.PlayerAttack(EnemyHP);
+            StartCoroutine(GetDamaged());
             EnemyHP = tmpArray[0];
+            
             debuffChecker.DebuffCheck((int)tmpArray[1]);
         }
         else if (other.tag == "StrongPlayerAttack")
@@ -35,6 +37,7 @@ public class Cyclops : Enemy
             EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
             tmpArray = playerdata.PlayerAttack(EnemyHP);
             EnemyHP = tmpArray[0];
+            StartCoroutine(GetDamaged());
             debuffChecker.DebuffCheck((int)tmpArray[1]);
         }
 
@@ -44,4 +47,18 @@ public class Cyclops : Enemy
             gameObject.SetActive(false);
         }
     }
+
+    IEnumerator GetDamaged()
+    {
+
+        // 
+        if (isAttack = false)
+        {
+            EnemyAnimator.SetTrigger("Damaged");
+            EnemyAnimator.applyRootMotion = true;
+            yield return new WaitForSeconds(1.0f);
+            EnemyAnimator.applyRootMotion = false;
+        }
+    }
 }
+    

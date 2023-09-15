@@ -6,11 +6,15 @@ using UnityEngine.InputSystem;
 public class Attack : MonoBehaviour
 {
 
+    public enum Weapon { Sword, Axe };
+    public Weapon PlayerWeapon = Weapon.Axe;
+
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
     [SerializeField] PlayerController playercontroller;
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
+    public Transform bulletSpawnPoint;
 
     public Vector3 MouseDirection { get; private set; }
 
@@ -149,7 +153,8 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        AttackRange_Demo_1.SetActive(true);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
         //Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -163,7 +168,9 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-         AttackRange_Demo_1.SetActive(false);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
+        AttackRange_Demo_1.SetActive(false);
          AttackRange_Demo_2.SetActive(true);
         // Debug.Log("Second Combo Start");
     }
@@ -178,8 +185,10 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
          AttackRange_Demo_2.SetActive(false);
+        var bulletGo = ObjectPoolManager.instance.Pool.Get();
+        bulletGo.transform.position = this.bulletSpawnPoint.position;
         // player.AttackManagement_Start();
-         AttackRange_Demo_3.SetActive(true);
+        AttackRange_Demo_3.SetActive(true);
         // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
