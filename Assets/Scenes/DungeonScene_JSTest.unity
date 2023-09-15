@@ -3903,9 +3903,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonCount: 0
   tryCount: 0
-  coin: 0
+  coin: 100
   panelImage: {fileID: 0}
-  coinText: {fileID: 0}
+  coinText_Play: {fileID: 2114396191}
+  coinText_Event: {fileID: 1553492223}
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -4776,6 +4777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objs: []
+  shopItemList: []
 --- !u!1 &1060433274
 GameObject:
   m_ObjectHideFlags: 0
@@ -6649,7 +6651,7 @@ GameObject:
   - component: {fileID: 1553492224}
   - component: {fileID: 1553492223}
   m_Layer: 0
-  m_Name: CoinValue
+  m_Name: CoinValue_Event
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6672,7 +6674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 550, y: 400}
+  m_AnchoredPosition: {x: 525, y: 400}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1553492223
@@ -6697,7 +6699,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3

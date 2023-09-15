@@ -37,7 +37,7 @@ public class GameManager_JS : MonoBehaviour
     private int tryCount = 0;
 
     [SerializeField]
-    private int coin = 0;
+    private int coin = 100; // 테스트를 위해 100 기본 제공
 
     GameObject canvas;
 
@@ -45,7 +45,10 @@ public class GameManager_JS : MonoBehaviour
     Image panelImage;
 
     [SerializeField]
-    Text coinText;
+    Text coinText_Play;
+
+    [SerializeField]
+    Text coinText_Event;
 
     GameObject curStage;
     GameObject nextStage;
@@ -132,7 +135,7 @@ public class GameManager_JS : MonoBehaviour
         dungeonCount = 0;
         SceneManager.LoadScene("HomeScene");
         Coin = 0;
-        coinText.transform.gameObject.SetActive(false);
+        coinText_Play.transform.gameObject.SetActive(false);
         isMoveOn = true;
         ResetEncounter();
     }
@@ -238,19 +241,20 @@ public class GameManager_JS : MonoBehaviour
 
     public void CoinUpdate()
     {
-        coinText.text = "Coin : " + coin;
+        coinText_Play.text = "Coin : " + coin;
+        coinText_Event.text = "Coin : " + coin;
     }
 
     public void CoinOnOff(bool _bool)
     {
         if (SceneManager.GetActiveScene().name != "HomeScene")
         {
-            if (coinText == null)
+            if (coinText_Play == null)
             {
-                coinText = canvas.GetComponentInChildren<Text>();
+                coinText_Play = canvas.GetComponentInChildren<Text>();
             }
             CoinUpdate();
-            coinText.gameObject.SetActive(_bool);
+            //coinText_Play.gameObject.SetActive(_bool);
 
         }
     }

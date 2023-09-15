@@ -104,7 +104,7 @@ public class EventController : MonoBehaviour
 
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
-        player.SetActive(false);
+        //player.SetActive(false);
 
         if (!GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter)
         {
@@ -139,7 +139,7 @@ public class EventController : MonoBehaviour
     {
         event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
-        player.SetActive(true);
+        //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
     }
@@ -222,7 +222,7 @@ public class EventController : MonoBehaviour
         events[2].SetActive(true);
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
-        player.SetActive(false);
+        //player.SetActive(false);
         TextSet_Merchant();
     }
 
@@ -230,7 +230,7 @@ public class EventController : MonoBehaviour
     {
         events[2].SetActive(false);
         GameManager_JS.Instance.PanelOn();
-        player.SetActive(true);
+        //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
     }

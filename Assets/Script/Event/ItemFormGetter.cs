@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemFormGetter : MonoBehaviour
 {
     public List<Transform> objs = new List<Transform>();
-    List<ShopItem> shopItemList = new List<ShopItem>();
+    public List<ShopItem> shopItemList = new List<ShopItem>();
 
     private void Awake()
     {
