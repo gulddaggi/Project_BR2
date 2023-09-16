@@ -9813,6 +9813,7 @@ GameObject:
   - component: {fileID: 432654589989580000}
   - component: {fileID: 2094124709363032657}
   - component: {fileID: 5989579093108966914}
+  - component: {fileID: 4270447766558571995}
   m_Layer: 0
   m_Name: Harpy
   m_TagString: Untagged
@@ -10046,6 +10047,7 @@ MonoBehaviour:
   PrimitiveHP: 0
   Damage: 10
   attackRangeObj: {fileID: 0}
+  isHit: 0
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}
@@ -10054,6 +10056,19 @@ MonoBehaviour:
   isOverdriving: 0
   Boss_Pattern_Waiting_Time: 3
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
+--- !u!65 &4270447766558571995
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794672803053467446}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.656228, z: 1}
+  m_Center: {x: 0, y: -0.82811403, z: 0}
 --- !u!1 &8825019177895794812
 GameObject:
   m_ObjectHideFlags: 0

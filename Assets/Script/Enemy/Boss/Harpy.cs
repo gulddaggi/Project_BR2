@@ -166,7 +166,7 @@ public class Harpy : Enemy
         if (EnemyHP <= PrimitiveHP / 2)
         {
             isOverdriving = true;
-            Debug.Log("하피 폭주 패턴 개시");
+            // Debug.Log("하피 폭주 패턴 개시");
         }
     }
 
