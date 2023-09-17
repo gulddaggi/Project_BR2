@@ -45,10 +45,10 @@ public class GameManager_JS : MonoBehaviour
     Image panelImage;
 
     [SerializeField]
-    Text coinText_Play;
+    public Text coinText_Play;
 
     [SerializeField]
-    Text coinText_Event;
+    public Text coinText_Event;
 
     GameObject curStage;
     GameObject nextStage;
@@ -83,6 +83,9 @@ public class GameManager_JS : MonoBehaviour
         }
         else
         {
+            instance.coinText_Event = this.coinText_Event;
+            instance.coinText_Play = this.coinText_Play;
+            CoinUpdate();
             Destroy(this.gameObject);
         }
 
@@ -107,6 +110,7 @@ public class GameManager_JS : MonoBehaviour
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
         CoinOnOff(true);
+
 
     }
 
@@ -241,6 +245,11 @@ public class GameManager_JS : MonoBehaviour
 
     public void CoinUpdate()
     {
+        if (coinText_Play == null)
+        {
+            if(canvas == null) canvas = GameObject.Find("Canvas");
+            coinText_Play = canvas.GetComponentInChildren<Text>();
+        }
         coinText_Play.text = "Coin : " + coin;
         coinText_Event.text = "Coin : " + coin;
     }
@@ -249,10 +258,6 @@ public class GameManager_JS : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "HomeScene")
         {
-            if (coinText_Play == null)
-            {
-                coinText_Play = canvas.GetComponentInChildren<Text>();
-            }
             CoinUpdate();
             //coinText_Play.gameObject.SetActive(_bool);
 

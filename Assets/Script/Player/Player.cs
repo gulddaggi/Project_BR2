@@ -16,7 +16,14 @@ public class Player : MonoBehaviour, IListener
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
-    public float CurrentHP { get { return currentHP; } set { currentHP = value; OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); } }
+    public float CurrentHP { 
+        get { return currentHP; } 
+        set {
+            currentHP = value;
+            if (currentHP < 0) currentHP = 0;
+            OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
+        } 
+    }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
@@ -57,7 +64,7 @@ public class Player : MonoBehaviour, IListener
 
     public void TakeDamage(float Damage)
     {
-        currentHP -= Damage;
+        CurrentHP -= Damage;
 
         if (currentHP <= 0)
         {
@@ -204,6 +211,7 @@ public class Player : MonoBehaviour, IListener
                     break;
                 case SHOP_EVENT_TYPE.sHPPotion:
                     Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
+                    Debug.Log("가산 : " + (FullHP * 0.1f));
                     CurrentHP += (FullHP * 0.1f);
                     break;
                 default:

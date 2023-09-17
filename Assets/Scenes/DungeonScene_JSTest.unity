@@ -1056,6 +1056,14 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2185440050649787687, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185440050723821704, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2242182026088506089, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -6762,6 +6770,7 @@ MonoBehaviour:
     m_Bits: 8
   player: {fileID: 1540407234}
   texts: []
+  itemFormGetter: {fileID: 1012348183}
   dialogues: []
   range: 50
 --- !u!4 &1605688591
@@ -8429,7 +8438,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh56498
+  m_Name: pb_Mesh30560
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
