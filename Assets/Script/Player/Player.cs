@@ -50,6 +50,8 @@ public class Player : MonoBehaviour, IListener
     private void Start()
     {
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
     }
 

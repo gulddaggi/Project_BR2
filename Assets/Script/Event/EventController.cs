@@ -27,6 +27,7 @@ public class EventController : MonoBehaviour
 
     ChoiceGetter choiceGetter;
     DialogueGetter dialogueGetter;
+    [SerializeField]
     ItemFormGetter itemFormGetter;
 
     [SerializeField]
@@ -241,6 +242,7 @@ public class EventController : MonoBehaviour
 
         // 코인 세팅
         itemFormGetter.objs[1].GetComponent<Text>().text = "Coin : " + GameManager_JS.Instance.Coin.ToString();
+        List<ShopItem> shopItemList = new List<ShopItem>();
 
         // 상품 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
         for (int i = 3; i < itemFormGetter.objs.Count; i++)
@@ -250,10 +252,12 @@ public class EventController : MonoBehaviour
                 // 선택지 양식 하나의 텍스트들을 변수에 입력
                 texts.Add(itemFormGetter.objs[i].GetChild(j));
             }
-
+            
             // 해당 텍스트에 DB 데이터 입력.
-            itemFormGetter.AddShopItem(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
+            shopItemList.Add(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
             texts.Clear();
         }
+
+        itemFormGetter.AddShopItem(shopItemList);
     }
 }
