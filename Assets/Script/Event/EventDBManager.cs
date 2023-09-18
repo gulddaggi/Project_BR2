@@ -220,8 +220,7 @@ public class EventDBManager : MonoBehaviour
         if (merchantDic[line].turn == "0") format[4].GetComponent<Text>().text = "즉시";
         else format[4].GetComponent<Text>().text = merchantDic[line].turn;
         format[5].GetComponent<Text>().text = "- " + merchantDic[line].price.ToString();
-        ShopItem shopItem;
-        merchantDic.TryGetValue(line, out shopItem);
+        ShopItem shopItem = merchantDic[line];
         return shopItem;
     }
 

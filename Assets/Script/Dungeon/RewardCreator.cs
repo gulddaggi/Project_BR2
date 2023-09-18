@@ -66,6 +66,8 @@ public class RewardCreator : MonoBehaviour
             reward = rewardPrefs[index];
         }
 
+        // 테스트용.
+        reward = CreateAbility(0);
         return reward;
     }
 

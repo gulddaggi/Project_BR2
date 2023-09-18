@@ -5464,7 +5464,7 @@ MonoBehaviour:
   Enemy_Recognition_Range: 0
   EnemyHP: 30
   PrimitiveHP: 0
-  Damage: 10
+  Damage: 5
   attackRangeObj: {fileID: 7938674357570977839}
   isHit: 0
 --- !u!114 &7652229387325939545

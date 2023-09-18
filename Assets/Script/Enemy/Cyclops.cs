@@ -43,6 +43,19 @@ public class Cyclops : Enemy
             StartCoroutine(GetDamaged());
             debuffChecker.DebuffCheck((int)tmpArray[1]);
         }
+        else if (other.tag == "PlayerDodgeAttack" && isHit == false)
+        {
+            isHit = true;
+            Debug.Log("Dodge damaged!");
+
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            tmpArray = playerdata.PlayerDodgeAttack(EnemyHP);
+
+            EnemyHP = tmpArray[0];
+
+            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            StartCoroutine(GetDamaged());
+        }
 
         if (EnemyHP <= 0)
         {

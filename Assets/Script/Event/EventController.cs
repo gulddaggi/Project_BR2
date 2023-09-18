@@ -46,7 +46,7 @@ public class EventController : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player");
+        //player = GameObject.Find("Player");
     }
 
     void Update()

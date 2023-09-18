@@ -13,6 +13,8 @@ public class Player : MonoBehaviour, IListener
 
     bool[] debuffOnArray = new bool[6];
 
+    bool isPlayerDead = false;
+
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
@@ -20,7 +22,7 @@ public class Player : MonoBehaviour, IListener
         get { return currentHP; } 
         set {
             currentHP = value;
-            if (currentHP < 0) currentHP = 0;
+            if (currentHP < 0) currentHP = 0; 
             else if (currentHP > FullHP) currentHP = FullHP;
             OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
         } 
@@ -46,13 +48,9 @@ public class Player : MonoBehaviour, IListener
         this.playerStrongAttackDamage = playerStrongAttackDamage;
     }
 
-    public void HPUP()
-    {
-        CurrentHP += 100;
-    }
-
     private void Awake()
     {
+        isPlayerDead = false;
         currentHP = fullHP;
         for (int i = 0; i < debuffOnArray.Length; i++)
         {
@@ -72,11 +70,12 @@ public class Player : MonoBehaviour, IListener
     {
         CurrentHP -= Damage;
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0 && !isPlayerDead)
         {
+            isPlayerDead = true;
             this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
             this.gameObject.GetComponent<PlayerController>().enabled = false;
-            Invoke("Die", 3f);
+            Invoke("Die", 2.5f);
         }
     }
 
@@ -110,6 +109,25 @@ public class Player : MonoBehaviour, IListener
         RemainedHP -= playerStrongAttackDamage;
 
         return RemainedHP;    
+    }
+
+    public float[] PlayerDodgeAttack(float EnemyHp)
+    {
+        float[] returnArray = new float[2] { EnemyHp, -1f };
+
+        // 체력 계산
+        returnArray[0] -= PlayerFieldAttackDamage;
+
+        // 디버프 확인
+        for (int i = 0; i < debuffOnArray.Length; i++)
+        {
+            if (debuffOnArray[i] == true)
+            {
+                returnArray[1] = (float)i;
+            }
+        }
+
+        return returnArray;
     }
 
     private void Player_Direction_Check() // 왜 만들었더라..?
