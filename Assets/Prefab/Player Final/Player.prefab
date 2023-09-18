@@ -1390,6 +1390,7 @@ MonoBehaviour:
     m_Bits: 8
   player: {fileID: 641526104298769331}
   texts: []
+  itemFormGetter: {fileID: 0}
   dialogues: []
   range: 50
 --- !u!1 &3332288637259740346

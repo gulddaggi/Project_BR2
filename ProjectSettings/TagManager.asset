@@ -16,6 +16,7 @@ TagManager:
   - Event_Ability_0
   - Event_Ability_1
   - EnemyAttack
+  - PlayerDodgeAttack
   layers:
   - Default
   - TransparentFX
