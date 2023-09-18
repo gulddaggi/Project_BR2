@@ -10055,6 +10055,9 @@ MonoBehaviour:
   isLook: 1
   isOverdriving: 0
   Boss_Pattern_Waiting_Time: 3
+  OnBossHPUpdated:
+    m_PersistentCalls:
+      m_Calls: []
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
 --- !u!65 &4270447766558571995
 BoxCollider:
