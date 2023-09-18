@@ -21,4 +21,14 @@ public class FollowingBossBullet : BossBullet
     {
         nav.destination = Player.transform.position;
     }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            playerdata.CurrentHP -= BulletDamage;
+            gameObject.SetActive(false);
+        }
+    }
 }
