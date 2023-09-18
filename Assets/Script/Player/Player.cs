@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, IListener
         set {
             currentHP = value;
             if (currentHP < 0) currentHP = 0;
+            else if (currentHP > FullHP) currentHP = FullHP;
             OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
         } 
     }
@@ -43,6 +44,11 @@ public class Player : MonoBehaviour, IListener
         this.moveSpeed = moveSpeed;
         this.playerAttackDamage = playerAttackDamage;
         this.playerStrongAttackDamage = playerStrongAttackDamage;
+    }
+
+    public void HPUP()
+    {
+        CurrentHP += 100;
     }
 
     private void Awake()
