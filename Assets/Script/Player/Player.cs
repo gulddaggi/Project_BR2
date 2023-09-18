@@ -16,7 +16,15 @@ public class Player : MonoBehaviour, IListener
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
-    public float CurrentHP { get { return currentHP; } set { currentHP = value; OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); } }
+    public float CurrentHP { 
+        get { return currentHP; } 
+        set {
+            currentHP = value;
+            if (currentHP < 0) currentHP = 0;
+            else if (currentHP > FullHP) currentHP = FullHP;
+            OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
+        } 
+    }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
@@ -38,6 +46,11 @@ public class Player : MonoBehaviour, IListener
         this.playerStrongAttackDamage = playerStrongAttackDamage;
     }
 
+    public void HPUP()
+    {
+        CurrentHP += 100;
+    }
+
     private void Awake()
     {
         currentHP = fullHP;
@@ -50,12 +63,14 @@ public class Player : MonoBehaviour, IListener
     private void Start()
     {
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
     }
 
     public void TakeDamage(float Damage)
     {
-        currentHP -= Damage;
+        CurrentHP -= Damage;
 
         if (currentHP <= 0)
         {
@@ -171,6 +186,7 @@ public class Player : MonoBehaviour, IListener
 
             // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다.
             case SHOP_EVENT_TYPE.sHPPotion:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
                 if (eventPlayDic.ContainsKey(SHOP_EVENT_TYPE.sHPPotion))
                 {
                     eventPlayDic[SHOP_EVENT_TYPE.sHPPotion] += 3;
@@ -201,6 +217,7 @@ public class Player : MonoBehaviour, IListener
                     break;
                 case SHOP_EVENT_TYPE.sHPPotion:
                     Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
+                    Debug.Log("가산 : " + (FullHP * 0.1f));
                     CurrentHP += (FullHP * 0.1f);
                     break;
                 default:

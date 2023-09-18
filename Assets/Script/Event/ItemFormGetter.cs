@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemFormGetter : MonoBehaviour
 {
     public List<Transform> objs = new List<Transform>();
-    List<ShopItem> shopItemList = new List<ShopItem>();
+    [SerializeField]
+    private List<ShopItem> shopItemList = new List<ShopItem>();
 
     private void Awake()
     {
@@ -16,9 +18,10 @@ public class ItemFormGetter : MonoBehaviour
         }
     }
 
-    public void AddShopItem(ShopItem shopItem)
+    public void AddShopItem(List<ShopItem> _shopItemList)
     {
-        shopItemList.Add(shopItem);
+
+        shopItemList = _shopItemList.ToList<ShopItem>();
     }
 
     public void ClearList()
@@ -29,11 +32,18 @@ public class ItemFormGetter : MonoBehaviour
     public void SelectShopItem(int _index)
     {
         int price = shopItemList[_index].price;
+        Debug.Log(shopItemList[_index].item_Name);
 
         if (GameManager_JS.Instance.Coin >= price)
         {
+            Debug.Log(shopItemList[_index].item_Name + "구매");
             GameManager_JS.Instance.Coin = -price;
             shopItemList[_index].EventOccur();
+        }
+        else
+        {
+            Debug.Log("구매 불가");
+            return;
         }
     }
 }
