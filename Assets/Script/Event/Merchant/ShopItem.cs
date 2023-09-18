@@ -26,7 +26,7 @@ public class ShopItem : MonoBehaviour
 
     public void EventOccur()
     {
-        EventManager.Instance.EventPostToManager(TypeReturn(eventType), this, price); // 일단 매개변수 param은 안씀.
+        EventManager.Instance.EventPostToManager(TypeReturn(this.eventType), this, price); // 일단 매개변수 param은 안씀.
     }
 
     SHOP_EVENT_TYPE TypeReturn(int _eventType)

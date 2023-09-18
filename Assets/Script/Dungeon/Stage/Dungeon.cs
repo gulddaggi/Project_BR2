@@ -44,6 +44,14 @@ public class Dungeon : Stage
         {
             SetNextReward();
         }
+
+    }
+
+    private void OnEnable()
+    {
+        // 턴 기반 이벤트 실행
+        Debug.Log(this.gameObject.name + "턴기반 이벤트 실행");
+        EventManager.Instance.TurnBasedEventPost();
     }
 
     public void SetReward(GameObject Obj)

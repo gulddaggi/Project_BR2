@@ -60,11 +60,18 @@ public class EventManager : MonoBehaviour
 
     public void TurnBasedEventPost()
     {
-        foreach (var item in ListenerDic.Values)
+        List<IListener> listenerList = null;
+
+        // 우선은 턴 기반 이벤트를 직접 지정. 후에 수정 필요
+        if (!ListenerDic.TryGetValue(SHOP_EVENT_TYPE.sHPPotion, out listenerList))
         {
-            for (int i = 0; i < item.Count; i++)
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < listenerList.Count; i++)
             {
-                item[i].TurnBasedEventOn();
+                listenerList?[i].TurnBasedEventOn(); // ?. : 연산자. null이 아니면 참조. null이면 null로 처리   
             }
         }
     }

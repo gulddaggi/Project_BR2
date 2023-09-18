@@ -220,7 +220,9 @@ public class EventDBManager : MonoBehaviour
         if (merchantDic[line].turn == "0") format[4].GetComponent<Text>().text = "즉시";
         else format[4].GetComponent<Text>().text = merchantDic[line].turn;
         format[5].GetComponent<Text>().text = "- " + merchantDic[line].price.ToString();
-        return merchantDic[line];
+        ShopItem shopItem;
+        merchantDic.TryGetValue(line, out shopItem);
+        return shopItem;
     }
 
     // 인덱스 추출. 바꿔야함.
@@ -231,6 +233,7 @@ public class EventDBManager : MonoBehaviour
             int tmp = Random.Range(0, merchantDic.Count);
             if (!indexList.Contains(tmp))
             {
+                indexList.Add(tmp);
                 return tmp;
             }
         }

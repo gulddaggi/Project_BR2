@@ -27,6 +27,7 @@ public class EventController : MonoBehaviour
 
     ChoiceGetter choiceGetter;
     DialogueGetter dialogueGetter;
+    [SerializeField]
     ItemFormGetter itemFormGetter;
 
     [SerializeField]
@@ -61,6 +62,7 @@ public class EventController : MonoBehaviour
         // 이벤트 감지.
         if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
+            if (eventOn) return;
             eventOn = true;
             EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
 
@@ -103,7 +105,7 @@ public class EventController : MonoBehaviour
 
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
-        player.SetActive(false);
+        //player.SetActive(false);
 
         if (!GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter)
         {
@@ -138,7 +140,7 @@ public class EventController : MonoBehaviour
     {
         event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
-        player.SetActive(true);
+        //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
     }
@@ -221,7 +223,7 @@ public class EventController : MonoBehaviour
         events[2].SetActive(true);
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
-        player.SetActive(false);
+        //player.SetActive(false);
         TextSet_Merchant();
     }
 
@@ -229,7 +231,7 @@ public class EventController : MonoBehaviour
     {
         events[2].SetActive(false);
         GameManager_JS.Instance.PanelOn();
-        player.SetActive(true);
+        //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
     }
@@ -240,6 +242,7 @@ public class EventController : MonoBehaviour
 
         // 코인 세팅
         itemFormGetter.objs[1].GetComponent<Text>().text = "Coin : " + GameManager_JS.Instance.Coin.ToString();
+        List<ShopItem> shopItemList = new List<ShopItem>();
 
         // 상품 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
         for (int i = 3; i < itemFormGetter.objs.Count; i++)
@@ -249,10 +252,12 @@ public class EventController : MonoBehaviour
                 // 선택지 양식 하나의 텍스트들을 변수에 입력
                 texts.Add(itemFormGetter.objs[i].GetChild(j));
             }
-
+            
             // 해당 텍스트에 DB 데이터 입력.
-            itemFormGetter.AddShopItem(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
+            shopItemList.Add(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
             texts.Clear();
         }
+
+        itemFormGetter.AddShopItem(shopItemList);
     }
 }
