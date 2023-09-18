@@ -115,8 +115,8 @@ public class Harpy : Enemy
     IEnumerator Harpy_Fire_2() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
     {
         int ran = Random.Range(0, 360); //랜덤으로 0~360도
-        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
-        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 20f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 20f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
 
         gameObject.transform.position = Harpy_point.transform.position + new Vector3(x, 0f, z);
 
