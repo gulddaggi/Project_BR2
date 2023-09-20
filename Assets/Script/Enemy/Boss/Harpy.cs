@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Harpy : Enemy
 {
@@ -10,12 +11,15 @@ public class Harpy : Enemy
     public GameObject Harpy_point;
     public GameObject Harpy_Big_Projecter;
 
+    float maxHP;
+
     Vector3 LookVec;
     Vector3 TauntVec;
     [SerializeField] bool isLook;
     [SerializeField] bool isOverdriving = false; // 보스 폭주 패턴 돌입 체크
 
     public float Boss_Pattern_Waiting_Time = 3.0f;
+    public UnityEvent<float, float> OnBossHPUpdated;
 
     #region * 하피 투사체 오브젝트 풀링
 
@@ -26,6 +30,10 @@ public class Harpy : Enemy
 
     public override void Start()
     {
+        EnemyHP = 300;
+        maxHP = EnemyHP;
+        OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+        Player = GameObject.FindGameObjectWithTag("Player");
         for (int i = 0; i < BossBulletMaxCount; ++i)
         {
             BossBullet bul = Instantiate<BossBullet>(BossBullet1_Harpy);
@@ -141,7 +149,8 @@ public class Harpy : Enemy
             tmpArray = playerdata.PlayerAttack(EnemyHP);
             EnemyHP = tmpArray[0];
 
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            //debuffChecker.DebuffCheck((int)tmpArray[1]);
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
         }
         else if (other.tag == "StrongPlayerAttack")
         {
@@ -150,7 +159,9 @@ public class Harpy : Enemy
             EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
             tmpArray = playerdata.PlayerAttack(EnemyHP);
             EnemyHP = tmpArray[0];
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            //debuffChecker.DebuffCheck((int)tmpArray[1]);
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
         }
 
         if (EnemyHP <= 0)

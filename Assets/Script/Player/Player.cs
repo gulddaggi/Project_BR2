@@ -22,7 +22,11 @@ public class Player : MonoBehaviour, IListener
         get { return currentHP; } 
         set {
             currentHP = value;
-            if (currentHP < 0) currentHP = 0; 
+            if (currentHP < 0)
+            {
+                currentHP = 0;
+                BeforeDie();
+            }
             else if (currentHP > FullHP) currentHP = FullHP;
             OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
         } 
@@ -72,11 +76,16 @@ public class Player : MonoBehaviour, IListener
 
         if (CurrentHP <= 0 && !isPlayerDead)
         {
-            isPlayerDead = true;
-            this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
-            this.gameObject.GetComponent<PlayerController>().enabled = false;
-            Invoke("Die", 2.5f);
+            BeforeDie();
         }
+    }
+
+    public void BeforeDie()
+    {
+        isPlayerDead = true;
+        this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
+        this.gameObject.GetComponent<PlayerController>().enabled = false;
+        Invoke("Die", 2.5f);
     }
 
     void Die()
