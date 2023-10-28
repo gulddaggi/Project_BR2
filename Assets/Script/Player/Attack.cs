@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
 
     public enum Weapon { Sword, Axe };
     public Weapon PlayerWeapon = Weapon.Axe;
-
+    private AnimationEventEffects animationEventEffects;
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
     [SerializeField] PlayerController playercontroller;
@@ -32,6 +32,7 @@ public class Attack : MonoBehaviour
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
+        animationEventEffects = GetComponent<AnimationEventEffects>(); // AnimationEventEffects 클래스의 인스턴스 가져오기
     }
 
     #region * 마우스 위치 받아오기 및 레이캐스팅
@@ -153,8 +154,7 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        var bulletGo = ObjectPoolManager.instance.Pool.Get();
-        bulletGo.transform.position = this.bulletSpawnPoint.position;
+        animationEventEffects.InstantiateEffect(0); // InstantiateEffect 메서드 호출
         //Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -168,10 +168,9 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        var bulletGo = ObjectPoolManager.instance.Pool.Get();
-        bulletGo.transform.position = this.bulletSpawnPoint.position;
-        AttackRange_Demo_1.SetActive(false);
-         AttackRange_Demo_2.SetActive(true);
+        animationEventEffects.InstantiateEffect(1); // InstantiateEffect 메서드 호출
+        // AttackRange_Demo_1.SetActive(false);
+        // AttackRange_Demo_2.SetActive(true);
         // Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
@@ -185,9 +184,7 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
          AttackRange_Demo_2.SetActive(false);
-        var bulletGo = ObjectPoolManager.instance.Pool.Get();
-        bulletGo.transform.position = this.bulletSpawnPoint.position;
-        // player.AttackManagement_Start();
+        animationEventEffects.InstantiateEffect(2); // InstantiateEffect 메서드 호출
         AttackRange_Demo_3.SetActive(true);
         // Debug.Log("Third Combo Start");
     }
