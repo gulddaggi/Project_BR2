@@ -152,48 +152,48 @@ public class Attack : MonoBehaviour
 
     void FirstAttack_Sword_Start()
     {
-        PlayerAnimator.applyRootMotion = true;
+        // PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
         animationEventEffects.InstantiateEffect(0); // InstantiateEffect 메서드 호출
-        //Debug.Log("First Combo Start");
+        Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
     {
-        PlayerAnimator.applyRootMotion = false;
+        // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
          AttackRange_Demo_1.SetActive(false);
-        // Debug.Log("First Combo End");
+        Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
     {
-        PlayerAnimator.applyRootMotion = true;
+        // PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
         animationEventEffects.InstantiateEffect(1); // InstantiateEffect 메서드 호출
         // AttackRange_Demo_1.SetActive(false);
         // AttackRange_Demo_2.SetActive(true);
-        // Debug.Log("Second Combo Start");
+        Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
     {
-        PlayerAnimator.applyRootMotion = false;
+        // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
          AttackRange_Demo_2.SetActive(false);
-        // Debug.Log("Second Combo End");
+        Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
-        PlayerAnimator.applyRootMotion = true;
+        // PlayerAnimator.applyRootMotion = true;
          AttackRange_Demo_2.SetActive(false);
         animationEventEffects.InstantiateEffect(2); // InstantiateEffect 메서드 호출
         AttackRange_Demo_3.SetActive(true);
-        // Debug.Log("Third Combo Start");
+        Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
-        PlayerAnimator.applyRootMotion = false;
+        // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
          AttackRange_Demo_3.SetActive(false);
-        // Debug.Log("Third Combo End");
+        Debug.Log("Third Combo End");
     }
 
     #endregion

@@ -76662,42 +76662,21 @@ AnimationClip:
   - time: 0.76666665
     functionName: InstantiateEffect
     data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.2333333
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.2333333
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: b8e9d17796fd47c46976ba2f17284603, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.2333333
     functionName: FirstAttack_Sword_Start
     data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 1.2666667
-    functionName: 
-    data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: e0be971f811de4b469855ff37e5c6d5e, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.4
     functionName: FirstAttack_Sword_End
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: e0be971f811de4b469855ff37e5c6d5e, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
