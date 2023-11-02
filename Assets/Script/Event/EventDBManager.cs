@@ -93,6 +93,18 @@ public class EventDBManager : MonoBehaviour
         _DBImporter.GetCount(abilityCountArr);
     }
 
+    // Listener 등록 함수
+    public void AddListenerPlaerStatus(Player player)
+    {
+        for (int i = 0; i < totalAbilityDic.Count; i++)
+        {
+            for (int j = 0; j < totalAbilityDic[i].Count; j++)
+            {
+                totalAbilityDic[i][j].OnSelected.AddListener(player.AbilitySelected);
+            }
+        }
+    }
+
     // 대화 DB 전체 임포트
     void Import_Dialogue(DBImporter _DBImporter)
     {
@@ -148,7 +160,7 @@ public class EventDBManager : MonoBehaviour
         // 이후 개발 시에는 지정된 ID
         format[0].GetComponent<Text>().text = totalAbilityDic[ab_index][line].ability_name;
         format[1].GetComponent<Text>().text = totalAbilityDic[ab_index][line].description;
-        format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option_Name;
+        format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option;
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
         SetRank(format[4], grade);
 

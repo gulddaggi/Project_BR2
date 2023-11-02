@@ -68,6 +68,7 @@ public class Player : MonoBehaviour, IListener
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
+        EventDBManager.instance.AddListenerPlaerStatus(this);
     }
 
     public void TakeDamage(float Damage)
@@ -180,6 +181,42 @@ public class Player : MonoBehaviour, IListener
                 MoveSpeed *= (1f + (indexList[2] * 0.01f));
                 break;
 
+            default:
+                break;
+        }
+    }
+
+    // 능력 선택 이벤트 리스너 함수. 일차적으로 능력 종류 구별
+    public void AbilitySelected(int _index, int _id) // 능력 종류, 해당 종류의 능력 DB 상 id를 인수로 전달받음.
+    {
+        Debug.Log("능력 선택 이벤트 발생");
+        switch (_index)
+        {
+            case 0:
+                Debug.Log("능력 : 물");
+                Ability_Water(_id);
+                break;
+            case 1:
+                Debug.Log("능력 : 불");
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    // 물 능력 선택 시 적용.
+    void Ability_Water(int _id)
+    {
+        // 능력 DB 상 id 구분 후 적용
+        switch (_id)
+        {
+            case 0: // 약공격은 더 높은 피해를 가하고 둔화 효과를 입힌다.
+                if (!debuffOnArray[0]) DebuffOn(0);
+                break;
+
+            case 1:
+                break;
             default:
                 break;
         }

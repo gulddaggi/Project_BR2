@@ -5,21 +5,22 @@ using UnityEngine;
 // DB 파일 임포트 클래스
 public class DBImporter : MonoBehaviour
 {
-    // 능력 타입 별 개수 저장 배열
+    // 티어 별 능력 개수 저장 배열
     int[] abilityCountArr = { 0, 0, 0 };
 
-    // 전달받은 파일 명의 능력 DB 파일 임포트를 수행.
+    // 전달받은 파일 명의 능력 DB 파일 임포트를 수행
     public Ability[] DBImport_Ability(string _DBFileName)
     {
         List<Ability> abliityContentList = new List<Ability>(); // 선택 양식 리스트
         TextAsset DBData = Resources.Load<TextAsset>(_DBFileName); // csv 파일 변수 저장
 
         string[] data = DBData.text.Split(new char[] { '\n' }); // 엔터 단위로 행 구분
-
+        
+        // 첫 행에 기록되어있는 티어 별 능력 개수 저장
+        string[] row_first = data[0].Split(new char[] { ',' }); // 콤마 단위로 첫 행의 항목 구분
         for (int i = 0; i < abilityCountArr.Length; i++)
         {
-            string[] row = data[0].Split(new char[] { ',' }); // 콤마 단위로 각 항목 구분
-            abilityCountArr[i] = int.Parse(row[i + 6]);  // DB에 기록되어있는 개수를 전달
+            abilityCountArr[i] = int.Parse(row_first[i + 8]);  // DB에 기록되어있는 개수를 전달
         }
 
         // 항목별 저장 수행
@@ -29,12 +30,18 @@ public class DBImporter : MonoBehaviour
             Ability ability = new Ability(); // 선택 지문 객체 생성
 
             // 객체에 데이터 삽입
-            ability.type = row[0]; // 타입
-            ability.ability_name = row[1]; // 능력명
-            ability.description = row[2]; // 설명
-            ability.option_Name = row[3]; // 옵션명
-            ability.plus_Value = row[4].Split('/'); // 가산 수치. 등급별로 값을 구분하여 삽입
+            ability.ID = row[0]; // ID
+            ability.tier = row[1]; // 티어
+            ability.ability_name = row[2]; // 능력명
+            ability.description = row[3]; // 설명
+            ability.option = row[4]; // 옵션명
+            ability.plus_Value = row[5].Split('/'); // 가산 수치. 등급별로 값을 구분하여 삽입
+            ability.sub_Description = row[6]; // 부가 설명. 이후에 UI에 적용 필요.
+            ability.pre_abilities = row[7].Split('/'); // 선행 능력. UI 표시 없이 시스템 단위에서 사용.
+
+            // 레벨 및 선택 여부 초기화
             ability.level = 0;
+            ability.isSelected = false;
 
             abliityContentList.Add(ability); // 배열 변환을 위해 리스트에 저장
         }
