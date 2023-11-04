@@ -37,7 +37,7 @@ public class PlayerChangeWeapon : MonoBehaviour
         }
         else if (crystal_weapon == Attack.Weapon.Axe)
         {
-            player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Sword;
+            player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
             Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
 
             var resourceName = "Animation/Axe/Axe Override";
@@ -57,7 +57,7 @@ public class PlayerChangeWeapon : MonoBehaviour
         {
             WeaponChangeUI.SetActive(true);
             Weapon_Change_Available = true;
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.E))
             {
                 Map_ChangeWeapon();
             }
@@ -69,13 +69,5 @@ public class PlayerChangeWeapon : MonoBehaviour
         }
     }
 
-    private void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.performed && Weapon_Change_Available == true) 
-        {
-            Map_ChangeWeapon();
-            // StartCoroutine(AttackDelay());
-        }
-    }
 
 }
