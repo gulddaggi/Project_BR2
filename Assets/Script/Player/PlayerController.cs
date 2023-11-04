@@ -178,16 +178,7 @@ public class PlayerController : MonoBehaviour
     // PlayerWeaponChange.cs 참조
 
     #region * Player Weapon Change
-    private void OnTriggerEnter(Collision other)
 
-    {
-        Debug.Log("범위 내 플레이어 인식");
-        if (other.gameObject.CompareTag("WeaponChange"))
-        {
-            var playerdata = player.GetComponent<Player>();
-            EnemyHP = (playerdata.PlayerAttack(EnemyHP));
-        }
-    }
     #endregion
 
 }

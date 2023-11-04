@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerChangeWeapon : MonoBehaviour
 {
+    public Attack.Weapon crystal_weapon;
+
     GameObject player;
     public GameObject Axe;
     public GameObject Sword;
-    float dir;
+    public GameObject WeaponChangeUI;
+    public bool Weapon_Change_Available = false;
 
 
     // Start is called before the first frame update
@@ -16,10 +20,9 @@ public class PlayerChangeWeapon : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-
     public void Map_ChangeWeapon()
     {
-        if (gameObject.tag == "Sword")
+        if (crystal_weapon == Attack.Weapon.Sword)
         {
             player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Sword;
             Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
@@ -32,7 +35,7 @@ public class PlayerChangeWeapon : MonoBehaviour
             Sword.SetActive(true);
             Debug.Log("플레이어 무기 : 한손검");
         }
-        else if (gameObject.tag == "Axe")
+        else if (crystal_weapon == Attack.Weapon.Axe)
         {
             player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Sword;
             Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
@@ -47,13 +50,31 @@ public class PlayerChangeWeapon : MonoBehaviour
         }
 
     }
-    private void OnTriggerEnter(Collision other)
-
+    void Update()
     {
-        Debug.Log("범위 내 플레이어 인식");
-        if (other.gameObject.CompareTag("Player"))
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        if (distance < 15f)
+        {
+            WeaponChangeUI.SetActive(true);
+            Weapon_Change_Available = true;
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Map_ChangeWeapon();
+            }
+        }
+        else
+        {
+            WeaponChangeUI.SetActive(false);
+            Weapon_Change_Available = false;
+        }
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.performed && Weapon_Change_Available == true) 
         {
             Map_ChangeWeapon();
+            // StartCoroutine(AttackDelay());
         }
     }
 
