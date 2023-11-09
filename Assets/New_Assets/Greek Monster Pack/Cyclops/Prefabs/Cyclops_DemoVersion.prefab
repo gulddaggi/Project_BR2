@@ -5467,6 +5467,10 @@ MonoBehaviour:
   Damage: 5
   attackRangeObj: {fileID: 7938674357570977839}
   isHit: 0
+  hpBarPrefab: {fileID: 0}
+  hpBarOffset: {x: 0, y: 2.2, z: 0}
+  FullHP: 0
+  hpBar: {fileID: 0}
 --- !u!114 &7652229387325939545
 MonoBehaviour:
   m_ObjectHideFlags: 0
