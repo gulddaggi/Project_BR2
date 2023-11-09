@@ -12,7 +12,7 @@ public class AbilityChoice : MonoBehaviour
     // 적용되는 능력.
     // 0 : 약공격, 1 : 강공격, 2 : 장판 & 돌진공격 , 3 : 이동속도
     [SerializeField]
-    int statIndex;
+    int abilityID;
 
     // 가산 수치.
     [SerializeField]
@@ -27,7 +27,7 @@ public class AbilityChoice : MonoBehaviour
     {
         tmpArray = new int[3] { indexArray[0], indexArray[1], indexArray[2] };
         typeIndex = tmpArray[0];
-        statIndex = tmpArray[1];
+        abilityID = tmpArray[1];
         plusValue = tmpArray[2];
     }
 

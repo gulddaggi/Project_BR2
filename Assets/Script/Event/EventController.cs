@@ -20,7 +20,6 @@ public class EventController : MonoBehaviour
     [SerializeField]
     GameObject player;
 
-    //public Text[] texts;
     public List<Transform> texts = new List<Transform>();
 
     RaycastHit hit;

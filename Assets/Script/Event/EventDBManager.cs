@@ -153,7 +153,7 @@ public class EventDBManager : MonoBehaviour
         int[] returnArray = new int[2];
 
         // 추출 대상 인덱스와 가산 수치.
-        int[] selected = abilitySelector.Select(index, abilityCountArr[index]);
+        int[] selected = abilitySelector.Select(index, abilityCountArr[index]); // 추출 대상 수정 함수 호출. 수정 필요.
         int line = selected[0];
         int grade = selected[1];
 
@@ -163,8 +163,13 @@ public class EventDBManager : MonoBehaviour
         format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option;
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
         SetRank(format[4], grade);
+        if(totalAbilityDic[ab_index][line].sub_Description != "")
+        {
+            format[5].gameObject.SetActive(true);
+            format[5].GetComponentInChildren<Text>().text = totalAbilityDic[ab_index][line].sub_Description;
+        }
 
-        returnArray[0] = StatIndex(index,line);
+        returnArray[0] = line;
         returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
 
         return returnArray;
