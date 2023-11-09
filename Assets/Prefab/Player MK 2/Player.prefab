@@ -1967,19 +1967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e9d17796fd47c46976ba2f17284603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effects:
-  - Effect: {fileID: 1819066416490906, guid: f71e64e1ba018eb419bd5e9e3ca8a65c, type: 3}
-    StartPositionRotation: {fileID: 83498911003562925}
-    DestroyAfter: 4
-    UseLocalPosition: 0
-  - Effect: {fileID: 1107296871017770, guid: 82a583916db5b7842a722df7756825eb, type: 3}
-    StartPositionRotation: {fileID: 83498912244271444}
-    DestroyAfter: 4
-    UseLocalPosition: 0
-  - Effect: {fileID: 1949624779417528, guid: e73124b5ba126cc499fb7e927b7a79ac, type: 3}
-    StartPositionRotation: {fileID: 83498910460609382}
-    DestroyAfter: 6
-    UseLocalPosition: 0
+  playerweapon: 0
+  Positions: []
 --- !u!1 &2967709636339114331
 GameObject:
   m_ObjectHideFlags: 0
@@ -3867,6 +3856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Axe
       objectReference: {fileID: 0}
+    - target: {fileID: 5832050208137788191, guid: b1a9371e26e2b9e4a8953ac705f9e22c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1a9371e26e2b9e4a8953ac705f9e22c, type: 3}
 --- !u!4 &7598175964845213984 stripped
@@ -3884,6 +3877,18 @@ PrefabInstance:
     - target: {fileID: 5380212222069995191, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5380212222069995191, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5380212222069995191, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5380212222069995191, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5380212222069995191, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3928,6 +3933,10 @@ PrefabInstance:
     - target: {fileID: 6370257391915013981, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
       propertyPath: m_Name
       value: Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370257391915013981, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9076114540868484916, guid: 32440c26730c8064da7723e5030ad42d, type: 3}
       propertyPath: m_RootBone

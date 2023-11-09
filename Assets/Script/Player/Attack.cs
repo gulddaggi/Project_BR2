@@ -154,7 +154,6 @@ public class Attack : MonoBehaviour
     {
         // PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        animationEventEffects.InstantiateEffect(0); // InstantiateEffect 메서드 호출
         Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -168,7 +167,6 @@ public class Attack : MonoBehaviour
     {
         // PlayerAnimator.applyRootMotion = true;
         // player.AttackManagement_Start();
-        animationEventEffects.InstantiateEffect(1); // InstantiateEffect 메서드 호출
         // AttackRange_Demo_1.SetActive(false);
         // AttackRange_Demo_2.SetActive(true);
         Debug.Log("Second Combo Start");
@@ -184,7 +182,6 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
         AttackRange_Demo_2.SetActive(false);
-        animationEventEffects.InstantiateEffect(2); // InstantiateEffect 메서드 호출
         AttackRange_Demo_3.SetActive(true);
         Debug.Log("Third Combo Start");
     }

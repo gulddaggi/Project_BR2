@@ -67,14 +67,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.11985019
+      - time: 0.20623378
         functionName: InstantiateEffect
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: b8e9d17796fd47c46976ba2f17284603, type: 3}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 2
         messageOptions: 0
-      - time: 0.1460674
+      - time: 0.2631977
         functionName: ThirdAttack_Sword_Start
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: e0be971f811de4b469855ff37e5c6d5e, type: 3}

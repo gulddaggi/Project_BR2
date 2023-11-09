@@ -25,6 +25,7 @@ public class PlayerChangeWeapon : MonoBehaviour
         if (crystal_weapon == Attack.Weapon.Sword)
         {
             player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Sword;
+            player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Sword;
             Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
 
             var resourceName = "Animation/Sword/LowPolyHumanAnimator";
@@ -38,6 +39,7 @@ public class PlayerChangeWeapon : MonoBehaviour
         else if (crystal_weapon == Attack.Weapon.Axe)
         {
             player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
+            player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Axe;
             Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
 
             var resourceName = "Animation/Axe/Axe Override";
