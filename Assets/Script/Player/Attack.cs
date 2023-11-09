@@ -182,15 +182,15 @@ public class Attack : MonoBehaviour
     }
     void ThirdAttack_Sword_Start()
     {
-        // PlayerAnimator.applyRootMotion = true;
-         AttackRange_Demo_2.SetActive(false);
+        PlayerAnimator.applyRootMotion = true;
+        AttackRange_Demo_2.SetActive(false);
         animationEventEffects.InstantiateEffect(2); // InstantiateEffect 메서드 호출
         AttackRange_Demo_3.SetActive(true);
         Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
-        // PlayerAnimator.applyRootMotion = false;
+        PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
          AttackRange_Demo_3.SetActive(false);
         Debug.Log("Third Combo End");
