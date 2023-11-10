@@ -11,7 +11,16 @@ public class PlayerChangeWeapon : MonoBehaviour
     public GameObject Axe;
     public GameObject Sword;
     public GameObject WeaponChangeUI;
+
     public bool Weapon_Change_Available = false;
+
+    public WeaponChangeEffect[] weaponChangeEffect;
+    [System.Serializable]
+    public class WeaponChangeEffect
+    {
+        public GameObject ChangeEffect;
+        public float DestroyAfter;
+    }
 
 
     // Start is called before the first frame update
@@ -20,37 +29,10 @@ public class PlayerChangeWeapon : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public void Map_ChangeWeapon()
+    public void Map_CrystalManage()
     {
-        if (crystal_weapon == Attack.Weapon.Sword)
-        {
-            player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Sword;
-            player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Sword;
-            Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
-
-            var resourceName = "Animation/Sword/LowPolyHumanAnimator";
-            var animator = player.gameObject.GetComponent<Animator>();
-            animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
-
-            Axe.SetActive(false);
-            Sword.SetActive(true);
-            Debug.Log("플레이어 무기 : 한손검");
-        }
-        else if (crystal_weapon == Attack.Weapon.Axe)
-        {
-            player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
-            player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Axe;
-            Debug.Log(player.GetComponent<Attack>().PlayerWeapon.ToString());
-
-            var resourceName = "Animation/Axe/Axe Override";
-            var animator = player.gameObject.GetComponent<Animator>();
-            animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
-
-            Axe.SetActive(true);
-            Sword.SetActive(false);
-            Debug.Log("플레이어 무기 : 배틀액스");
-        }
-
+        player.GetComponent<WeaponUpdater>().WeaponChange(crystal_weapon);
+        InstantiateWeaponChangeEffect();
     }
     void Update()
     {
@@ -61,7 +43,7 @@ public class PlayerChangeWeapon : MonoBehaviour
             Weapon_Change_Available = true;
             if(Input.GetKeyDown(KeyCode.E))
             {
-                Map_ChangeWeapon();
+                Map_CrystalManage();
             }
         }
         else
@@ -71,5 +53,28 @@ public class PlayerChangeWeapon : MonoBehaviour
         }
     }
 
+    void InstantiateWeaponChangeEffect()
+    {
+        var instance = Instantiate(weaponChangeEffect[PlayerWeaponCheck()].ChangeEffect, player.transform.position, player.transform.rotation);
+        instance.transform.parent = player.transform;
+        instance.transform.localPosition = Vector3.zero;
+        Destroy(instance, weaponChangeEffect[PlayerWeaponCheck()].DestroyAfter);
+    }
+
+    public int PlayerWeaponCheck()
+    {
+        if (GameManager_JS.Instance.playerWeapon == Attack.Weapon.Sword)
+        {
+            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
+            return 0;
+        }
+        else if (GameManager_JS.Instance.playerWeapon == Attack.Weapon.Axe)
+        {
+            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 1;
+        }
+
+        return 0;
+    }
 
 }

@@ -48,6 +48,14 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     Text coinText;
 
+    #region 플레이어 관련 변수체크
+
+    GameObject player;
+    [SerializeField]
+    public Attack.Weapon playerWeapon = Attack.Weapon.Sword;
+
+    #endregion
+
     GameObject curStage;
     GameObject nextStage;
 
@@ -104,7 +112,6 @@ public class GameManager_JS : MonoBehaviour
     {
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
-
     }
 
     // fadeout에 사용되는 panel 반환
@@ -277,4 +284,8 @@ public class GameManager_JS : MonoBehaviour
         panelImage.color = color;
         GameManager_JS.Instance.CoinOnOff(true);
     }
+
+
+    
+
 }

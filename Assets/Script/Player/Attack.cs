@@ -7,11 +7,12 @@ public class Attack : MonoBehaviour
 {
 
     public enum Weapon { Sword, Axe };
-    public Weapon PlayerWeapon = Weapon.Axe;
     private AnimationEventEffects animationEventEffects;
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
+
     PlayerController playercontroller;
+
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
     public Transform bulletSpawnPoint;
@@ -203,12 +204,13 @@ public class Attack : MonoBehaviour
 
     public int PlayerWeaponCheck()
     {
-        if (PlayerWeapon == Weapon.Sword)
+        if (GameManager_JS.Instance.playerWeapon == Weapon.Sword)
         {
             // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
             return 0;
         }
-        else if (PlayerWeapon == Weapon.Axe)
+        else if (GameManager_JS.Instance.playerWeapon 
+            == Weapon.Axe)
         {
             // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
             return 1;

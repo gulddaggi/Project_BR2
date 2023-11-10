@@ -44,7 +44,6 @@ public class AnimationEventEffects : MonoBehaviour {
 
     void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerweapon = player.GetComponent<Attack>().PlayerWeapon;
     }
             
     public void InstantiateEffect(int EffectNumber)
@@ -74,12 +73,12 @@ public class AnimationEventEffects : MonoBehaviour {
 
     public int PlayerWeaponCheck()
     {
-        if(playerweapon == Attack.Weapon.Sword)
+        if(GameManager_JS.Instance.playerWeapon == Attack.Weapon.Sword)
         {
             Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
             return 0;
         }
-        else if(playerweapon == Attack.Weapon.Axe)
+        else if(GameManager_JS.Instance.playerWeapon == Attack.Weapon.Axe)
         {
             Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
             return 1;
