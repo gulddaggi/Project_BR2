@@ -11,22 +11,26 @@ public class Attack : MonoBehaviour
     private AnimationEventEffects animationEventEffects;
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
-    [SerializeField] PlayerController playercontroller;
+    PlayerController playercontroller;
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
     public Transform bulletSpawnPoint;
 
+    [Header("하기 요소들은 플레이어의 공격 범위를 지정함.")]
+    [Header("공격 범위를 수정하려면 해당 요소들을 바꿔끼우면 됨.")]
+    [Header("플레이어 무기 태그 번호는 AnimationEventEffect.cs를 참조할 것.")]
+
+    public DamameRange[] Weapon_Damage_Range;
+    [System.Serializable]
+    public class DamameRange
+    {
+        public GameObject[] WeaponDamageRange;
+        // public Transform[] RangeInstantiatePosition;
+        // public float[] DestroyAfter;
+        // public bool[] UseLocalPosition;
+    }
+
     public Vector3 MouseDirection { get; private set; }
-
-    // [SerializeField] GameObject AttackRange_Demo; 차후 추상화 작업시에 주석 풀 것.
-
-    #region * 주의! 해당 섹터 내 코드들은 데모용으로 작성됨. 당 변수들은 차후에 추상화 작업시에 자식 클래스로의 이동이 필요.
-
-    [SerializeField] GameObject AttackRange_Demo_1;
-    [SerializeField] GameObject AttackRange_Demo_2;
-    [SerializeField] GameObject AttackRange_Demo_3;
-
-    #endregion
 
     private void Start()
     {
@@ -148,50 +152,70 @@ public class Attack : MonoBehaviour
 
     #endregion
 
-    #region * 해당 섹터 코드들은 차후에 SwordAttack.cs로 이동 필요. 데모이므로 여기에 총체적으로 작성.
+    #region * Combo Attack Manage
 
     void FirstAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
-        // player.AttackManagement_Start();
+        ManageAttackRange(0, true);
         Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
     {
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
-         AttackRange_Demo_1.SetActive(false);
+        ManageAttackRange(0, false);
         Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
-        // player.AttackManagement_Start();
-        // AttackRange_Demo_1.SetActive(false);
-        // AttackRange_Demo_2.SetActive(true);
+        ManageAttackRange(0, false);
+        ManageAttackRange(1, true);
         Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
     {
         // PlayerAnimator.applyRootMotion = false;
-        // player.AttackManagement_Start();
-         AttackRange_Demo_2.SetActive(false);
+
+        ManageAttackRange(1, false);
         Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
-        AttackRange_Demo_2.SetActive(false);
-        AttackRange_Demo_3.SetActive(true);
+        ManageAttackRange(1, false);
+        ManageAttackRange(2, true);
         Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
-        // player.AttackManagement_Start();
-         AttackRange_Demo_3.SetActive(false);
+        ManageAttackRange(2, false);
         Debug.Log("Third Combo End");
     }
 
+    public void ManageAttackRange(int ComboNum, bool able)
+    {
+        Debug.Log("Player Attack!");
+        Weapon_Damage_Range[PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
+    }
+
+    public int PlayerWeaponCheck()
+    {
+        if (PlayerWeapon == Weapon.Sword)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
+            return 0;
+        }
+        else if (PlayerWeapon == Weapon.Axe)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 1;
+        }
+
+        return 0;
+    }
     #endregion
+
 }

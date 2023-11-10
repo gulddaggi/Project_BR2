@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1342,6 +1342,11 @@ Transform:
   m_Father: {fileID: 85532169}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &608345833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 83498910273318411, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+  m_PrefabInstance: {fileID: 995860174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &723283399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,6 +1764,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879630103}
   m_CullTransparentMesh: 1
+--- !u!1 &980865614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 83498910882316589, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+  m_PrefabInstance: {fileID: 995860174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &995860174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1766,6 +1776,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 83498910273318411, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: m_Name
+      value: "\uACF5\uACA9 \uBC94\uC704 \uCCB4\uD06C - (\uB370\uBAA8\uC6A9) 1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 83498910273318411, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 83498910460609382, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -1794,6 +1812,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 83498910614197355, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: m_Radius
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 83498910882316589, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 83498910882316590, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -1808,7 +1834,7 @@ PrefabInstance:
       objectReference: {fileID: 1324592697}
     - target: {fileID: 83498910882316626, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
       propertyPath: m_VersionIndex
-      value: 10625
+      value: 10628
       objectReference: {fileID: 0}
     - target: {fileID: 83498912298485466, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
       propertyPath: m_Enabled
@@ -1974,6 +2000,42 @@ PrefabInstance:
       propertyPath: PlayerWeapon
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[0].WeaponDamageRange.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[1].WeaponDamageRange.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[0].WeaponDamageRange.Array.data[0]
+      value: 
+      objectReference: {fileID: 980865614}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[0].WeaponDamageRange.Array.data[1]
+      value: 
+      objectReference: {fileID: 980865614}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[0].WeaponDamageRange.Array.data[2]
+      value: 
+      objectReference: {fileID: 608345833}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[1].WeaponDamageRange.Array.data[0]
+      value: 
+      objectReference: {fileID: 980865614}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[1].WeaponDamageRange.Array.data[1]
+      value: 
+      objectReference: {fileID: 980865614}
+    - target: {fileID: 3112073426922329887, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[1].WeaponDamageRange.Array.data[2]
+      value: 
+      objectReference: {fileID: 1278147429}
     - target: {fileID: 3223160294911706358, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2420,13 +2482,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275313371}
   m_CullTransparentMesh: 1
+--- !u!1 &1278147429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 83498910614197354, guid: d9b3f9b1f789fac42b5c30524113d3cf, type: 3}
+  m_PrefabInstance: {fileID: 995860174}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1324592697
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1636
+  m_Name: pb_Mesh-1622
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
