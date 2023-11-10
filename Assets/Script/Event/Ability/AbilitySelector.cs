@@ -12,18 +12,34 @@ public class AbilitySelector : MonoBehaviour
     // 알맞은 line number를 찾아가도록 가산되는 임시 변수
     int tmp = 0;
 
+    int[] curIndex = new int[3];
+
     // 추출할 인덱스를 지정하여 반환
-    public int[] Select(int index, int numOfType)
+    public int[] Select(int index, int tier1Count)
     {
         // 반환값. 순서대로 추출할 능력, 등급
         int[] numbers = new int[2]{ 0, 0 };
 
-        // 추출 능력 지정. 3가지 타입이 3개의 선택지에 하나씩 나오도록.
-        // 테스트 목적으로 줄임. 각 하나씩만 추첨없이 반환.
-        numbers[0] = ( index == 0 ? 0 : tmp ) + Random.Range(0, 2);
+        // 선행능력 충족 여부를 확인. 보유 능력 확인 기능 구현 이후 추가.
 
-        // 다음 index에 대해 사용 가능하도록 현재 타입 개수만큼 더함
-        tmp += numOfType;
+
+        int tmp = 0;
+        numbers[0] = Random.Range(0, tier1Count);
+        // 우선은 1티어 능력 중에서만 추첨하도록 구현.
+        while (tmp < index) // 중복 능력 추첨을 막기 위함
+        {
+            if (numbers[0] == curIndex[tmp])
+            {
+                tmp = 0;
+                numbers[0] = Random.Range(0, tier1Count);
+            }
+            else
+            {
+                ++tmp;
+            }
+        }
+
+        curIndex[index] = numbers[0];
 
         Debug.Log((index+1) + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
 
@@ -42,13 +58,6 @@ public class AbilitySelector : MonoBehaviour
             }
         }
 
-        if (index == 2)
-        {
-            tmp = 0;
-            Debug.Log("변수 초기화 : " + tmp);
-        }
-
         return numbers;
     }
-
 }
