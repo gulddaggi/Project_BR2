@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
@@ -40,11 +41,11 @@ public class Enemy : MonoBehaviour
     public GameObject hpBarPrefab;
     public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
     public float FullHP;
-    public HPBarEnemy hpBar;
 
-    private GameObject hpBarInstance;
     private Canvas uiCanvas;
-    private Image hpBarImage;
+    public Image hpBarImage;
+    public Image hpBarImage2;
+    public bool HPOn = false;
 
     // Start is called before the first frame update
     public virtual void Start()
@@ -57,16 +58,13 @@ public class Enemy : MonoBehaviour
         //nav = GetComponent<NavMeshAgent>();
         SR = gameObject.GetComponent<MeshRenderer>();
         //hp바
-        SetHpBar();
         FullHP = EnemyHP;
-        hpBar = GameObject.Find("HP_Enemy(Clone)").GetComponent<HPBarEnemy>();
-
+        //SetHpBar();
     }
 
     // Update is called once per frame
     void Update()
     {
-        hpBar.HPUpdate(FullHP, EnemyHP);
         //Track_Player();
         //Enemy_Anim_Manage();
     }
@@ -82,23 +80,18 @@ public class Enemy : MonoBehaviour
         {
             EnemyRigid.velocity = Vector3.zero;
         }
-
     }
 
-    void SetHpBar()
+    public void SetHpBar()
     {
         uiCanvas = GameObject.Find("EnemyUI").GetComponent<Canvas>();
         GameObject HPBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
-        hpBarImage = HPBar.GetComponentInChildren<Image>();
+        hpBarImage = HPBar.GetComponentsInChildren<Image>()[1];
+        hpBarImage2 = HPBar.GetComponentsInChildren<Image>()[0];
 
         var _hpbar = HPBar.GetComponent<EnemyHp>();
         _hpbar.targetTr = this.gameObject.transform;
         _hpbar.offset = hpBarOffset;
-
-        hpBarInstance = Instantiate(hpBarPrefab);
-        hpBarInstance.transform.SetParent(transform);
-        hpBarInstance.transform.localPosition = hpBarOffset;
-        hpBarImage = hpBarInstance.GetComponent<Image>();
     }
 
     void Enemy_Anim_Manage()
@@ -178,7 +171,7 @@ public class Enemy : MonoBehaviour
         {
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
-            hpBarImage.GetComponentInParent<Image>().color = Color.clear;
+            hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
         }
 
         IEnumerator GetDamaged()

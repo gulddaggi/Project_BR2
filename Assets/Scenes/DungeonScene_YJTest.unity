@@ -369,7 +369,6 @@ GameObject:
   m_Component:
   - component: {fileID: 36182107}
   - component: {fileID: 36182106}
-  - component: {fileID: 36182105}
   - component: {fileID: 36182104}
   m_Layer: 0
   m_Name: EnemyUI_Camera
@@ -411,14 +410,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &36182105
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 36182103}
-  m_Enabled: 1
 --- !u!20 &36182106
 Camera:
   m_ObjectHideFlags: 0
@@ -1784,7 +1775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7938674356225831645, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7962367902946507444, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_StaticEditorFlags

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cyclops : Enemy
 {
@@ -20,6 +21,12 @@ public class Cyclops : Enemy
     {
         float[] tmpArray = new float[2] { 0f, 0f };
 
+        if (HPOn == false && other.tag == "PlayerAttack" || other.tag == "StrongPlayerAttack" || other.tag == "PlayerDodgeAttack")
+        {
+            HPOn = true;
+            SetHpBar();
+        }
+
         if (other.tag == "PlayerAttack" && isHit == false)
         {
             isHit = true;
@@ -29,7 +36,9 @@ public class Cyclops : Enemy
             tmpArray = playerdata.PlayerAttack(EnemyHP);
 
             EnemyHP = tmpArray[0];
-            
+
+            hpBarImage.fillAmount = EnemyHP / FullHP;
+
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
         }
@@ -40,6 +49,9 @@ public class Cyclops : Enemy
             EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
             tmpArray = playerdata.PlayerAttack(EnemyHP);
             EnemyHP = tmpArray[0];
+
+            hpBarImage.fillAmount = EnemyHP / FullHP;
+
             StartCoroutine(GetDamaged());
             debuffChecker.DebuffCheck((int)tmpArray[1]);
         }
@@ -53,12 +65,15 @@ public class Cyclops : Enemy
 
             EnemyHP = tmpArray[0];
 
+            hpBarImage.fillAmount = EnemyHP / FullHP;
+
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
         }
 
         if (EnemyHP <= 0)
         {
+            hpBarImage2.fillAmount = 0;
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
         }

@@ -7116,7 +7116,9 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
-  hpBar: {fileID: 0}
+  hpBarImage: {fileID: 0}
+  hpBarImage2: {fileID: 0}
+  HPOn: 0
   bulletPrefab: {fileID: 0}
 --- !u!114 &1509352678878987353
 MonoBehaviour:

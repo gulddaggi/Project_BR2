@@ -12568,6 +12568,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0ffb58bf0277a408139e43818dd1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FindPlayer: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
 --- !u!114 &7558755517926008744
 MonoBehaviour:
@@ -12592,7 +12595,9 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
-  hpBar: {fileID: 0}
+  hpBarImage: {fileID: 0}
+  hpBarImage2: {fileID: 0}
+  HPOn: 0
 --- !u!1 &6208787210531703242
 GameObject:
   m_ObjectHideFlags: 0
