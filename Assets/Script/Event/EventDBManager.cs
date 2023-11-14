@@ -100,7 +100,11 @@ public class EventDBManager : MonoBehaviour
         {
             for (int j = 0; j < totalAbilityDic[i].Count; j++)
             {
-                totalAbilityDic[i][j].OnSelected.AddListener(player.AbilitySelected);
+                int tmpi = 0;
+                int tmpj = int.Parse(totalAbilityDic[i][j].ID);
+                Debug.Log(totalAbilityDic[i][j].ID);
+                totalAbilityDic[i][j].OnSelected.AddListener(() => player.AbilitySelected(tmpi, tmpj));
+                Debug.Log(i + "," + j + "이벤트 등록 완료");
             }
         }
     }

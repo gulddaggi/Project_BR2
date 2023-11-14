@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, IListener
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
-        EventDBManager.instance.AddListenerPlaerStatus(this);
+        //EventDBManager.instance.AddListenerPlaerStatus(this); 딕셔너리 값 수정이 불가하여 해당 문장 수정 필요.
     }
 
     public void TakeDamage(float Damage)

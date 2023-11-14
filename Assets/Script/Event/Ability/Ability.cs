@@ -47,7 +47,7 @@ public class Ability : MonoBehaviour
     }
 
     // 능력 선택 시 발생하는 이벤트.
-    public UnityEvent<int, int> OnSelected;
+    public UnityEvent OnSelected;
 
 
 }
