@@ -9,9 +9,5 @@ AnimatorOverrideController:
   m_Name: Axe Override
   m_Controller: {fileID: 9100000, guid: 4c7fe8e1a3919c549a79a706afefd1ce, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 1b6ad25261cb5184694a1e11afdc8b16, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: e20261ae7103fef45ae07fa84499a367, type: 3}
-  - m_OriginalClip: {fileID: -203655887218126122, guid: b1f6419e6500b29439cea04363c96030, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 077e5cfd1e09df446974682e6780853b, type: 3}
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 4328ca072879c5743a1fa2a43e10a9de, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: b37ebfccc9ea2bf4593062f590efbb84, type: 3}
+  - m_OriginalClip: {fileID: 1827226128182048838, guid: 7f6899f6134cd894682e4202098f7da2, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 4b0531ee27097e947b1e0661641ea33f, type: 2}

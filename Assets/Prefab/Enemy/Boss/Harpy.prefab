@@ -10050,7 +10050,6 @@ MonoBehaviour:
   isHit: 0
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
-  Harpy_point: {fileID: 0}
   Harpy_Big_Projecter: {fileID: 0}
   isLook: 1
   isOverdriving: 0
