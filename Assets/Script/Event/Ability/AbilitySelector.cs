@@ -19,7 +19,8 @@ public class AbilitySelector : MonoBehaviour
         int[] numbers = new int[2]{ 0, 0 };
 
         // 추출 능력 지정. 3가지 타입이 3개의 선택지에 하나씩 나오도록.
-        numbers[0] = ( index == 0 ? 0 : tmp ) + Random.Range(0, numOfType);
+        // 테스트 목적으로 줄임. 각 하나씩만 추첨없이 반환.
+        numbers[0] = ( index == 0 ? 0 : tmp ) + Random.Range(0, 2);
 
         // 다음 index에 대해 사용 가능하도록 현재 타입 개수만큼 더함
         tmp += numOfType;

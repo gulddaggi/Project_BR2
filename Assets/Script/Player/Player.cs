@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IListener
 {
+    public UnityEvent<float, float> OnPlayerHPUpdated;
 
     // Script Player가 임시로 DB 역할도 대행
 
@@ -11,8 +13,24 @@ public class Player : MonoBehaviour
 
     bool[] debuffOnArray = new bool[6];
 
-    public float FullHP { get { return fullHP; } }
-    public float CurrentHP { get { return currentHP; } set { currentHP = value; } }
+    bool isPlayerDead = false;
+
+    private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
+
+    public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
+    public float CurrentHP { 
+        get { return currentHP; } 
+        set {
+            currentHP = value;
+            if (currentHP < 0)
+            {
+                currentHP = 0;
+                BeforeDie();
+            }
+            else if (currentHP > FullHP) currentHP = FullHP;
+            OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
+        } 
+    }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
@@ -36,6 +54,7 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        isPlayerDead = false;
         currentHP = fullHP;
         for (int i = 0; i < debuffOnArray.Length; i++)
         {
@@ -43,16 +62,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
+        OnPlayerHPUpdated.Invoke(FullHP, currentHP);
+    }
+
     public void TakeDamage(float Damage)
     {
-        currentHP -= Damage;
+        CurrentHP -= Damage;
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0 && !isPlayerDead)
         {
-            this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
-            this.gameObject.GetComponent<PlayerController>().enabled = false;
-            Invoke("Die", 3f);
+            BeforeDie();
         }
+    }
+
+    public void BeforeDie()
+    {
+        isPlayerDead = true;
+        this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
+        this.gameObject.GetComponent<PlayerController>().enabled = false;
+        Invoke("Die", 2.5f);
     }
 
     void Die()
@@ -85,6 +118,25 @@ public class Player : MonoBehaviour
         RemainedHP -= playerStrongAttackDamage;
 
         return RemainedHP;    
+    }
+
+    public float[] PlayerDodgeAttack(float EnemyHp)
+    {
+        float[] returnArray = new float[2] { EnemyHp, -1f };
+
+        // 체력 계산
+        returnArray[0] -= PlayerFieldAttackDamage;
+
+        // 디버프 확인
+        for (int i = 0; i < debuffOnArray.Length; i++)
+        {
+            if (debuffOnArray[i] == true)
+            {
+                returnArray[1] = (float)i;
+            }
+        }
+
+        return returnArray;
     }
 
     private void Player_Direction_Check() // 왜 만들었더라..?
@@ -142,4 +194,63 @@ public class Player : MonoBehaviour
     {
         debuffOnArray[typeIndex] = false;
     }
+
+    public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)
+    {
+        switch (sEventType)
+        {
+            // 최대 체력을 20만큼 늘려준다.
+            case SHOP_EVENT_TYPE.sHPReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPReinforce.ToString());
+                FullHP += 20f;
+                break;
+
+            // 약공격의 피해량이 25% 증가한다.
+            case SHOP_EVENT_TYPE.sWeaponReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sWeaponReinforce.ToString());
+                playerAttackDamage *= 1.25f;
+                break;
+
+            // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다.
+            case SHOP_EVENT_TYPE.sHPPotion:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
+                if (eventPlayDic.ContainsKey(SHOP_EVENT_TYPE.sHPPotion))
+                {
+                    eventPlayDic[SHOP_EVENT_TYPE.sHPPotion] += 3;
+                    Debug.Log("턴수 증가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
+                }
+                else
+                {
+                    eventPlayDic.Add(SHOP_EVENT_TYPE.sHPPotion, 3);
+                    Debug.Log("새로 추가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
+                }
+                break;
+            
+            default:
+                break;
+        }
+
+    }
+
+    public void TurnBasedEventOn()
+    {
+        foreach (SHOP_EVENT_TYPE item in eventPlayDic.Keys)
+        {
+            switch (item)
+            {
+                case SHOP_EVENT_TYPE.sHPReinforce:
+                    break;
+                case SHOP_EVENT_TYPE.sWeaponReinforce:
+                    break;
+                case SHOP_EVENT_TYPE.sHPPotion:
+                    Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
+                    Debug.Log("가산 : " + (FullHP * 0.1f));
+                    CurrentHP += (FullHP * 0.1f);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 }

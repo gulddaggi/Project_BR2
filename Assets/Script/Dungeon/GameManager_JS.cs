@@ -5,14 +5,13 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 // 해당 보상 NPC와의 대화 출력 여부 확인 클래스
-public class DialogueCheck{
+public class DialogueCheck
+{
     // 만난 횟수
     int count = 0;
     // 이번 회차에서 만났는가
     bool isEncounter = false;
 
-
-    
     public int Count
     {
         get { return count; }
@@ -38,7 +37,7 @@ public class GameManager_JS : MonoBehaviour
     private int tryCount = 0;
 
     [SerializeField]
-    private int coin = 0;
+    private int coin = 100; // 테스트를 위해 100 기본 제공
 
     GameObject canvas;
 
@@ -46,7 +45,10 @@ public class GameManager_JS : MonoBehaviour
     Image panelImage;
 
     [SerializeField]
-    Text coinText;
+    public Text coinText_Play;
+
+    [SerializeField]
+    public Text coinText_Event;
 
     #region 플레이어 관련 변수체크
 
@@ -89,6 +91,9 @@ public class GameManager_JS : MonoBehaviour
         }
         else
         {
+            instance.coinText_Event = this.coinText_Event;
+            instance.coinText_Play = this.coinText_Play;
+            CoinUpdate();
             Destroy(this.gameObject);
         }
 
@@ -112,6 +117,9 @@ public class GameManager_JS : MonoBehaviour
     {
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
+        CoinOnOff(true);
+
+
     }
 
     // fadeout에 사용되는 panel 반환
@@ -139,7 +147,7 @@ public class GameManager_JS : MonoBehaviour
         dungeonCount = 0;
         SceneManager.LoadScene("HomeScene");
         Coin = 0;
-        coinText.transform.gameObject.SetActive(false);
+        coinText_Play.transform.gameObject.SetActive(false);
         isMoveOn = true;
         ResetEncounter();
     }
@@ -245,19 +253,21 @@ public class GameManager_JS : MonoBehaviour
 
     public void CoinUpdate()
     {
-        coinText.text = "Coin : " + coin;
+        if (coinText_Play == null)
+        {
+            if(canvas == null) canvas = GameObject.Find("Canvas");
+            coinText_Play = canvas.GetComponentInChildren<Text>();
+        }
+        coinText_Play.text = "Coin : " + coin;
+        coinText_Event.text = "Coin : " + coin;
     }
 
     public void CoinOnOff(bool _bool)
     {
         if (SceneManager.GetActiveScene().name != "HomeScene")
         {
-            if (coinText == null)
-            {
-                coinText = canvas.GetComponentInChildren<Text>();
-            }
             CoinUpdate();
-            coinText.gameObject.SetActive(_bool);
+            //coinText_Play.gameObject.SetActive(_bool);
 
         }
     }
@@ -282,7 +292,7 @@ public class GameManager_JS : MonoBehaviour
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
-        GameManager_JS.Instance.CoinOnOff(true);
+        //GameManager_JS.Instance.CoinOnOff(true); // 코인 텍스트 on/off 기능. 이후에 활성화.
     }
 
 

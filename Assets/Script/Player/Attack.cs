@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Attack : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class Attack : MonoBehaviour
     #region * New Input System Invoke Events 관련 코드. !!잘못 건들면 인풋시스템 다 망가짐!!
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed) // 공격키가 눌렸는지 체크
+        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene") // 공격키가 눌렸는지 체크
         {
             MouseDirection = GetMouseWorldPosition();
             transform.LookAt(MouseDirection);

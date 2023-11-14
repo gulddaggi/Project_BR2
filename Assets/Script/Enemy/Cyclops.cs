@@ -20,17 +20,68 @@ public class Cyclops : Enemy
     {
         float[] tmpArray = new float[2] { 0f, 0f };
 
-        if (other.tag == "PlayerAttack")
+        if (other.tag == "PlayerAttack" && isHit == false)
         {
+            isHit = true;
             Debug.Log("Damaged!");
+
             var playerdata = other.transform.GetComponentInParent<Player>();
             tmpArray = playerdata.PlayerAttack(EnemyHP);
-            StartCoroutine(GetDamaged());
+
             EnemyHP = tmpArray[0];
             
             debuffChecker.DebuffCheck((int)tmpArray[1]);
+            StartCoroutine(GetDamaged());
         }
-        else if (other.tag == "StrongPlayerAttack")
+        else if (other.tag == "StrongPlayerAttack" && isHit == false)
+        {
+            Debug.Log("Strongly Damaged!");
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
+            tmpArray = playerdata.PlayerAttack(EnemyHP);
+            EnemyHP = tmpArray[0];
+            StartCoroutine(GetDamaged());
+            debuffChecker.DebuffCheck((int)tmpArray[1]);
+        }
+        else if (other.tag == "PlayerDodgeAttack" && isHit == false)
+        {
+            isHit = true;
+            Debug.Log("Dodge damaged!");
+
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            tmpArray = playerdata.PlayerDodgeAttack(EnemyHP);
+
+            EnemyHP = tmpArray[0];
+
+            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            StartCoroutine(GetDamaged());
+        }
+
+        if (EnemyHP <= 0)
+        {
+            enemySpawner.EnemyDead();
+            gameObject.SetActive(false);
+        }
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        float[] tmpArray = new float[2] { 0f, 0f };
+
+        if (other.tag == "PlayerAttack" && isHit == false)
+        {
+            isHit = true;
+            Debug.Log("Damaged!");
+
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            tmpArray = playerdata.PlayerAttack(EnemyHP);
+
+            EnemyHP = tmpArray[0];
+
+            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            StartCoroutine(GetDamaged());
+        }
+        else if (other.tag == "StrongPlayerAttack" && isHit == false)
         {
             Debug.Log("Strongly Damaged!");
             var playerdata = other.transform.GetComponentInParent<Player>();
@@ -48,17 +99,15 @@ public class Cyclops : Enemy
         }
     }
 
+
     IEnumerator GetDamaged()
     {
+        SR.material.color = Color.red;
 
-        // 
-        if (isAttack = false)
-        {
-            EnemyAnimator.SetTrigger("Damaged");
-            EnemyAnimator.applyRootMotion = true;
-            yield return new WaitForSeconds(1.0f);
-            EnemyAnimator.applyRootMotion = false;
-        }
+        yield return new WaitForSeconds(0.6f);
+        SR.material.color = Color.white;
+        isHit = false;
+
     }
 }
     

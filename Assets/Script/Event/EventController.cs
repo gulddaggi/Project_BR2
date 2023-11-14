@@ -12,6 +12,9 @@ public class EventController : MonoBehaviour
     GameObject[] event_Ability;
 
     [SerializeField]
+    GameObject[] event_Merchant;
+
+    [SerializeField]
     LayerMask layerMask;
 
     [SerializeField]
@@ -24,6 +27,8 @@ public class EventController : MonoBehaviour
 
     ChoiceGetter choiceGetter;
     DialogueGetter dialogueGetter;
+    [SerializeField]
+    ItemFormGetter itemFormGetter;
 
     [SerializeField]
     List<string> dialogues = new List<string>();
@@ -41,7 +46,7 @@ public class EventController : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player");
+        //player = GameObject.Find("Player");
     }
 
     void Update()
@@ -57,6 +62,7 @@ public class EventController : MonoBehaviour
         // 이벤트 감지.
         if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
+            if (eventOn) return;
             eventOn = true;
             EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
 
@@ -70,11 +76,16 @@ public class EventController : MonoBehaviour
                 case 0:
                     tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
                     ChoiceEventStart();
-                    
                     break;
+
                 // 이벤트 : 코인
                 case 1:
                     CoinEvent(tmpTypeIndex);
+                    break;
+
+                // 이벤트 : 상점
+                case 2:
+                    MerchantEventStart();
                     break;
 
                 default:
@@ -94,7 +105,7 @@ public class EventController : MonoBehaviour
 
         GameManager_JS.Instance.PanelOff();
         Time.timeScale = 0f;
-        player.SetActive(false);
+        //player.SetActive(false);
 
         if (!GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter)
         {
@@ -129,7 +140,7 @@ public class EventController : MonoBehaviour
     {
         event_Ability[1].SetActive(false);
         GameManager_JS.Instance.PanelOn();
-        player.SetActive(true);
+        //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
     }
@@ -204,5 +215,49 @@ public class EventController : MonoBehaviour
         Destroy(obj, 2f);
         GameManager_JS.Instance.Coin = value;
         eventOn = false;
+    }
+
+    void MerchantEventStart()
+    {
+        // 선택 전체 UI 활성화
+        events[2].SetActive(true);
+        GameManager_JS.Instance.PanelOff();
+        Time.timeScale = 0f;
+        //player.SetActive(false);
+        TextSet_Merchant();
+    }
+
+    public void MerchantEventEnd()
+    {
+        events[2].SetActive(false);
+        GameManager_JS.Instance.PanelOn();
+        //player.SetActive(true);
+        Time.timeScale = 1f;
+        eventOn = false;
+    }
+
+    void TextSet_Merchant()
+    {
+        itemFormGetter = event_Merchant[0].GetComponent<ItemFormGetter>();
+
+        // 코인 세팅
+        itemFormGetter.objs[1].GetComponent<Text>().text = "Coin : " + GameManager_JS.Instance.Coin.ToString();
+        List<ShopItem> shopItemList = new List<ShopItem>();
+
+        // 상품 세팅. DB에 접근. 선택지 개수만큼 반복 수행.
+        for (int i = 3; i < itemFormGetter.objs.Count; i++)
+        {
+            for (int j = 0; j < itemFormGetter.objs[i].childCount; j++)
+            {
+                // 선택지 양식 하나의 텍스트들을 변수에 입력
+                texts.Add(itemFormGetter.objs[i].GetChild(j));
+            }
+            
+            // 해당 텍스트에 DB 데이터 입력.
+            shopItemList.Add(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
+            texts.Clear();
+        }
+
+        itemFormGetter.AddShopItem(shopItemList);
     }
 }
