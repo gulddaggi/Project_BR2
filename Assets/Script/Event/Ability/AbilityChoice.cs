@@ -34,6 +34,9 @@ public class AbilityChoice : MonoBehaviour
     {
         // 활성화 시, 오브젝트에 부착된 버튼 컴포넌트 저장.
         button = this.gameObject.GetComponent<Button>();
+        Debug.Log(button.name);
+        // 버튼 onClick() 이벤트에 리스너 추가. 클릭 시 해당 능력 정보를 전달.
+        button.onClick.AddListener(() => aLManager.GetSelected(this.gameObject));
     }
 
     public void SetChoiceValue(int[] indexArray)
@@ -42,13 +45,8 @@ public class AbilityChoice : MonoBehaviour
         typeIndex = tmpArray[0];
         abilityID = tmpArray[1];
         plusValue = tmpArray[2];
-        Debug.Log(typeIndex + "," + abilityID + "," + plusValue);
-        if (aLManager != null)
-        {
-            Debug.Log("있음");
-        }
-        // 버튼 onClick() 이벤트에 리스너 추가. 클릭 시 해당 능력 정보를 전달.
-        button.onClick.AddListener(() => aLManager.AddAbility(typeIndex, abilityID, plusValue));
+
+
     }
 
     public void ChoiceClicked()
