@@ -36,6 +36,8 @@ public class Ability : MonoBehaviour
     // 레벨
     public int level;
 
+    public string plus_Value_Done;
+
     public void LevelUp()
     {
         level++;

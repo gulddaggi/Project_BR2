@@ -41,6 +41,7 @@ public class EventController : MonoBehaviour
     // 감지된 이벤트의 TypeIndex를 임시저장하는 변수 
     int tmpTypeIndex;
 
+    // 이벤트 진행중 파악 여부. GameManager_JS에도 존재.
     bool eventOn = false;
 
     private void Start()
@@ -50,7 +51,7 @@ public class EventController : MonoBehaviour
 
     void Update()
     {
-        if (!eventOn)
+        if (!eventOn && !GameManager_JS.Instance.isEventOn)
         {
             EventCheck();
         }
@@ -63,6 +64,7 @@ public class EventController : MonoBehaviour
         {
             if (eventOn) return;
             eventOn = true;
+            GameManager_JS.Instance.isEventOn = true;
             EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
 
             // 보상 오브젝트의 이벤트 관련 데이터 저장.
@@ -92,8 +94,10 @@ public class EventController : MonoBehaviour
             }
 
             Destroy(hit.transform.gameObject, 0.01f);
-            
+  
         }
+
+
     }
 
     // 능력 선택 이벤트 시작
@@ -142,6 +146,7 @@ public class EventController : MonoBehaviour
         //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
     }
 
     // 대화 내용 세팅
@@ -233,6 +238,7 @@ public class EventController : MonoBehaviour
         //player.SetActive(true);
         Time.timeScale = 1f;
         eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
     }
 
     void TextSet_Merchant()
