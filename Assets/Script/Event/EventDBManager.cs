@@ -286,4 +286,19 @@ public class EventDBManager : MonoBehaviour
         lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
         indexList.Clear();
     }
+
+    public int GetTotalDicNum()
+    {
+        return totalAbilityDic.Count;
+    }
+
+    public int[] GetTotalIDNum()
+    {
+        int[] tmp = new int[totalAbilityDic.Count];
+        for (int i = 0; i < totalAbilityDic.Count; i++)
+        {
+            tmp[i] = totalAbilityDic[i].Count;
+        }
+        return tmp;
+    }
 }

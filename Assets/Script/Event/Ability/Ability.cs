@@ -38,6 +38,8 @@ public class Ability : MonoBehaviour
 
     public string plus_Value_Done;
 
+    public string rank;
+
     public void LevelUp()
     {
         level++;

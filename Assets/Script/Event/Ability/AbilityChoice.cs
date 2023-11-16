@@ -8,16 +8,15 @@ public class AbilityChoice : MonoBehaviour
     // 능력의 타입 인덱스. 보상 정령에 따라 다름.
     // 0 : 물
     [SerializeField]
-    int typeIndex;
+    public int typeIndex;
 
-    // 적용되는 능력.
-    // 0 : 약공격, 1 : 강공격, 2 : 장판 & 돌진공격 , 3 : 이동속도
+    // 적용되는 능력 ID
     [SerializeField]
-    int abilityID;
+    public int abilityID;
 
     // 가산 수치.
     [SerializeField]
-    int plusValue;
+    public int plusValue;
 
     int[] tmpArray;
 

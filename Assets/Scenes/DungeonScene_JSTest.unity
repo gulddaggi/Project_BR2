@@ -685,7 +685,7 @@ PrefabInstance:
     - target: {fileID: 3332288637126554081, guid: 3efc48eaae130a44391a42220eac87d7, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 327583141}
+      objectReference: {fileID: 386501132}
     - target: {fileID: 3332288637126554081, guid: 3efc48eaae130a44391a42220eac87d7, type: 3}
       propertyPath: itemFormGetter
       value: 
@@ -3201,7 +3201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choices: []
-  aLManager: {fileID: 0}
 --- !u!114 &428018297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5107,7 +5106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choices: []
-  aLManager: {fileID: 0}
 --- !u!1 &918727949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5424,6 +5422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityUIPref: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
+  totalAbilityNum: 0
+  totalIDNum: 
 --- !u!1 &1039425884
 GameObject:
   m_ObjectHideFlags: 0
@@ -6779,7 +6779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choices: []
-  aLManager: {fileID: 0}
 --- !u!114 &1304307557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7459,7 +7458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   choices: []
-  aLManager: {fileID: 0}
 --- !u!114 &1376727474
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,15 +13,54 @@ public class AbilityListManager : MonoBehaviour
     [SerializeField]
     GameObject abilityUIPref;
 
+    // 리스트 선언을 위한 변수
+    public int totalAbilityNum = 0;
+    public int[] totalIDNum;
+
+    // 능력 레벨 확인을 위한 리스트
+    List<List<int>> levelCheckList = null;
+
     // 임시 저장 변수들
     int abilityIndex;
     int id;
     int value;
 
+    private void Awake()
+    {
+
+    }
+
+    // 능력 레벨 확인을 위한 리스트
+    void CreateArray()
+    {
+        levelCheckList = new List<List<int>>();
+        Debug.Log("리스트 생성 시작");
+        totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
+        totalIDNum = EventDBManager.instance.GetTotalIDNum();
+
+        for (int i = 0; i < totalAbilityNum; i++)
+        {
+            List<int> tmpList = new List<int>();
+            for (int j = 0; j < totalIDNum[i]; j++)
+            {
+                tmpList.Add(0);
+            }
+            levelCheckList.Add(tmpList);
+        }
+
+        Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
+        for (int i = 0; i < levelCheckList.Count; i++)
+        {
+            Debug.Log((i + 1) + "번째 능력의 개수 : " + levelCheckList[i].Count);
+        }
+    }
+
     void Start()
     {
         ALOn();
     }
+
+
 
     void Update()
     {
@@ -32,21 +71,76 @@ public class AbilityListManager : MonoBehaviour
     // 능력 선택 이벤트에서 버튼 클릭으로 인한 OnClick() 이벤트 발생 시 실행되는 이벤트 핸들러.
     public void GetSelected(GameObject _selected)
     {
-        Debug.Log(_selected.name + "전달");
+        // 리스트 초기화 진행
+        if (levelCheckList == null)
+        {
+            CreateArray();
+        }
 
+        // 레벨 지정에 필요한 인덱스 저장
+        abilityIndex = _selected.GetComponent<AbilityChoice>().typeIndex;
+        id = _selected.GetComponent<AbilityChoice>().abilityID;
+        value = _selected.GetComponent<AbilityChoice>().plusValue;
+
+        // 리스트 추가를 위한 능력 데이터 생성
         Ability ability = new Ability();
-
-
         ability.ability_name = _selected.transform.GetChild(0).GetComponent<Text>().text;
         ability.description = _selected.transform.GetChild(1).GetComponent<Text>().text;
         ability.option = _selected.transform.GetChild(2).GetComponent<Text>().text;
         ability.plus_Value_Done = _selected.transform.GetChild(3).GetComponent<Text>().text;
+        ability.rank = _selected.transform.GetChild(4).GetComponent<Text>().text;
         ability.isSelected = true;
+        ability.level = 1;
 
-        playerAbilityList.Add(ability);
+        // 레벨 지정
+        // 능력이 처음 선택되었을 경우
+        if (levelCheckList[abilityIndex][id] == 0)
+        {
+            // 레벨 증가
+            ability.level = ++levelCheckList[abilityIndex][id];
+            
+            // 현재 선택 리스트에 삽입
+            playerAbilityList.Add(ability);
+        }
+        else // 이미 선택되었을 경우. 랭크간 비교가 필요
+        {
+            if (playerAbilityList.Exists(x => x.ability_name == ability.ability_name))
+            {
+                int index = playerAbilityList.FindIndex(x => x.ability_name == ability.ability_name);
+                
+                // 기존 랭크가 선택된 랭크보다 작을 경우. 데이터 교체
+                if (RankToInt(playerAbilityList[index].rank) < RankToInt(ability.rank))
+                {
+                    playerAbilityList[index].rank = ability.rank;
+                    playerAbilityList[index].plus_Value_Done = ability.plus_Value_Done;
+                    playerAbilityList[index].level = ability.level;
+                    
+                }
+                // 같은 랭크일 경우. 레벨 가산
+                else if(RankToInt(playerAbilityList[index].rank) == RankToInt(ability.rank))
+                {
+                    ++playerAbilityList[index].level;
+                    playerAbilityList[index].plus_Value_Done = "+" + (value + (2*playerAbilityList[index].level)) + "%";
+                }
+            }
+            
+        }
+    }
 
-        // 레벨 관련 시스템은 추후에 적용
-        // ability.level
+    int RankToInt(string rank)
+    {
+        string[] ranks = { "일반", "희귀", "영웅" };
+        int index = 0;
+
+        for (int i = 0; i < ranks.Length; i++)
+        {
+            if (rank == ranks[i])
+            {
+                index = i;
+            }
+        }
+
+        return index;
     }
 
     // 보유 능력 UI 활성화
