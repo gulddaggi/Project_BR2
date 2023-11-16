@@ -182,12 +182,4 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-
-    // 여기서부터는 플레이어 무기 변환 관련 체크
-    // PlayerWeaponChange.cs 참조
-
-    #region * Player Weapon Change
-
-    #endregion
-
 }

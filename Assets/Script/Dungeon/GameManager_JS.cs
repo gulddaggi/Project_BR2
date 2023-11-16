@@ -50,14 +50,6 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     public Text coinText_Event;
 
-    #region 플레이어 관련 변수체크
-
-    GameObject player;
-    [SerializeField]
-    public Attack.Weapon playerWeapon = Attack.Weapon.Sword;
-
-    #endregion
-
     GameObject curStage;
     GameObject nextStage;
 
@@ -294,8 +286,4 @@ public class GameManager_JS : MonoBehaviour
         panelImage.color = color;
         //GameManager_JS.Instance.CoinOnOff(true); // 코인 텍스트 on/off 기능. 이후에 활성화.
     }
-
-
-    
-
 }
