@@ -96,8 +96,21 @@ public class EventController : MonoBehaviour
             Destroy(hit.transform.gameObject, 0.01f);
   
         }
+    }
 
+    // 능력 테스트용 함수
+    public void AbilityTest()
+    {
+        if (eventOn) return;
+        eventOn = true;
+        GameManager_JS.Instance.isEventOn = true;
 
+        // 현재 테스트 : 물
+        int type = 0;
+        tmpTypeIndex = 0;
+
+        tmpName = "물의 정령";
+        ChoiceEventStart();
     }
 
     // 능력 선택 이벤트 시작
