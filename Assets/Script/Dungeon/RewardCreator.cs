@@ -20,7 +20,7 @@ public class RewardCreator : MonoBehaviour
         if (index == 0) // 0은 능력 
         {
             // 능력 생성 함수 실행.
-            reward = CreateAbility();
+            reward = CreateAbility(0);
         }
         else
         {
@@ -71,8 +71,6 @@ public class RewardCreator : MonoBehaviour
             reward = rewardPrefs[index];
         }
 
-        // 테스트용.
-        reward = CreateAbility(0);
         return reward;
     }
 

@@ -3,11 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 리스트 저장을 위한 능력 클래스. DB 클래스에서 사용하는 능력 클래스와 변수가 다소 다름.
+public class Ability_ListComponent
+{
+    // 능력명
+    public string ability_name;
+
+    // 능력 설명
+    public string description;
+
+    // 능력치 적용 옵션
+    public string option;
+
+    // 부가 설명. 부여되는 상태이상 효과 설명
+    public string sub_Description;
+
+    // 선행 능력
+    public string[] pre_abilities;
+
+    // 레벨
+    public int level;
+
+    public string plus_Value;
+
+    public string rank;
+
+    public int[] indexArr = new int[2];
+};
+
 // 현재 플레이어가 획득한 능력에 대한 정보를 보유하고, 이를 UI로 출력하는 클래스.
 public class AbilityListManager : MonoBehaviour
 {
     // 현재 플레이어 보유 능력 리스트
-    List<Ability> playerAbilityList = new List<Ability>();
+    List<Ability_ListComponent> playerAbilityList = new List<Ability_ListComponent>();
 
     // 출력 UI 양식 프리팹
     [SerializeField]
@@ -15,7 +43,7 @@ public class AbilityListManager : MonoBehaviour
 
     // 리스트 선언을 위한 변수
     public int totalAbilityNum = 0;
-    public int[] totalIDNum;
+    public int totalIDNum;
 
     // 능력 레벨 확인을 위한 리스트
     List<List<int>> levelCheckList = null;
@@ -36,12 +64,13 @@ public class AbilityListManager : MonoBehaviour
         levelCheckList = new List<List<int>>();
         Debug.Log("리스트 생성 시작");
         totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
-        totalIDNum = EventDBManager.instance.GetTotalIDNum();
 
         for (int i = 0; i < totalAbilityNum; i++)
         {
+            totalIDNum = EventDBManager.instance.GetTotalIDNum(i);
             List<int> tmpList = new List<int>();
-            for (int j = 0; j < totalIDNum[i]; j++)
+
+            for (int j = 0; j < totalIDNum; j++)
             {
                 tmpList.Add(0);
             }
@@ -57,9 +86,17 @@ public class AbilityListManager : MonoBehaviour
 
     void Start()
     {
+    }
+
+    private void OnEnable()
+    {
         ALOn();
     }
 
+    private void OnDisable()
+    {
+        ALOff();
+    }
 
 
     void Update()
@@ -74,6 +111,7 @@ public class AbilityListManager : MonoBehaviour
         // 리스트 초기화 진행
         if (levelCheckList == null)
         {
+            Debug.Log("리스트가 존재하지 않아 새로 생성");
             CreateArray();
         }
 
@@ -83,14 +121,16 @@ public class AbilityListManager : MonoBehaviour
         value = _selected.GetComponent<AbilityChoice>().plusValue;
 
         // 리스트 추가를 위한 능력 데이터 생성
-        Ability ability = new Ability();
+        Ability_ListComponent ability = new Ability_ListComponent();
         ability.ability_name = _selected.transform.GetChild(0).GetComponent<Text>().text;
         ability.description = _selected.transform.GetChild(1).GetComponent<Text>().text;
         ability.option = _selected.transform.GetChild(2).GetComponent<Text>().text;
-        ability.plus_Value_Done = _selected.transform.GetChild(3).GetComponent<Text>().text;
+        ability.plus_Value = _selected.transform.GetChild(3).GetComponent<Text>().text;
         ability.rank = _selected.transform.GetChild(4).GetComponent<Text>().text;
-        ability.isSelected = true;
         ability.level = 1;
+
+        ability.indexArr[0] = abilityIndex;
+        ability.indexArr[1] = id;
 
         // 레벨 지정
         // 능력이 처음 선택되었을 경우
@@ -101,6 +141,7 @@ public class AbilityListManager : MonoBehaviour
             
             // 현재 선택 리스트에 삽입
             playerAbilityList.Add(ability);
+            Debug.Log("새로운 능력 삽입 완료");
         }
         else // 이미 선택되었을 경우. 랭크간 비교가 필요
         {
@@ -112,7 +153,7 @@ public class AbilityListManager : MonoBehaviour
                 if (RankToInt(playerAbilityList[index].rank) < RankToInt(ability.rank))
                 {
                     playerAbilityList[index].rank = ability.rank;
-                    playerAbilityList[index].plus_Value_Done = ability.plus_Value_Done;
+                    playerAbilityList[index].plus_Value = ability.plus_Value;
                     playerAbilityList[index].level = ability.level;
                     
                 }
@@ -120,10 +161,10 @@ public class AbilityListManager : MonoBehaviour
                 else if(RankToInt(playerAbilityList[index].rank) == RankToInt(ability.rank))
                 {
                     ++playerAbilityList[index].level;
-                    playerAbilityList[index].plus_Value_Done = "+" + (value + (2*playerAbilityList[index].level)) + "%";
+                    playerAbilityList[index].plus_Value = "+" + (value + (2*playerAbilityList[index].level)) + "%";
                 }
             }
-            
+            Debug.Log("능력 레벨업 완료");
         }
     }
 
@@ -148,12 +189,25 @@ public class AbilityListManager : MonoBehaviour
     {
         for (int i = 0; i < playerAbilityList.Count; i++)
         {
+            Debug.Log(playerAbilityList[i].ability_name);
             GameObject obj = Instantiate(abilityUIPref);
             obj.transform.SetParent(this.gameObject.transform);
             obj.transform.GetChild(0).GetComponent<Text>().text = playerAbilityList[i].ability_name;
             obj.transform.GetChild(1).GetComponent<Text>().text = playerAbilityList[i].description;
             obj.transform.GetChild(2).GetComponent<Text>().text = playerAbilityList[i].option;
-            obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].plus_Value_Done;
+            obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].plus_Value;
         }
+        Debug.Log("리스트 구성 요소 수 : " + playerAbilityList.Count);
+    }
+
+    public void ALOff()
+    {
+        Debug.Log("자식 수 : " + gameObject.transform.childCount);
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            GameObject.DestroyImmediate(gameObject.transform.GetChild(i).gameObject);
+        }
+        Transform _parent = transform.parent;
+        _parent.parent.gameObject.SetActive(false);
     }
 }

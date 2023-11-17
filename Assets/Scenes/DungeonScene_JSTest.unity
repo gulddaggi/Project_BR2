@@ -646,6 +646,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 298998195589366496, guid: 3efc48eaae130a44391a42220eac87d7, type: 3}
+      propertyPath: PlayerWeapon
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 298998195589366497, guid: 3efc48eaae130a44391a42220eac87d7, type: 3}
       propertyPath: damageField
       value: 
@@ -2168,7 +2172,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1940569938}
+      - m_Target: {fileID: 811657522}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: DialogueContinue
         m_Mode: 1
@@ -4386,6 +4390,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1034528577}
+        m_TargetAssemblyTypeName: AbilityListManager, Assembly-CSharp
+        m_MethodName: ALOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &642417060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4852,6 +4868,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1359203272}
   text: {fileID: 40185712}
+--- !u!114 &811657522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3332288637126554081, guid: 3efc48eaae130a44391a42220eac87d7, type: 3}
+  m_PrefabInstance: {fileID: 52923098}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256517670d2d2624981d3d8db0b840af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &825126022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5423,7 +5450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityUIPref: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
   totalAbilityNum: 0
-  totalIDNum: 
+  totalIDNum: 0
 --- !u!1 &1039425884
 GameObject:
   m_ObjectHideFlags: 0
@@ -6176,7 +6203,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1940569938}
+      - m_Target: {fileID: 811657522}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1
@@ -6350,7 +6377,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1940569938}
+      - m_Target: {fileID: 811657522}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1
@@ -10274,7 +10301,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1940569938}
+      - m_Target: {fileID: 811657522}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1

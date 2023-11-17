@@ -41,7 +41,7 @@ public class AbilityController : MonoBehaviour
 
     public void AbilityListOff()
     {
-        aLObject.SetActive(false);
+        //aLObject.SetActive(false);
         GameManager_JS.Instance.isEventOn = false;
 
     }

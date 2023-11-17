@@ -35,6 +35,7 @@ public class AbilityChoice : MonoBehaviour
         button = this.gameObject.GetComponent<Button>();
         // 버튼 onClick() 이벤트에 리스너 추가. 클릭 시 해당 능력 정보를 전달.
         button.onClick.AddListener(() => aLManager.GetSelected(this.gameObject));
+        Debug.Log("이벤트 등록");
     }
 
     public void SetChoiceValue(int[] indexArray)

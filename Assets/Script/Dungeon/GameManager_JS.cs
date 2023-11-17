@@ -144,6 +144,7 @@ public class GameManager_JS : MonoBehaviour
         Coin = 0;
         coinText_Play.transform.gameObject.SetActive(false);
         isMoveOn = true;
+        isEventOn = false;
         ResetEncounter();
     }
 

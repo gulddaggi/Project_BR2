@@ -292,13 +292,9 @@ public class EventDBManager : MonoBehaviour
         return totalAbilityDic.Count;
     }
 
-    public int[] GetTotalIDNum()
+    public int GetTotalIDNum(int _index)
     {
-        int[] tmp = new int[totalAbilityDic.Count];
-        for (int i = 0; i < totalAbilityDic.Count; i++)
-        {
-            tmp[i] = totalAbilityDic[i].Count;
-        }
+        int tmp = totalAbilityDic[_index].Count;
         return tmp;
     }
 }
