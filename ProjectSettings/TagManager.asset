@@ -21,7 +21,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Enemy
+  - EventInteraction
   - Water
   - UI
   - 
@@ -53,7 +53,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: UI
-    uniqueID: 1985366299
     locked: 0

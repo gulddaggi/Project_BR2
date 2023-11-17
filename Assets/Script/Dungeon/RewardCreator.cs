@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RewardCreator : MonoBehaviour
 {
@@ -34,10 +33,6 @@ public class RewardCreator : MonoBehaviour
     // CreateReward 오버로딩. 시작 스테이지에서 
     public GameObject CreateReward(int max)
     {
-        if (SceneManager.GetActiveScene().name == "BossStage")
-        {
-            return null;
-        }
         int index = Random.Range(0, max); // 무작위 난수 생성
         GameObject reward;
         if (index == 0) // 0은 능력 
@@ -71,8 +66,6 @@ public class RewardCreator : MonoBehaviour
             reward = rewardPrefs[index];
         }
 
-        // 테스트용.
-        reward = CreateAbility(0);
         return reward;
     }
 

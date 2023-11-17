@@ -12,18 +12,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Vector3 PlayerMoveDirection;
 
-    // 돌진 공격 장판
-    [SerializeField]
-    public Collider damageField;
-
     protected Vector3 DodgeVec;
     [SerializeField] float Basic_Dodge_CoolDown;
     [SerializeField] float Basic_Dodge_CoolTime = 2.0f;
     [SerializeField] float Basic_Dodge_Time = 0.3f;
     [SerializeField] bool isDodge;
     [SerializeField] public bool isAttack;
-
-    public bool isAttacked = false;
 
     // 직렬화문은 디버깅 용도. 실제 릴리스시에는 제거해야 함
 
@@ -58,7 +52,7 @@ public class PlayerController : MonoBehaviour
                 PlayerAnimator.SetTrigger("Basic Dodge");
                 player.Player_MoveSpeed_Multiplier();
                 isDodge = true;
-                damageField.gameObject.SetActive(true);
+
                 Debug.Log("플레이어 기본 회피");
                 // PlayerColor.material.color = Color.red; 디버그용
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
@@ -139,7 +133,6 @@ public class PlayerController : MonoBehaviour
     void Basic_Dodge_Out()
     {
         player.Player_MoveSpeed_Reclaimer();
-        damageField.gameObject.SetActive(false);
         isDodge = false;
         Basic_Dodge_CoolDown = 0;
     }
@@ -158,7 +151,7 @@ public class PlayerController : MonoBehaviour
 
     #region * Player Collision Check
 
-    /*void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -166,17 +159,15 @@ public class PlayerController : MonoBehaviour
             player.TakeDamage(damagedata.Damage);
 
         }
-    }*/
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyAttack" && !isAttacked)
+        if (other.gameObject.tag == "EnemyAttack")
         {
-            isAttacked = true;
             Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
             player.TakeDamage(enemy.Damage);
             Debug.Log("Player Damaged : " + enemy.Damage);
-            isAttacked = false;
         }
     }
 

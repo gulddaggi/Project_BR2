@@ -130,7 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 5
-  BulletDamage: 10
   rb: {fileID: 0}
 --- !u!135 &2356276144799926950
 SphereCollider:

@@ -29,11 +29,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected GameObject attackRangeObj;
 
-    protected MeshRenderer SR;
-
-    [SerializeField]
-    protected bool isHit = false;
-
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -43,7 +38,7 @@ public class Enemy : MonoBehaviour
         //EnemyRigid = GetComponent<Rigidbody>();
         EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
-        SR = gameObject.GetComponent<MeshRenderer>();
+        PrimitiveHP = EnemyHP;
 }
 
 // Update is called once per frame
@@ -91,63 +86,5 @@ void Update()
     {
         attackRangeObj.SetActive(false);
         isAttack = false;
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        float[] tmpArray = new float[2] { 0f, 0f };
-
-        if (other.tag == "PlayerAttack" && isHit == false)
-        {
-            isHit = true;
-            Debug.Log("Damaged!");
-
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-
-            EnemyHP = tmpArray[0];
-
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
-            StartCoroutine(GetDamaged());
-        }
-        else if (other.tag == "StrongPlayerAttack" && isHit == false)
-        {
-            Debug.Log("Strongly Damaged!");
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-            EnemyHP = tmpArray[0];
-            StartCoroutine(GetDamaged());
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
-        }
-        else if (other.tag == "PlayerDodgeAttack" && isHit == false)
-        {
-            isHit = true;
-            Debug.Log("Dodge damaged!");
-
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            tmpArray = playerdata.PlayerDodgeAttack(EnemyHP);
-
-            EnemyHP = tmpArray[0];
-
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
-            StartCoroutine(GetDamaged());
-        }
-
-        if (EnemyHP <= 0)
-        {
-            enemySpawner.EnemyDead();
-            gameObject.SetActive(false);
-        }
-
-        IEnumerator GetDamaged()
-        {
-            SR.material.color = Color.red;
-
-            yield return new WaitForSeconds(0.6f);
-            SR.material.color = Color.white;
-            isHit = false;
-
-        }
     }
 }

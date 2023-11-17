@@ -63,33 +63,6 @@ public class DBImporter : MonoBehaviour
         return dialogueContentList.ToArray(); // 데이터가 저장된 리스트를 배열로 변환하여 반환
     }
 
-    public ShopItem[] DBImporter_Merchant(string _DBFileName)
-    {
-        List<ShopItem> shopItemList = new List<ShopItem>(); // 상점 품목 리스트
-        TextAsset DBData = Resources.Load<TextAsset>(_DBFileName); // csv 파일 변수 저장
-
-        string[] data = DBData.text.Split(new char[] { '\n' }); // 엔터 단위로 행 구분
-
-        // 항목별 저장 수행
-        for (int i = 1; i < data.Length; i++)
-        {
-            string[] row = data[i].Split(new char[] { ',' }); // 콤마 단위로 각 항목 구분
-            ShopItem shopItem = new ShopItem(); // 선택 지문 객체 생성
-
-            // 객체에 데이터 삽입
-            shopItem.item_Name = row[1]; // 이름
-            shopItem.description = row[2]; // 설명
-            shopItem.option_Name = row[3]; // 적용 옵션
-            shopItem.eventType = int.Parse(row[4]); // 이벤트타입
-            shopItem.value = row[5]; // 가산 수치. % 단위 사용 여부 구분 필요
-            shopItem.turn = row[6];
-
-            shopItemList.Add(shopItem); // 배열 변환을 위해 리스트에 저장
-        }
-
-        return shopItemList.ToArray(); // 데이터가 저장된 리스트를 배열로 변환하여 반환
-    }
-
     // 타입별 능력 개수 반환
     public void GetCount(int[] _arr)
     {

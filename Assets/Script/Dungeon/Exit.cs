@@ -22,7 +22,6 @@ public class Exit : MonoBehaviour
     {
         panelImage = GameManager_JS.Instance.GetPanel();
         StartCoroutine(FadeInPanel());
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -37,7 +36,7 @@ public class Exit : MonoBehaviour
     {
         Color startColor = panelImage.color;
         float elapsedTime = 0f;
-        //GameManager_JS.Instance.CoinOnOff(false); // 코인 텍스트 on/off 기능. 이후에 활성화.
+        GameManager_JS.Instance.CoinOnOff(false);
 
         while (elapsedTime < duration)
         {
@@ -81,7 +80,7 @@ public class Exit : MonoBehaviour
 
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
-        //GameManager_JS.Instance.CoinOnOff(true); // 코인 텍스트 on/off 기능. 이후에 활성화
+        GameManager_JS.Instance.CoinOnOff(true);
     }
 
     // 지정된 다음 보상 생성 후 출구에 표시
