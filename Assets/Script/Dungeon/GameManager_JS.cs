@@ -27,6 +27,14 @@ public class DialogueCheck
 
 public class GameManager_JS : MonoBehaviour
 {
+    #region 플레이어 관련 변수체크
+
+    GameObject player;
+    [SerializeField]
+    public Attack.Weapon playerWeapon = Attack.Weapon.Sword;
+
+    #endregion
+
     // 싱글톤 구현
     private static GameManager_JS instance = null;
 
