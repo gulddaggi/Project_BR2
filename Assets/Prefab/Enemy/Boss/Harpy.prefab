@@ -10048,6 +10048,12 @@ MonoBehaviour:
   Damage: 10
   attackRangeObj: {fileID: 0}
   isHit: 0
+  hpBarPrefab: {fileID: 0}
+  hpBarOffset: {x: 0, y: 2.2, z: 0}
+  FullHP: 0
+  hpBarImage: {fileID: 0}
+  hpBarImage2: {fileID: 0}
+  HPOn: 0
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}
