@@ -74,6 +74,9 @@ public class GameManager_JS : MonoBehaviour
     //출구를 통한 스테이지 이동 가능 여부.
     private bool isMoveOn = false;
 
+    // 이벤트 실행 중 여부 확인 변수
+    public bool isEventOn = false;
+
     public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
 
     private void Awake()
@@ -149,6 +152,7 @@ public class GameManager_JS : MonoBehaviour
         Coin = 0;
         coinText_Play.transform.gameObject.SetActive(false);
         isMoveOn = true;
+        isEventOn = false;
         ResetEncounter();
     }
 

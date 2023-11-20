@@ -93,6 +93,22 @@ public class EventDBManager : MonoBehaviour
         _DBImporter.GetCount(abilityCountArr);
     }
 
+    // Listener 등록 함수
+    public void AddListenerPlaerStatus(Player player)
+    {
+        for (int i = 0; i < totalAbilityDic.Count; i++)
+        {
+            for (int j = 0; j < totalAbilityDic[i].Count; j++)
+            {
+                int tmpi = 0;
+                int tmpj = int.Parse(totalAbilityDic[i][j].ID);
+                Debug.Log(totalAbilityDic[i][j].ID);
+                totalAbilityDic[i][j].OnSelected.AddListener(() => player.AbilitySelected(tmpi, tmpj));
+                Debug.Log(i + "," + j + "이벤트 등록 완료");
+            }
+        }
+    }
+
     // 대화 DB 전체 임포트
     void Import_Dialogue(DBImporter _DBImporter)
     {
@@ -141,18 +157,23 @@ public class EventDBManager : MonoBehaviour
         int[] returnArray = new int[2];
 
         // 추출 대상 인덱스와 가산 수치.
-        int[] selected = abilitySelector.Select(index, abilityCountArr[index]);
+        int[] selected = abilitySelector.Select(ab_index, index, abilityCountArr[0]); // 추출 대상 수정 함수 호출. 수정 필요.
         int line = selected[0];
         int grade = selected[1];
 
         // 이후 개발 시에는 지정된 ID
         format[0].GetComponent<Text>().text = totalAbilityDic[ab_index][line].ability_name;
         format[1].GetComponent<Text>().text = totalAbilityDic[ab_index][line].description;
-        format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option_Name;
+        format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option;
         format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
         SetRank(format[4], grade);
+        if(totalAbilityDic[ab_index][line].sub_Description != "")
+        {
+            format[5].gameObject.SetActive(true);
+            format[5].GetComponentInChildren<Text>().text = totalAbilityDic[ab_index][line].sub_Description;
+        }
 
-        returnArray[0] = StatIndex(index,line);
+        returnArray[0] = line;
         returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
 
         return returnArray;
@@ -264,5 +285,21 @@ public class EventDBManager : MonoBehaviour
         // 리스트 다시 채우기
         lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
         indexList.Clear();
+    }
+
+    public int GetTotalDicNum()
+    {
+        return totalAbilityDic.Count;
+    }
+
+    public int GetTotalIDNum(int _index)
+    {
+        int tmp = totalAbilityDic[_index].Count;
+        return tmp;
+    }
+
+    public string[] GetPreAbility(int _type, int _id)
+    {
+        return totalAbilityDic[_type][_id].pre_abilities;
     }
 }
