@@ -157,7 +157,7 @@ public class EventDBManager : MonoBehaviour
         int[] returnArray = new int[2];
 
         // 추출 대상 인덱스와 가산 수치.
-        int[] selected = abilitySelector.Select(index, abilityCountArr[0]); // 추출 대상 수정 함수 호출. 수정 필요.
+        int[] selected = abilitySelector.Select(ab_index, index, abilityCountArr[0]); // 추출 대상 수정 함수 호출. 수정 필요.
         int line = selected[0];
         int grade = selected[1];
 
@@ -296,5 +296,10 @@ public class EventDBManager : MonoBehaviour
     {
         int tmp = totalAbilityDic[_index].Count;
         return tmp;
+    }
+
+    public string[] GetPreAbility(int _type, int _id)
+    {
+        return totalAbilityDic[_type][_id].pre_abilities;
     }
 }
