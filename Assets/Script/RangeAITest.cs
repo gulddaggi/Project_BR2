@@ -1,21 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RangeAITest : MonoBehaviour
 {
-    //플레이어 발견시 이펙트
-    public GameObject FindPlayer;
-    public Vector3 FindPlayerOffset = new Vector3(0, 2.2f, 0);
-
-    private Canvas uiCanvas;
-    public Image hpBarImage;
-
     private Transform player;
     public UnityEngine.AI.NavMeshAgent nvAgent;
     Animator animator;
-
 
     // Start is called before the first frame update
     void Start()

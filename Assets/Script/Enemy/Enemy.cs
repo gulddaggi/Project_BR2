@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -37,16 +34,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected bool isHit = false;
 
-    //HP바 생성
-    public GameObject hpBarPrefab;
-    public Vector3 hpBarOffset = new Vector3(0, 2.2f, 0);
-    public float FullHP;
-
-    private Canvas uiCanvas;
-    public Image hpBarImage;
-    public Image hpBarImage2;
-    public bool HPOn = false;
-
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -57,13 +44,10 @@ public class Enemy : MonoBehaviour
         EnemyAnimator = GetComponent<Animator>();
         //nav = GetComponent<NavMeshAgent>();
         SR = gameObject.GetComponent<MeshRenderer>();
-        //hp바
-        FullHP = EnemyHP;
-        //SetHpBar();
-    }
+}
 
-    // Update is called once per frame
-    void Update()
+// Update is called once per frame
+void Update()
     {
         //Track_Player();
         //Enemy_Anim_Manage();
@@ -80,18 +64,7 @@ public class Enemy : MonoBehaviour
         {
             EnemyRigid.velocity = Vector3.zero;
         }
-    }
 
-    public void SetHpBar()
-    {
-        uiCanvas = GameObject.Find("EnemyUI").GetComponent<Canvas>();
-        GameObject HPBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
-        hpBarImage = HPBar.GetComponentsInChildren<Image>()[1];
-        hpBarImage2 = HPBar.GetComponentsInChildren<Image>()[0];
-
-        var _hpbar = HPBar.GetComponent<EnemyHp>();
-        _hpbar.targetTr = this.gameObject.transform;
-        _hpbar.offset = hpBarOffset;
     }
 
     void Enemy_Anim_Manage()
@@ -136,8 +109,6 @@ public class Enemy : MonoBehaviour
 
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
-
-            hpBarImage.fillAmount = EnemyHP / FullHP;
         }
         else if (other.tag == "StrongPlayerAttack" && isHit == false)
         {
@@ -148,8 +119,6 @@ public class Enemy : MonoBehaviour
             EnemyHP = tmpArray[0];
             StartCoroutine(GetDamaged());
             debuffChecker.DebuffCheck((int)tmpArray[1]);
-
-            hpBarImage.fillAmount = EnemyHP / FullHP;
         }
         else if (other.tag == "PlayerDodgeAttack" && isHit == false)
         {
@@ -163,15 +132,12 @@ public class Enemy : MonoBehaviour
 
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
-
-            hpBarImage.fillAmount = EnemyHP / FullHP;
         }
 
         if (EnemyHP <= 0)
         {
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
-            hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
         }
 
         IEnumerator GetDamaged()
