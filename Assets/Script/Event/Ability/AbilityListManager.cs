@@ -92,6 +92,13 @@ public class AbilityListManager : MonoBehaviour
     // 능력 선택 이벤트에서 버튼 클릭으로 인한 OnClick() 이벤트 발생 시 실행되는 이벤트 핸들러.
     public void GetSelected(GameObject _selected)
     {
+        // 리스트 초기화 진행
+        if (levelCheckList == null)
+        {
+            Debug.Log("리스트가 존재하지 않아 새로 생성");
+            CreateArray();
+        }
+
 
         // 레벨 지정에 필요한 인덱스 저장
         abilityIndex = _selected.GetComponent<AbilityChoice>().typeIndex;
@@ -191,12 +198,6 @@ public class AbilityListManager : MonoBehaviour
 
     public bool AbilityCheck(int _typeIndex, string _id)
     {
-        // 리스트 초기화 진행
-        if (levelCheckList == null)
-        {
-            Debug.Log("리스트가 존재하지 않아 새로 생성");
-            CreateArray();
-        }
 
         int tmp = StToInt(_id);
 

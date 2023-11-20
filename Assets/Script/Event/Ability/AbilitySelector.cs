@@ -32,19 +32,14 @@ public class AbilitySelector : MonoBehaviour
         ab_index = _ab_index;
 
         int tmp = 0;
-        //numbers[0] = Random.Range(0, tier1Count);
+        numbers[0] = Random.Range(0, tier1Count);
 
         while (tmp < index) // 중복 능력 추첨을 막기 위함
         {
             if (numbers[0] == curIndex[tmp])
             {
                 tmp = 0;
-                // 능력 추첨 및 선행능력 보유 확인
-                numbers[0] = SelectNumber();
-                if (numbers[0] == -1)
-                {
-                    numbers[0] = curIndex[tmp];
-                }
+                numbers[0] = Random.Range(0, tier1Count);
             }
             else
             {

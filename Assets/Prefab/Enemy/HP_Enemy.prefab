@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8699730369197959667}
   - component: {fileID: 7084650738177089383}
   - component: {fileID: 3248810599676008921}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HP_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 5195866685245946951}
   - component: {fileID: 5512336332349552912}
   - component: {fileID: 6903295851803446394}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HPFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 9065119219151278096}
   - component: {fileID: 5978528151314367034}
   - component: {fileID: 123012747693196231}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

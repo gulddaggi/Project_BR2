@@ -141,7 +141,5 @@ public class Grogon : Enemy
     {
         // 원거리 공격을 발사하는 함수
         GameObject bulletInstance = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        // 원거리 공격의 방향, 속도, 등을 설정할 수 있습니다.
-        // 예를 들어, bulletInstance.GetComponent<Rigidbody>().velocity = transform.forward * bulletSpeed;
     }
 }
