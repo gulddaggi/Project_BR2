@@ -37,7 +37,7 @@ public class Cyclops : Enemy
 
             EnemyHP = tmpArray[0];
 
-            hpBarImage.fillAmount = EnemyHP / FullHP;
+            // hpBarImage.fillAmount = EnemyHP / FullHP;
 
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
@@ -73,7 +73,7 @@ public class Cyclops : Enemy
 
         if (EnemyHP <= 0)
         {
-            hpBarImage2.fillAmount = 0;
+            // hpBarImage2.fillAmount = 0;
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
         }

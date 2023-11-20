@@ -159,46 +159,46 @@ public class Attack : MonoBehaviour
     {
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
-        Debug.Log("First Combo Start");
+        // Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
     {
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
-        Debug.Log("First Combo End");
+        // Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, false);
         ManageAttackRange(1, true);
-        Debug.Log("Second Combo Start");
+        // Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
     {
         // PlayerAnimator.applyRootMotion = false;
 
         ManageAttackRange(1, false);
-        Debug.Log("Second Combo End");
+        // Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(1, false);
         ManageAttackRange(2, true);
-        Debug.Log("Third Combo Start");
+        // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         ManageAttackRange(2, false);
-        Debug.Log("Third Combo End");
+        // Debug.Log("Third Combo End");
     }
 
     public void ManageAttackRange(int ComboNum, bool able)
     {
-        Debug.Log("Player Attack!");
+        // Debug.Log("Player Attack!");
         Weapon_Damage_Range[PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
     }
 
