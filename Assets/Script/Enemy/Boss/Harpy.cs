@@ -122,19 +122,22 @@ public class Harpy : Enemy
 
     IEnumerator Harpy_Fire_2() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
     {
+        Debug.Log("Pattern 2 Activated!");
         int ran = Random.Range(0, 360); //랜덤으로 0~360도
-        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 20f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
-        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 20f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
 
-        gameObject.transform.position = Harpy_point.transform.position + new Vector3(x, 0f, z);
+        gameObject.transform.position = new Vector3(0f, 0f, 0f) + new Vector3(x, 0f, z);
 
         yield return new WaitForSeconds(0.5f);
         GameObject Big_Projecter = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
 
         if (isOverdriving) { yield return new WaitForSeconds(Boss_Pattern_Waiting_Time); } // 일반 패턴
-        else {
+        else
+        {
             GameObject Big_Projecter_2 = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
-            yield return new WaitForSeconds((2 * Boss_Pattern_Waiting_Time) / 3); } // 폭주 패턴
+            yield return new WaitForSeconds((2 * Boss_Pattern_Waiting_Time) / 3);
+        } // 폭주 패턴
         StartCoroutine(Harpy_Pattern_Management());
     }
 
