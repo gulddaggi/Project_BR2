@@ -75,12 +75,12 @@ public class AnimationEventEffects : MonoBehaviour {
     {
         if(GameManager_JS.Instance.playerWeapon == Attack.Weapon.Sword)
         {
-            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
             return 0;
         }
         else if(GameManager_JS.Instance.playerWeapon == Attack.Weapon.Axe)
         {
-            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
             return 1;
         }
 
