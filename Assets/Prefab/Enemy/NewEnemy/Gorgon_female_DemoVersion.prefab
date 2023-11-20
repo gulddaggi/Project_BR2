@@ -7070,7 +7070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 0}
+  objColor: {fileID: 1501943690705046079}
 --- !u!195 &1509352678878987365
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -7113,13 +7113,13 @@ MonoBehaviour:
   Damage: 10
   attackRangeObj: {fileID: 0}
   isHit: 0
-  hpBarPrefab: {fileID: 0}
+  hpBarPrefab: {fileID: 2519535995746167745, guid: ffcea7e15eb1d4b5e9dbe4bfca04c82c, type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
 --- !u!114 &1509352678878987353
 MonoBehaviour:
   m_ObjectHideFlags: 0
