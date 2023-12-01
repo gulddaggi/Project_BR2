@@ -199,24 +199,8 @@ public class Attack : MonoBehaviour
     public void ManageAttackRange(int ComboNum, bool able)
     {
         // Debug.Log("Player Attack!");
-        Weapon_Damage_Range[PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
+        Weapon_Damage_Range[GameManager_JS.Instance.PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
     }
 
-    public int PlayerWeaponCheck()
-    {
-        if (GameManager_JS.Instance.playerWeapon == Weapon.Sword)
-        {
-            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
-            return 0;
-        }
-        else if (GameManager_JS.Instance.playerWeapon
-            == Weapon.Axe)
-        {
-            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
-            return 1;
-        }
-
-        return 0;
-    }
     #endregion
 }
