@@ -30,6 +30,7 @@ public class GameManager_JS : MonoBehaviour
     #region 플레이어 관련 변수체크
 
     GameObject player;
+
     [SerializeField]
     public Attack.Weapon playerWeapon = Attack.Weapon.Sword;
 
@@ -311,6 +312,12 @@ public class GameManager_JS : MonoBehaviour
         {
             // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
             return 1;
+        }
+        else if (GameManager_JS.Instance.playerWeapon
+    == Attack.Weapon.Bow)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 2;
         }
 
         return 0;

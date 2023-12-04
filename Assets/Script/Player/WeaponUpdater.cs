@@ -51,5 +51,21 @@ public class WeaponUpdater: MonoBehaviour
             Debug.Log("플레이어 무기 : 배틀액스");
 
         }
+        else if (playerWeapon == Attack.Weapon.Bow)
+        {
+            // player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
+            // player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Axe;
+            GameManager_JS.Instance.playerWeapon = Attack.Weapon.Bow;
+            Debug.Log(GameManager_JS.Instance.playerWeapon.ToString());
+
+            var resourceName = "Player/Bow/Bow Override";
+            var animator = player.gameObject.GetComponent<Animator>();
+            animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
+
+            Axe.SetActive(false);
+            Sword.SetActive(false);
+            Debug.Log("플레이어 무기 : 활");
+
+        }
     }
 }
