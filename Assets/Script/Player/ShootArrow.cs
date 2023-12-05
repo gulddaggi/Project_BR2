@@ -15,6 +15,7 @@ public class ShootArrow : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        var instance = Instantiate(Arrow, gameObject.transform.position, player.transform.rotation);
+        if (player != null) { var instance = Instantiate(Arrow, gameObject.transform.position, player.transform.rotation); }
+        else { player = GameObject.FindGameObjectWithTag("Player"); var instance = Instantiate(Arrow, gameObject.transform.position, player.transform.rotation); }
     }
 }
