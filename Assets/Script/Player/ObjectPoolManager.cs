@@ -31,8 +31,8 @@ public class ObjectPoolManager : MonoBehaviour
         // 미리 오브젝트 생성 해놓기
         for (int i = 0; i < defaultCapacity; i++)
         {
-            Bullet bullet = CreatePooledItem().GetComponent<Bullet>();
-            bullet.Pool.Release(bullet.gameObject);
+            ArrowScript arrow = CreatePooledItem().GetComponent<ArrowScript>();
+            arrow.Pool.Release(arrow.gameObject);
         }
     }
 
@@ -40,7 +40,7 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject CreatePooledItem()
     {
         GameObject poolGo = Instantiate(bulletPrefab);
-        poolGo.GetComponent<Bullet>().Pool = this.Pool;
+        poolGo.GetComponent<ArrowScript>().Pool = this.Pool;
         return poolGo;
     }
 
