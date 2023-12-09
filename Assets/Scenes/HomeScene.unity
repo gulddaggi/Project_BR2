@@ -2297,8 +2297,28 @@ PrefabInstance:
       value: Player V6
       objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: AttackDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: Weapon_Damage_Range.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: PlayerAttackDelay.AttackDelay.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: PlayerAttackDelay.AttackDelay.Array.data[0]
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: PlayerAttackDelay.AttackDelay.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: PlayerAttackDelay.AttackDelay.Array.data[2]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: Weapon_Damage_Range.Array.data[2].WeaponDamageRange.Array.size

@@ -12,11 +12,22 @@ public class Attack : MonoBehaviour
 
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
-    [SerializeField] PlayerController playercontroller;
+    PlayerController playercontroller;
 
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
     public Transform bulletSpawnPoint;
+
+    [SerializeField] bool AttackAvailable = true;
+    // [SerializeField] float AttackDelay = 1.5f;
+
+    [Header("플레이어 공격 딜레이 / 무기마다 체크")]
+    public WeaponAttackDelay PlayerAttackDelay;
+    [System.Serializable]
+    public class WeaponAttackDelay
+    {
+        public float[] AttackDelay;
+    }
 
     [Header("하기 요소들은 플레이어의 공격 범위를 지정함.")]
     [Header("공격 범위를 수정하려면 해당 요소들을 바꿔끼우면 됨.")]
@@ -68,8 +79,10 @@ public class Attack : MonoBehaviour
             transform.LookAt(MouseDirection);
             // Debug.Log(MouseDirection);
 
-
-            PlayerAnimator.SetTrigger("OnCloseAttackCombo");
+            if (AttackAvailable)
+            {
+                PlayerAnimator.SetTrigger("OnCloseAttackCombo");
+            }
 
             // StartCoroutine(AttackDelay());
         }
@@ -166,7 +179,8 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
-        // Debug.Log("First Combo End");
+        StartCoroutine(ManageAttackDelay());
+        Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
     {
@@ -180,7 +194,8 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
 
         ManageAttackRange(1, false);
-        // Debug.Log("Second Combo End");
+        StartCoroutine(ManageAttackDelay());
+        Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
@@ -193,13 +208,23 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = false;
         ManageAttackRange(2, false);
-        // Debug.Log("Third Combo End");
+        StartCoroutine(ManageAttackDelay());
+        Debug.Log("Third Combo End");
     }
 
     public void ManageAttackRange(int ComboNum, bool able)
     {
         // Debug.Log("Player Attack!");
         Weapon_Damage_Range[GameManager_JS.Instance.PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
+    }
+
+    IEnumerator ManageAttackDelay()
+    {
+        AttackAvailable = false;
+        PlayerAnimator.SetBool("AttackAvailable", false);
+        yield return new WaitForSeconds(PlayerAttackDelay.AttackDelay[GameManager_JS.Instance.PlayerWeaponCheck()]);
+        PlayerAnimator.SetBool("AttackAvailable", true);
+        AttackAvailable = true;
     }
 
     #endregion

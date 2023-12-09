@@ -8,6 +8,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     public int defaultCapacity = 10;
     public int maxPoolSize = 15;
+
     public GameObject bulletPrefab;
 
     public IObjectPool<GameObject> Pool { get; private set; }

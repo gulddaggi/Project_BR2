@@ -29,7 +29,7 @@ public class ArrowScript : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             // 적에게 맞았을 때의 동작을 여기에 작성
-            Debug.Log("적에게 맞았습니다!");
+            Debug.Log("적 피격 감지");
             ObjectPoolManager.instance.Pool.Release(this.gameObject);
         }
         else if (other.CompareTag("Obstacle"))
