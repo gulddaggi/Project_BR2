@@ -24461,6 +24461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0ffb58bf0277a408139e43818dd1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FindPlayer: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
 --- !u!195 &2186527224101261920
 NavMeshAgent:
@@ -24504,6 +24507,12 @@ MonoBehaviour:
   Damage: 5
   attackRangeObj: {fileID: 80503012943474043}
   isHit: 0
+  hpBarPrefab: {fileID: 0}
+  hpBarOffset: {x: 0, y: 2.2, z: 0}
+  FullHP: 0
+  hpBarImage: {fileID: 0}
+  hpBarImage2: {fileID: 0}
+  HPOn: 0
 --- !u!114 &362532355212276237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24854,6 +24863,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0ffb58bf0277a408139e43818dd1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FindPlayer: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
 --- !u!195 &2186527224061798351
 NavMeshAgent:
@@ -24897,6 +24909,12 @@ MonoBehaviour:
   Damage: 5
   attackRangeObj: {fileID: 80503012987132116}
   isHit: 0
+  hpBarPrefab: {fileID: 0}
+  hpBarOffset: {x: 0, y: 2.2, z: 0}
+  FullHP: 0
+  hpBarImage: {fileID: 0}
+  hpBarImage2: {fileID: 0}
+  HPOn: 0
 --- !u!114 &362532355172796322
 MonoBehaviour:
   m_ObjectHideFlags: 0

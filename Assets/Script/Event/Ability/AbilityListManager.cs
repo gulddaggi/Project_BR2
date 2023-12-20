@@ -196,58 +196,23 @@ public class AbilityListManager : MonoBehaviour
         _parent.parent.gameObject.SetActive(false);
     }
 
-    public bool AbilityCheck(int _typeIndex, string _id)
+    public bool AbilityCheck(int _typeIndex, int _id)
     {
 
-        int tmp = StToInt(_id);
+        // 리스트 초기화 진행
+        if (levelCheckList == null)
+        {
+            Debug.Log("리스트가 존재하지 않아 새로 생성");
+            CreateArray();
+        }
 
-        if (levelCheckList[_typeIndex][tmp] != 0)
+        if (levelCheckList[_typeIndex][_id] != 0)
         {
             return true;
         }
         else
         {
             return false;
-        }
-    }
-
-    int StToInt(string _id)
-    {
-        if (_id == "1")
-        {
-            return 1;
-        }
-        else if(_id == "2")
-        {
-            return 2;
-        }
-        else if (_id == "3")
-        {
-            return 3;
-        }
-        else if (_id == "4")
-        {
-            return 4;
-        }
-        else if (_id == "5")
-        {
-            return 5;
-        }
-        else if (_id == "6")
-        {
-            return 6;
-        }
-        else if (_id == "7")
-        {
-            return 7;
-        }
-        else if (_id == "8")
-        {
-            return 8;
-        }
-        else
-        {
-            return 9;
         }
     }
 }
