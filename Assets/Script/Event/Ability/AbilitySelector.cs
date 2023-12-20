@@ -7,11 +7,12 @@ public class AbilitySelector : MonoBehaviour
     // 등급별 확률
     float[] probs = new float[3] { 70.0f, 25.0f, 5.0f };
 
-    float[] probs_ability = new float[10] { 15.0f, 15.0f, 10.0f, 10.0f, 5.0f, 5.0f, 3.0f, 3.0f, 2.0f, 2.0f };
+    //float[] probs_ability = new float[10] { 15.0f, 15.0f, 10.0f, 10.0f, 5.0f, 5.0f, 3.0f, 3.0f, 2.0f, 2.0f };
 
     //int[] pre_Abil_Check = new int[10] { 0, 0, 0, 0, 1, 0, 0, 1, 1, 1 };
 
     // 플레이어의 능력 선택 이후마다 업데이트
+    List<float> randomBoxList = new List<float>();
     float[,] randomBox = new float[4, 10];
 
     float total = 0.0f;
@@ -40,26 +41,8 @@ public class AbilitySelector : MonoBehaviour
             SetProbs();
         }
 
-        int tmp = 0;
         numbers[0] = SelectNumber();
 
-        /*
-        while (tmp < index) // 중복 능력 추첨을 막기 위함
-        {
-            if (numbers[0] == curIndex[tmp])
-            {
-                tmp = 0;
-                numbers[0] = SelectNumber();
-            }
-            else
-            {
-                ++tmp;
-            }
-        }
-
-        // 중복 여부 확인을 위해 배열에 추가.
-        curIndex[index] = numbers[0];
-        */
         if (index == 2) init();
 
         Debug.Log((index + 1) + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
@@ -75,12 +58,18 @@ public class AbilitySelector : MonoBehaviour
         Debug.Log("가중치 초기화");
         for (int i = 0; i < 10; i++)
         {
-            randomBox[ab_index, i] = calcProb(i);
-            total += randomBox[ab_index, i];
+            float tmp = calcProb(i);
+            if (tmp != -1.0f)
+            {
+                randomBoxList.Add(tmp);
+                total += tmp;
+            }
+            //randomBox[ab_index, i] = calcProb(i);
+            //total += randomBox[ab_index, i];
         }
     }
 
-    // 가중치 계산
+    // 가중치 계산. 이후에 상세 수치 조정 필요.
     float calcProb(int _id)
     {
         float ans;
@@ -105,22 +94,22 @@ public class AbilitySelector : MonoBehaviour
         int num = 0;
 
         // 가중치에 맞는 번호 추첨
-        for (int i = 0; i < randomBox.GetLength(0); i++)
+        for (int i = 0; i < randomBoxList.Count; i++)
         {
-            if (randomBox[ab_index, i] == -1.0f)
+            if (randomBoxList[i] == -1.0f)
             {
                 continue;
             }
 
-            if (randomValue <= randomBox[ab_index, i])
+            if (randomValue <= randomBoxList[i])
             {
                 num = i;
-                total -= randomBox[ab_index, i];
-                randomBox[ab_index, i] = -1.0f;
+                total -= randomBoxList[i];
+                randomBoxList.Remove(randomBoxList[i]);
             }
             else
             {
-                randomValue -= randomBox[ab_index, i];
+                randomValue -= randomBoxList[i];
             }
         }
         Debug.Log("추첨 번호" + num);
@@ -152,10 +141,6 @@ public class AbilitySelector : MonoBehaviour
     // 능력 중복 확인 배열 초기화
     void init()
     {
-        //for (int i = 0; i < curIndex.Length; i++)
-        //{
-       //    curIndex[i] = -1;
-        //}
         ab_index = 0;
         total = 0.0f;
         return;
