@@ -57,7 +57,6 @@ public class AbilityListManager : MonoBehaviour
     void CreateArray()
     {
         levelCheckList = new List<List<int>>();
-        Debug.Log("리스트 생성 시작");
         totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
 
         for (int i = 0; i < totalAbilityNum; i++)
@@ -72,11 +71,11 @@ public class AbilityListManager : MonoBehaviour
             levelCheckList.Add(tmpList);
         }
 
-        Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
+        /*Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
         for (int i = 0; i < levelCheckList.Count; i++)
         {
             Debug.Log((i + 1) + "번째 능력의 개수 : " + levelCheckList[i].Count);
-        }
+        }*/
     }
     private void OnEnable()
     {
@@ -95,7 +94,6 @@ public class AbilityListManager : MonoBehaviour
         // 리스트 초기화 진행
         if (levelCheckList == null)
         {
-            Debug.Log("리스트가 존재하지 않아 새로 생성");
             CreateArray();
         }
 
@@ -182,12 +180,10 @@ public class AbilityListManager : MonoBehaviour
             obj.transform.GetChild(2).GetComponent<Text>().text = playerAbilityList[i].option;
             obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].plus_Value;
         }
-        Debug.Log("리스트 구성 요소 수 : " + playerAbilityList.Count);
     }
 
     public void ALOff()
     {
-        Debug.Log("자식 수 : " + gameObject.transform.childCount);
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             GameObject.DestroyImmediate(gameObject.transform.GetChild(i).gameObject);
@@ -198,11 +194,9 @@ public class AbilityListManager : MonoBehaviour
 
     public bool AbilityCheck(int _typeIndex, int _id)
     {
-
         // 리스트 초기화 진행
         if (levelCheckList == null)
         {
-            Debug.Log("리스트가 존재하지 않아 새로 생성");
             CreateArray();
         }
 

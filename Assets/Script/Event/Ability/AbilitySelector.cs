@@ -7,10 +7,6 @@ public class AbilitySelector : MonoBehaviour
     // 등급별 확률
     float[] probs = new float[3] { 70.0f, 25.0f, 5.0f };
 
-    //float[] probs_ability = new float[10] { 15.0f, 15.0f, 10.0f, 10.0f, 5.0f, 5.0f, 3.0f, 3.0f, 2.0f, 2.0f };
-
-    //int[] pre_Abil_Check = new int[10] { 0, 0, 0, 0, 1, 0, 0, 1, 1, 1 };
-
     // 플레이어의 능력 선택 이후마다 업데이트
     List<float> randomBoxList = new List<float>();
     float[,] randomBox = new float[4, 10];
@@ -42,11 +38,7 @@ public class AbilitySelector : MonoBehaviour
         }
 
         numbers[0] = SelectNumber();
-
         if (index == 2) init();
-
-        Debug.Log((index + 1) + "번째 슬롯의 능력 라인 지정 : " + numbers[0]);
-
         numbers[1] = SelectRank();
 
         return numbers;
@@ -55,7 +47,6 @@ public class AbilitySelector : MonoBehaviour
     // 선행 능력 충족 여부에 따라 가중치 설정.
     void SetProbs()
     {
-        Debug.Log("가중치 초기화");
         for (int i = 0; i < 10; i++)
         {
             float tmp = calcProb(i);
@@ -64,8 +55,6 @@ public class AbilitySelector : MonoBehaviour
                 randomBoxList.Add(tmp);
                 total += tmp;
             }
-            //randomBox[ab_index, i] = calcProb(i);
-            //total += randomBox[ab_index, i];
         }
     }
 
@@ -112,7 +101,6 @@ public class AbilitySelector : MonoBehaviour
                 randomValue -= randomBoxList[i];
             }
         }
-        Debug.Log("추첨 번호" + num);
         return num;
     }
 
