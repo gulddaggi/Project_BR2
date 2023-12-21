@@ -209,4 +209,39 @@ public class AbilityListManager : MonoBehaviour
             return false;
         }
     }
+
+    // 기존 선택 능력의 등급 확인
+    public int AbilityRankCheck(int _typeIndex, int _id)
+    {
+        // 이미 선택된 능력일 경우
+        if (levelCheckList[_typeIndex][_id] != 0)
+        {
+            // 해당 능력을 찾아 등급 확인.
+            for (int i = 0; i < playerAbilityList.Count; i++)
+            {
+                int[] tmpArr = playerAbilityList[i].indexArr;
+                if (tmpArr[0] == _typeIndex && tmpArr[1] == _id)
+                {
+                    Debug.Log("능력 : " + playerAbilityList[i].ability_name);
+                    Debug.Log("이미 선택된 능력. 등급은 : " + playerAbilityList[i].rank);
+
+                    string returnRank = playerAbilityList[i].rank;
+
+                    if (returnRank == "일반")
+                    {
+                        return 0;
+                    }
+                    else if (returnRank == "희귀")
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return 2;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }

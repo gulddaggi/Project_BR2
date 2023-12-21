@@ -5,11 +5,10 @@ using UnityEngine;
 public class AbilitySelector : MonoBehaviour
 {
     // 등급별 확률
-    float[] probs = new float[3] { 70.0f, 25.0f, 5.0f };
+    float[] rankProbs = new float[3] { 70.0f, 25.0f, 5.0f };
 
     // 플레이어의 능력 선택 이후마다 업데이트
     List<float> randomBoxList = new List<float>();
-    float[,] randomBox = new float[4, 10];
 
     float total = 0.0f;
 
@@ -20,16 +19,17 @@ public class AbilitySelector : MonoBehaviour
 
     int ab_index = 0;
 
-    // 현재 보유 능력 확인을 위한 클래스 변수
+    // 현재 보유 능력 확인을 위한 클래스 변수.
+    // 싱글톤 오브젝트의 자식으로 존재. 차후 변수 등록 추가 필요
     [SerializeField]
     AbilityListManager abManager;
 
     // 추출할 인덱스를 지정하여 반환
-    public int[] Select(int _ab_index, int index)
+    public int[] Select(int _abIndex, int index)
     {
         // 반환값. 순서대로 추출할 능력, 등급
         int[] numbers = new int[2] { 0, 0 };
-        ab_index = _ab_index;
+        ab_index = _abIndex;
 
         // 가중치 배열 초기화
         if (index == 0)
@@ -37,9 +37,12 @@ public class AbilitySelector : MonoBehaviour
             SetProbs();
         }
 
+        // 능력 추첨
         numbers[0] = SelectNumber();
+        // 능력 등급 추첨
+        numbers[1] = SelectRank(numbers[0]);
         if (index == 2) init();
-        numbers[1] = SelectRank();
+
 
         return numbers;
     }
@@ -95,6 +98,7 @@ public class AbilitySelector : MonoBehaviour
                 num = i;
                 total -= randomBoxList[i];
                 randomBoxList.Remove(randomBoxList[i]);
+                break;
             }
             else
             {
@@ -105,25 +109,40 @@ public class AbilitySelector : MonoBehaviour
     }
 
     // 능력 등급 추첨
-    int SelectRank()
+    int SelectRank(int _id)
     {
         float randomValue = Random.value * total;
         int num = 0;
 
-        for (int i = 0; i < probs.Length; i++)
+        for (int i = 0; i < rankProbs.Length; i++)
         {
-            if (randomValue <= probs[i])
+            if (randomValue <= rankProbs[i])
             {
                 num = i;
                 break;
             }
             else
             {
-                randomValue -= probs[i];
+                randomValue -= rankProbs[i];
             }
         }
 
+        // 현재 추첨된 등급이 기존 등급보다 낮은 등급인지 확인하고 조정.
+        num = MinimumRankCheck(num, _id);
+
         return num;
+    }
+
+    // 등급 확인 및 조정.
+    int MinimumRankCheck(int _num, int _id)
+    {
+        int tmp = abManager.AbilityRankCheck(ab_index, _id);
+        if (tmp != -1 && tmp > _num)
+        {
+            Debug.Log("추첨된 능력 등급이 낮아 조정");
+            _num = tmp;
+        }
+        return _num;
     }
 
     // 능력 중복 확인 배열 초기화
@@ -140,10 +159,12 @@ public class AbilitySelector : MonoBehaviour
         // DB로부터 선행능력 전달
         string[] cont = EventDBManager.instance.GetPreAbility(ab_index, _id);
 
+        // 선행능력 없음
         if (cont[0] == "")
         {
             return true;
         }
+        // 선행능력 있음
         else
         {
             for (int i = 0; i < cont.Length; i++)
