@@ -56,6 +56,7 @@ public class AbilityListManager : MonoBehaviour
     // 능력 레벨 확인을 위한 리스트
     void CreateArray()
     {
+        Debug.Log("새 리스트 생성");
         levelCheckList = new List<List<int>>();
         totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
 
@@ -96,7 +97,6 @@ public class AbilityListManager : MonoBehaviour
         {
             CreateArray();
         }
-
 
         // 레벨 지정에 필요한 인덱스 저장
         abilityIndex = _selected.GetComponent<AbilityChoice>().typeIndex;
@@ -200,10 +200,12 @@ public class AbilityListManager : MonoBehaviour
             CreateArray();
         }
 
+        // 능력 이미 선택
         if (levelCheckList[_typeIndex][_id] != 0)
         {
             return true;
         }
+        // 능력 미선택
         else
         {
             return false;
@@ -220,25 +222,15 @@ public class AbilityListManager : MonoBehaviour
             for (int i = 0; i < playerAbilityList.Count; i++)
             {
                 int[] tmpArr = playerAbilityList[i].indexArr;
+
                 if (tmpArr[0] == _typeIndex && tmpArr[1] == _id)
                 {
                     Debug.Log("능력 : " + playerAbilityList[i].ability_name);
                     Debug.Log("이미 선택된 능력. 등급은 : " + playerAbilityList[i].rank);
 
-                    string returnRank = playerAbilityList[i].rank;
-
-                    if (returnRank == "일반")
-                    {
-                        return 0;
-                    }
-                    else if (returnRank == "희귀")
-                    {
-                        return 1;
-                    }
-                    else
-                    {
-                        return 2;
-                    }
+                    // 기존 선택 능력 등급을 정수로 변환
+                    int curRank = RankToInt(playerAbilityList[i].rank);
+                    return curRank;
                 }
             }
         }
