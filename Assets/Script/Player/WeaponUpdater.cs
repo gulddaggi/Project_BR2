@@ -6,9 +6,14 @@ public class WeaponUpdater: MonoBehaviour
 {
 
     GameObject player;
-    public GameObject Axe;
-    public GameObject Sword;
+    GameObject Shield;
 
+    public Weapon_Updater weaponUpdater;
+    [System.Serializable]
+    public class Weapon_Updater
+    {
+        public GameObject[] Weapons;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +28,6 @@ public class WeaponUpdater: MonoBehaviour
         {
 
             GameManager_JS.Instance.playerWeapon = Attack.Weapon.Sword;
-            player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Sword;
 
             Debug.Log(GameManager_JS.Instance.playerWeapon.ToString());
 
@@ -31,8 +35,10 @@ public class WeaponUpdater: MonoBehaviour
             var animator = player.gameObject.GetComponent<Animator>();
             animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
 
-            Axe.SetActive(false);
-            Sword.SetActive(true);
+            Weapon_Deactivator();
+            weaponUpdater.Weapons[1].SetActive(true);
+            weaponUpdater.Weapons[0].SetActive(true);
+
             Debug.Log("플레이어 무기 : 한손검");
         }
         else if(playerWeapon == Attack.Weapon.Axe)
@@ -46,10 +52,34 @@ public class WeaponUpdater: MonoBehaviour
             var animator = player.gameObject.GetComponent<Animator>();
             animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
 
-            Axe.SetActive(true);
-            Sword.SetActive(false);
+            Weapon_Deactivator();
+            weaponUpdater.Weapons[2].SetActive(true);
             Debug.Log("플레이어 무기 : 배틀액스");
 
+        }
+        else if (playerWeapon == Attack.Weapon.Bow)
+        {
+            // player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
+            // player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Axe;
+            GameManager_JS.Instance.playerWeapon = Attack.Weapon.Bow;
+            Debug.Log(GameManager_JS.Instance.playerWeapon.ToString());
+
+            var resourceName = "Player/Bow/Bow Override";
+            var animator = player.gameObject.GetComponent<Animator>();
+            animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
+
+            Weapon_Deactivator();
+            weaponUpdater.Weapons[3].SetActive(true);
+            Debug.Log("플레이어 무기 : 활");
+
+        }
+    }
+
+    void Weapon_Deactivator()
+    {
+        for(int i = 0; i < weaponUpdater.Weapons.Length; i++)
+        {
+            weaponUpdater.Weapons[i].SetActive(false);
         }
     }
 }
