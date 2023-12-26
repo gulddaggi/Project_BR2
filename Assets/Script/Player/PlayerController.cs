@@ -51,20 +51,13 @@ public class PlayerController : MonoBehaviour
     {
         if(context.performed) // 닷지 키가 눌렸는지 체크. 여기서부터 닷지 로직 작성
         {
-            Debug.Log("1");
             if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime)
             {
-                Debug.Log("2");
                 DodgeVec = PlayerMoveDirection;
-                Debug.Log("3");
                 transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.eulerAngles.y - 90, transform.rotation.z));
-                Debug.Log("4");
                 PlayerAnimator.SetTrigger("Basic Dodge");
-                Debug.Log("5");
                 player.Player_MoveSpeed_Multiplier();
-                Debug.Log("6");
                 isDodge = true;
-                Debug.Log("7");
                 Debug.Log("플레이어 기본 회피");
                 // PlayerColor.material.color = Color.red; 디버그용
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
@@ -145,7 +138,7 @@ public class PlayerController : MonoBehaviour
     void Basic_Dodge_Out()
     {
         player.Player_MoveSpeed_Reclaimer();
-        damageField.gameObject.SetActive(false);
+        // damageField.gameObject.SetActive(false);
         isDodge = false;
         Basic_Dodge_CoolDown = 0;
     }

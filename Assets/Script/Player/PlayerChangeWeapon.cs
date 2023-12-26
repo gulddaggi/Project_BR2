@@ -22,7 +22,6 @@ public class PlayerChangeWeapon : MonoBehaviour
         public float DestroyAfter;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -55,26 +54,11 @@ public class PlayerChangeWeapon : MonoBehaviour
 
     void InstantiateWeaponChangeEffect()
     {
-        var instance = Instantiate(weaponChangeEffect[PlayerWeaponCheck()].ChangeEffect, player.transform.position, player.transform.rotation);
+        var instance = Instantiate(weaponChangeEffect[GameManager_JS.Instance.PlayerWeaponCheck()].ChangeEffect, player.transform.position, player.transform.rotation);
         instance.transform.parent = player.transform;
         instance.transform.localPosition = Vector3.zero;
-        Destroy(instance, weaponChangeEffect[PlayerWeaponCheck()].DestroyAfter);
+        Destroy(instance, weaponChangeEffect[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
     }
 
-    public int PlayerWeaponCheck()
-    {
-        if (GameManager_JS.Instance.playerWeapon == Attack.Weapon.Sword)
-        {
-            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
-            return 0;
-        }
-        else if (GameManager_JS.Instance.playerWeapon == Attack.Weapon.Axe)
-        {
-            Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
-            return 1;
-        }
-
-        return 0;
-    }
 
 }

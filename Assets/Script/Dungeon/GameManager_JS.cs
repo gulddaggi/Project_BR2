@@ -30,6 +30,7 @@ public class GameManager_JS : MonoBehaviour
     #region 플레이어 관련 변수체크
 
     GameObject player;
+
     [SerializeField]
     public Attack.Weapon playerWeapon = Attack.Weapon.Sword;
 
@@ -297,5 +298,28 @@ public class GameManager_JS : MonoBehaviour
         Color color = new Color(startColor.r, startColor.g, startColor.b, 0f);
         panelImage.color = color;
         //GameManager_JS.Instance.CoinOnOff(true); // 코인 텍스트 on/off 기능. 이후에 활성화.
+    }
+
+    public int PlayerWeaponCheck()
+    {
+        if (GameManager_JS.Instance.playerWeapon == Attack.Weapon.Sword)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 한손검[태그번호  : 0]");
+            return 0;
+        }
+        else if (GameManager_JS.Instance.playerWeapon
+            == Attack.Weapon.Axe)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 1;
+        }
+        else if (GameManager_JS.Instance.playerWeapon
+    == Attack.Weapon.Bow)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 2;
+        }
+
+        return 0;
     }
 }
