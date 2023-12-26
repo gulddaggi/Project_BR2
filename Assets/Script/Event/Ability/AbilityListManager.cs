@@ -53,11 +53,25 @@ public class AbilityListManager : MonoBehaviour
     int id;
     int value;
 
+    // 플레이어 상태 클래스 변수
+    [SerializeField]
+    Player player;
+
+    // 플레이어 상태 클래스에 선택된 능력 인덱스 전달
+    void AbilitySelected()
+    {
+        for (int i = 0; i < playerAbilityList.Count; i++)
+        {
+            Debug.Log(playerAbilityList[i].indexArr[0] + ", " + playerAbilityList[i].indexArr[1] + " 의 능력 선택 전달");
+            player.AbilitySelected(playerAbilityList[i].indexArr[0], playerAbilityList[i].indexArr[1]);
+        }
+    }
+
     // 능력 레벨 확인을 위한 리스트
     void CreateArray()
     {
+        Debug.Log("새 리스트 생성");
         levelCheckList = new List<List<int>>();
-        Debug.Log("리스트 생성 시작");
         totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
 
         for (int i = 0; i < totalAbilityNum; i++)
@@ -72,11 +86,11 @@ public class AbilityListManager : MonoBehaviour
             levelCheckList.Add(tmpList);
         }
 
-        Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
+        /*Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
         for (int i = 0; i < levelCheckList.Count; i++)
         {
             Debug.Log((i + 1) + "번째 능력의 개수 : " + levelCheckList[i].Count);
-        }
+        }*/
     }
     private void OnEnable()
     {
@@ -95,10 +109,8 @@ public class AbilityListManager : MonoBehaviour
         // 리스트 초기화 진행
         if (levelCheckList == null)
         {
-            Debug.Log("리스트가 존재하지 않아 새로 생성");
             CreateArray();
         }
-
 
         // 레벨 지정에 필요한 인덱스 저장
         abilityIndex = _selected.GetComponent<AbilityChoice>().typeIndex;
@@ -151,6 +163,10 @@ public class AbilityListManager : MonoBehaviour
             }
             Debug.Log("능력 레벨업 완료");
         }
+
+        Debug.Log("선택된 능력들 갱신");
+        AbilitySelected();
+
     }
 
     int RankToInt(string rank)
@@ -182,12 +198,10 @@ public class AbilityListManager : MonoBehaviour
             obj.transform.GetChild(2).GetComponent<Text>().text = playerAbilityList[i].option;
             obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].plus_Value;
         }
-        Debug.Log("리스트 구성 요소 수 : " + playerAbilityList.Count);
     }
 
     public void ALOff()
     {
-        Debug.Log("자식 수 : " + gameObject.transform.childCount);
         for (int i = 0; i < gameObject.transform.childCount; i++)
         {
             GameObject.DestroyImmediate(gameObject.transform.GetChild(i).gameObject);
@@ -196,58 +210,48 @@ public class AbilityListManager : MonoBehaviour
         _parent.parent.gameObject.SetActive(false);
     }
 
-    public bool AbilityCheck(int _typeIndex, string _id)
+    public bool AbilityCheck(int _typeIndex, int _id)
     {
+        // 리스트 초기화 진행
+        if (levelCheckList == null)
+        {
+            CreateArray();
+        }
 
-        int tmp = StToInt(_id);
-
-        if (levelCheckList[_typeIndex][tmp] != 0)
+        // 능력 이미 선택
+        if (levelCheckList[_typeIndex][_id] != 0)
         {
             return true;
         }
+        // 능력 미선택
         else
         {
             return false;
         }
     }
 
-    int StToInt(string _id)
+    // 기존 선택 능력의 등급 확인
+    public int AbilityRankCheck(int _typeIndex, int _id)
     {
-        if (_id == "1")
+        // 이미 선택된 능력일 경우
+        if (levelCheckList[_typeIndex][_id] != 0)
         {
-            return 1;
+            // 해당 능력을 찾아 등급 확인.
+            for (int i = 0; i < playerAbilityList.Count; i++)
+            {
+                int[] tmpArr = playerAbilityList[i].indexArr;
+
+                if (tmpArr[0] == _typeIndex && tmpArr[1] == _id)
+                {
+                    Debug.Log("능력 : " + playerAbilityList[i].ability_name);
+                    Debug.Log("이미 선택된 능력. 등급은 : " + playerAbilityList[i].rank);
+
+                    // 기존 선택 능력 등급을 정수로 변환
+                    int curRank = RankToInt(playerAbilityList[i].rank);
+                    return curRank;
+                }
+            }
         }
-        else if(_id == "2")
-        {
-            return 2;
-        }
-        else if (_id == "3")
-        {
-            return 3;
-        }
-        else if (_id == "4")
-        {
-            return 4;
-        }
-        else if (_id == "5")
-        {
-            return 5;
-        }
-        else if (_id == "6")
-        {
-            return 6;
-        }
-        else if (_id == "7")
-        {
-            return 7;
-        }
-        else if (_id == "8")
-        {
-            return 8;
-        }
-        else
-        {
-            return 9;
-        }
+        return -1;
     }
 }

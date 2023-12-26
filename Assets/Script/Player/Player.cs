@@ -68,7 +68,6 @@ public class Player : MonoBehaviour, IListener
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
-        //EventDBManager.instance.AddListenerPlaerStatus(this); 딕셔너리 값 수정이 불가하여 해당 문장 수정 필요.
     }
 
     public void TakeDamage(float Damage)
@@ -192,10 +191,10 @@ public class Player : MonoBehaviour, IListener
     }
 
     // 능력 선택 이벤트 리스너 함수. 일차적으로 능력 종류 구별
-    public void AbilitySelected(int _index, int _id) // 능력 종류, 해당 종류의 능력 DB 상 id를 인수로 전달받음.
+    public void AbilitySelected(int _typeIndex, int _id) // 능력 종류, 해당 종류의 능력 DB 상 id를 인수로 전달받음.
     {
         Debug.Log("능력 선택 이벤트 발생");
-        switch (_index)
+        switch (_typeIndex)
         {
             case 0:
                 Debug.Log("능력 : 물");
@@ -294,5 +293,4 @@ public class Player : MonoBehaviour, IListener
             }
         }
     }
-
 }

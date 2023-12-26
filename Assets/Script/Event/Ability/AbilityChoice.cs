@@ -48,6 +48,6 @@ public class AbilityChoice : MonoBehaviour
 
     public void ChoiceClicked()
     {
-        player.AbilityOnStat(tmpArray);
+        //player.AbilityOnStat(tmpArray);
     }
 }

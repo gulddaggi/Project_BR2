@@ -10,7 +10,7 @@ public class AbilityController : MonoBehaviour
 
     void Start()
     {
-
+        EventManager.Instance.AssignAbManager(aLObject.GetComponentInChildren<AbilityListManager>());
     }
 
     void Update()
@@ -27,8 +27,6 @@ public class AbilityController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.O))
         {
-            bool eventOn = GameManager_JS.Instance.isEventOn;
-            if (eventOn) return;
             GameManager_JS.Instance.isEventOn = true;
             AbilityListOn();
         }
@@ -41,9 +39,7 @@ public class AbilityController : MonoBehaviour
 
     public void AbilityListOff()
     {
-        //aLObject.SetActive(false);
         GameManager_JS.Instance.isEventOn = false;
-
     }
 
 }
