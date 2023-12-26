@@ -203,4 +203,10 @@ public class AbilitySelector : MonoBehaviour
         }
         return true;
     }
+
+    public void AssignAbManager(AbilityListManager _abManager)
+    {
+        abManager = _abManager;
+    }
+
 }

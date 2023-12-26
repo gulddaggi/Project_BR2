@@ -114,4 +114,10 @@ public class EventManager : MonoBehaviour
     {
         RemoveDestroies();
     }
+
+    // AbilityController를 등록
+    public void AssignAbManager(AbilityListManager _abManager)
+    {
+        GetComponentInChildren<AbilitySelector>().AssignAbManager(_abManager);
+    }
 }

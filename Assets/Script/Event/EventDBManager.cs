@@ -93,22 +93,6 @@ public class EventDBManager : MonoBehaviour
         _DBImporter.GetCount(abilityCountArr);
     }
 
-    // Listener 등록 함수
-    public void AddListenerPlaerStatus(Player player)
-    {
-        for (int i = 0; i < totalAbilityDic.Count; i++)
-        {
-            for (int j = 0; j < totalAbilityDic[i].Count; j++)
-            {
-                int tmpi = 0;
-                int tmpj = int.Parse(totalAbilityDic[i][j].ID);
-                Debug.Log(totalAbilityDic[i][j].ID);
-                totalAbilityDic[i][j].OnSelected.AddListener(() => player.AbilitySelected(tmpi, tmpj));
-                Debug.Log(i + "," + j + "이벤트 등록 완료");
-            }
-        }
-    }
-
     // 대화 DB 전체 임포트
     void Import_Dialogue(DBImporter _DBImporter)
     {

@@ -53,6 +53,20 @@ public class AbilityListManager : MonoBehaviour
     int id;
     int value;
 
+    // 플레이어 상태 클래스 변수
+    [SerializeField]
+    Player player;
+
+    // 플레이어 상태 클래스에 선택된 능력 인덱스 전달
+    void AbilitySelected()
+    {
+        for (int i = 0; i < playerAbilityList.Count; i++)
+        {
+            Debug.Log(playerAbilityList[i].indexArr[0] + ", " + playerAbilityList[i].indexArr[1] + " 의 능력 선택 전달");
+            player.AbilitySelected(playerAbilityList[i].indexArr[0], playerAbilityList[i].indexArr[1]);
+        }
+    }
+
     // 능력 레벨 확인을 위한 리스트
     void CreateArray()
     {
@@ -149,6 +163,10 @@ public class AbilityListManager : MonoBehaviour
             }
             Debug.Log("능력 레벨업 완료");
         }
+
+        Debug.Log("선택된 능력들 갱신");
+        AbilitySelected();
+
     }
 
     int RankToInt(string rank)
