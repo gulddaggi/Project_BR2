@@ -8,6 +8,9 @@ public class Attack : MonoBehaviour
 {
 
     public enum Weapon { Sword, Axe, Bow };
+    public enum AttackState { Idle, FirstAttack, SecondAttack, ThirdAttack };
+    public AttackState currentAttackState = AttackState.Idle;
+
     public Weapon PlayerWeapon = Weapon.Axe;
 
     // 차후에 추상 클래스로 개조 필요.
@@ -45,6 +48,20 @@ public class Attack : MonoBehaviour
 
     public Vector3 MouseDirection { get; private set; }
 
+    #region * 입력 버퍼 관련 변수
+
+    [Header("입력 버퍼")]
+    public int inputBufferSize = 2; // 예시로 크기를 3으로 설정
+    private List<InputEvent> inputBuffer = new List<InputEvent>();
+    public int BufferCount;
+
+    private struct InputEvent
+    {
+        public float timestamp;
+        public Vector3 direction;
+    }
+    #endregion
+
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
@@ -56,7 +73,7 @@ public class Attack : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f); // 레이케스트 비주얼 디버깅
+        // Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f); // 레이캐스트 비주얼 디버깅
 
         if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
         {
@@ -81,8 +98,15 @@ public class Attack : MonoBehaviour
 
             if (AttackAvailable)
             {
+                if (currentAttackState == AttackState.Idle)
+                {
+                    TransitionToState(AttackState.FirstAttack);
+                }
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
+                ProcessBufferedInput();
             }
+
+
 
             // StartCoroutine(AttackDelay());
         }
@@ -166,12 +190,14 @@ public class Attack : MonoBehaviour
 
     #endregion
 
+
     #region * Combo Attack Manage
 
     void FirstAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
+        TransitionToState(AttackState.FirstAttack);
         // Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -179,7 +205,10 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
+
         StartCoroutine(ManageAttackDelay());
+        OnComboEnd();
+
         Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
@@ -187,6 +216,10 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, false);
         ManageAttackRange(1, true);
+
+        TransitionToState(AttackState.SecondAttack);
+        AddComboInput(MouseDirection);
+
         // Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
@@ -194,21 +227,32 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
 
         ManageAttackRange(1, false);
+
         StartCoroutine(ManageAttackDelay());
+        OnComboEnd();
+
         Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
+
         ManageAttackRange(1, false);
         ManageAttackRange(2, true);
+
+        TransitionToState(AttackState.ThirdAttack);
+        AddComboInput(MouseDirection);
+
         // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         ManageAttackRange(2, false);
+
+        OnComboEnd();
         StartCoroutine(ManageAttackDelay());
+
         Debug.Log("Third Combo End");
     }
 
@@ -228,4 +272,115 @@ public class Attack : MonoBehaviour
     }
 
     #endregion
+
+    void TransitionToState(AttackState nextState)
+    {
+        switch (nextState)
+        {
+            case AttackState.Idle:
+                break;
+            case AttackState.FirstAttack:
+                // FirstAttack_Sword_Start();
+                break;
+            case AttackState.SecondAttack:
+                // SecondAttack_Sword_Start();
+                break;
+            case AttackState.ThirdAttack:
+                // ThirdAttack_Sword_Start();
+                break;
+            default:
+                break;
+        }
+
+        // 현재 상태 업데이트
+        currentAttackState = nextState;
+    }
+
+    void OnComboEnd()
+    {
+        switch (currentAttackState)
+        {
+            case AttackState.FirstAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.SecondAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.ThirdAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            default:
+                break;
+        }
+    }
+    private void Update()
+    {
+        ManageInputBuffer();
+        BufferCount = inputBuffer.Count;
+    }
+
+    // 입력 버퍼 관리 함수
+    private void ManageInputBuffer()
+    {
+        // 초과된 항목 제거
+        while (inputBuffer.Count > inputBufferSize)
+        {
+            inputBuffer.RemoveAt(0);
+        }
+
+        // 새 인풋이 들어올 시...
+        if (AttackAvailable)
+        {
+            Vector3 mouseDirection = GetMouseWorldPosition();
+            inputBuffer.Add(new InputEvent { timestamp = Time.time, direction = mouseDirection });
+        }
+
+        /*
+        if (CheckComboInput())
+        {
+            ProcessBufferedInput();
+        }
+        */
+    }
+    private void AddComboInput(Vector3 direction) // 콤보입력을 버퍼에 추가
+    {
+        inputBuffer.Add(new InputEvent { timestamp = Time.time, direction = direction });
+    }
+
+    private bool CheckComboInput()
+    {
+        return Mouse.current.leftButton.isPressed;
+    }
+
+    // 입력버퍼 체크섬
+    private bool CheckInputBufferValidity(int bufferIndex)
+    {
+        if (bufferIndex >= 0 && bufferIndex < inputBuffer.Count)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // 입력 버퍼 처리
+    private void ProcessBufferedInput()
+    {
+        if (inputBuffer.Count == inputBufferSize)
+        {
+            // 각 입력에 대한 처리
+            for (int i = 0; i < inputBuffer.Count; i++)
+            {
+                // 유효성 검사 및 처리
+                if (CheckInputBufferValidity(i))
+                {
+                    Vector3 direction = inputBuffer[i].direction;
+                    // 이제 버퍼 내의 각 입력에 대한 처리를 수행할 수 있습니다.
+                    // 예시: 특정 방향에 따라 다음 콤보로 전환 등의 로직을 추가합니다.
+                }
+            }
+
+            // 버퍼를 비워줄 수도 있습니다. (선택 사항)
+            inputBuffer.Clear();
+        }
+    }
 }
