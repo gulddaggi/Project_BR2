@@ -57,13 +57,17 @@ public class AbilityListManager : MonoBehaviour
     [SerializeField]
     Player player;
 
+    // 선택된 능력 처리 클래스 변수
+    [SerializeField]
+    SelectedAbilityProcessor selectedAbilityProcessor;
+
     // 플레이어 상태 클래스에 선택된 능력 인덱스 전달
     void AbilitySelected()
     {
         for (int i = 0; i < playerAbilityList.Count; i++)
         {
             Debug.Log(playerAbilityList[i].indexArr[0] + ", " + playerAbilityList[i].indexArr[1] + " 의 능력 선택 전달");
-            player.AbilitySelected(playerAbilityList[i].indexArr[0], playerAbilityList[i].indexArr[1]);
+            selectedAbilityProcessor.AbilitySelected(playerAbilityList[i].indexArr[0], playerAbilityList[i].indexArr[1]);
         }
     }
 
