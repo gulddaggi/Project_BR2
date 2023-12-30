@@ -24,10 +24,11 @@ public class Ability_ListComponent
     // 레벨
     public int level;
 
-    public string plus_Value;
+    public float plus_Value;
 
     public string rank;
 
+    // 능력 인덱스. 0 : 능력 종류, 1 : 해당 능력의 DB 상 ID
     public int[] indexArr = new int[2];
 };
 
@@ -60,16 +61,6 @@ public class AbilityListManager : MonoBehaviour
     // 선택된 능력 처리 클래스 변수
     [SerializeField]
     SelectedAbilityProcessor selectedAbilityProcessor;
-
-    // 플레이어 상태 클래스에 선택된 능력 인덱스 전달
-    void AbilitySelected()
-    {
-        for (int i = 0; i < playerAbilityList.Count; i++)
-        {
-            Debug.Log(playerAbilityList[i].indexArr[0] + ", " + playerAbilityList[i].indexArr[1] + " 의 능력 선택 전달");
-            selectedAbilityProcessor.AbilitySelected(playerAbilityList[i].indexArr[0], playerAbilityList[i].indexArr[1]);
-        }
-    }
 
     // 능력 레벨 확인을 위한 리스트
     void CreateArray()
@@ -126,7 +117,7 @@ public class AbilityListManager : MonoBehaviour
         ability.ability_name = _selected.transform.GetChild(0).GetComponent<Text>().text;
         ability.description = _selected.transform.GetChild(1).GetComponent<Text>().text;
         ability.option = _selected.transform.GetChild(2).GetComponent<Text>().text;
-        ability.plus_Value = _selected.transform.GetChild(3).GetComponent<Text>().text;
+        ability.plus_Value = value;
         ability.rank = _selected.transform.GetChild(4).GetComponent<Text>().text;
         ability.level = 1;
 
@@ -162,15 +153,14 @@ public class AbilityListManager : MonoBehaviour
                 else if(RankToInt(playerAbilityList[index].rank) == RankToInt(ability.rank))
                 {
                     ++playerAbilityList[index].level;
-                    playerAbilityList[index].plus_Value = "+" + (value + (2*playerAbilityList[index].level)) + "%";
+                    playerAbilityList[index].plus_Value = (float)(value + (2f*playerAbilityList[index].level));
                 }
             }
-            Debug.Log("능력 레벨업 완료");
         }
 
-        Debug.Log("선택된 능력들 갱신");
-        AbilitySelected();
-
+        // 선택된 능력 적용
+        Debug.Log(ability.indexArr[0] + ", " + ability.indexArr[1] + " 의 능력 선택 전달");
+        selectedAbilityProcessor.AbilitySelected(ability);
     }
 
     int RankToInt(string rank)
@@ -200,7 +190,7 @@ public class AbilityListManager : MonoBehaviour
             obj.transform.GetChild(0).GetComponent<Text>().text = playerAbilityList[i].ability_name;
             obj.transform.GetChild(1).GetComponent<Text>().text = playerAbilityList[i].description;
             obj.transform.GetChild(2).GetComponent<Text>().text = playerAbilityList[i].option;
-            obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].plus_Value;
+            obj.transform.GetChild(3).GetComponent<Text>().text = "+" + playerAbilityList[i].plus_Value + "%";
         }
     }
 
