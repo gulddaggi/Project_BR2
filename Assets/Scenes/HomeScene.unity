@@ -2301,6 +2301,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: inputBufferSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: Weapon_Damage_Range.Array.size
       value: 3
       objectReference: {fileID: 0}

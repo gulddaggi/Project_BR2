@@ -21,6 +21,8 @@ public class Attack : MonoBehaviour
     public Rigidbody PlayerRigid;
     public Transform bulletSpawnPoint;
 
+    public int buttonPressedCount;
+
     [SerializeField] bool AttackAvailable = true;
     // [SerializeField] float AttackDelay = 1.5f;
 
@@ -51,8 +53,8 @@ public class Attack : MonoBehaviour
     #region * 입력 버퍼 관련 변수
 
     [Header("입력 버퍼")]
-    public int inputBufferSize = 2; // 예시로 크기를 3으로 설정
-    private List<InputEvent> inputBuffer = new List<InputEvent>();
+    public int inputBufferSize = 2;
+    private Queue<AttackState> inputBuffer = new Queue<AttackState>();
     public int BufferCount;
 
     private struct InputEvent
@@ -90,25 +92,22 @@ public class Attack : MonoBehaviour
     #region * New Input System Invoke Events 관련 코드. !!잘못 건들면 인풋시스템 다 망가짐!!
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene") // 공격키가 눌렸는지 체크
+        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene")
         {
             MouseDirection = GetMouseWorldPosition();
             transform.LookAt(MouseDirection);
-            // Debug.Log(MouseDirection);
 
             if (AttackAvailable)
             {
-                if (currentAttackState == AttackState.Idle)
+                buttonPressedCount++;
+                PlayerAnimator.SetInteger("ButtonPressedCount", buttonPressedCount);
+                if (currentAttackState == AttackState.Idle && buttonPressedCount < 3)
                 {
-                    TransitionToState(AttackState.FirstAttack);
+                    AddComboInput(AttackState.FirstAttack);                    
                 }
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
                 ProcessBufferedInput();
             }
-
-
-
-            // StartCoroutine(AttackDelay());
         }
     }
     #endregion
@@ -198,6 +197,7 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
         TransitionToState(AttackState.FirstAttack);
+        ProcessBufferedInput();
         // Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -209,6 +209,7 @@ public class Attack : MonoBehaviour
         StartCoroutine(ManageAttackDelay());
         OnComboEnd();
 
+        inputBuffer.Clear();
         Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
@@ -218,7 +219,9 @@ public class Attack : MonoBehaviour
         ManageAttackRange(1, true);
 
         TransitionToState(AttackState.SecondAttack);
-        AddComboInput(MouseDirection);
+        ProcessBufferedInput();
+
+        buttonPressedCount = 0;
 
         // Debug.Log("Second Combo Start");
     }
@@ -231,6 +234,7 @@ public class Attack : MonoBehaviour
         StartCoroutine(ManageAttackDelay());
         OnComboEnd();
 
+        inputBuffer.Clear();
         Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
@@ -241,7 +245,9 @@ public class Attack : MonoBehaviour
         ManageAttackRange(2, true);
 
         TransitionToState(AttackState.ThirdAttack);
-        AddComboInput(MouseDirection);
+        ProcessBufferedInput();
+
+        buttonPressedCount = 0;
 
         // Debug.Log("Third Combo Start");
     }
@@ -266,7 +272,9 @@ public class Attack : MonoBehaviour
     {
         AttackAvailable = false;
         PlayerAnimator.SetBool("AttackAvailable", false);
+
         yield return new WaitForSeconds(PlayerAttackDelay.AttackDelay[GameManager_JS.Instance.PlayerWeaponCheck()]);
+
         PlayerAnimator.SetBool("AttackAvailable", true);
         AttackAvailable = true;
     }
@@ -312,6 +320,8 @@ public class Attack : MonoBehaviour
             default:
                 break;
         }
+        buttonPressedCount = 0;
+        PlayerAnimator.SetInteger("ButtonPressedCount", 0);
     }
     private void Update()
     {
@@ -322,29 +332,21 @@ public class Attack : MonoBehaviour
     // 입력 버퍼 관리 함수
     private void ManageInputBuffer()
     {
-        // 초과된 항목 제거
         while (inputBuffer.Count > inputBufferSize)
         {
-            inputBuffer.RemoveAt(0);
+            inputBuffer.Dequeue();
         }
 
-        // 새 인풋이 들어올 시...
         if (AttackAvailable)
         {
             Vector3 mouseDirection = GetMouseWorldPosition();
-            inputBuffer.Add(new InputEvent { timestamp = Time.time, direction = mouseDirection });
-        }
 
-        /*
-        if (CheckComboInput())
-        {
-            ProcessBufferedInput();
         }
-        */
     }
-    private void AddComboInput(Vector3 direction) // 콤보입력을 버퍼에 추가
+
+    private void AddComboInput(AttackState attackState)
     {
-        inputBuffer.Add(new InputEvent { timestamp = Time.time, direction = direction });
+        inputBuffer.Enqueue(attackState);
     }
 
     private bool CheckComboInput()
@@ -365,22 +367,17 @@ public class Attack : MonoBehaviour
     // 입력 버퍼 처리
     private void ProcessBufferedInput()
     {
-        if (inputBuffer.Count == inputBufferSize)
+        if (inputBuffer.Count > 0)
         {
-            // 각 입력에 대한 처리
-            for (int i = 0; i < inputBuffer.Count; i++)
-            {
-                // 유효성 검사 및 처리
-                if (CheckInputBufferValidity(i))
-                {
-                    Vector3 direction = inputBuffer[i].direction;
-                    // 이제 버퍼 내의 각 입력에 대한 처리를 수행할 수 있습니다.
-                    // 예시: 특정 방향에 따라 다음 콤보로 전환 등의 로직을 추가합니다.
-                }
-            }
+            AttackState nextAttackState = inputBuffer.Dequeue();
 
-            // 버퍼를 비워줄 수도 있습니다. (선택 사항)
-            inputBuffer.Clear();
+            // 차후 콤보공격후 후처리 필요할 시 사용할 것
+            switch (nextAttackState)
+            {
+                default:
+                    break;
+            }
         }
     }
+
 }
