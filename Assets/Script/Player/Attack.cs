@@ -8,6 +8,9 @@ public class Attack : MonoBehaviour
 {
 
     public enum Weapon { Sword, Axe, Bow };
+    public enum AttackState { Idle, FirstAttack, SecondAttack, ThirdAttack };
+    public AttackState currentAttackState = AttackState.Idle;
+
     public Weapon PlayerWeapon = Weapon.Axe;
 
     // 차후에 추상 클래스로 개조 필요.
@@ -17,6 +20,8 @@ public class Attack : MonoBehaviour
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
     public Transform bulletSpawnPoint;
+
+    public int buttonPressedCount;
 
     [SerializeField] bool AttackAvailable = true;
     // [SerializeField] float AttackDelay = 1.5f;
@@ -45,6 +50,20 @@ public class Attack : MonoBehaviour
 
     public Vector3 MouseDirection { get; private set; }
 
+    #region * 입력 버퍼 관련 변수
+
+    [Header("입력 버퍼")]
+    public int inputBufferSize = 2;
+    private Queue<AttackState> inputBuffer = new Queue<AttackState>();
+    public int BufferCount;
+
+    private struct InputEvent
+    {
+        public float timestamp;
+        public Vector3 direction;
+    }
+    #endregion
+
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
@@ -56,7 +75,7 @@ public class Attack : MonoBehaviour
     {
         Vector3 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f); // 레이케스트 비주얼 디버깅
+        // Debug.DrawRay(ray.origin, ray.direction * 1000f, Color.red, 5f); // 레이캐스트 비주얼 디버깅
 
         if (Physics.Raycast(ray, out RaycastHit HitInfo, Mathf.Infinity))
         {
@@ -73,18 +92,22 @@ public class Attack : MonoBehaviour
     #region * New Input System Invoke Events 관련 코드. !!잘못 건들면 인풋시스템 다 망가짐!!
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene") // 공격키가 눌렸는지 체크
+        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene")
         {
             MouseDirection = GetMouseWorldPosition();
             transform.LookAt(MouseDirection);
-            // Debug.Log(MouseDirection);
 
             if (AttackAvailable)
             {
+                buttonPressedCount++;
+                PlayerAnimator.SetInteger("ButtonPressedCount", buttonPressedCount);
+                if (currentAttackState == AttackState.Idle && buttonPressedCount < 3)
+                {
+                    AddComboInput(AttackState.FirstAttack);                    
+                }
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
+                ProcessBufferedInput();
             }
-
-            // StartCoroutine(AttackDelay());
         }
     }
     #endregion
@@ -166,12 +189,15 @@ public class Attack : MonoBehaviour
 
     #endregion
 
+
     #region * Combo Attack Manage
 
     void FirstAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
+        TransitionToState(AttackState.FirstAttack);
+        ProcessBufferedInput();
         // Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -179,7 +205,11 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
+
         StartCoroutine(ManageAttackDelay());
+        OnComboEnd();
+
+        inputBuffer.Clear();
         Debug.Log("First Combo End");
     }
     void SecondAttack_Sword_Start()
@@ -187,6 +217,12 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, false);
         ManageAttackRange(1, true);
+
+        TransitionToState(AttackState.SecondAttack);
+        ProcessBufferedInput();
+
+        buttonPressedCount = 0;
+
         // Debug.Log("Second Combo Start");
     }
     void SecondAttack_Sword_End()
@@ -194,21 +230,35 @@ public class Attack : MonoBehaviour
         // PlayerAnimator.applyRootMotion = false;
 
         ManageAttackRange(1, false);
+
         StartCoroutine(ManageAttackDelay());
+        OnComboEnd();
+
+        inputBuffer.Clear();
         Debug.Log("Second Combo End");
     }
     void ThirdAttack_Sword_Start()
     {
         PlayerAnimator.applyRootMotion = true;
+
         ManageAttackRange(1, false);
         ManageAttackRange(2, true);
+
+        TransitionToState(AttackState.ThirdAttack);
+        ProcessBufferedInput();
+
+        buttonPressedCount = 0;
+
         // Debug.Log("Third Combo Start");
     }
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
         ManageAttackRange(2, false);
+
+        OnComboEnd();
         StartCoroutine(ManageAttackDelay());
+
         Debug.Log("Third Combo End");
     }
 
@@ -222,10 +272,112 @@ public class Attack : MonoBehaviour
     {
         AttackAvailable = false;
         PlayerAnimator.SetBool("AttackAvailable", false);
+
         yield return new WaitForSeconds(PlayerAttackDelay.AttackDelay[GameManager_JS.Instance.PlayerWeaponCheck()]);
+
         PlayerAnimator.SetBool("AttackAvailable", true);
         AttackAvailable = true;
     }
 
     #endregion
+
+    void TransitionToState(AttackState nextState)
+    {
+        switch (nextState)
+        {
+            case AttackState.Idle:
+                break;
+            case AttackState.FirstAttack:
+                // FirstAttack_Sword_Start();
+                break;
+            case AttackState.SecondAttack:
+                // SecondAttack_Sword_Start();
+                break;
+            case AttackState.ThirdAttack:
+                // ThirdAttack_Sword_Start();
+                break;
+            default:
+                break;
+        }
+
+        // 현재 상태 업데이트
+        currentAttackState = nextState;
+    }
+
+    void OnComboEnd()
+    {
+        switch (currentAttackState)
+        {
+            case AttackState.FirstAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.SecondAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.ThirdAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            default:
+                break;
+        }
+        buttonPressedCount = 0;
+        PlayerAnimator.SetInteger("ButtonPressedCount", 0);
+    }
+    private void Update()
+    {
+        ManageInputBuffer();
+        BufferCount = inputBuffer.Count;
+    }
+
+    // 입력 버퍼 관리 함수
+    private void ManageInputBuffer()
+    {
+        while (inputBuffer.Count > inputBufferSize)
+        {
+            inputBuffer.Dequeue();
+        }
+
+        if (AttackAvailable)
+        {
+            Vector3 mouseDirection = GetMouseWorldPosition();
+
+        }
+    }
+
+    private void AddComboInput(AttackState attackState)
+    {
+        inputBuffer.Enqueue(attackState);
+    }
+
+    private bool CheckComboInput()
+    {
+        return Mouse.current.leftButton.isPressed;
+    }
+
+    // 입력버퍼 체크섬
+    private bool CheckInputBufferValidity(int bufferIndex)
+    {
+        if (bufferIndex >= 0 && bufferIndex < inputBuffer.Count)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // 입력 버퍼 처리
+    private void ProcessBufferedInput()
+    {
+        if (inputBuffer.Count > 0)
+        {
+            AttackState nextAttackState = inputBuffer.Dequeue();
+
+            // 차후 콤보공격후 후처리 필요할 시 사용할 것
+            switch (nextAttackState)
+            {
+                default:
+                    break;
+            }
+        }
+    }
+
 }

@@ -2518,7 +2518,7 @@ RectTransform:
   m_Children:
   - {fileID: 907614681}
   m_Father: {fileID: 1256368530}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5741,6 +5741,10 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: inputBufferSize
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149823, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: OnPlayerHPUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6581,7 +6585,6 @@ RectTransform:
   - {fileID: 1167565178}
   - {fileID: 123455619}
   - {fileID: 355351529}
-  - {fileID: 1376727472}
   - {fileID: 353956573}
   m_Father: {fileID: 839271902}
   m_RootOrder: 1
