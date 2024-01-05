@@ -5745,9 +5745,9 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
-    - target: {fileID: 6402893141203149822, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: inputBufferSize
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149823, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: OnPlayerHPUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
