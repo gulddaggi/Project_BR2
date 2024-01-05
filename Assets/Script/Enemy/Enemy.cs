@@ -122,21 +122,40 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        // 삭제 예정
         float[] tmpArray = new float[2] { 0f, 0f };
 
+        // 디버프 배열
+        int[] debuffArray;
+
+        // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack" && isHit == false)
         {
+            if (HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
+
             isHit = true;
             Debug.Log("Damaged!");
 
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            float damage = playerdata.PlayerAttackDamage;
+            debuffArray = playerdata.GetAttackDebuff();
+            Debug.Log(debuffArray[0] + " : 물 디버프");
 
-            EnemyHP = tmpArray[0];
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
 
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
-            StartCoroutine(GetDamaged());
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
 
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray);
+            
+            // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
         }
         else if (other.tag == "StrongPlayerAttack" && isHit == false)

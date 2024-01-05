@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 // 해당 보상 NPC와의 대화 출력 여부 확인 클래스
 public class DialogueCheck
@@ -79,6 +80,8 @@ public class GameManager_JS : MonoBehaviour
     public bool isEventOn = false;
 
     public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
+
+    public UnityEvent OnStageChanged;
 
     private void Awake()
     {
@@ -205,6 +208,7 @@ public class GameManager_JS : MonoBehaviour
             nextStage.GetComponent<Dungeon>().SetReward(tmpReward);
             curStage = null;
             curStage = nextStage;
+            OnStageChanged.Invoke();
         }
 
         // 출구를 통한 스테이지 이동 불가로 설정

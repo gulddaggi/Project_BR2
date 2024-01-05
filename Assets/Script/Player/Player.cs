@@ -17,6 +17,13 @@ public class Player : MonoBehaviour, IListener
 
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
+    // 현재 적에게 적용시킬 수 있는 디버프 확인 배열
+    // 각 인덱스는 속성. 값은 0(적용안함), 1(1티어), 2(1티어 업그레이드), 3(2티어)
+    private int[] attackDebuffArray = { 0, 0, 0, 0, 0 };
+    private int[] stAttackDebuffArray = { 0, 0, 0, 0, 0 };
+    private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
+    private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
+
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
     public float CurrentHP { 
         get { return currentHP; } 
@@ -35,6 +42,7 @@ public class Player : MonoBehaviour, IListener
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
     public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackDamage = value; } }
+    public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackDamage = value; } }
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
@@ -42,6 +50,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerAttackDamage;
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
+    [SerializeField] protected float playerDodgeAttackDamage;
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
     {
@@ -160,29 +169,51 @@ public class Player : MonoBehaviour, IListener
 
     }
 
-    public void AbilityOnStat(int[] indexList)
+    // 능력 선택에 따른 약공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToAttack(int _index, int _value)
     {
-        DebuffOn(indexList[0]);
-        switch (indexList[1])
+        if (attackDebuffArray[_index] < _value)
         {
-            // 약공격
+            Debug.Log("디버프 갱신");
+            attackDebuffArray[_index] = _value;
+        }
+    }
+
+    // 능력 선택에 따른 강공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToStAttack(int _index, int _value)
+    {
+        if (stAttackDebuffArray[_index] < _value)
+        {
+            stAttackDebuffArray[_index] = _value;
+        }
+    }
+
+    // 능력 선택에 따른 필드공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToFieldAttack(int _index, int _value)
+    {
+        if (stAttackDebuffArray[_index] < _value)
+        {
+            stAttackDebuffArray[_index] = _value;
+        }
+    }
+
+    // 능력 선택에 따른 대쉬공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToDodgeAttack(int _index, int _value)
+    {
+        if (dodgeAttackDebuffArray[_index] < _value)
+        {
+            dodgeAttackDebuffArray[_index] = _value;
+        }
+    }
+
+    // 던전 입장시마다 효과가 발동되는 능력 적용. 해당 함수를 GameManager_JS의 OnStageChanged 이벤트에 AddListner
+    public void AddTurnBasedAbility(int _index, int _value)
+    {
+        // 우선 각 능력별 하나씩 존재하여 switch로 구현
+        switch (_index)
+        {
             case 0:
-                PlayerAttackDamage *= (1f + (indexList[2] * 0.01f));
-                break;
-
-            // 강공격
-            case 1:
-                PlayerStrongAttackDamage *= (1f + (indexList[2] * 0.01f));
-                break;
-
-            // 장판 & 돌진공격
-            case 2:
-                PlayerFieldAttackDamage = PlayerAttackDamage * (indexList[2] * 0.01f);
-                break;
-
-            // 이동속도
-            case 3:
-                MoveSpeed *= (1f + (indexList[2] * 0.01f));
+                GameManager_JS.Instance.OnStageChanged.AddListener(() => ExchangeWater(_value));
                 break;
 
             default:
@@ -190,50 +221,34 @@ public class Player : MonoBehaviour, IListener
         }
     }
 
-    // 능력 선택 이벤트 리스너 함수. 일차적으로 능력 종류 구별
-    public void AbilitySelected(int _typeIndex, int _id) // 능력 종류, 해당 종류의 능력 DB 상 id를 인수로 전달받음.
+    // 등가교환(물) 능력
+    private void ExchangeWater(int _value)
     {
-        Debug.Log("능력 선택 이벤트 발생");
-        switch (_typeIndex)
-        {
-            case 0:
-                Debug.Log("능력 : 물");
-                Ability_Water(_id);
-                break;
-            case 1:
-                Debug.Log("능력 : 불");
-                break;
-            default:
-                break;
-        }
-
+        CurrentHP = CurrentHP + (CurrentHP * (_value * 0.01f));
     }
 
-    // 물 능력 선택 시 적용.
-    void Ability_Water(int _id)
+    // 플레이어에게 약공격으로 피격된 적이 디버프를 확인
+    public int[] GetAttackDebuff()
     {
-        // 능력 DB 상 id 구분 후 적용
-        switch (_id)
-        {
-            case 0: // 약공격은 더 높은 피해를 가하고 둔화 효과를 입힌다.
-                if (!debuffOnArray[0]) DebuffOn(0);
-                break;
-
-            case 1:
-                break;
-            default:
-                break;
-        }
+        return attackDebuffArray;
     }
 
-    void DebuffOn(int typeIndex)
+    // 플레이어에게 강공격으로 피격된 적이 디버프를 확인
+    public int[] GetStAttackDebuff()
     {
-        debuffOnArray[typeIndex] = true;
+        return stAttackDebuffArray;
     }
 
-    public void DebuffOff(int typeIndex)
+    // 플레이어에게 필드공격으로 피격된 적이 디버프를 확인
+    public int[] GetFieldAttackDebuff()
     {
-        debuffOnArray[typeIndex] = false;
+        return fieldAttackDebuffArray;
+    }
+
+    // 플레이어에게 대쉬공격으로 피격된 적이 디버프를 확인
+    public int[] GetDodgeAttackDebuff()
+    {
+        return dodgeAttackDebuffArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)
