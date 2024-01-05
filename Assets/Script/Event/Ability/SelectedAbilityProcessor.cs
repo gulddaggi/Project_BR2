@@ -57,7 +57,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 
                 // 수치 적용
                 curValue = playerStatus.PlayerAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerAttackDamage = curValue * calcValue;
@@ -72,7 +71,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
 
                 // 수치 적용
                 curValue = playerStatus.PlayerStrongAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerStrongAttackDamage = curValue * calcValue;
@@ -84,13 +82,15 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
-
+                if (playerStatus.PlayerDodgeAttackDamage == 0f)
+                {
+                    playerStatus.PlayerDodgeAttackDamage = 2f;
+                }
                 // 수치 적용
                 curValue = playerStatus.PlayerDodgeAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
-                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
+                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.

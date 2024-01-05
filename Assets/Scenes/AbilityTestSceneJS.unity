@@ -1319,6 +1319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debuffEffects:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  originvelocity: 0
 --- !u!1 &211751534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4883,6 +4884,30 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Height
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Radius
+      value: 0.61
+      objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -9852,6 +9877,10 @@ PrefabInstance:
       propertyPath: debuffEffects.Array.data[0]
       value: 
       objectReference: {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+    - target: {fileID: 2309076503192258678, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
+      propertyPath: isEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3334370049095230699, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
       propertyPath: m_Name
       value: Stage_Ability test
