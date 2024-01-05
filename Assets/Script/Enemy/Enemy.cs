@@ -186,6 +186,8 @@ public class Enemy : MonoBehaviour
             hpBarImage.fillAmount = EnemyHP / FullHP;
         }
 
+        isHit = false;
+
         if (EnemyHP <= 0)
         {
             enemySpawner.EnemyDead();
