@@ -47,7 +47,7 @@ public class DebuffChecker : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        WaterDebuffOn(_debuffArray[i]);
+                        WaterDebuffOn(_debuffArray[i], 3);
                         break;
 
                     case 1:
@@ -61,7 +61,7 @@ public class DebuffChecker : MonoBehaviour
     }
 
     // 물 디버프 적용.
-    public void WaterDebuffOn(int _value)
+    public void WaterDebuffOn(int _value, int _time)
     {
         int index = _value - 1;
         // 인덱스 : 0~2
