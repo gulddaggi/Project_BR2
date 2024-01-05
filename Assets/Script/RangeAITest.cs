@@ -16,6 +16,8 @@ public class RangeAITest : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent nvAgent;
     Animator animator;
 
+    // 이 범위 내에 플레이어가 들어올시 공격
+    [SerializeField] float EnemyPlayerAttackDistance = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +37,7 @@ public class RangeAITest : MonoBehaviour
             animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
-            if (dis <= 2)
+            if (dis <= EnemyPlayerAttackDistance)
             {
                 animator.SetBool("isAttack", true);
             }

@@ -5370,7 +5370,7 @@ MonoBehaviour:
   - {fileID: 5710189997413368850}
   - {fileID: 5710189996511891465}
   - {fileID: 5710189996436720430}
-  rigidbodyInterpolation: 1
+  rigidbodyInterpolation: 2
 --- !u!114 &2185440051443720150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5428,6 +5428,7 @@ MonoBehaviour:
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
   hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
+  EnemyPlayerAttackDistance: 3
 --- !u!195 &8173415092312588084
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5501,7 +5502,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3.8510163, z: 0.9836404}
+  m_Size: {x: 3, y: 3, z: 2}
   m_Center: {x: 0, y: 2.0414882, z: 0.1349751}
 --- !u!23 &1969765198043702673
 MeshRenderer:
