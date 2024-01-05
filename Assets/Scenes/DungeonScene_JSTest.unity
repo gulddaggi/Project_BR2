@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1342,7 +1342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3927398029359685523, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3927398029359685523, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2518,7 +2518,7 @@ RectTransform:
   m_Children:
   - {fileID: 907614681}
   m_Father: {fileID: 1256368530}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4032,6 +4032,9 @@ MonoBehaviour:
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
   isEventOn: 0
+  OnStageChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -5630,6 +5633,7 @@ MonoBehaviour:
   totalAbilityNum: 0
   totalIDNum: 0
   player: {fileID: 1865854130}
+  selectedAbilityProcessor: {fileID: 0}
 --- !u!1 &1039425884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5741,6 +5745,10 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
+    - target: {fileID: 6402893141203149822, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149823, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: OnPlayerHPUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5751,7 +5759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6868301823347437576, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6868301823347437576, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5987,29 +5995,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076493040}
   m_CullTransparentMesh: 1
---- !u!114 &1077406887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 2820330612866275445, guid: eba3dbd01ff239145a2d4c8987c04cac, type: 3}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256517670d2d2624981d3d8db0b840af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  events: []
-  event_Ability: []
-  event_Merchant: []
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  player: {fileID: 0}
-  texts: []
-  itemFormGetter: {fileID: 0}
-  dialogues: []
-  range: 0
 --- !u!1 &1092180265
 GameObject:
   m_ObjectHideFlags: 0
@@ -6477,7 +6462,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1077406887}
+      - m_Target: {fileID: 202501732}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1
@@ -6581,7 +6566,6 @@ RectTransform:
   - {fileID: 1167565178}
   - {fileID: 123455619}
   - {fileID: 355351529}
-  - {fileID: 1376727472}
   - {fileID: 353956573}
   m_Father: {fileID: 839271902}
   m_RootOrder: 1
@@ -10257,7 +10241,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1077406887}
+      - m_Target: {fileID: 202501732}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: ChoiceEventEnd
         m_Mode: 1

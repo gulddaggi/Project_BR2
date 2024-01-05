@@ -12,9 +12,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Vector3 PlayerMoveDirection;
 
-    // 돌진 공격 장판
+    // 돌진 공격 판정 오브젝트
     [SerializeField]
-    public Collider damageField;
+    public GameObject dodgeAttackObj;
 
     protected Vector3 DodgeVec;
     [SerializeField] float Basic_Dodge_CoolDown;
@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
                 isDodge = true;
                 Debug.Log("플레이어 기본 회피");
                 // PlayerColor.material.color = Color.red; 디버그용
+                dodgeAttackObj.SetActive(true);
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
             }
         }

@@ -17,7 +17,7 @@ public class Cyclops : Enemy
         
     }
 
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         float[] tmpArray = new float[2] { 0f, 0f };
 
@@ -77,8 +77,9 @@ public class Cyclops : Enemy
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
         }
-    }
+    }*/
 
+    /*
     void OnParticleCollision(GameObject other)
     {
         float[] tmpArray = new float[2] { 0f, 0f };
@@ -113,7 +114,7 @@ public class Cyclops : Enemy
             gameObject.SetActive(false);
         }
     }
-
+    */
 
     IEnumerator GetDamaged()
     {

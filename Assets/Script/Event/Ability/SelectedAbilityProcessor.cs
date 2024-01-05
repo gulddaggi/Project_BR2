@@ -45,34 +45,52 @@ public class SelectedAbilityProcessor : MonoBehaviour
     void Ability_Water(int _id)
     {
         Debug.Log("능력 : Water, 인덱스 : " + _id);
+        float curValue, calcValue;
 
         switch (_id)
         {
             // 물의 축복(약) : 약공격은 더 높은 피해를 가하고 둔화 효과를 입힌다.
-            // 디버프 : 둔화, 적용 수치 : PlayerAttackDamage
+            // 디버프 : 둔화(1티어), 적용 수치 : PlayerAttackDamage
             case 0:
                 // 디버프 적용
-
+                playerStatus.SetDebuffToAttack(0, 1);
                 
                 // 수치 적용
-                float curValue = playerStatus.PlayerAttackDamage;
+                curValue = playerStatus.PlayerAttackDamage;
                 Debug.Log(selectedAbility.plus_Value);
-                float calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerAttackDamage = curValue * calcValue;
                 
-                
-
                 break;
 
             // 물의 축복(강) : 강공격은 더 높은 피해를 가하고 둔화 효과를 입힌다.
             // 디버프 : 둔화, 적용 수치 : PlayerStrongAttackDamage
             case 1:
+                // 디버프 적용
+                playerStatus.SetDebuffToStAttack(0, 1);
+
+                // 수치 적용
+                curValue = playerStatus.PlayerStrongAttackDamage;
+                Debug.Log(selectedAbility.plus_Value);
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
+                playerStatus.PlayerStrongAttackDamage = curValue * calcValue;
+
                 break;
 
             // 물의 축복(돌진) : 돌진 시 부딪히는 적에게 피해를 가하고 둔화를 입힌다.
             // 디버프 : 둔화, 적용 수치 : PlayerCrashDamage
             case 2:
+                // 디버프 적용
+                playerStatus.SetDebuffToDodgeAttack(0, 1);
+
+                // 수치 적용
+                curValue = playerStatus.PlayerDodgeAttackDamage;
+                Debug.Log(selectedAbility.plus_Value);
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
+                playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.
