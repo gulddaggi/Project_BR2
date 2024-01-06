@@ -52,6 +52,15 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
 
+    // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
+    public void SetPlayerAllDamage(float _value)
+    {
+        PlayerAttackDamage = PlayerAttackDamage - (PlayerAttackDamage * _value * 0.01f);
+        PlayerStrongAttackDamage = PlayerStrongAttackDamage - (PlayerStrongAttackDamage * _value * 0.01f);
+        PlayerFieldAttackDamage = PlayerFieldAttackDamage - (PlayerFieldAttackDamage * _value * 0.01f);
+        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage - (PlayerDodgeAttackDamage * _value * 0.01f);
+    }
+
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
     {
         this.fullHP = fullHP;
@@ -102,6 +111,7 @@ public class Player : MonoBehaviour, IListener
         GameManager_JS.Instance.InitStage();
     }
 
+    // 삭제 예정.
    public float[] PlayerAttack(float EnemyHP)
     {
         float[] returnArray = new float[2] { EnemyHP, -1f};
@@ -121,6 +131,7 @@ public class Player : MonoBehaviour, IListener
         return returnArray;
     }
 
+    // 삭제 예정.
     public float PlayerStrongAttack(float EnemyHP)
     {
         float RemainedHP = EnemyHP;
@@ -129,6 +140,7 @@ public class Player : MonoBehaviour, IListener
         return RemainedHP;    
     }
 
+    // 삭제 예정.
     public float[] PlayerDodgeAttack(float EnemyHp)
     {
         float[] returnArray = new float[2] { EnemyHp, -1f };
@@ -148,6 +160,7 @@ public class Player : MonoBehaviour, IListener
         return returnArray;
     }
 
+    // 삭제 예정.
     /* private void Player_Direction_Check() // 왜 만들었더라..?
     {
         bool isMoving = (PlayerMoveDirection != Vector3.zero);
@@ -164,17 +177,11 @@ public class Player : MonoBehaviour, IListener
         moveSpeed /= 4;
     }
 
-    public void SetPlayerDamage()
-    {
-
-    }
-
     // 능력 선택에 따른 약공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
     public void SetDebuffToAttack(int _index, int _value)
     {
         if (attackDebuffArray[_index] < _value)
         {
-            Debug.Log("디버프 갱신");
             attackDebuffArray[_index] = _value;
         }
     }
@@ -204,27 +211,6 @@ public class Player : MonoBehaviour, IListener
         {
             dodgeAttackDebuffArray[_index] = _value;
         }
-    }
-
-    // 던전 입장시마다 효과가 발동되는 능력 적용. 해당 함수를 GameManager_JS의 OnStageChanged 이벤트에 AddListner
-    public void AddTurnBasedAbility(int _index, int _value)
-    {
-        // 우선 각 능력별 하나씩 존재하여 switch로 구현
-        switch (_index)
-        {
-            case 0:
-                GameManager_JS.Instance.OnStageChanged.AddListener(() => ExchangeWater(_value));
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    // 등가교환(물) 능력
-    private void ExchangeWater(int _value)
-    {
-        CurrentHP = CurrentHP + (CurrentHP * (_value * 0.01f));
     }
 
     // 플레이어에게 약공격으로 피격된 적이 디버프를 확인
