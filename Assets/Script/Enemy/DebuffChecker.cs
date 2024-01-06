@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 적에게 적용될 디버프 확인 클래스.
 public class DebuffChecker : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +11,10 @@ public class DebuffChecker : MonoBehaviour
     // 디버프 프리팹 배열. 0 : 물, 1 : 불 ...
     [SerializeField]
     GameObject[] debuffEffects;
+
+    // 디버프 생성 클래스 변수
+    [SerializeField]
+    DebuffManager debuffManager;
 
     float time = 0f;
     bool timerOn = false;
@@ -47,7 +52,7 @@ public class DebuffChecker : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        WaterDebuffOn(_debuffArray[i]);
+                        debuffManager.WaterDebuffEffectOn(_debuffArray[i]);
                         break;
 
                     case 1:
@@ -58,15 +63,6 @@ public class DebuffChecker : MonoBehaviour
                 }
             }
         }
-    }
-
-    // 물 디버프 적용.
-    public void WaterDebuffOn(int _value)
-    {
-        int index = _value - 1;
-        // 인덱스 : 0~2
-        GameObject waterDebuff = Instantiate(debuffEffects[index], this.gameObject.transform);
-        Debug.Log(waterDebuff.name + " 생성");
     }
 
     // 삭제 예정.

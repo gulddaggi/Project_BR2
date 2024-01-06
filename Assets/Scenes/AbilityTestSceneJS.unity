@@ -1273,6 +1273,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185201194}
   m_CullTransparentMesh: 1
+--- !u!1 &205951095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 205951096}
+  - component: {fileID: 205951097}
+  m_Layer: 3
+  m_Name: Debuffs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &205951096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205951095}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1121277190}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &205951097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205951095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aecb7f477b6ffa41b7bdd3ce4528784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debuffEffects:
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  originvelocity: 0
 --- !u!1 &211751534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,6 +4848,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objs: []
+--- !u!4 &1121277190 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2846773753580775675, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
+  m_PrefabInstance: {fileID: 8013547868831277067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1121557683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4832,6 +4884,30 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149820, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Height
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
+      propertyPath: m_Radius
+      value: 0.61
+      objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149822, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -9790,6 +9866,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
     - target: {fileID: 362532355212276237, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
+      propertyPath: debuffManager
+      value: 
+      objectReference: {fileID: 205951097}
+    - target: {fileID: 362532355212276237, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
       propertyPath: debuffEffects.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -9797,6 +9877,10 @@ PrefabInstance:
       propertyPath: debuffEffects.Array.data[0]
       value: 
       objectReference: {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+    - target: {fileID: 2309076503192258678, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
+      propertyPath: isEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3334370049095230699, guid: d1ffef97acc97634e8b31d9b3dd8bc34, type: 3}
       propertyPath: m_Name
       value: Stage_Ability test
