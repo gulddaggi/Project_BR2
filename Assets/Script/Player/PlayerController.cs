@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
     protected Player player;
+    Attack attack;
 
     public int DodgeButtonPressedCount;
 
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     // 돌진 공격 판정 오브젝트
     [SerializeField]
     public GameObject dodgeAttackObj;
+
+    [SerializeField] public bool CanMove = true;
 
     protected Vector3 DodgeVec;
     [SerializeField] float Basic_Dodge_CoolDown;
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Player>();
         PlayerRigid = GetComponent<Rigidbody>();
         PlayerAnimator = GetComponent<Animator>();
+        attack = GetComponent<Attack>();
     }
 
 
@@ -45,25 +49,34 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        PlayerMoveDirection = new Vector3(input.x, 0f, input.y);
+        if (CanMove)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            PlayerMoveDirection = new Vector3(input.x, 0f, input.y);
+        }
     }
 
     public void OnDodge(InputAction.CallbackContext context)
     {
         if(context.performed) // 닷지 키가 눌렸는지 체크. 여기서부터 닷지 로직 작성
         {
-            if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime && DodgeButtonPressedCount == 0)
+            if (PlayerRigid.velocity != Vector3.zero && Basic_Dodge_CoolDown > Basic_Dodge_CoolTime && PlayerAnimator.GetInteger("DodgeButtonPressedCount") == 0)
             {
-                DodgeButtonPressedCount++;
+
+                PlayerAnimator.SetInteger("DodgeButtonPressedCount", 1);
                 DodgeVec = PlayerMoveDirection;
+
                 transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.eulerAngles.y - 90, transform.rotation.z));
+
                 PlayerAnimator.SetTrigger("Basic Dodge");
                 player.Player_MoveSpeed_Multiplier();
+
                 isDodge = true;
                 Debug.Log("플레이어 기본 회피");
+
                 // PlayerColor.material.color = Color.red; 디버그용
-                dodgeAttackObj.SetActive(true);
+                // dodgeAttackObj.SetActive(true);
+
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
             }
         }
@@ -95,8 +108,11 @@ public class PlayerController : MonoBehaviour
     {
         if (PlayerRigid.velocity != Vector3.zero)
         {
-            // 속력벡터가 0이 아닐 시
-            PlayerAnimator.SetTrigger("Run");
+            if (attack.isAttack == false)
+            {
+                // 속력벡터가 0이 아닐 시
+                PlayerAnimator.SetTrigger("Run");
+            }
         }
         // 여기까지 뛰는 애니메이션 관련 체크
         if (PlayerRigid.velocity == Vector3.zero) { PlayerAnimator.SetTrigger("Idle"); }
@@ -145,7 +161,7 @@ public class PlayerController : MonoBehaviour
         // damageField.gameObject.SetActive(false);
         isDodge = false;
         Basic_Dodge_CoolDown = 0;
-        DodgeButtonPressedCount = 0;
+        PlayerAnimator.SetInteger("DodgeButtonPressedCount", 0);
     }
 
     void Basic_Dodge_Cooltime_Management()

@@ -156,6 +156,8 @@ public class Enemy : MonoBehaviour
             
             // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
+
+            isHit = false;
         }
         else if (other.tag == "StrongPlayerAttack" && isHit == false)
         {
