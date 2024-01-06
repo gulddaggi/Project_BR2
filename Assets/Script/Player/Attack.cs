@@ -15,7 +15,7 @@ public class Attack : MonoBehaviour
 
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
-    PlayerController playercontroller;
+    PlayerController playerController;
 
     public Animator PlayerAnimator;
     public Rigidbody PlayerRigid;
@@ -25,6 +25,7 @@ public class Attack : MonoBehaviour
 
     [SerializeField] bool AttackAvailable = true;
     // [SerializeField] float AttackDelay = 1.5f;
+    [SerializeField] public bool isAttack = false;
 
     [Header("플레이어 공격 딜레이 / 무기마다 체크")]
     public WeaponAttackDelay PlayerAttackDelay;
@@ -68,6 +69,7 @@ public class Attack : MonoBehaviour
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
+        playerController = GetComponent<PlayerController>();
     }
 
     #region * 마우스 위치 받아오기 및 레이캐스팅
@@ -99,6 +101,7 @@ public class Attack : MonoBehaviour
 
             if (AttackAvailable)
             {
+                isAttack = true;
                 buttonPressedCount++;
                 PlayerAnimator.SetInteger("ButtonPressedCount", buttonPressedCount);
                 if (currentAttackState == AttackState.Idle && buttonPressedCount < 3)
@@ -194,7 +197,7 @@ public class Attack : MonoBehaviour
 
     void FirstAttack_Sword_Start()
     {
-        // PlayerAnimator.applyRootMotion = true;
+        PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
         TransitionToState(AttackState.FirstAttack);
         ProcessBufferedInput();
@@ -202,7 +205,7 @@ public class Attack : MonoBehaviour
     }
     void FirstAttack_Sword_End()
     {
-        // PlayerAnimator.applyRootMotion = false;
+        PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
 
@@ -227,7 +230,7 @@ public class Attack : MonoBehaviour
     }
     void SecondAttack_Sword_End()
     {
-        // PlayerAnimator.applyRootMotion = false;
+        PlayerAnimator.applyRootMotion = false;
 
         ManageAttackRange(1, false);
 
@@ -322,6 +325,7 @@ public class Attack : MonoBehaviour
         }
         buttonPressedCount = 0;
         PlayerAnimator.SetInteger("ButtonPressedCount", 0);
+        isAttack = false;
     }
     private void Update()
     {

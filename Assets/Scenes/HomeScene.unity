@@ -1553,7 +1553,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-109672
+  m_Name: pb_Mesh-64788
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2314,6 +2314,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3746731698794075246, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3841975944009398142, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -2509,6 +2513,14 @@ PrefabInstance:
     - target: {fileID: 7453616068875650488, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269540173079867940, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Positions.Array.data[0].UseLocalPosition.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8269540173079867940, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Positions.Array.data[0].UseLocalPosition.Array.data[1]
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8353028492586725662, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_RootOrder

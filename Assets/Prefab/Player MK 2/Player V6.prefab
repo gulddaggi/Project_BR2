@@ -2001,9 +2001,9 @@ MonoBehaviour:
   AttackAvailable: 1
   PlayerAttackDelay:
     AttackDelay:
+    - 0.7
+    - 1.3
     - 1
-    - 3.5
-    - 2
   Weapon_Damage_Range:
   - WeaponDamageRange:
     - {fileID: 3746731698794075246}
@@ -5230,7 +5230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801491276431540813, guid: f4d02438772ee974699c076adcb4b919, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8801491276431540854, guid: f4d02438772ee974699c076adcb4b919, type: 3}
       propertyPath: m_RootOrder
