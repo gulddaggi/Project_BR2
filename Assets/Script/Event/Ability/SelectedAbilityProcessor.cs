@@ -57,7 +57,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 
                 // 수치 적용
                 curValue = playerStatus.PlayerAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerAttackDamage = curValue * calcValue;
@@ -72,7 +71,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
 
                 // 수치 적용
                 curValue = playerStatus.PlayerStrongAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerStrongAttackDamage = curValue * calcValue;
@@ -84,18 +82,27 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
+                if (playerStatus.PlayerDodgeAttackDamage == 0f)
+                {
+                    playerStatus.PlayerDodgeAttackDamage = 2f;
+                }
 
                 // 수치 적용
                 curValue = playerStatus.PlayerDodgeAttackDamage;
-                Debug.Log(selectedAbility.plus_Value);
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
-                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
+                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.
             // 적용 수치 : 모든 물 능력 데미지 변수
             case 3:
+                // 수치 적용. %단위 값을 매개변수로 입력
+                playerStatus.SetPlayerAllDamage(10.0f);
+
+                // 능력 적용.
+                // 던전 입장시마다 효과가 발동되는 물 타입 능력. 관련 이벤트에 콜백 함수를 AddListener
+                GameManager_JS.Instance.OnStageChanged.AddListener(() => ExchangeWater(selectedAbility.plus_Value));
                 break;
 
             // 수압 증가 : 둔화가 5번 중첩될 경우 적을 익사시킨다.
@@ -131,5 +138,13 @@ public class SelectedAbilityProcessor : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    // 등가교환(물) 능력
+    private void ExchangeWater(float _value)
+    {
+        float curValue = playerStatus.CurrentHP;
+        float calcValue = _value * 0.01f + 1f;
+        playerStatus.CurrentHP = curValue  * calcValue;
     }
 }

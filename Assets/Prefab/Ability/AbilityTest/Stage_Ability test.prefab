@@ -24527,6 +24527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objColor: {fileID: 8107949578582575440}
   debuffEffects: []
+  debuffManager: {fileID: 0}
 --- !u!65 &6742663044403621994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24930,6 +24931,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objColor: {fileID: 8107949578673405183}
   debuffEffects: []
+  debuffManager: {fileID: 0}
 --- !u!65 &6742663044448290245
 BoxCollider:
   m_ObjectHideFlags: 0

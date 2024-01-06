@@ -144,7 +144,6 @@ public class Enemy : MonoBehaviour
             Player playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
-            Debug.Log(debuffArray[0] + " : 물 디버프");
 
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
@@ -162,31 +161,62 @@ public class Enemy : MonoBehaviour
         }
         else if (other.tag == "StrongPlayerAttack" && isHit == false)
         {
-            Debug.Log("Strongly Damaged!");
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-            EnemyHP = tmpArray[0];
-            StartCoroutine(GetDamaged());
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
+            if (HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
 
+            isHit = true;
+            Debug.Log("Strongly Damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            float damage = playerdata.PlayerStrongAttackDamage;
+            debuffArray = playerdata.GetStAttackDebuff();
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray);
+
+            // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
         }
         else if (other.tag == "PlayerDodgeAttack" && isHit == false)
         {
+            if (HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
+
             isHit = true;
             Debug.Log("Dodge damaged!");
 
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            tmpArray = playerdata.PlayerDodgeAttack(EnemyHP);
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            float damage = playerdata.PlayerDodgeAttackDamage;
+            debuffArray = playerdata.GetDodgeAttackDebuff();
 
-            EnemyHP = tmpArray[0];
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
 
-            debuffChecker.DebuffCheck((int)tmpArray[1]);
-            StartCoroutine(GetDamaged());
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
 
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray);
+
+            // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
         }
+
+        isHit = false;
 
         if (EnemyHP <= 0)
         {
