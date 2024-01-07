@@ -47,6 +47,9 @@ public class Grogon : Enemy
             var playerdata = other.transform.GetComponentInParent<Player>();
             tmpArray = playerdata.PlayerAttack(EnemyHP);
 
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
+
             EnemyHP = tmpArray[0];
 
             hpBarImage.fillAmount = EnemyHP / FullHP;

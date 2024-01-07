@@ -6181,6 +6181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 6988224634972704967}
+  debuffEffects: []
+  debuffManager: {fileID: 0}
 --- !u!195 &7746399088393893449
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6219,6 +6221,7 @@ MonoBehaviour:
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
   hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
+  EnemyPlayerAttackDistance: 3
 --- !u!114 &7746399088393893461
 MonoBehaviour:
   m_ObjectHideFlags: 0
