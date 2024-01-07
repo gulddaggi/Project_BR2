@@ -23,6 +23,7 @@ public class HalfSpider : Enemy
 
         if (HPOn == false && other.tag == "PlayerAttack" || other.tag == "StrongPlayerAttack" || other.tag == "PlayerDodgeAttack")
         {
+
             HPOn = true;
             SetHpBar();
         }

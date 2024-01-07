@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack" && isHit == false)
         {
+
             if (HPOn == false)
             {
                 HPOn = true;
@@ -142,8 +143,13 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
+
+            Debug.Log(Damage);
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
+
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
 
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;

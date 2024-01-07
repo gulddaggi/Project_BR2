@@ -1952,6 +1952,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: db43a527-c362-4e1c-aedf-fa67a89b82a3
     m_ActionName: PlayerMove/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6060381316887276210}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8836125a-6b25-44b4-922e-0047703e33f7
+    m_ActionName: PlayerMove/SpecialAttack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Personal Computer(x64)
   m_DefaultActionMap: PlayerMove
@@ -1974,6 +1990,7 @@ MonoBehaviour:
   DodgeButtonPressedCount: 0
   PlayerMoveDirection: {x: 0, y: 0, z: 0}
   dodgeAttackObj: {fileID: 0}
+  CanMove: 1
   Basic_Dodge_CoolDown: 0
   Basic_Dodge_CoolTime: 2
   Basic_Dodge_Time: 0.3
@@ -1999,6 +2016,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 0}
   buttonPressedCount: 0
   AttackAvailable: 1
+  isAttack: 0
   PlayerAttackDelay:
     AttackDelay:
     - 0.7
@@ -2019,6 +2037,10 @@ MonoBehaviour:
     - {fileID: 5355507970589767934}
   inputBufferSize: 2
   BufferCount: 0
+  specialAttack:
+    SpecialAttack_Sword: {fileID: 0}
+    SpecialAttack_Axe: {fileID: 0}
+    SpecialAttack_Bow: {fileID: 0}
 --- !u!114 &6402893141203149823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2053,6 +2075,7 @@ MonoBehaviour:
   playerStrongAttackDamage: 15
   playerFieldAttackDamage: 0
   playerDodgeAttackDamage: 0
+  playerSpecialAttackFillingAmount: 0
 --- !u!114 &8269540173079867940
 MonoBehaviour:
   m_ObjectHideFlags: 0

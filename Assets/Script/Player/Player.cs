@@ -44,6 +44,8 @@ public class Player : MonoBehaviour, IListener
     public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackDamage = value; } }
     public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackDamage = value; } }
 
+    public float PlayerSpecialAttackFillingAmount { get { return playerSpecialAttackFillingAmount; } set { playerSpecialAttackFillingAmount = value; } }
+
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
+    [SerializeField] protected float playerSpecialAttackFillingAmount;
 
     // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
     public void SetPlayerAllDamage(float _value)

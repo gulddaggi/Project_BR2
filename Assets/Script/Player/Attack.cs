@@ -44,9 +44,6 @@ public class Attack : MonoBehaviour
     public class DamameRange
     {
         public GameObject[] WeaponDamageRange;
-        // public Transform[] RangeInstantiatePosition;
-        // public float[] DestroyAfter;
-        // public bool[] UseLocalPosition;
     }
 
     public Vector3 MouseDirection { get; private set; }
@@ -65,11 +62,22 @@ public class Attack : MonoBehaviour
     }
     #endregion
 
+    public SpecialAttack[] specialAttack;
+    [System.Serializable]
+    public class SpecialAttack
+    {
+        public GameObject SpecialAttackPrefab;
+        public GameObject SpecialAttackRange;
+        public float DestroyAfter;
+        public bool UseLocalPosition;
+    }
+
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
+        GameManager_JS.Instance.GetGuage();
     }
 
     #region * 마우스 위치 받아오기 및 레이캐스팅
@@ -111,6 +119,21 @@ public class Attack : MonoBehaviour
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
                 ProcessBufferedInput();
             }
+        }
+    }
+
+    public void OnSpecialAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed && GameManager_JS.Instance.attackGuage.isSpecialReady && SceneManager.GetActiveScene().name != "HomeScene")
+        {
+            var instance = Instantiate(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackPrefab, gameObject.transform.position, gameObject.transform.rotation);
+            if (specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].UseLocalPosition)
+            {
+                instance.transform.parent = gameObject.transform;
+                instance.transform.localPosition = Vector3.zero;
+                instance.transform.localRotation = new Quaternion();
+            }
+            Destroy(instance, specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
         }
     }
     #endregion
@@ -383,5 +406,5 @@ public class Attack : MonoBehaviour
             }
         }
     }
-
+    
 }
