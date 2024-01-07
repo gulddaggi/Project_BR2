@@ -148,6 +148,7 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
+            // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
 

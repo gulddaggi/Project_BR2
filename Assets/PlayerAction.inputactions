@@ -124,9 +124,9 @@
                     "name": "",
                     "id": "f02c7b21-0e18-440a-a661-94d0ea15aeb9",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "interactions": "Hold,Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Personal Computer(x64)",
                     "action": "SpecialAttack",
                     "isComposite": false,
                     "isPartOfComposite": false

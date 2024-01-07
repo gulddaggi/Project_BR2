@@ -369,7 +369,10 @@ public class GameManager_JS : MonoBehaviour
             attackGuage.SpecialAttackGuage.fillAmount = 1;
         }
     }
-    public void GuageUpdate(float fillingAmount) { CurrentGuage += fillingAmount; }
+    public void GuageUpdate(float fillingAmount) { 
+        CurrentGuage += fillingAmount;
+        if (CurrentGuage >= 100) { attackGuage.isSpecialReady = true; }
+    }
 
     // 게이지 초기화
     public void InitGuage()
@@ -377,7 +380,7 @@ public class GameManager_JS : MonoBehaviour
         CurrentGuage = 0;
         attackGuage.ReadyImage.SetActive(false);
         attackGuage.NonReadyImage.SetActive(true);
-        attackGuage.isSpecialReady = true;
+        attackGuage.isSpecialReady = false;
     }
 
 

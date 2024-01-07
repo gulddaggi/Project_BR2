@@ -40,6 +40,9 @@ public class HalfSpider : Enemy
 
             hpBarImage.fillAmount = EnemyHP / FullHP;
 
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
+
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
         }

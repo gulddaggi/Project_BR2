@@ -163,13 +163,6 @@ public class Player : MonoBehaviour, IListener
         return returnArray;
     }
 
-    // 삭제 예정.
-    /* private void Player_Direction_Check() // 왜 만들었더라..?
-    {
-        bool isMoving = (PlayerMoveDirection != Vector3.zero);
-        if (isMoving) { transform.rotation = Quaternion.LookRotation(PlayerMoveDirection); transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); }
-    } */
-
     public void Player_MoveSpeed_Multiplier()
     {
         moveSpeed *= 4;
