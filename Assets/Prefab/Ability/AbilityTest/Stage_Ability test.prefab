@@ -24197,6 +24197,7 @@ GameObject:
   - component: {fileID: 994963253296784068}
   - component: {fileID: 2934586744563658692}
   - component: {fileID: 2186527224101261920}
+  - component: {fileID: 1610189114413921048}
   - component: {fileID: 7565070017290413318}
   - component: {fileID: 362532355212276237}
   - component: {fileID: 6742663044403621994}
@@ -24465,6 +24466,7 @@ MonoBehaviour:
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
   hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
+  EnemyPlayerAttackDistance: 3
 --- !u!195 &2186527224101261920
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24487,6 +24489,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1610189114413921048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227415215534912065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aecb7f477b6ffa41b7bdd3ce4528784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debuffEffects:
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  originvelocity: 0
 --- !u!114 &7565070017290413318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24526,8 +24544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 8107949578582575440}
-  debuffEffects: []
-  debuffManager: {fileID: 0}
+  debuffManager: {fileID: 1610189114413921048}
 --- !u!65 &6742663044403621994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24601,6 +24618,7 @@ GameObject:
   - component: {fileID: 994963253223757675}
   - component: {fileID: 2934586744657615467}
   - component: {fileID: 2186527224061798351}
+  - component: {fileID: 4517505561031070192}
   - component: {fileID: 7565070017334071465}
   - component: {fileID: 362532355172796322}
   - component: {fileID: 6742663044448290245}
@@ -24869,6 +24887,7 @@ MonoBehaviour:
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
   hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
+  EnemyPlayerAttackDistance: 3
 --- !u!195 &2186527224061798351
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24891,6 +24910,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4517505561031070192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227415215608711150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aecb7f477b6ffa41b7bdd3ce4528784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debuffEffects:
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  originvelocity: 0
 --- !u!114 &7565070017334071465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24930,8 +24965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 8107949578673405183}
-  debuffEffects: []
-  debuffManager: {fileID: 0}
+  debuffManager: {fileID: 4517505561031070192}
 --- !u!65 &6742663044448290245
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5490,7 +5490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 2283587223786628100}
-  debuffEffects: []
   debuffManager: {fileID: 0}
 --- !u!65 &3649911331882638654
 BoxCollider:

@@ -78,7 +78,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 break;
 
             // 물의 축복(돌진) : 돌진 시 부딪히는 적에게 피해를 가하고 둔화를 입힌다.
-            // 디버프 : 둔화, 적용 수치 : PlayerCrashDamage
+            // 디버프 : 둔화, 적용 수치 : PlayerDodgeDamage
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
@@ -108,6 +108,14 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 수압 증가 : 둔화가 5번 중첩될 경우 적을 익사시킨다.
             // 디버프 : 둔화 + 5중첩 시 익사, 적용 수치 : PlayerDrowningDamage(생성 필요)
             case 4:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(0, 2);
+                playerStatus.SetDebuffToStAttack(0, 2);
+                playerStatus.SetDebuffToDodgeAttack(0, 2);
+                playerStatus.SetDebuffToFieldAttack(0, 2);
+
+                // 수치 적용. 가산 수치 그대로 적용하여, 이후 해당 디버프 적용 시 적 체력의 PlayerDrawnDamage(%)만큼 체력 감소.
+                playerStatus.PlayerDrawnDamage = selectedAbility.plus_Value;
                 break;
 
             // 물의 가호 : 전투 시작 후 10초 동안 모든 공격이 강해진다.
