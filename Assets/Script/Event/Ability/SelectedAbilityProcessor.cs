@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 선택된 능력 처리 담당 클래스.
+// 선택된 능력 수치 및 디버프 적용 담당 클래스.
 public class SelectedAbilityProcessor : MonoBehaviour
 {
     // 플레이어 상태 클래스 변수. 수치 변경이 필요한 능력 처리 시 접근.

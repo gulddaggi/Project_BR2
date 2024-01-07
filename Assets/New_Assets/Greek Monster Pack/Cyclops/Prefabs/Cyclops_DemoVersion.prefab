@@ -5477,6 +5477,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
+  drawnDamage: 0
 --- !u!114 &7652229387325939545
 MonoBehaviour:
   m_ObjectHideFlags: 0

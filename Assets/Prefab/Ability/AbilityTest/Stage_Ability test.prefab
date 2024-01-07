@@ -24505,6 +24505,7 @@ MonoBehaviour:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   originvelocity: 0
+  time: 0
 --- !u!114 &7565070017290413318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24531,6 +24532,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
+  drawnDamage: 0
 --- !u!114 &362532355212276237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24926,6 +24928,7 @@ MonoBehaviour:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   originvelocity: 0
+  time: 0
 --- !u!114 &7565070017334071465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24952,6 +24955,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
+  drawnDamage: 0
 --- !u!114 &362532355172796322
 MonoBehaviour:
   m_ObjectHideFlags: 0

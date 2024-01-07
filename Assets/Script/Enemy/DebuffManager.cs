@@ -13,14 +13,42 @@ public class DebuffManager : MonoBehaviour
     // 적의 초기 속도
     public float originvelocity;
 
+    // 타이머 변수.
+    public float time = 0f;
+    bool timerOn = false;
+
+    // 타이머 작동 시간
+    float targetTime = 0f;
+
+    float drawnDamage = 0f;
+
     void Start()
     {
         // 초기 속도 초기화
         originvelocity = this.gameObject.GetComponentInParent<NavMeshAgent>().speed;
     }
 
+    private void Update()
+    {
+        // 디버프 타이머 계산
+        if (timerOn)
+        {
+            time += Time.deltaTime;
+            // 적 체력 지속 감소
+            this.gameObject.GetComponentInParent<Enemy>().EnemyHP -= drawnDamage;
+        }
+
+        if (time > targetTime)
+        {
+            time = 0f;
+            targetTime = 0f;
+            drawnDamage = 0f;
+            timerOn = false;
+        }
+    }
+
     // 물 디버프 적용
-    public void WaterDebuffEffectOn(int _index, bool _isDrawnOn)
+    public void WaterDebuffEffectOn(int _index, float _drawnDamage)
     {
         // 적용 디버프 인덱스
         int index = (_index == 3) ? (_index - 1) : 0;
@@ -42,11 +70,13 @@ public class DebuffManager : MonoBehaviour
                 ++child.GetComponent<Debuff>().count;
 
                 // 디버프 중첩 효과 적용
-                if (_isDrawnOn && child.GetComponent<Debuff>().count == 5)
+                if (_drawnDamage != 0f && child.GetComponent<Debuff>().count == 5)
                 {
                     child.GetComponent<Debuff>().count = 0;
                     // 익사 적용
                     this.transform.GetChild(i+1).GetComponent<ParticleSystem>().Play();
+                    // 익사 데미지 적용
+                    WaterDebuffDrawnOn(_drawnDamage);
                 }
 
                 return;
@@ -87,8 +117,11 @@ public class DebuffManager : MonoBehaviour
     }
 
     // 익사 데미지 적용
-    void WaterDebuffDrawnOn()
+    void WaterDebuffDrawnOn(float _drawnDamage)
     {
-
+        // Update 호출마다 적용되는 수치로 계산.
+        drawnDamage = this.gameObject.GetComponentInParent<Enemy>().EnemyHP * (_drawnDamage * 0.01f) * Time.deltaTime;
+        targetTime = 1.5f;
+        timerOn = true;
     }
 }
