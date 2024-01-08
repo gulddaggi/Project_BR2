@@ -232,8 +232,6 @@ public class Harpy : Enemy
 
         if (EnemyHP <= 0)
         {
-            enemySpawner.EnemyDead();
-            hpBar.SetActive(false);
             gameObject.SetActive(false);
         }
 

@@ -15,4 +15,13 @@ public class ChoiceGetter : MonoBehaviour
             choices.Add(this.transform.GetChild(i));
         }
     }
+
+    private void OnEnable()
+    {
+        for (int i = 1; i < choices.Count; i++)
+        {
+            choices[i].GetChild(4).GetComponent<Text>().color = Color.black;
+            choices[i].GetChild(5).gameObject.SetActive(false);
+        }
+    }
 }
