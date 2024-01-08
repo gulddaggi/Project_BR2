@@ -147,9 +147,11 @@ public class Harpy : Enemy
 
         if (other.tag == "PlayerAttack")
         {
-            Debug.Log("Damaged!");
+            Debug.Log("Boss Damaged!");
             var playerdata = other.transform.GetComponentInParent<Player>();
             tmpArray = playerdata.PlayerAttack(EnemyHP);
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
             EnemyHP = tmpArray[0];
 
             //debuffChecker.DebuffCheck((int)tmpArray[1]);
@@ -157,8 +159,22 @@ public class Harpy : Enemy
         }
         else if (other.tag == "StrongPlayerAttack")
         {
-            Debug.Log("Strongly Damaged!");
+            Debug.Log("Boss Strongly Damaged!");
             var playerdata = other.transform.GetComponentInParent<Player>();
+            GameManager_JS.Instance.Guage();
+            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
+            tmpArray = playerdata.PlayerAttack(EnemyHP);
+            EnemyHP = tmpArray[0];
+            //debuffChecker.DebuffCheck((int)tmpArray[1]);
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
+        }
+
+        else if (other.tag == "DodgeAttack")
+        {
+            Debug.Log("Boss Damaged by Dodge!");
+            var playerdata = other.transform.GetComponentInParent<Player>();
+            GameManager_JS.Instance.Guage();
             EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
             tmpArray = playerdata.PlayerAttack(EnemyHP);
             EnemyHP = tmpArray[0];

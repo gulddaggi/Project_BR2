@@ -182,6 +182,8 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
+            GameManager_JS.Instance.Guage();
+
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
 
@@ -209,6 +211,8 @@ public class Enemy : MonoBehaviour
             Player playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());

@@ -16,7 +16,7 @@ public class HalfSpider : Enemy
     {
         
     }
-
+/*
     void OnTriggerEnter(Collider other)
     {
         float[] tmpArray = new float[2] { 0f, 0f };
@@ -117,7 +117,7 @@ public class HalfSpider : Enemy
             gameObject.SetActive(false);
         }
     }
-
+    */
 
     IEnumerator GetDamaged()
     {
