@@ -43,29 +43,27 @@ public class Enemy : MonoBehaviour
     public float FullHP;
 
     private Canvas uiCanvas;
-    public Image hpBarImage;
-    public Image hpBarImage2;
+
+    // hp UI 변수
+    public GameObject hpBar;
+    public GameObject hpBarFill;
+    public GameObject hpBarFrame;
+    
     public bool HPOn = false;
 
     // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
     public float drawnDamage = 0f;
 
-    // Start is called before the first frame update
     public virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
-        //EnemyRigid = GetComponent<Rigidbody>();
         EnemyAnimator = GetComponent<Animator>();
-        //nav = GetComponent<NavMeshAgent>();
         SR = gameObject.GetComponent<MeshRenderer>();
-        //hp바
         FullHP = EnemyHP;
-        //SetHpBar();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //Track_Player();
@@ -88,11 +86,11 @@ public class Enemy : MonoBehaviour
     public void SetHpBar()
     {
         uiCanvas = GameObject.Find("EnemyUI").GetComponent<Canvas>();
-        GameObject HPBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
-        hpBarImage = HPBar.GetComponentsInChildren<Image>()[1];
-        hpBarImage2 = HPBar.GetComponentsInChildren<Image>()[0];
+        hpBar = Instantiate<GameObject>(hpBarPrefab, uiCanvas.transform);
+        hpBarFrame = hpBar.transform.GetChild(0).gameObject;
+        hpBarFill = hpBar.transform.GetChild(1).gameObject;
 
-        var _hpbar = HPBar.GetComponent<EnemyHp>();
+        var _hpbar = hpBar.GetComponent<EnemyHp>();
         _hpbar.targetTr = this.gameObject.transform;
         _hpbar.offset = hpBarOffset;
     }
@@ -125,23 +123,18 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // 삭제 예정
-        float[] tmpArray = new float[2] { 0f, 0f };
-
         // 디버프 배열
         int[] debuffArray;
 
         // 공격 종류에 따른 피격 관련 기능 수행
-        if (other.tag == "PlayerAttack" && isHit == false)
+        if (other.tag == "PlayerAttack")
         {
-
             if (HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
             }
 
-            isHit = true;
             Debug.Log("Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -163,13 +156,11 @@ public class Enemy : MonoBehaviour
 
             // 디버프 적용
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
-            
-            // 체력 바 업데이트
-            hpBarImage.fillAmount = EnemyHP / FullHP;
 
-            isHit = false;
+            // 체력 바 업데이트
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
         }
-        else if (other.tag == "StrongPlayerAttack" && isHit == false)
+        else if (other.tag == "StrongPlayerAttack")
         {
             if (HPOn == false)
             {
@@ -177,7 +168,6 @@ public class Enemy : MonoBehaviour
                 SetHpBar();
             }
 
-            isHit = true;
             Debug.Log("Strongly Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -199,17 +189,16 @@ public class Enemy : MonoBehaviour
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
-            hpBarImage.fillAmount = EnemyHP / FullHP;
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
         }
-        else if (other.tag == "PlayerDodgeAttack" && isHit == false)
+        else if (other.tag == "PlayerDodgeAttack")
         {
-            /*if (HPOn == false)
+            if (HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
-            }*/
+            }
 
-            isHit = true;
             Debug.Log("Dodge damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -231,26 +220,21 @@ public class Enemy : MonoBehaviour
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
-            hpBarImage.fillAmount = EnemyHP / FullHP;
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
         }
-
-        isHit = false;
 
         if (EnemyHP <= 0)
         {
             enemySpawner.EnemyDead();
+            hpBar.SetActive(false);
             gameObject.SetActive(false);
-            //hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
         }
 
         IEnumerator GetDamaged()
         {
             SR.material.color = Color.red;
-
             yield return new WaitForSeconds(0.6f);
             SR.material.color = Color.white;
-            isHit = false;
-
         }
     }
 }

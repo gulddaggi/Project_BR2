@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class Grogon : Enemy
 {
     public GameObject bulletPrefab;
-    // Start is called before the first frame update
+
     public override void Start()
     {
         base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
         /*

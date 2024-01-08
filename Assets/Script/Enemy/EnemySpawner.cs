@@ -107,12 +107,9 @@ public class EnemySpawner : MonoBehaviour
         --curEnemyCount;
         this.gameObject.GetComponentInParent<Dungeon>().DecEnemyCount();
 
-        //Debug.Log("EnemyCount : " + curEnemyCount);
         if (curEnemyCount == 0 && curWaveCount != 0)
         {
-            //Debug.Log("트리거 전환");
             spawnTrigger = true;
-
         }
     }
 
