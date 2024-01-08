@@ -6181,7 +6181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 6988224634972704967}
-  debuffEffects: []
   debuffManager: {fileID: 0}
 --- !u!195 &7746399088393893449
 NavMeshAgent:
@@ -6248,6 +6247,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
+  drawnDamage: 0
 --- !u!1 &3447095299496662616
 GameObject:
   m_ObjectHideFlags: 0

@@ -7071,7 +7071,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 1501943690705046079}
-  debuffEffects: []
   debuffManager: {fileID: 0}
 --- !u!195 &1509352678878987365
 NavMeshAgent:
@@ -7121,6 +7120,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 0}
   hpBarImage2: {fileID: 0}
   HPOn: 0
+  drawnDamage: 0
   bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
 --- !u!114 &1509352678878987353
 MonoBehaviour:

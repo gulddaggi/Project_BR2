@@ -5190,6 +5190,7 @@ Transform:
   - {fileID: 4483084143270182271}
   - {fileID: 3529926056107315927}
   - {fileID: 2283739692735668253}
+  - {fileID: 407089030728855927}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5491,7 +5492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 2283587223786628100}
-  debuffManager: {fileID: 0}
+  debuffManager: {fileID: 8613727376534364742}
 --- !u!65 &3649911331882638654
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6342,6 +6343,55 @@ Transform:
   m_Father: {fileID: 5444736931492089037}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5424048468416505841
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407089030728855927}
+  - component: {fileID: 8613727376534364742}
+  m_Layer: 3
+  m_Name: Debuffs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &407089030728855927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424048468416505841}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5238833094400345519}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8613727376534364742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424048468416505841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aecb7f477b6ffa41b7bdd3ce4528784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debuffEffects:
+  - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  - {fileID: 4853743860892869796, guid: 631c359c0dc700e4ba8d02558b57df11, type: 3}
+  originvelocity: 0
+  time: 0
 --- !u!1 &5517335727812474320
 GameObject:
   m_ObjectHideFlags: 0
