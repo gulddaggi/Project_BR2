@@ -7071,7 +7071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 1501943690705046079}
   debuffManager: {fileID: 8868360720055844367}
 --- !u!195 &1509352678878987365
 NavMeshAgent:
@@ -7122,6 +7121,7 @@ MonoBehaviour:
   hpBarFill: {fileID: 0}
   hpBarFrame: {fileID: 0}
   HPOn: 0
+  isBoss: 0
   drawnDamage: 0
   bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
 --- !u!114 &1509352678878987353

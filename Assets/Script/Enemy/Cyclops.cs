@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Cyclops : Enemy
 {
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
     }

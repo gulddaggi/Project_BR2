@@ -16827,11 +16827,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
---- !u!137 &983194907426277637 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3866602054614571084, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
-  m_PrefabInstance: {fileID: 4039144587040985417}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4756109943630685823 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8794672803053467446, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
@@ -16849,7 +16844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 983194907426277637}
   debuffManager: {fileID: 0}
 --- !u!4 &5281253861720276165 stripped
 Transform:

@@ -50,11 +50,12 @@ public class Enemy : MonoBehaviour
     public GameObject hpBarFrame;
     
     public bool HPOn = false;
+    public bool isBoss = false;
 
     // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
     public float drawnDamage = 0f;
 
-    public virtual void Start()
+    protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
@@ -129,7 +130,7 @@ public class Enemy : MonoBehaviour
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
-            if (HPOn == false)
+            if (!isBoss && HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
@@ -158,11 +159,14 @@ public class Enemy : MonoBehaviour
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
-            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
         }
         else if (other.tag == "StrongPlayerAttack")
         {
-            if (HPOn == false)
+            if (!isBoss && HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
@@ -189,11 +193,14 @@ public class Enemy : MonoBehaviour
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
-            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
         }
         else if (other.tag == "PlayerDodgeAttack")
         {
-            if (HPOn == false)
+            if (!isBoss && HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
@@ -220,7 +227,10 @@ public class Enemy : MonoBehaviour
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
-            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
         }
 
         if (EnemyHP <= 0)

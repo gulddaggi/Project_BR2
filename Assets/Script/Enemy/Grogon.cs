@@ -7,7 +7,7 @@ public class Grogon : Enemy
 {
     public GameObject bulletPrefab;
 
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
     }

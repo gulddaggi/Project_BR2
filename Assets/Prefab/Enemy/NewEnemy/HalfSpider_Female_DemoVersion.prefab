@@ -6181,7 +6181,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 6988224634972704967}
   debuffManager: {fileID: 9106742178641054561}
 --- !u!195 &7746399088393893449
 NavMeshAgent:
@@ -6249,6 +6248,7 @@ MonoBehaviour:
   hpBarFill: {fileID: 0}
   hpBarFrame: {fileID: 0}
   HPOn: 0
+  isBoss: 0
   drawnDamage: 0
 --- !u!1 &3447095299496662616
 GameObject:
