@@ -42,7 +42,7 @@ public class EventController : MonoBehaviour
     int tmpTypeIndex;
 
     // 이벤트 진행중 파악 여부. GameManager_JS에도 존재.
-    bool eventOn = false;
+    public bool eventOn = false;
 
     private void Start()
     {
@@ -62,6 +62,7 @@ public class EventController : MonoBehaviour
         // 이벤트 감지.
         if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
+            Debug.Log("인식은 됨.");
             if (eventOn) return;
             eventOn = true;
             GameManager_JS.Instance.isEventOn = true;
@@ -232,6 +233,7 @@ public class EventController : MonoBehaviour
         Destroy(obj, 2f);
         GameManager_JS.Instance.Coin = value;
         eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
     }
 
     void MerchantEventStart()

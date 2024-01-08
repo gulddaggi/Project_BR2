@@ -12,10 +12,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 현재 처리할 능력 객체 변수
     Ability_ListComponent selectedAbility;
 
-    // 디버프 프리팹 배열
-    [SerializeField]
-    ParticleSystem[] debuffEffects;
-
     // 강화 전 기존 데미지 저장 배열. 전투 시작 후 일정시간 강화 수치 복구용으로 사용.
     float[] originDamages;
 

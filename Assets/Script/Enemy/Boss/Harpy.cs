@@ -28,8 +28,9 @@ public class Harpy : Enemy
     private readonly int BossBulletMaxCount = 20;
     private int currentBulletIndex = 0;
 
-    public override void Start()
+    protected override void Start()
     {
+        base.Start();
         EnemyHP = 300;
         maxHP = EnemyHP;
         OnBossHPUpdated.Invoke(maxHP, EnemyHP);
@@ -44,6 +45,7 @@ public class Harpy : Enemy
         }
         StartCoroutine("Harpy_Pattern_Management");
         PrimitiveHP = EnemyHP;
+        isBoss = true;
     }
 
     #endregion
@@ -141,62 +143,103 @@ public class Harpy : Enemy
         StartCoroutine(Harpy_Pattern_Management());
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        float[] tmpArray = new float[2] { 0f, 0f };
-
-        if (other.tag == "PlayerAttack")
-        {
-            Debug.Log("Boss Damaged!");
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
-            GameManager_JS.Instance.Guage();
-            EnemyHP = tmpArray[0];
-
-            //debuffChecker.DebuffCheck((int)tmpArray[1]);
-            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-        }
-        else if (other.tag == "StrongPlayerAttack")
-        {
-            Debug.Log("Boss Strongly Damaged!");
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            GameManager_JS.Instance.Guage();
-            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-            EnemyHP = tmpArray[0];
-            //debuffChecker.DebuffCheck((int)tmpArray[1]);
-            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-
-        }
-
-        else if (other.tag == "DodgeAttack")
-        {
-            Debug.Log("Boss Damaged by Dodge!");
-            var playerdata = other.transform.GetComponentInParent<Player>();
-            GameManager_JS.Instance.Guage();
-            EnemyHP = (playerdata.PlayerStrongAttack(EnemyHP));
-            tmpArray = playerdata.PlayerAttack(EnemyHP);
-            EnemyHP = tmpArray[0];
-            //debuffChecker.DebuffCheck((int)tmpArray[1]);
-            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-
-        }
-
-        if (EnemyHP <= 0)
-        {
-
-            enemySpawner.EnemyDead();
-            gameObject.SetActive(false);
-        }
-    }
-
     void Boss_Overdrive_Check()
     {
         if (EnemyHP <= PrimitiveHP / 2)
         {
             isOverdriving = true;
             // Debug.Log("하피 폭주 패턴 개시");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 디버프 배열
+        int[] debuffArray;
+
+        // 공격 종류에 따른 피격 관련 기능 수행
+        if (other.tag == "PlayerAttack")
+        {
+            Debug.Log("Damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            float damage = playerdata.PlayerAttackDamage;
+            debuffArray = playerdata.GetAttackDebuff();
+
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+        }
+        else if (other.tag == "StrongPlayerAttack")
+        {
+            Debug.Log("Strongly Damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            float damage = playerdata.PlayerStrongAttackDamage;
+            debuffArray = playerdata.GetStAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+        }
+        else if (other.tag == "PlayerDodgeAttack")
+        {
+            Debug.Log("Dodge damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            float damage = playerdata.PlayerDodgeAttackDamage;
+            debuffArray = playerdata.GetDodgeAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+        }
+
+        if (EnemyHP <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+
+        IEnumerator GetDamaged()
+        {
+            SR.material.color = Color.red;
+            yield return new WaitForSeconds(0.6f);
+            SR.material.color = Color.white;
         }
     }
 
