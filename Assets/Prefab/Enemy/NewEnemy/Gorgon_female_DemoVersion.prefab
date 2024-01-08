@@ -7071,6 +7071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 1501943690705046079}
+  debuffEffects: []
+  debuffManager: {fileID: 0}
 --- !u!195 &1509352678878987365
 NavMeshAgent:
   m_ObjectHideFlags: 0

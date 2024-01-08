@@ -45,6 +45,8 @@ public class Player : MonoBehaviour, IListener
     public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackDamage = value; } }
     public float PlayerDrawnDamage { get { return playerDrawnDamage; } set { playerDrawnDamage = value; } } // 단위 : %. 적 체력의 PlayerDrawnDamage(%) 만큼 데미지 적용.
 
+    public float PlayerSpecialAttackFillingAmount { get { return playerSpecialAttackFillingAmount; } set { playerSpecialAttackFillingAmount = value; } }
+
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
     [SerializeField] protected float playerDrawnDamage;
+    [SerializeField] protected float playerSpecialAttackFillingAmount;
 
     // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
     public void SetPlayerAllDamage(float _value)
@@ -161,13 +164,6 @@ public class Player : MonoBehaviour, IListener
 
         return returnArray;
     }
-
-    // 삭제 예정.
-    /* private void Player_Direction_Check() // 왜 만들었더라..?
-    {
-        bool isMoving = (PlayerMoveDirection != Vector3.zero);
-        if (isMoving) { transform.rotation = Quaternion.LookRotation(PlayerMoveDirection); transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); }
-    } */
 
     public void Player_MoveSpeed_Multiplier()
     {

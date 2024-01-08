@@ -134,6 +134,7 @@ public class Enemy : MonoBehaviour
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack" && isHit == false)
         {
+
             if (HPOn == false)
             {
                 HPOn = true;
@@ -149,6 +150,10 @@ public class Enemy : MonoBehaviour
             if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
+
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
 
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
@@ -182,6 +187,8 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
+            GameManager_JS.Instance.Guage();
+
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
 
@@ -211,6 +218,8 @@ public class Enemy : MonoBehaviour
             if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());

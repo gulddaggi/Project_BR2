@@ -26,6 +26,15 @@ public class DialogueCheck
     }
 }
 
+[System.Serializable]
+public struct AttackGuage
+{
+    public GameObject NonReadyImage;
+    public GameObject ReadyImage;
+    public Image SpecialAttackGuage;
+    public bool isSpecialReady;
+};
+
 public class GameManager_JS : MonoBehaviour
 {
     #region 플레이어 관련 변수체크
@@ -83,6 +92,11 @@ public class GameManager_JS : MonoBehaviour
 
     public UnityEvent OnStageChanged;
 
+    [SerializeField]
+    public AttackGuage attackGuage;
+    [SerializeField]
+    private float CurrentGuage;
+
     private void Awake()
     {
         if (instance == null)
@@ -104,7 +118,6 @@ public class GameManager_JS : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-
     }
 
     public static GameManager_JS Instance
@@ -125,9 +138,26 @@ public class GameManager_JS : MonoBehaviour
         //디버깅용 출력
         Debug.Log("Start Dungeon count : " + dungeonCount);
         CoinOnOff(true);
-
-
     }
+
+    // 특수 공격 게이지 Find 및 초기값 세팅
+    public void GetGuage()
+    {
+        Debug.Log("특수공격 게이지 판정 시작.");
+        if(SceneManager.GetActiveScene().name != "HomeScene" && attackGuage.SpecialAttackGuage == null)
+        {
+            Debug.Log("확인 불가. 특수 공격 UI를 가져옵니다.");
+            GameObject specialAttackUI = GameObject.Find("SpecialAttackUI");
+            attackGuage.SpecialAttackGuage = specialAttackUI.GetComponentInChildren<Image>();
+
+            Transform[] SpecialAttackTransforms = specialAttackUI.GetComponentsInChildren<Transform>();
+            attackGuage.NonReadyImage = SpecialAttackTransforms[2].gameObject;
+            attackGuage.ReadyImage = SpecialAttackTransforms[3].gameObject;
+
+            attackGuage.ReadyImage.SetActive(false);
+            attackGuage.isSpecialReady = false;
+        }
+    } 
 
     // fadeout에 사용되는 panel 반환
     public Image GetPanel()
@@ -326,4 +356,33 @@ public class GameManager_JS : MonoBehaviour
 
         return 0;
     }
+
+    
+    public void Guage()
+    {
+        if (CurrentGuage < 100) { attackGuage.SpecialAttackGuage.fillAmount = CurrentGuage / 100; }
+        else
+        {
+            attackGuage.isSpecialReady = true;
+            attackGuage.ReadyImage.SetActive(true);
+            attackGuage.NonReadyImage.SetActive(false);
+
+            attackGuage.SpecialAttackGuage.fillAmount = 1;
+        }
+    }
+    public void GuageUpdate(float fillingAmount) { 
+        CurrentGuage += fillingAmount;
+         
+    }
+
+    // 게이지 초기화
+    public void InitGuage()
+    {
+        CurrentGuage = 0;
+        attackGuage.ReadyImage.SetActive(false);
+        attackGuage.NonReadyImage.SetActive(true);
+        attackGuage.isSpecialReady = false;
+    }
+
+
 }

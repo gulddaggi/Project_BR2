@@ -16,13 +16,14 @@ public class HalfSpider : Enemy
     {
         
     }
-
+/*
     void OnTriggerEnter(Collider other)
     {
         float[] tmpArray = new float[2] { 0f, 0f };
 
         if (HPOn == false && other.tag == "PlayerAttack" || other.tag == "StrongPlayerAttack" || other.tag == "PlayerDodgeAttack")
         {
+
             HPOn = true;
             SetHpBar();
         }
@@ -38,6 +39,9 @@ public class HalfSpider : Enemy
             EnemyHP = tmpArray[0];
 
             hpBarImage.fillAmount = EnemyHP / FullHP;
+
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
 
             debuffChecker.DebuffCheck((int)tmpArray[1]);
             StartCoroutine(GetDamaged());
@@ -113,7 +117,7 @@ public class HalfSpider : Enemy
             gameObject.SetActive(false);
         }
     }
-
+    */
 
     IEnumerator GetDamaged()
     {

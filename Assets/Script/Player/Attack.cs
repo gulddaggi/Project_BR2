@@ -44,9 +44,6 @@ public class Attack : MonoBehaviour
     public class DamameRange
     {
         public GameObject[] WeaponDamageRange;
-        // public Transform[] RangeInstantiatePosition;
-        // public float[] DestroyAfter;
-        // public bool[] UseLocalPosition;
     }
 
     public Vector3 MouseDirection { get; private set; }
@@ -65,11 +62,24 @@ public class Attack : MonoBehaviour
     }
     #endregion
 
+    public SpecialAttack[] specialAttack;
+    [System.Serializable]
+    public class SpecialAttack
+    {
+        public GameObject SpecialAttackPrefab;
+        public GameObject SpecialAttackRange;
+        public float DestroyAfter;
+        public bool UseLocalPosition;
+        public float SpecialAttackRangeInitTime;
+        public float SpecialAttackRangeDisableTime;
+    }
+
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
+        GameManager_JS.Instance.GetGuage();
     }
 
     #region * 마우스 위치 받아오기 및 레이캐스팅
@@ -113,6 +123,28 @@ public class Attack : MonoBehaviour
             }
         }
     }
+
+    public void OnSpecialAttack(InputAction.CallbackContext context)
+    {
+        Debug.Log("Special!");
+        if (context.performed && GameManager_JS.Instance.attackGuage.isSpecialReady && SceneManager.GetActiveScene().name != "HomeScene")
+        {
+            Debug.Log("Special Attack");
+            var instance = Instantiate(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackPrefab, gameObject.transform.position, gameObject.transform.rotation);
+            if (specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].UseLocalPosition)
+            {
+                instance.transform.parent = gameObject.transform;
+                instance.transform.localPosition = Vector3.zero;
+                instance.transform.localRotation = new Quaternion();
+            }
+            Destroy(instance, specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
+
+            GameManager_JS.Instance.attackGuage.isSpecialReady = false;
+            GameManager_JS.Instance.InitGuage();
+
+            StartCoroutine(SpecialAttackRange());
+        }
+    }
     #endregion
 
     #region * 극초기 스냅샷 당시 공격 딜레이 관련 레거시 코드.
@@ -128,70 +160,18 @@ public class Attack : MonoBehaviour
     */
     #endregion
 
-    #region * 콤보 공격 레거시 코드. 코루틴헬퍼 지원 종료에 따라 사용불가
-
-    /* 
-     
-    void IntCheck()
+    IEnumerator SpecialAttackRange()
     {
-        // 콤보 공격이 계속 되는지 체크하는 boolean 변수
-        isContinueComboAttack = false;
-
-        // 콤보 어택이 이어지지 않는다면, 코루틴을 종료하기 위해 IEnumerator 변수 사용
-        COR_CheckComboAttack = CheckComboAttack();
-
-        StartCoroutine(COR_CheckComboAttack);
-
-        // === Local Function ===
-        IEnumerator CheckComboAttack()
-        {
-            // 공격 버튼이 눌렸는지 체크
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
-            // 눌렸다면, boolean 변수를 True로 바꾼다.
-            isContinueComboAttack = true;
-        }
+        yield return new WaitForSeconds(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRangeInitTime);
+        specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRange.SetActive(true);
+        yield return new WaitForSeconds(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRangeDisableTime);
+        specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRange.SetActive(false);
     }
 
-    void IntOut()
+    void SpecialAttack_Reclaim()
     {
-        // boolean 변수가 false 라면,
-        if (!isContinueComboAttack)
-            PlayerAnimator.applyRootMotion = false;
-            EndAnimation();    // 애니메이션을 종료시킨다.
+        specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRange.SetActive(false);
     }
-
-    void EndAnimation() {
-        isAttack = false;
-        PlayerAnimator.SetTrigger("Idle");
-        Debug.Log("Animation ENDED");
-    }
-
-    */
-
-    #endregion
-
-    #region * 이 코드들은 차후에 Attack.cs 추상화 작업시에 사용할 것.
-
-    /*
-    void AttackStart()
-    {
-        PlayerAnimator.applyRootMotion = true;
-        // player.AttackManagement_Start();
-        AttackRange_Demo.SetActive(true);
-        Debug.Log("Start");
-    }
-
-    void AttackEnd()
-    {
-        PlayerAnimator.applyRootMotion = false;
-        // player.AttackManagement_End();
-        AttackRange_Demo.SetActive(false);
-        Debug.Log("End");
-    }
-    */
-
-    #endregion
-
 
     #region * Combo Attack Manage
 
@@ -383,5 +363,5 @@ public class Attack : MonoBehaviour
             }
         }
     }
-
+    
 }
