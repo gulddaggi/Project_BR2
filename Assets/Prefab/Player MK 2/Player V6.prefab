@@ -5436,7 +5436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 831762887220803101, guid: 26e57d01eaec1614bae8719b1cc2c31c, type: 3}
       propertyPath: m_VersionIndex
-      value: 10717
+      value: 10720
       objectReference: {fileID: 0}
     - target: {fileID: 831762887220803101, guid: 26e57d01eaec1614bae8719b1cc2c31c, type: 3}
       propertyPath: m_Faces.Array.size
@@ -7162,7 +7162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801491276431540813, guid: f4d02438772ee974699c076adcb4b919, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8801491276431540854, guid: f4d02438772ee974699c076adcb4b919, type: 3}
       propertyPath: m_RootOrder

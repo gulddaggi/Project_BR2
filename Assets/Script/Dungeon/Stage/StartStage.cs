@@ -27,7 +27,7 @@ public class StartStage : Dungeon
         if (GameManager_JS.Instance.GetTryCount() == 0) reward = rewardCreator.CreateReward(1);
         else reward = rewardCreator.CreateReward(1);
 
-        // 테스트용. 한 종류의 보상만 생성. 현재 상점
+        // 테스트용. 한 종류의 보상만 생성.
         //reward = rewardCreator.CreateReward();
 
         

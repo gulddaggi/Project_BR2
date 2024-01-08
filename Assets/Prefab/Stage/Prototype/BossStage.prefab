@@ -634,7 +634,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107793940841726582}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b79e6e02800d9c4abda68607be4655e, type: 3}
   m_Name: 
@@ -643,7 +643,8 @@ MonoBehaviour:
   - {fileID: 6636544291143705605}
   - {fileID: 7587585049988397183}
   - {fileID: 3008070391891338910}
-  enemy: {fileID: 4899848627645275925, guid: cd51f09facf7d5a499b40a77dda0da71, type: 3}
+  enemyPrefabs: []
+  curEnemy: {fileID: 0}
   curEnemyCount: 0
   spawnCount: 0100000002000000
 --- !u!1 &1224999481615851488

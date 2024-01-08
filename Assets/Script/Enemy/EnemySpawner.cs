@@ -11,7 +11,10 @@ public class EnemySpawner : MonoBehaviour
 
     // 소환할 적 프리팹. 이후에 배열로 변경.
     [SerializeField]
-    GameObject enemy;
+    GameObject[] enemyPrefabs;
+
+    [SerializeField]
+    GameObject curEnemy;
 
     int curWaveCount = 0;
 
@@ -51,7 +54,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnTrigger && curEnemyCount == 0)
         {
-            //Debug.Log("적 스폰");
             spawnTrigger = false;
             EnemySpawn();
         }
@@ -64,6 +66,7 @@ public class EnemySpawner : MonoBehaviour
         points = 3;
         float rad = 2f;
         float angle;
+        EnemyChoice();
 
         if (curWaveCount == 0)
         {
@@ -71,7 +74,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 angle = i * (Mathf.PI * 2.0f) / points;
 
-                GameObject spawnEnemy = Instantiate(enemy, 
+                GameObject spawnEnemy = Instantiate(curEnemy, 
                     (spawnPoints[curWaveCount].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
                      Quaternion.identity);
                 spawnEnemy.transform.SetParent(this.gameObject.transform);
@@ -87,7 +90,7 @@ public class EnemySpawner : MonoBehaviour
                 {
                     angle = j * (Mathf.PI * 2.0f) / points;
 
-                    GameObject spawnEnemy = Instantiate(enemy,
+                    GameObject spawnEnemy = Instantiate(curEnemy,
                         (spawnPoints[i].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
                          Quaternion.identity);
                     spawnEnemy.transform.SetParent(this.gameObject.transform);
@@ -116,5 +119,12 @@ public class EnemySpawner : MonoBehaviour
     public bool IsAllWaveEnd()
     {
         return (curWaveCount > maxWaveCount);
+    }
+
+    // 소환할 적 추첨
+    void EnemyChoice()
+    {
+        int index = Random.Range(0, enemyPrefabs.Length);
+        curEnemy = enemyPrefabs[index];
     }
 }
