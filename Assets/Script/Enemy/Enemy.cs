@@ -47,6 +47,9 @@ public class Enemy : MonoBehaviour
     public Image hpBarImage2;
     public bool HPOn = false;
 
+    // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
+    public float drawnDamage = 0f;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
@@ -143,8 +146,8 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
-
-            Debug.Log(Damage);
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
@@ -159,7 +162,7 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
             
             // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
@@ -179,6 +182,8 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -191,24 +196,26 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
         }
         else if (other.tag == "PlayerDodgeAttack" && isHit == false)
         {
-            if (HPOn == false)
+            /*if (HPOn == false)
             {
                 HPOn = true;
                 SetHpBar();
-            }
+            }*/
 
             isHit = true;
             Debug.Log("Dodge damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -221,7 +228,7 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
             hpBarImage.fillAmount = EnemyHP / FullHP;
@@ -233,7 +240,7 @@ public class Enemy : MonoBehaviour
         {
             enemySpawner.EnemyDead();
             gameObject.SetActive(false);
-            hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
+            //hpBarImage.GetComponentsInParent<Image>()[1].color = Color.clear;
         }
 
         IEnumerator GetDamaged()

@@ -16850,7 +16850,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objColor: {fileID: 983194907426277637}
-  debuffEffects: []
   debuffManager: {fileID: 0}
 --- !u!4 &5281253861720276165 stripped
 Transform:

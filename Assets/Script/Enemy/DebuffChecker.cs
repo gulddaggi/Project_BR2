@@ -8,10 +8,6 @@ public class DebuffChecker : MonoBehaviour
     [SerializeField]
     SkinnedMeshRenderer objColor;
 
-    // 디버프 프리팹 배열. 0 : 물, 1 : 불 ...
-    [SerializeField]
-    GameObject[] debuffEffects;
-
     // 디버프 생성 클래스 변수
     [SerializeField]
     DebuffManager debuffManager;
@@ -42,7 +38,7 @@ public class DebuffChecker : MonoBehaviour
     }
 
     // 디버프 확인. 디버프 배열을 순회하며 인덱스에 맞는 이펙트 활성화
-    public void DebuffCheckJS(int[] _debuffArray)
+    public void DebuffCheckJS(int[] _debuffArray, float _drawnDamage)
     {
         for (int i = 0; i < _debuffArray.Length; i++)
         {
@@ -52,7 +48,7 @@ public class DebuffChecker : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        debuffManager.WaterDebuffEffectOn(_debuffArray[i]);
+                        debuffManager.WaterDebuffEffectOn(_debuffArray[i], _drawnDamage);
                         break;
 
                     case 1:

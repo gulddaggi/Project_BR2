@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 선택된 능력 처리 담당 클래스.
+// 선택된 능력 수치 및 디버프 적용 담당 클래스.
 public class SelectedAbilityProcessor : MonoBehaviour
 {
     // 플레이어 상태 클래스 변수. 수치 변경이 필요한 능력 처리 시 접근.
@@ -16,11 +16,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
     [SerializeField]
     ParticleSystem[] debuffEffects;
 
+    // 강화 전 기존 데미지 저장 배열. 전투 시작 후 일정시간 강화 수치 복구용으로 사용.
+    float[] originDamages;
+
     // 처리할 능력 전달받는 함수. 일차적으로 능력 종류 구별.
     public void AbilitySelected(Ability_ListComponent _seledtedAb) // 능력 종류, 해당 종류의 능력 DB 상 id를 인수로 전달받음.
     {
-        Debug.Log("선택된 능력 처리");
-
         selectedAbility = _seledtedAb;
 
         int typeIndex = selectedAbility.indexArr[0];
@@ -44,7 +45,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 물 능력 선택 시 적용.
     void Ability_Water(int _id)
     {
-        Debug.Log("능력 : Water, 인덱스 : " + _id);
         float curValue, calcValue;
 
         switch (_id)
@@ -58,7 +58,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 // 수치 적용
                 curValue = playerStatus.PlayerAttackDamage;
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
-                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerAttackDamage = curValue * calcValue;
                 
                 break;
@@ -72,13 +71,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 // 수치 적용
                 curValue = playerStatus.PlayerStrongAttackDamage;
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
-                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 playerStatus.PlayerStrongAttackDamage = curValue * calcValue;
 
                 break;
 
             // 물의 축복(돌진) : 돌진 시 부딪히는 적에게 피해를 가하고 둔화를 입힌다.
-            // 디버프 : 둔화, 적용 수치 : PlayerCrashDamage
+            // 디버프 : 둔화, 적용 수치 : PlayerDodgeDamage
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
@@ -91,7 +89,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 curValue = playerStatus.PlayerDodgeAttackDamage;
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
-                Debug.Log(curValue + " X " + calcValue + " = " + curValue * calcValue);
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.
@@ -108,11 +105,28 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 수압 증가 : 둔화가 5번 중첩될 경우 적을 익사시킨다.
             // 디버프 : 둔화 + 5중첩 시 익사, 적용 수치 : PlayerDrowningDamage(생성 필요)
             case 4:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(0, 2);
+                playerStatus.SetDebuffToStAttack(0, 2);
+                playerStatus.SetDebuffToDodgeAttack(0, 2);
+                playerStatus.SetDebuffToFieldAttack(0, 2);
+
+                // 수치 적용. 가산 수치 그대로 적용하여, 이후 해당 디버프 적용 시 적 체력의 PlayerDrawnDamage(%)만큼 체력 감소.
+                playerStatus.PlayerDrawnDamage = selectedAbility.plus_Value;
                 break;
 
             // 물의 가호 : 전투 시작 후 10초 동안 모든 공격이 강해진다.
             // 적용 수치 : 모든 물 능력 데미지 변수
             case 5:
+                // 강화 전 기존 수치 저장
+                originDamages = new float[] { playerStatus.PlayerAttackDamage, playerStatus.PlayerStrongAttackDamage, playerStatus.PlayerFieldAttackDamage, playerStatus.PlayerDodgeAttackDamage };
+
+                // 수치 적용
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+
+                // 능력 적용.
+                // 던전 입장시마다 효과가 발동되는 물 타입 능력. 관련 이벤트에 콜백 함수를 AddListener
+                GameManager_JS.Instance.OnStageChanged.AddListener(() => ReinforceDamage(calcValue));
                 break;
 
             // 습지 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적을 둔화시키는 습지를 생성한다.
@@ -121,7 +135,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 break;
 
             // 정령 결속 강화(물) : 모든 공격 피해가 증가하며 둔화와 익사 효과가 빙결 효과로 강화된다.
-            // 디버프 : 둔화 + 5중첩 시 익사, 적용 수치 : 모든 물 능력 데미지 변수
+            // 디버프 : 빙결, 적용 수치 : 모든 물 능력 데미지 변수
             case 7:
                 break;
 
@@ -146,5 +160,27 @@ public class SelectedAbilityProcessor : MonoBehaviour
         float curValue = playerStatus.CurrentHP;
         float calcValue = _value * 0.01f + 1f;
         playerStatus.CurrentHP = curValue  * calcValue;
+    }
+
+    // 물의 가호 능력
+    private void ReinforceDamage(float _value)
+    {
+        // 수치 강화
+        playerStatus.PlayerAttackDamage = playerStatus.PlayerAttackDamage * _value;
+        playerStatus.PlayerStrongAttackDamage = playerStatus.PlayerStrongAttackDamage * _value;
+        playerStatus.PlayerFieldAttackDamage = playerStatus.PlayerFieldAttackDamage * _value;
+        playerStatus.PlayerDodgeAttackDamage = playerStatus.PlayerDodgeAttackDamage * _value;
+
+        // 10초 후 복구
+        Invoke("RestoreDamage", 10f);
+    }
+
+    // 물의 가호 능력으로 인한 강화 수치 복구
+    private void RestoreDamage()
+    {
+        playerStatus.PlayerAttackDamage = originDamages[0];
+        playerStatus.PlayerStrongAttackDamage = originDamages[1];
+        playerStatus.PlayerFieldAttackDamage = originDamages[2];
+        playerStatus.PlayerDodgeAttackDamage = originDamages[3];
     }
 }

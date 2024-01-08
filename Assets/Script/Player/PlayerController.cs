@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("플레이어 기본 회피");
 
                 // PlayerColor.material.color = Color.red; 디버그용
-                // dodgeAttackObj.SetActive(true);
+                dodgeAttackObj.SetActive(true);
 
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
             }

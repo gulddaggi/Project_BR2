@@ -15,9 +15,4 @@ public class DodgeObject : MonoBehaviour
         Debug.Log("콜라이더 off");
         this.gameObject.SetActive(false);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
 }
