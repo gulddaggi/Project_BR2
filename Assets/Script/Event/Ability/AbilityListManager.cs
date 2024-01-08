@@ -65,7 +65,6 @@ public class AbilityListManager : MonoBehaviour
     // 능력 레벨 확인을 위한 리스트
     void CreateArray()
     {
-        Debug.Log("새 리스트 생성");
         levelCheckList = new List<List<int>>();
         totalAbilityNum = EventDBManager.instance.GetTotalDicNum();
 
@@ -80,12 +79,6 @@ public class AbilityListManager : MonoBehaviour
             }
             levelCheckList.Add(tmpList);
         }
-
-        /*Debug.Log("리스트 구성 완료. 능력 종류 개수 : " + levelCheckList.Count);
-        for (int i = 0; i < levelCheckList.Count; i++)
-        {
-            Debug.Log((i + 1) + "번째 능력의 개수 : " + levelCheckList[i].Count);
-        }*/
     }
     private void OnEnable()
     {
@@ -133,7 +126,6 @@ public class AbilityListManager : MonoBehaviour
             
             // 현재 선택 리스트에 삽입
             playerAbilityList.Add(ability);
-            Debug.Log("새로운 능력 삽입 완료");
         }
         else // 이미 선택되었을 경우. 랭크간 비교가 필요
         {
@@ -159,7 +151,6 @@ public class AbilityListManager : MonoBehaviour
         }
 
         // 선택된 능력 적용
-        Debug.Log(ability.indexArr[0] + ", " + ability.indexArr[1] + " 의 능력 선택 전달");
         selectedAbilityProcessor.AbilitySelected(ability);
     }
 
@@ -237,9 +228,6 @@ public class AbilityListManager : MonoBehaviour
 
                 if (tmpArr[0] == _typeIndex && tmpArr[1] == _id)
                 {
-                    Debug.Log("능력 : " + playerAbilityList[i].ability_name);
-                    Debug.Log("이미 선택된 능력. 등급은 : " + playerAbilityList[i].rank);
-
                     // 기존 선택 능력 등급을 정수로 변환
                     int curRank = RankToInt(playerAbilityList[i].rank);
                     return curRank;

@@ -10051,8 +10051,9 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
-  hpBarImage: {fileID: 0}
-  hpBarImage2: {fileID: 0}
+  hpBar: {fileID: 0}
+  hpBarFill: {fileID: 0}
+  hpBarFrame: {fileID: 0}
   HPOn: 0
   drawnDamage: 0
   AttackPO1: {fileID: 0}
