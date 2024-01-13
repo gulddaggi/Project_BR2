@@ -232,6 +232,40 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
+        else if (other.tag == "PlayerFieldAttack")
+        {
+            if (!isBoss && HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
+
+            Debug.Log("Field damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponentInParent<Player>();
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            float damage = playerdata.PlayerFieldAttackDamage;
+            debuffArray = playerdata.GetFieldAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+
+            // 체력 바 업데이트
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
+        }
 
         if (EnemyHP <= 0)
         {

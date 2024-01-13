@@ -12,6 +12,15 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 현재 처리할 능력 객체 변수
     Ability_ListComponent selectedAbility;
 
+    // 플레이어 컨트롤러 클래스.
+    // 돌진, 필드 공격 등 플레이어 조작과 관련된 능력 발생 이벤트에 AddListener 하기 위해 필요.
+    [SerializeField]
+    PlayerController playerController;
+
+    // 필드 공격 오브젝트
+    [SerializeField]
+    GameObject fieldAttackObj;
+
     // 강화 전 기존 데미지 저장 배열. 전투 시작 후 일정시간 강화 수치 복구용으로 사용.
     float[] originDamages;
 
@@ -76,15 +85,18 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
+
+                // 수치 적용
                 if (playerStatus.PlayerDodgeAttackDamage == 0f)
                 {
                     playerStatus.PlayerDodgeAttackDamage = 2f;
                 }
-
-                // 수치 적용
                 curValue = playerStatus.PlayerDodgeAttackDamage;
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
+
+                // 플레이어 컨트롤러 관련 이벤트에 AddListener.
+
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.
@@ -128,6 +140,21 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 습지 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적을 둔화시키는 습지를 생성한다.
             // 디버프 : 둔화, 적용 수치 : PlayerFieldAttackDamage
             case 6:
+                // 디버프 적용
+                playerStatus.SetDebuffToFieldAttack(0, 1);
+
+                // 수치 적용
+                if (playerStatus.PlayerFieldAttackDamage == 0)
+                {
+                    playerStatus.PlayerFieldAttackDamage = 1.5f;
+                }
+                curValue = playerStatus.PlayerFieldAttackDamage;
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                playerStatus.PlayerFieldAttackDamage = curValue * calcValue;
+
+                // 능력 적용.
+                // 플레이어 컨트롤러 관련 이벤트에 AddListener.
+                playerController.OnPlayerFieldAttack.AddListener(() => WaterField());
                 break;
 
             // 정령 결속 강화(물) : 모든 공격 피해가 증가하며 둔화와 익사 효과가 빙결 효과로 강화된다.
@@ -178,5 +205,11 @@ public class SelectedAbilityProcessor : MonoBehaviour
         playerStatus.PlayerStrongAttackDamage = originDamages[1];
         playerStatus.PlayerFieldAttackDamage = originDamages[2];
         playerStatus.PlayerDodgeAttackDamage = originDamages[3];
+    }
+
+    // 습지 생성 능력
+    private void WaterField()
+    {
+        Debug.Log("능력 : 습지 생성");
     }
 }
