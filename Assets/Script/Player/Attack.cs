@@ -11,6 +11,9 @@ public class Attack : MonoBehaviour
     public Weapon PlayerWeapon = Weapon.Axe;
 
     // 차후에 추상 클래스로 개조 필요.
+
+
+
     protected Player player;
     PlayerController playercontroller;
 
@@ -19,7 +22,12 @@ public class Attack : MonoBehaviour
     public Transform bulletSpawnPoint;
 
     [SerializeField] bool AttackAvailable = true;
+<<<<<<< Updated upstream
     // [SerializeField] float AttackDelay = 1.5f;
+=======
+
+    [SerializeField] public bool isAttack = false;
+>>>>>>> Stashed changes
 
     [Header("플레이어 공격 딜레이 / 무기마다 체크")]
     public WeaponAttackDelay PlayerAttackDelay;
@@ -45,10 +53,52 @@ public class Attack : MonoBehaviour
 
     public Vector3 MouseDirection { get; private set; }
 
+<<<<<<< Updated upstream
+=======
+    #region * 입력 버퍼 관련 변수
+
+    [Header("입력 버퍼")]
+    public int inputBufferSize = 2;
+    private Queue<AttackState> inputBuffer = new Queue<AttackState>();
+    public int BufferCount;
+
+    private struct InputEvent
+    {
+        public float timestamp;
+        public Vector3 direction;
+    }
+    #endregion
+
+    public SpecialAttack[] specialAttack;
+    [System.Serializable]
+    public class SpecialAttack
+    {
+        public GameObject SpecialAttackPrefab;
+        public GameObject SpecialAttackRange;
+
+        public float DestroyAfter;
+        public bool UseLocalPosition;
+
+        public float SpecialAttackRangeInitTime;
+        public float SpecialAttackRangeDisableTime;
+    }
+
+    [Header("여기서부터는 원거리 공격(활, 수리검)을 관리")]
+    public GameObject arrowPrefab; 
+    public Transform arrowSpawnPoint; 
+    public float arrowSpeed = 40f;
+
+>>>>>>> Stashed changes
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
+<<<<<<< Updated upstream
+=======
+        playerController = GetComponent<PlayerController>();
+
+        GameManager_JS.Instance.GetGuage();
+>>>>>>> Stashed changes
     }
 
     #region * 마우스 위치 받아오기 및 레이캐스팅
@@ -81,6 +131,21 @@ public class Attack : MonoBehaviour
 
             if (AttackAvailable)
             {
+<<<<<<< Updated upstream
+=======
+                isAttack = true;
+                buttonPressedCount++;
+                PlayerAnimator.SetInteger("ButtonPressedCount", buttonPressedCount);
+                if (currentAttackState == AttackState.Idle && buttonPressedCount < 3)
+                {
+                    AddComboInput(AttackState.FirstAttack);
+                    // 활 / 수리검 관련
+                    if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 || GameManager_JS.Instance.PlayerWeaponCheck() == 3)
+                    {
+                        ProjectileManagement(MouseDirection);
+                    }
+                }
+>>>>>>> Stashed changes
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
             }
 
@@ -228,4 +293,129 @@ public class Attack : MonoBehaviour
     }
 
     #endregion
+<<<<<<< Updated upstream
+=======
+
+    void TransitionToState(AttackState nextState)
+    {
+        switch (nextState)
+        {
+            case AttackState.Idle:
+                break;
+            case AttackState.FirstAttack:
+                // FirstAttack_Sword_Start();
+                break;
+            case AttackState.SecondAttack:
+                // SecondAttack_Sword_Start();
+                break;
+            case AttackState.ThirdAttack:
+                // ThirdAttack_Sword_Start();
+                break;
+            default:
+                break;
+        }
+
+        // 현재 상태 업데이트
+        currentAttackState = nextState;
+    }
+
+    void OnComboEnd()
+    {
+        switch (currentAttackState)
+        {
+            case AttackState.FirstAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.SecondAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            case AttackState.ThirdAttack:
+                TransitionToState(AttackState.Idle);
+                break;
+            default:
+                break;
+        }
+        buttonPressedCount = 0;
+        PlayerAnimator.SetInteger("ButtonPressedCount", 0);
+        isAttack = false;
+    }
+    private void Update()
+    {
+        ManageInputBuffer();
+        BufferCount = inputBuffer.Count;
+        // ProjectileManagement();
+    }
+
+    // 입력 버퍼 관리 함수
+    private void ManageInputBuffer()
+    {
+        while (inputBuffer.Count > inputBufferSize)
+        {
+            inputBuffer.Dequeue();
+        }
+
+        if (AttackAvailable)
+        {
+            Vector3 mouseDirection = GetMouseWorldPosition();
+
+        }
+    }
+
+    private void AddComboInput(AttackState attackState)
+    {
+        inputBuffer.Enqueue(attackState);
+    }
+
+    private bool CheckComboInput()
+    {
+        return Mouse.current.leftButton.isPressed;
+    }
+
+    // 입력버퍼 체크섬
+    private bool CheckInputBufferValidity(int bufferIndex)
+    {
+        if (bufferIndex >= 0 && bufferIndex < inputBuffer.Count)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // 입력 버퍼 처리
+    private void ProcessBufferedInput()
+    {
+        if (inputBuffer.Count > 0)
+        {
+            AttackState nextAttackState = inputBuffer.Dequeue();
+
+            // 차후 콤보공격후 후처리 필요할 시 사용할 것
+            switch (nextAttackState)
+            {
+                default:
+                    break;
+            }
+        }
+    }
+
+    void ProjectileManagement(Vector3 targetPosition)
+    {
+        
+            if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 && AttackAvailable)
+            {
+                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
+
+                // 화살 로테이션 / Y좌표 보정
+                Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+                arrow.transform.rotation = arrowRotation;
+                arrow.transform.position = new Vector3(arrow.transform.position.x, 2f, arrow.transform.position.z);
+
+                arrow.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
+        }
+            else if (GameManager_JS.Instance.PlayerWeaponCheck() == 3 && AttackAvailable)
+            {
+                // 차후에 수리검 실장시 추가
+            }
+    }
+>>>>>>> Stashed changes
 }
