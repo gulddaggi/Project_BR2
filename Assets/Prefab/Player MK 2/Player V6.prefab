@@ -1067,8 +1067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &3813765441061861481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,8 +1618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &5540934960472098948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,6 +2128,9 @@ MonoBehaviour:
     UseLocalPosition: 0
     SpecialAttackRangeInitTime: 0
     SpecialAttackRangeDisableTime: 0
+  arrowPrefab: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
+  arrowSpawnPoint: {fileID: 6868301823347437576}
+  arrowSpeed: 60
 --- !u!114 &6402893141203149823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2360,8 +2359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &6411771761056946458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3064,6 +3061,7 @@ MonoBehaviour:
   itemFormGetter: {fileID: 0}
   dialogues: []
   range: 50
+  eventOn: 0
 --- !u!1 &8269540173174422957
 GameObject:
   m_ObjectHideFlags: 0

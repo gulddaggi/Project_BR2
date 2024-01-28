@@ -74,6 +74,11 @@ public class Attack : MonoBehaviour
         public float SpecialAttackRangeDisableTime;
     }
 
+    [Header("여기서부터는 원거리 공격(활, 수리검)을 관리")]
+    public GameObject arrowPrefab;
+    public Transform arrowSpawnPoint;
+    public float arrowSpeed = 40f;
+
     private void Start()
     {
         PlayerRigid = GetComponent<Rigidbody>();
@@ -116,7 +121,12 @@ public class Attack : MonoBehaviour
                 PlayerAnimator.SetInteger("ButtonPressedCount", buttonPressedCount);
                 if (currentAttackState == AttackState.Idle && buttonPressedCount < 3)
                 {
-                    AddComboInput(AttackState.FirstAttack);                    
+                    AddComboInput(AttackState.FirstAttack);
+                    // 활 / 수리검 관련
+                    if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 || GameManager_JS.Instance.PlayerWeaponCheck() == 3)
+                    {
+                        ProjectileManagement(MouseDirection);
+                    }
                 }
                 PlayerAnimator.SetTrigger("OnCloseAttackCombo");
                 ProcessBufferedInput();
@@ -363,5 +373,26 @@ public class Attack : MonoBehaviour
             }
         }
     }
-    
+
+    void ProjectileManagement(Vector3 targetPosition)
+    {
+
+        if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 && AttackAvailable)
+        {
+            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
+
+            // 화살 로테이션 / Y좌표 보정
+            Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+            arrow.transform.rotation = arrowRotation;
+            arrow.transform.position = new Vector3(arrow.transform.position.x, 2f, arrow.transform.position.z);
+
+            arrow.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
+        }
+        else if (GameManager_JS.Instance.PlayerWeaponCheck() == 3 && AttackAvailable)
+        {
+            // 차후에 수리검 실장시 추가
+        }
+    }
+
 }
