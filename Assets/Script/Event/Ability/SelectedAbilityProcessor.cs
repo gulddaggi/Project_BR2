@@ -211,5 +211,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
     private void WaterField()
     {
         Debug.Log("능력 : 습지 생성");
+        GameObject obj = Instantiate(fieldAttackObj, gameObject.transform.parent.position, Quaternion.identity);
     }
 }

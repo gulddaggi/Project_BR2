@@ -5209,6 +5209,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1078623623913955625, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: fieldAttackObj
+      value: 
+      objectReference: {fileID: 875302015906466868, guid: a26ab27569badc14888c51a1de018b68, type: 3}
+    - target: {fileID: 1078623623913955625, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1865854134}
     - target: {fileID: 1689446647727955234, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -8982,6 +8990,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d0134899fd0e4e4f95a609921e5c9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1865854134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6402893141203149792, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+  m_PrefabInstance: {fileID: 1058267765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f154f8e24711684cb7d5110256ea58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1869473305
