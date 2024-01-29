@@ -164,7 +164,8 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
-        else if (other.tag == "StrongPlayerAttack")
+
+        if (other.tag == "StrongPlayerAttack")
         {
             if (!isBoss && HPOn == false)
             {
@@ -198,7 +199,8 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
-        else if (other.tag == "PlayerDodgeAttack")
+
+        if (other.tag == "PlayerDodgeAttack")
         {
             if (!isBoss && HPOn == false)
             {
@@ -232,7 +234,8 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
-        else if (other.tag == "PlayerFieldAttack")
+
+        if (other.tag == "PlayerFieldAttack")
         {
             if (!isBoss && HPOn == false)
             {
@@ -243,7 +246,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Field damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
+            Player playerdata = other.transform.GetComponent<WaterField>().playerstatus;
             // 익사 디버프 여부 확인
             if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
             float damage = playerdata.PlayerFieldAttackDamage;

@@ -210,7 +210,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 습지 생성 능력
     private void WaterField()
     {
-        Debug.Log("능력 : 습지 생성");
         GameObject obj = Instantiate(fieldAttackObj, gameObject.transform.parent.position, Quaternion.identity);
+        obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
     }
 }

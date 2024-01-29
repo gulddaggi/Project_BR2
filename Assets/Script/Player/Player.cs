@@ -196,9 +196,9 @@ public class Player : MonoBehaviour, IListener
     // 능력 선택에 따른 필드공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
     public void SetDebuffToFieldAttack(int _index, int _value)
     {
-        if (stAttackDebuffArray[_index] < _value)
+        if (fieldAttackDebuffArray[_index] < _value)
         {
-            stAttackDebuffArray[_index] = _value;
+            fieldAttackDebuffArray[_index] = _value;
         }
     }
 
