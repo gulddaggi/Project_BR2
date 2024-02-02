@@ -122,6 +122,28 @@ public class Enemy : MonoBehaviour
         isAttack = false;
     }
 
+    public void CounterAttacked(float _damage, int[] _debuffArray)
+    {
+        if (!isBoss && HPOn == false)
+        {
+            HPOn = true;
+            SetHpBar();
+        }
+
+        Debug.Log("Counter Damaged!");
+
+        EnemyHP -= _damage;
+
+        // 디버프 적용
+        debuffChecker.DebuffCheckJS(_debuffArray, stackDamage);
+
+        // 체력 바 업데이트
+        if (!isBoss)
+        {
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         // 디버프 배열

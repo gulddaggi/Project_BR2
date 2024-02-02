@@ -184,6 +184,17 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 적용 수치 : PlayerCounterDamage
             case 8:
+                // 디버프 적용 불필요. 선행 능력인 case 7에서 세팅 진행.
+
+                // 수치 적용
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+
+                if (playerStatus.PlayerCounterAbilityDamage == 0)
+                {
+                    playerStatus.PlayerCounterAbilityDamage = 10f;
+                }
+
+                playerStatus.PlayerCounterAbilityDamage = playerStatus.PlayerCounterAbilityDamage * calcValue;
                 break;
 
             // 빙결 처형 : 빙결 효과를 입은 적의 체력이 20% 이하인 경우 적을 바로 처치한다. 주변의 적에게 빙결 효과를 입힌다.

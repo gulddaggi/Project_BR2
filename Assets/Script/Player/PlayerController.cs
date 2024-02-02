@@ -205,6 +205,10 @@ public class PlayerController : MonoBehaviour
             isAttacked = true;
             Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
             player.TakeDamage(enemy.Damage);
+            if (player.PlayerCounterAbilityDamage != 0f)
+            {
+                enemy.CounterAttacked(player.PlayerCounterAbilityDamage, player.GetAttackDebuff());
+            }
             Debug.Log("Player Damaged : " + enemy.Damage);
             isAttacked = false;
         }
