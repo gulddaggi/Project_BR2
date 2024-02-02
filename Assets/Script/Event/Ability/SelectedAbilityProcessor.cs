@@ -120,7 +120,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 playerStatus.SetDebuffToFieldAttack(0, 2);
 
                 // 수치 적용. 가산 수치 그대로 적용하여, 이후 해당 디버프 적용 시 적 체력의 PlayerDrawnDamage(%)만큼 체력 감소.
-                playerStatus.PlayerDrawnDamage = selectedAbility.plus_Value;
+                playerStatus.PlayerStackDamage = selectedAbility.plus_Value;
                 break;
 
             // 물의 가호 : 전투 시작 후 10초 동안 모든 공격이 강해진다.
@@ -160,6 +160,25 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 정령 결속 강화(물) : 모든 공격 피해가 증가하며 둔화와 익사 효과가 빙결 효과로 강화된다.
             // 디버프 : 빙결, 적용 수치 : 모든 물 능력 데미지 변수
             case 7:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(0, 3);
+                playerStatus.SetDebuffToStAttack(0, 3);
+                playerStatus.SetDebuffToDodgeAttack(0, 3);
+                playerStatus.SetDebuffToFieldAttack(0, 3);
+
+                // 수치 적용
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+
+                if (playerStatus.PlayerFieldAttackDamage == 0)
+                {
+                    playerStatus.PlayerFieldAttackDamage = 1.5f;
+                }
+
+                playerStatus.PlayerAttackDamage = playerStatus.PlayerAttackDamage * calcValue;
+                playerStatus.PlayerStrongAttackDamage = playerStatus.PlayerStrongAttackDamage * calcValue;
+                playerStatus.PlayerFieldAttackDamage = playerStatus.PlayerFieldAttackDamage * calcValue;
+                playerStatus.PlayerDodgeAttackDamage = playerStatus.PlayerDodgeAttackDamage * calcValue;
+
                 break;
 
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
