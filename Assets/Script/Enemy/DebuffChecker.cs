@@ -10,7 +10,7 @@ public class DebuffChecker : MonoBehaviour
     DebuffManager debuffManager;
 
     // 디버프 확인. 디버프 배열을 순회하며 인덱스에 맞는 이펙트 활성화
-    public void DebuffCheckJS(int[] _debuffArray, float _drawnDamage)
+    public void DebuffCheckJS(int[] _debuffArray, float _stackDamage)
     {
         for (int i = 0; i < _debuffArray.Length; i++)
         {
@@ -20,7 +20,7 @@ public class DebuffChecker : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        debuffManager.WaterDebuffEffectOn(_debuffArray[i], _drawnDamage);
+                        debuffManager.WaterDebuffEffectOn(_debuffArray[i], _stackDamage);
                         break;
 
                     case 1:

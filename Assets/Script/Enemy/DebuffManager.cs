@@ -48,10 +48,23 @@ public class DebuffManager : MonoBehaviour
     }
 
     // 물 디버프 적용
-    public void WaterDebuffEffectOn(int _index, float _drawnDamage)
+    public void WaterDebuffEffectOn(int _index, float _stackDamage)
     {
         // 적용 디버프 인덱스
         int index = (_index == 3) ? (_index - 1) : 0;
+
+        // 적용 디버프 이름
+        string effectName;
+
+        // 인덱스에 따른 생성 및 재생 대상 디버프 이름 지정.
+        if (index == 0)
+        {
+            effectName = "SlowDebuff";
+        }
+        else
+        {
+            effectName = "FreezeDebuff";
+        }
 
         // 이미 해당 디버프 이펙트가 생성되었는지 확인
         // 모든 자식들에 대해 순회하지만, 최대 6개정도의 자식 수를 예상하여 성능에 문제 없을 것이라 판단
@@ -59,48 +72,72 @@ public class DebuffManager : MonoBehaviour
         {
             Transform child = this.transform.GetChild(i);
             // 이미 있을 경우, 이펙트 정지 후 다시 재생
-            if (child.name == "SlowDebuff")
+            if (child.name == effectName)
             {
                 child.GetComponent<ParticleSystem>().Stop();
                 child.GetComponent<Debuff>().OnDebuffEnd.Invoke();
                 child.GetComponent<ParticleSystem>().Play();
-                // 둔화 재적용.
+                // 둔화 재적용. 둔화는 빙결 능력에도 포함되어있음.
                 WaterDebuffSlowOn();
                 // 중첩 카운팅
                 ++child.GetComponent<Debuff>().count;
 
                 // 디버프 중첩 효과 적용
-                if (_drawnDamage != 0f && child.GetComponent<Debuff>().count == 5)
+                if (_stackDamage != 0f && child.GetComponent<Debuff>().count == 5)
                 {
                     child.GetComponent<Debuff>().count = 0;
-                    // 익사 적용
-                    this.transform.GetChild(i+1).GetComponent<ParticleSystem>().Play();
-                    // 익사 데미지 적용
-                    WaterDebuffDrawnOn(_drawnDamage);
+                    // 중첩 이펙트 적용
+                    this.transform.GetChild(i + 1).GetComponent<ParticleSystem>().Play();
+                    // 중첩 데미지 적용
+                    WaterDebuffStackOn(_stackDamage);
                 }
 
                 return;
             }
-            
         }
 
-        // 없을 경우, 새롭게 둔화 이펙트 생성
-        GameObject slowDebuff = Instantiate(debuffEffects[index], this.gameObject.transform);
-        slowDebuff.transform.parent = this.gameObject.transform;
-        slowDebuff.name = "SlowDebuff";
-        slowDebuff.GetComponent<ParticleSystem>().Play();
-        // 둔화 적용
-        WaterDebuffSlowOn();
-        Debuff curDebuff = slowDebuff.GetComponent<Debuff>();
-        // 중첩 카운팅
-        curDebuff.count = 1;
-        // 이펙트 종료 시 둔화 해제 함수로 콜백
-        curDebuff.OnDebuffEnd.AddListener(WaterDebuffSlowOff);
+        // 없을 경우, 새롭게 이펙트 생성
+        if (index == 0)
+        {
+            // 둔화, 익사 이펙트 생성
+            GameObject slowDebuff = Instantiate(debuffEffects[index], this.gameObject.transform);
+            slowDebuff.transform.parent = this.gameObject.transform;
+            slowDebuff.name = effectName;
+            slowDebuff.GetComponent<ParticleSystem>().Play();
+            // 둔화 적용
+            WaterDebuffSlowOn();
+            Debuff curDebuff = slowDebuff.GetComponent<Debuff>();
+            // 중첩 카운팅
+            curDebuff.count = 1;
+            // 이펙트 종료 시 둔화 해제 함수로 콜백
+            curDebuff.OnDebuffEnd.AddListener(WaterDebuffSlowOff);
 
-        // 익사 이펙트 동시에 생성.
-        GameObject drawnDebuff = Instantiate(debuffEffects[index + 1], this.gameObject.transform);
-        drawnDebuff.name = "DrawnDebuff";
-        drawnDebuff.transform.parent = this.gameObject.transform;
+            // 익사 이펙트 동시에 생성.
+            GameObject drawnDebuff = Instantiate(debuffEffects[index + 1], this.gameObject.transform);
+            drawnDebuff.name = "DrawnDebuff";
+            drawnDebuff.transform.parent = this.gameObject.transform;
+        }
+        else
+        {
+            // 빙결, 빙결 스택 이펙트 생성
+            // 둔화, 익사 이펙트 생성
+            GameObject freezeDebuff = Instantiate(debuffEffects[index], this.gameObject.transform);
+            freezeDebuff.transform.parent = this.gameObject.transform;
+            freezeDebuff.name = effectName;
+            freezeDebuff.GetComponent<ParticleSystem>().Play();
+            // 둔화 적용
+            WaterDebuffSlowOn();
+            Debuff curDebuff = freezeDebuff.GetComponent<Debuff>();
+            // 중첩 카운팅
+            curDebuff.count = 1;
+            // 이펙트 종료 시 둔화 해제 함수로 콜백
+            curDebuff.OnDebuffEnd.AddListener(WaterDebuffSlowOff);
+
+            // 익사 이펙트 동시에 생성.
+            GameObject freezeStackDebuff = Instantiate(debuffEffects[index + 1], this.gameObject.transform);
+            freezeStackDebuff.name = "FreezeStackDebuff";
+            freezeStackDebuff.transform.parent = this.gameObject.transform;
+        }
     }
 
     // 둔화 적용
@@ -116,8 +153,8 @@ public class DebuffManager : MonoBehaviour
         this.gameObject.GetComponentInParent<NavMeshAgent>().speed = originvelocity;
     }
 
-    // 익사 데미지 적용
-    void WaterDebuffDrawnOn(float _drawnDamage)
+    // 중첩 데미지 적용
+    void WaterDebuffStackOn(float _drawnDamage)
     {
         // Update 호출마다 적용되는 수치로 계산.
         drawnDamage = this.gameObject.GetComponentInParent<Enemy>().EnemyHP * (_drawnDamage * 0.01f) * Time.deltaTime;

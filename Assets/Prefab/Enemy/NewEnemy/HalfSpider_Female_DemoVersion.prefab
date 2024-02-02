@@ -6249,7 +6249,7 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
-  drawnDamage: 0
+  stackDamage: 0
 --- !u!1 &3447095299496662616
 GameObject:
   m_ObjectHideFlags: 0

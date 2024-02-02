@@ -10120,7 +10120,7 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
-  drawnDamage: 0
+  stackDamage: 0
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}
