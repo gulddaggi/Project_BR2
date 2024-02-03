@@ -160,7 +160,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 정령 결속 강화(물) : 모든 공격 피해가 증가하며 둔화와 익사 효과가 빙결 효과로 강화된다.
             // 디버프 : 빙결, 적용 수치 : 모든 물 능력 데미지 변수
             case 7:
-                // 디버프 적용
+                // 디버프 적용. 선행능력이므로 이후 8, 9에서는 디버프 적용 진행하지 않음.
                 playerStatus.SetDebuffToAttack(0, 3);
                 playerStatus.SetDebuffToStAttack(0, 3);
                 playerStatus.SetDebuffToDodgeAttack(0, 3);
@@ -184,8 +184,6 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 적용 수치 : PlayerCounterDamage
             case 8:
-                // 디버프 적용 불필요. 선행 능력인 case 7에서 세팅 진행.
-
                 // 수치 적용
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
 
@@ -200,6 +198,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 빙결 처형 : 빙결 효과를 입은 적의 체력이 20% 이하인 경우 적을 바로 처치한다. 주변의 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 빙결장판, 처형
             case 9:
+                playerStatus.SetExcutionAbility(0, true);
                 break;
 
             default:

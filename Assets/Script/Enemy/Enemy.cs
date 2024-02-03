@@ -55,6 +55,10 @@ public class Enemy : MonoBehaviour
     // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
     public float stackDamage = 0f;
 
+    // 디버프 배열
+    int[] debuffArray;
+    bool[] excutionArray = { false, false, false, false, false };
+
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -146,9 +150,6 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // 디버프 배열
-        int[] debuffArray;
-
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
@@ -174,11 +175,19 @@ public class Enemy : MonoBehaviour
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
 
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray, stackDamage);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            }
+
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
-
-            // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -294,9 +303,7 @@ public class Enemy : MonoBehaviour
 
         if (EnemyHP <= 0)
         {
-            enemySpawner.EnemyDead();
-            hpBar.SetActive(false);
-            gameObject.SetActive(false);
+            Dead();
         }
 
         IEnumerator GetDamaged()
@@ -305,5 +312,12 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             SR.material.color = Color.white;
         }
+    }
+
+    public void Dead()
+    {
+        enemySpawner.EnemyDead();
+        hpBar.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
