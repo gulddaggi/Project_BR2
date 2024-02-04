@@ -222,7 +222,15 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray, stackDamage);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            }
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -257,7 +265,15 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray, stackDamage);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            }
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -292,7 +308,15 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray, stackDamage);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray, stackDamage);
+            }
 
             // 체력 바 업데이트
             if (!isBoss)

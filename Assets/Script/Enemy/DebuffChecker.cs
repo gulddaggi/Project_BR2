@@ -42,11 +42,12 @@ public class DebuffChecker : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        if (_excutionArray[i])
+                        if (_excutionArray[0])
                         {
                             // 처형 이펙트 재생 및 디버프 전염
-                            
+                            debuffManager.WaterExcutionEffectOn();
                             // 사망 처리
+                            this.GetComponent<Enemy>().Dead();
                         }
                         else
                         {

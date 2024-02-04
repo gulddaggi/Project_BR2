@@ -140,6 +140,13 @@ public class DebuffManager : MonoBehaviour
         }
     }
 
+    public void WaterExcutionEffectOn()
+    {
+        GameObject excutionEffect = Instantiate(debuffEffects[4], this.gameObject.transform);
+        excutionEffect.transform.SetParent(null);
+    }
+
+
     // 둔화 적용
     void WaterDebuffSlowOn()
     {

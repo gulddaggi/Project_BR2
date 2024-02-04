@@ -1038,7 +1038,7 @@ PrefabInstance:
       objectReference: {fileID: 1343517959}
     - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.data[2]
@@ -1048,9 +1048,13 @@ PrefabInstance:
       propertyPath: debuffEffects.Array.data[3]
       value: 
       objectReference: {fileID: 4853743860892869796, guid: e1840f801fb528c49be7a811fa8de3a3, type: 3}
+    - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: debuffEffects.Array.data[4]
+      value: 
+      objectReference: {fileID: 4853743860892869796, guid: 08d816f7e2025174087fc4d243fa7df2, type: 3}
     - target: {fileID: 8613727375734198452, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8613727375734198452, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.data[2]
@@ -1060,6 +1064,10 @@ PrefabInstance:
       propertyPath: debuffEffects.Array.data[3]
       value: 
       objectReference: {fileID: 4853743860892869796, guid: e1840f801fb528c49be7a811fa8de3a3, type: 3}
+    - target: {fileID: 8613727375734198452, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: debuffEffects.Array.data[4]
+      value: 
+      objectReference: {fileID: 4853743860892869796, guid: 08d816f7e2025174087fc4d243fa7df2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
 --- !u!1 &179133266
