@@ -7122,7 +7122,8 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
-  stackDamage: 0
+  totalStackDamage: 0
+  time: 0
   bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
 --- !u!114 &1509352678878987353
 MonoBehaviour:
@@ -8442,7 +8443,9 @@ MonoBehaviour:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 631c359c0dc700e4ba8d02558b57df11, type: 3}
   originvelocity: 0
-  time: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8102054979450227947
 GameObject:
   m_ObjectHideFlags: 0

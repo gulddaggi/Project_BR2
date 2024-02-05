@@ -13,14 +13,8 @@ public class DebuffManager : MonoBehaviour
     // 적의 초기 속도
     public float originvelocity;
 
-    // 타이머 변수.
-    public float time = 0f;
-    bool timerOn = false;
-
-    // 타이머 작동 시간
-    float targetTime = 0f;
-
-    float drawnDamage = 0f;
+    [SerializeField]
+    private LayerMask layerMask;
 
     void Start()
     {
@@ -30,25 +24,11 @@ public class DebuffManager : MonoBehaviour
 
     private void Update()
     {
-        // 디버프 타이머 계산
-        if (timerOn)
-        {
-            time += Time.deltaTime;
-            // 적 체력 지속 감소
-            this.gameObject.GetComponentInParent<Enemy>().EnemyHP -= drawnDamage;
-        }
 
-        if (time > targetTime)
-        {
-            time = 0f;
-            targetTime = 0f;
-            drawnDamage = 0f;
-            timerOn = false;
-        }
     }
 
     // 물 디버프 적용
-    public void WaterDebuffEffectOn(int _index, float _stackDamage)
+    public void WaterDebuffEffectOn(int _index)
     {
         // 적용 디버프 인덱스
         int index = (_index == 3) ? (_index - 1) : 0;
@@ -83,13 +63,14 @@ public class DebuffManager : MonoBehaviour
                 ++child.GetComponent<Debuff>().count;
 
                 // 디버프 중첩 효과 적용
-                if (_stackDamage != 0f && child.GetComponent<Debuff>().count == 5)
+                if (this.gameObject.GetComponentInParent<Enemy>().totalStackDamage != 0f 
+                    && child.GetComponent<Debuff>().count == 5)
                 {
                     child.GetComponent<Debuff>().count = 0;
                     // 중첩 이펙트 적용
                     this.transform.GetChild(i + 1).GetComponent<ParticleSystem>().Play();
                     // 중첩 데미지 적용
-                    WaterDebuffStackOn(_stackDamage);
+                    WaterDebuffStackOn(1.5f);
                 }
 
                 return;
@@ -142,8 +123,16 @@ public class DebuffManager : MonoBehaviour
 
     public void WaterExcutionEffectOn()
     {
+        // 주변 적에게 디버프 적용
+        Collider[] cols= Physics.OverlapSphere(this.gameObject.transform.position, 3f, layerMask);
+        for (int i = 0; i < cols.Length; i++)
+        {
+            Debug.Log(cols[i].gameObject.name + "의 스택 증가");
+            cols[i].GetComponentInChildren<DebuffManager>().WaterDebuffEffectOn(3);
+        }
         GameObject excutionEffect = Instantiate(debuffEffects[4], this.gameObject.transform);
         excutionEffect.transform.SetParent(null);
+
     }
 
 
@@ -161,11 +150,8 @@ public class DebuffManager : MonoBehaviour
     }
 
     // 중첩 데미지 적용
-    void WaterDebuffStackOn(float _drawnDamage)
+    void WaterDebuffStackOn(float _targetTime)
     {
-        // Update 호출마다 적용되는 수치로 계산.
-        drawnDamage = this.gameObject.GetComponentInParent<Enemy>().EnemyHP * (_drawnDamage * 0.01f) * Time.deltaTime;
-        targetTime = 1.5f;
-        timerOn = true;
+        this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
     }
 }
