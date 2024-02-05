@@ -12,6 +12,15 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 현재 처리할 능력 객체 변수
     Ability_ListComponent selectedAbility;
 
+    // 플레이어 컨트롤러 클래스.
+    // 돌진, 필드 공격 등 플레이어 조작과 관련된 능력 발생 이벤트에 AddListener 하기 위해 필요.
+    [SerializeField]
+    PlayerController playerController;
+
+    // 필드 공격 오브젝트
+    [SerializeField]
+    GameObject fieldAttackObj;
+
     // 강화 전 기존 데미지 저장 배열. 전투 시작 후 일정시간 강화 수치 복구용으로 사용.
     float[] originDamages;
 
@@ -76,15 +85,18 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 2:
                 // 디버프 적용
                 playerStatus.SetDebuffToDodgeAttack(0, 1);
+
+                // 수치 적용
                 if (playerStatus.PlayerDodgeAttackDamage == 0f)
                 {
                     playerStatus.PlayerDodgeAttackDamage = 2f;
                 }
-
-                // 수치 적용
                 curValue = playerStatus.PlayerDodgeAttackDamage;
                 calcValue = selectedAbility.plus_Value * 0.01f + 1f;
                 playerStatus.PlayerDodgeAttackDamage = curValue * calcValue;
+
+                // 플레이어 컨트롤러 관련 이벤트에 AddListener.
+
                 break;
 
             // 등가 교환(물) : 모든 공격력이 10% 감소한다. 이후 매 스테이지 진입 시 체력의 일부를 회복한다.
@@ -108,7 +120,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 playerStatus.SetDebuffToFieldAttack(0, 2);
 
                 // 수치 적용. 가산 수치 그대로 적용하여, 이후 해당 디버프 적용 시 적 체력의 PlayerDrawnDamage(%)만큼 체력 감소.
-                playerStatus.PlayerDrawnDamage = selectedAbility.plus_Value;
+                playerStatus.PlayerStackDamage = selectedAbility.plus_Value;
                 break;
 
             // 물의 가호 : 전투 시작 후 10초 동안 모든 공격이 강해진다.
@@ -128,21 +140,65 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 습지 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적을 둔화시키는 습지를 생성한다.
             // 디버프 : 둔화, 적용 수치 : PlayerFieldAttackDamage
             case 6:
+                // 디버프 적용
+                playerStatus.SetDebuffToFieldAttack(0, 1);
+
+                // 수치 적용
+                if (playerStatus.PlayerFieldAttackDamage == 0)
+                {
+                    playerStatus.PlayerFieldAttackDamage = 1.5f;
+                }
+                curValue = playerStatus.PlayerFieldAttackDamage;
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                playerStatus.PlayerFieldAttackDamage = curValue * calcValue;
+
+                // 능력 적용.
+                // 플레이어 컨트롤러 관련 이벤트에 AddListener.
+                playerController.OnPlayerFieldAttack.AddListener(() => WaterField());
                 break;
 
             // 정령 결속 강화(물) : 모든 공격 피해가 증가하며 둔화와 익사 효과가 빙결 효과로 강화된다.
             // 디버프 : 빙결, 적용 수치 : 모든 물 능력 데미지 변수
             case 7:
+                // 디버프 적용. 선행능력이므로 이후 8, 9에서는 디버프 적용 진행하지 않음.
+                playerStatus.SetDebuffToAttack(0, 3);
+                playerStatus.SetDebuffToStAttack(0, 3);
+                playerStatus.SetDebuffToDodgeAttack(0, 3);
+                playerStatus.SetDebuffToFieldAttack(0, 3);
+
+                // 수치 적용
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+
+                if (playerStatus.PlayerFieldAttackDamage == 0)
+                {
+                    playerStatus.PlayerFieldAttackDamage = 1.5f;
+                }
+
+                playerStatus.PlayerAttackDamage = playerStatus.PlayerAttackDamage * calcValue;
+                playerStatus.PlayerStrongAttackDamage = playerStatus.PlayerStrongAttackDamage * calcValue;
+                playerStatus.PlayerFieldAttackDamage = playerStatus.PlayerFieldAttackDamage * calcValue;
+                playerStatus.PlayerDodgeAttackDamage = playerStatus.PlayerDodgeAttackDamage * calcValue;
+
                 break;
 
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 적용 수치 : PlayerCounterDamage
             case 8:
+                // 수치 적용
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+
+                if (playerStatus.PlayerCounterAbilityDamage == 0)
+                {
+                    playerStatus.PlayerCounterAbilityDamage = 10f;
+                }
+
+                playerStatus.PlayerCounterAbilityDamage = playerStatus.PlayerCounterAbilityDamage * calcValue;
                 break;
 
             // 빙결 처형 : 빙결 효과를 입은 적의 체력이 20% 이하인 경우 적을 바로 처치한다. 주변의 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 빙결장판, 처형
             case 9:
+                playerStatus.SetExcutionAbility(0, true);
                 break;
 
             default:
@@ -178,5 +234,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
         playerStatus.PlayerStrongAttackDamage = originDamages[1];
         playerStatus.PlayerFieldAttackDamage = originDamages[2];
         playerStatus.PlayerDodgeAttackDamage = originDamages[3];
+    }
+
+    // 습지 생성 능력
+    private void WaterField()
+    {
+        GameObject obj = Instantiate(fieldAttackObj, gameObject.transform.parent.position, Quaternion.identity);
+        obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
     }
 }

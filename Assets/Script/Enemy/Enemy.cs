@@ -52,8 +52,22 @@ public class Enemy : MonoBehaviour
     public bool HPOn = false;
     public bool isBoss = false;
 
-    // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
-    public float drawnDamage = 0f;
+    // 스택 데미지. 단위 %로 전달. 
+    public float totalStackDamage = 0f;
+
+    // 프레임 당 스택 데미지. % 단위로 전달받은 스택 데미지를 참고하여 계산된 데미지.
+    float calcStackDamage = 0f;
+
+    // 디버프 배열
+    int[] debuffArray;
+    bool[] excutionArray = { false, false, false, false, false };
+
+    // 타이머 변수.
+    public float time = 0f;
+    bool timerOn = false;
+
+    // 타이머 작동 시간
+    float targetTime = 0f;
 
     protected virtual void Start()
     {
@@ -67,8 +81,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        //Track_Player();
-        //Enemy_Anim_Manage();
+        TakeStackDamage();
     }
 
     void Track_Player()
@@ -122,11 +135,30 @@ public class Enemy : MonoBehaviour
         isAttack = false;
     }
 
+    public void CounterAttacked(float _damage, int[] _debuffArray)
+    {
+        if (!isBoss && HPOn == false)
+        {
+            HPOn = true;
+            SetHpBar();
+        }
+
+        Debug.Log("Counter Damaged!");
+
+        TakeDamage(_damage);
+
+        // 디버프 적용
+        debuffChecker.DebuffCheckJS(_debuffArray);
+
+        // 체력 바 업데이트
+        if (!isBoss)
+        {
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        // 디버프 배열
-        int[] debuffArray;
-
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
@@ -141,7 +173,7 @@ public class Enemy : MonoBehaviour
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
@@ -150,13 +182,21 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
+            TakeDamage(damage);
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
-
-            // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -164,7 +204,8 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
-        else if (other.tag == "StrongPlayerAttack")
+
+        if (other.tag == "StrongPlayerAttack")
         {
             if (!isBoss && HPOn == false)
             {
@@ -177,7 +218,7 @@ public class Enemy : MonoBehaviour
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -187,10 +228,18 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
+            TakeDamage(damage);
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -198,7 +247,8 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
-        else if (other.tag == "PlayerDodgeAttack")
+
+        if (other.tag == "PlayerDodgeAttack")
         {
             if (!isBoss && HPOn == false)
             {
@@ -211,7 +261,7 @@ public class Enemy : MonoBehaviour
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -221,10 +271,18 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
+            TakeDamage(damage);
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -233,11 +291,47 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (EnemyHP <= 0)
+        if (other.tag == "PlayerFieldAttack")
         {
-            enemySpawner.EnemyDead();
-            hpBar.SetActive(false);
-            gameObject.SetActive(false);
+            if (!isBoss && HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
+
+            Debug.Log("Field damaged!");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = other.transform.GetComponent<WaterField>().playerstatus;
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
+            float damage = playerdata.PlayerFieldAttackDamage;
+            debuffArray = playerdata.GetFieldAttackDebuff();
+
+            GameManager_JS.Instance.Guage();
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            TakeDamage(damage);
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * 0.2f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
+
+            // 체력 바 업데이트
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
         }
 
         IEnumerator GetDamaged()
@@ -246,5 +340,46 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             SR.material.color = Color.white;
         }
+    }
+
+    public void Dead()
+    {
+        enemySpawner.EnemyDead();
+        hpBar.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    public void TakeDamage(float _damage)
+    {
+        EnemyHP -= _damage;
+        
+        if (EnemyHP <= 0)
+        {
+            Dead();
+        }
+    }
+
+    public void TakeStackDamage()
+    {
+        if (timerOn)
+        {
+            time += Time.deltaTime;
+            TakeDamage(calcStackDamage);
+        }
+
+        if (time > targetTime)
+        {
+            time = 0f;
+            targetTime = 0f;
+            calcStackDamage = 0f;
+            timerOn = false;
+        }
+    }
+
+    public void SetStackDamageOn(float _time)
+    {
+        timerOn = true;
+        targetTime = _time;
+        calcStackDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.deltaTime;
     }
 }

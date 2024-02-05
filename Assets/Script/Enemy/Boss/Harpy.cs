@@ -165,7 +165,7 @@ public class Harpy : Enemy
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
@@ -181,7 +181,7 @@ public class Harpy : Enemy
             //StartCoroutine(GetDamaged());
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+            debuffChecker.DebuffCheckJS(debuffArray);
         }
         else if (other.tag == "StrongPlayerAttack")
         {
@@ -190,7 +190,7 @@ public class Harpy : Enemy
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -204,7 +204,7 @@ public class Harpy : Enemy
             OnBossHPUpdated.Invoke(maxHP, EnemyHP);
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+            debuffChecker.DebuffCheckJS(debuffArray);
         }
         else if (other.tag == "PlayerDodgeAttack")
         {
@@ -213,7 +213,7 @@ public class Harpy : Enemy
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
-            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -227,7 +227,7 @@ public class Harpy : Enemy
             OnBossHPUpdated.Invoke(maxHP, EnemyHP);
 
             // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+            debuffChecker.DebuffCheckJS(debuffArray);
         }
 
         if (EnemyHP <= 0)
