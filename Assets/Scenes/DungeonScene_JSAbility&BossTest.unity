@@ -5159,8 +5159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DBFiles_Ability:
   - DB_Ability_Water
+  - DB_Ability_Flame
   DBFiles_Dialogue:
   - DB_Dialogue_Water
+  - DB_Dialogue_Flame
   DBFiles_Merchant: DB_Merchant
   abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
@@ -5400,11 +5402,11 @@ MonoBehaviour:
       - m_Target: {fileID: 202501732}
         m_TargetAssemblyTypeName: EventController, Assembly-CSharp
         m_MethodName: AbilityTest
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
