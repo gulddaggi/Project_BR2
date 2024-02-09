@@ -10106,6 +10106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Movespeed: 0
+  nav: {fileID: 0}
   Enemy_Recognition_Range: 0
   EnemyHP: 10
   PrimitiveHP: 0

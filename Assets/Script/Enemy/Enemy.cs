@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     Rigidbody EnemyRigid;
 
     public float Movespeed;
-    private NavMeshAgent nav;
+    public NavMeshAgent nav;
 
     [SerializeField] public float Enemy_Recognition_Range;
 
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour
         FullHP = EnemyHP;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //Track_Player();
         //Enemy_Anim_Manage();
@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void EnemyAttackOn()
+    protected virtual void EnemyAttackOn()
     {
         isAttack = true;
         attackRangeObj.SetActive(true);
