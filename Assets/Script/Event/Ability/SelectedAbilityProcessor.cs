@@ -42,6 +42,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
 
             // 불
             case 1:
+                Ability_Flame(id);
                 break;
         }
 
@@ -241,5 +242,67 @@ public class SelectedAbilityProcessor : MonoBehaviour
     {
         GameObject obj = Instantiate(fieldAttackObj, gameObject.transform.parent.position, Quaternion.identity);
         obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
+    }
+
+    // 불 능력 선택 시 적용.
+    void Ability_Flame(int _id)
+    {
+        float curValue, calcValue;
+
+        switch (_id)
+        {
+            // 불의 축복(약) : 약공격은 적에게 화상 효과를 입힌다.
+            // 디버프 : 화상, 적용 수치 : PlayerBurnDamage
+            case 0:
+                break;
+
+            // 불의 축복(강) : 강공격은 적에게 화상 효과를 입힌다.
+            // 디버프 : 화상, 적용 수치 : PlayerStrongAttackDamage
+            case 1:
+                break;
+
+            // 불의 축복(돌진) : 돌진 시 부딪히는 적에게 화상 효과를 입힌다.
+            // 디버프 : 화상, 적용 수치 : PlayerDodgeDamage
+            case 2:
+                break;
+
+            // 등가 교환(불) : 최대 체력이 10% 감소한다. 이후 모든 피해가 증가한다.
+            // 적용 수치 : 모든 불 능력 데미지 변수
+            case 3:
+                break;
+
+            // 화염 침식 : 화상이 5회 중첩될 경우 적에게 파열을 효과를 입힌다.
+            // 디버프 : 화상 + 5중첩 시 파열, 적용 수치 : PlayerBurstDamage
+            case 4:
+                break;
+
+            // 불의 가호 : 전투 시작 후 10초 동안 주변 적에게 초당 피해를 입힌다.
+            // 적용 수치 : PlayerFireBlessingDamage
+            case 5:
+                break;
+
+            // 화염 지대 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적에게 화상 효과를 입히는 화염 지대를 생성한다.
+            // 디버프 : 화상, 적용 수치 : PlayerFieldAttackDamage
+            case 6:
+                break;
+
+            // 정령 결속 강화(불) : 모든 공격 피해가 증가하며 화상과 파열 효과가 점화 효과로 강화된다.
+            // 디버프 : 점화, 적용 수치 : 모든 불 능력 데미지 변수
+            case 7:
+                break;
+
+            // 업화 갑옷 : 적에게 공격받을 시 적에게 점화 효과를 입힌다.
+            // 디버프 : 빙결, 적용 수치 : PlayerCounterDamage
+            case 8:
+                break;
+
+            // 화염 처형 : 점화 효과를 입은 적의 체력이 25% 이하인 경우 적을 바로 처치하며 주변 적에게 점화 효과를 입힌다.
+            // 디버프 : 점화, 처형, 처형 시 점화 전파
+            case 9:
+                break;
+
+            default:
+                break;
+        }
     }
 }
