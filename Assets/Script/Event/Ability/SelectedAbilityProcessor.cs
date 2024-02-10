@@ -252,17 +252,17 @@ public class SelectedAbilityProcessor : MonoBehaviour
         switch (_id)
         {
             // 불의 축복(약) : 약공격은 적에게 화상 효과를 입힌다.
-            // 디버프 : 화상, 적용 수치 : PlayerBurnDamage
+            // 디버프 : 화상, 적용 수치 : playerAttackBurnDamage
             case 0:
                 break;
 
             // 불의 축복(강) : 강공격은 적에게 화상 효과를 입힌다.
-            // 디버프 : 화상, 적용 수치 : PlayerStrongAttackDamage
+            // 디버프 : 화상, 적용 수치 : playerStrongAttackBurnDamamge
             case 1:
                 break;
 
             // 불의 축복(돌진) : 돌진 시 부딪히는 적에게 화상 효과를 입힌다.
-            // 디버프 : 화상, 적용 수치 : PlayerDodgeDamage
+            // 디버프 : 화상, 적용 수치 : playerDodgeAttackBurnDamage
             case 2:
                 break;
 
@@ -271,7 +271,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 3:
                 break;
 
-            // 화염 침식 : 화상이 5회 중첩될 경우 적에게 파열을 효과를 입힌다.
+            // 화염 침식 : 화상이 5회 중첩될 경우 적에게 파열 효과를 입힌다.
             // 디버프 : 화상 + 5중첩 시 파열, 적용 수치 : PlayerBurstDamage
             case 4:
                 break;
@@ -282,12 +282,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 break;
 
             // 화염 지대 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적에게 화상 효과를 입히는 화염 지대를 생성한다.
-            // 디버프 : 화상, 적용 수치 : PlayerFieldAttackDamage
+            // 디버프 : 화상, 적용 수치 : playerFieldAttackBurnDamage
             case 6:
                 break;
 
             // 정령 결속 강화(불) : 모든 공격 피해가 증가하며 화상과 파열 효과가 점화 효과로 강화된다.
-            // 디버프 : 점화, 적용 수치 : 모든 불 능력 데미지 변수
+            // 디버프 : 점화, 적용 수치 : 모든 불 능력 데미지
             case 7:
                 break;
 

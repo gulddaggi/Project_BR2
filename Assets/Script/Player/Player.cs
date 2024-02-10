@@ -25,6 +25,8 @@ public class Player : MonoBehaviour, IListener
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private bool[] excutionAbilityArray = { false, false, false, false, false };
 
+    // 불 타입 데미지
+
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
     public float CurrentHP {
         get { return currentHP; }
@@ -57,9 +59,19 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
-    [SerializeField] protected float playerStackDamage;
-    [SerializeField] protected float playerCounterAbilityDamage;
-    [SerializeField] protected float playerSpecialAttackFillingAmount;
+    protected float playerStackDamage;
+    protected float playerCounterAbilityDamage;
+    protected float playerSpecialAttackFillingAmount;
+
+    [SerializeField] protected float playerAttackBurnDamage;
+    [SerializeField] protected float playerStrongAttackBurnDamamge;
+    [SerializeField] protected float playerFieldAttackBurnDamage;
+    [SerializeField] protected float playerDodgeAttackBurnDamage;
+    [SerializeField] protected float playerBurstDamage;
+    [SerializeField] protected float PlayerFireBlessingDamage;
+    [SerializeField] protected float playerCounterBurnDamage;
+
+
 
     // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
     public void SetPlayerAllDamage(float _value)
