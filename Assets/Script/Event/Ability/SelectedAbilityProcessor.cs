@@ -253,17 +253,35 @@ public class SelectedAbilityProcessor : MonoBehaviour
         {
             // 불의 축복(약) : 약공격은 적에게 화상 효과를 입힌다.
             // 디버프 : 화상, 적용 수치 : playerAttackBurnDamage
-            case 0:
+            case 0:                
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(1, 1);
+
+                // 수치 적용
+                curValue = selectedAbility.plus_Value;
+                playerStatus.PlayerAttackBurnDamage = curValue;
                 break;
 
             // 불의 축복(강) : 강공격은 적에게 화상 효과를 입힌다.
             // 디버프 : 화상, 적용 수치 : playerStrongAttackBurnDamamge
             case 1:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(1, 1);
+
+                // 수치 적용
+                curValue = selectedAbility.plus_Value;
+                playerStatus.PlayerStrongAttackBurnDamamge = curValue;
                 break;
 
             // 불의 축복(돌진) : 돌진 시 부딪히는 적에게 화상 효과를 입힌다.
             // 디버프 : 화상, 적용 수치 : playerDodgeAttackBurnDamage
             case 2:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(1, 1);
+
+                // 수치 적용
+                curValue = selectedAbility.plus_Value;
+                playerStatus.PlayerDodgeAttackBurnDamage = curValue;
                 break;
 
             // 등가 교환(불) : 최대 체력이 10% 감소한다. 이후 모든 피해가 증가한다.
