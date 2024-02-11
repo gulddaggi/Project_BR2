@@ -16,6 +16,9 @@ public class RangeAITest : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent nvAgent;
     Animator animator;
 
+    //탐색 범위
+    public float range = 20f;
+
     // 이 범위 내에 플레이어가 들어올시 공격
     [SerializeField] float EnemyPlayerAttackDistance = 3;
 
@@ -51,7 +54,7 @@ public class RangeAITest : MonoBehaviour
     void UpdateTarget()
     {
         //자신의 위치로부터 10f만큼의 반경의 충돌체를 검사하고 
-        Collider[] cols = Physics.OverlapSphere(transform.position, 20f);
+        Collider[] cols = Physics.OverlapSphere(transform.position, range);
 
         if (cols.Length > 0)
         {
@@ -78,6 +81,6 @@ public class RangeAITest : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, 20f);
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

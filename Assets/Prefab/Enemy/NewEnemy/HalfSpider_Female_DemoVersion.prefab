@@ -11317,6 +11317,7 @@ MonoBehaviour:
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
   hpBarImage: {fileID: 0}
   nvAgent: {fileID: 0}
+  range: 20
   EnemyPlayerAttackDistance: 5.5
 --- !u!114 &8818344409613404703
 MonoBehaviour:
