@@ -27,7 +27,17 @@ public class Player : MonoBehaviour, IListener
 
     // 불 타입 데미지
 
-    public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
+    public float FullHP { 
+        get { return fullHP; } 
+        set { 
+            fullHP = value;
+            if (fullHP < CurrentHP)
+            {
+                CurrentHP = fullHP;
+            }
+            OnPlayerHPUpdated.Invoke(FullHP, currentHP); 
+        } 
+    }
     public float CurrentHP {
         get { return currentHP; }
         set {
@@ -81,13 +91,13 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerFireBlessingDamage;
     [SerializeField] protected float playerCounterBurnDamage;
 
-    // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
+    // 모든 데미지 일괄 계산 함수.
     public void SetPlayerAllDamage(float _value)
     {
-        PlayerAttackDamage = PlayerAttackDamage - (PlayerAttackDamage * _value * 0.01f);
-        PlayerStrongAttackDamage = PlayerStrongAttackDamage - (PlayerStrongAttackDamage * _value * 0.01f);
-        PlayerFieldAttackDamage = PlayerFieldAttackDamage - (PlayerFieldAttackDamage * _value * 0.01f);
-        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage - (PlayerDodgeAttackDamage * _value * 0.01f);
+        PlayerAttackDamage = PlayerAttackDamage + (PlayerAttackDamage * _value * 0.01f);
+        PlayerStrongAttackDamage = PlayerStrongAttackDamage + (PlayerStrongAttackDamage * _value * 0.01f);
+        PlayerFieldAttackDamage = PlayerFieldAttackDamage + (PlayerFieldAttackDamage * _value * 0.01f);
+        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage + (PlayerDodgeAttackDamage * _value * 0.01f);
     }
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)

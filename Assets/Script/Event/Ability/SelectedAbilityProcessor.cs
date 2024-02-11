@@ -104,7 +104,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 적용 수치 : 모든 물 능력 데미지 변수
             case 3:
                 // 수치 적용. %단위 값을 매개변수로 입력
-                playerStatus.SetPlayerAllDamage(10.0f);
+                playerStatus.SetPlayerAllDamage(-10.0f);
 
                 // 능력 적용.
                 // 던전 입장시마다 효과가 발동되는 물 타입 능력. 관련 이벤트에 콜백 함수를 AddListener
@@ -292,6 +292,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 등가 교환(불) : 최대 체력이 10% 감소한다. 이후 모든 피해가 증가한다.
             // 적용 수치 : 모든 불 능력 데미지 변수
             case 3:
+                // 수치 적용.
+                // 체력 감소
+                playerStatus.FullHP = playerStatus.FullHP - playerStatus.FullHP * 0.1f;
+                // 모든 피해 증가
+                curValue = selectedAbility.plus_Value;
+                playerStatus.SetPlayerAllDamage(curValue);
                 break;
 
             // 화염 침식 : 화상이 5회 중첩될 경우 적에게 파열 효과를 입힌다.
