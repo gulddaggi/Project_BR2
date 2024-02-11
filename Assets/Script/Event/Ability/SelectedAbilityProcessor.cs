@@ -301,8 +301,16 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 break;
 
             // 화염 침식 : 화상이 5회 중첩될 경우 적에게 파열 효과를 입힌다.
-            // 디버프 : 화상 + 5중첩 시 파열, 적용 수치 : PlayerBurstDamage
+            // 디버프 : 화상 + 5중첩 시 파열, 적용 수치 : stackDamageArray[1]
             case 4:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(1, 2);
+                playerStatus.SetDebuffToStAttack(1, 2);
+                playerStatus.SetDebuffToDodgeAttack(1, 2);
+                playerStatus.SetDebuffToFieldAttack(1, 2);
+
+                // 수치 적용.
+                playerStatus.SetStackDamage(1, selectedAbility.plus_Value);
                 break;
 
             // 불의 가호 : 전투 시작 후 10초 동안 주변 적에게 초당 피해를 입힌다.

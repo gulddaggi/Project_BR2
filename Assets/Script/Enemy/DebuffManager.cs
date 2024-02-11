@@ -137,10 +137,23 @@ public class DebuffManager : MonoBehaviour
         // 인덱스에 따른 디버프 재생.
         if (index == 0)
         {
-            Transform targetChild = flameParent.transform.GetChild(index);
-            targetChild.GetComponent<ParticleSystem>().Stop();
-            targetChild.GetComponent<ParticleSystem>().Play();
-            ++targetChild.GetComponent<Debuff>().count;
+            Transform burnEffectTransform = flameParent.transform.GetChild(index);
+            burnEffectTransform.GetComponent<ParticleSystem>().Stop();
+            burnEffectTransform.GetComponent<ParticleSystem>().Play();
+            ++burnEffectTransform.GetComponent<Debuff>().count;
+
+            // 디버프 중첩 효과 적용
+            if (burnEffectTransform.GetComponent<Debuff>().count >= 5 && _index == 2)
+            {
+                // 이펙트 재생
+                burnEffectTransform.GetComponent<Debuff>().count = 0;
+                Transform burstEffectTransform = flameParent.transform.GetChild(index + 1);
+                burstEffectTransform.GetComponent<ParticleSystem>().Stop();
+                burstEffectTransform.GetComponent<ParticleSystem>().Play();
+
+                // 데미지 적용
+                StackDamageOn(1, 3f);
+            }
         }
         else
         {
@@ -180,5 +193,10 @@ public class DebuffManager : MonoBehaviour
     void WaterDebuffStackOn(float _targetTime)
     {
         this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
+    }
+
+    void StackDamageOn(int _index, float _targetTime)
+    {
+        this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_index, _targetTime);
     }
 }

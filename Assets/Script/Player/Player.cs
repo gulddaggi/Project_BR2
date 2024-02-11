@@ -24,6 +24,7 @@ public class Player : MonoBehaviour, IListener
     private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private bool[] excutionAbilityArray = { false, false, false, false, false };
+    private float[] stackDamageArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
     // 불 타입 데미지
 
@@ -251,6 +252,11 @@ public class Player : MonoBehaviour, IListener
         excutionAbilityArray[_index] = _value;
     }
 
+    public void SetStackDamage(int _index, float _value)
+    {
+        stackDamageArray[_index] = _value;
+    }
+
     // 플레이어에게 약공격으로 피격된 적이 디버프를 확인
     public int[] GetAttackDebuff()
     {
@@ -279,6 +285,11 @@ public class Player : MonoBehaviour, IListener
     public bool[] GetExecutionAbilityArray()
     {
         return excutionAbilityArray;
+    }
+
+    public float[] GetStackDamageArray()
+    {
+        return stackDamageArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)

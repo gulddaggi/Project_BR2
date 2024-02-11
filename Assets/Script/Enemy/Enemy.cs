@@ -63,6 +63,9 @@ public class Enemy : MonoBehaviour
     // 스택 데미지. 단위 %로 전달. 
     public float totalStackDamage = 0f;
 
+    // 스택 데미지 배열.
+    float[] stackDamageArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+
     // 프레임 당 스택 데미지. % 단위로 전달받은 스택 데미지를 참고하여 계산된 데미지.
     float calcStackDamage = 0f;
 
@@ -400,6 +403,21 @@ public class Enemy : MonoBehaviour
 
         timeDamageList.Add(timeDamage);
 
+    }
+
+    // 스택 데미지 객체 생성. 1티어 업그레이드 디버프 데미지 적용.
+    public void SetStackDamageOn(int _index, float _time)
+    {
+        if (playerdata.GetAttackDebuff()[_index] >= 2f)
+        {
+            stackDamageArray[_index] = playerdata.GetStackDamageArray()[_index];
+        }
+
+        TimeDamage timeDamage = new TimeDamage();
+        timeDamage.targetTime = _time;
+        timeDamage.calcDamage = stackDamageArray[_index] / _time * Time.deltaTime;
+
+        timeDamageList.Add(timeDamage);
     }
 
     // 초당 데미지 객체 생성. 불 타입 디버프 데미지.
