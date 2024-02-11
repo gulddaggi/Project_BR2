@@ -76,6 +76,7 @@ public class Attack : MonoBehaviour
 
     [Header("여기서부터는 원거리 공격(활, 수리검)을 관리")]
     public GameObject arrowPrefab;
+    public GameObject shurikenPrefab;
     public Transform arrowSpawnPoint;
     public float arrowSpeed = 40f;
 
@@ -187,7 +188,7 @@ public class Attack : MonoBehaviour
 
     void FirstAttack_Sword_Start()
     {
-        PlayerAnimator.applyRootMotion = true;
+        // PlayerAnimator.applyRootMotion = true;
         ManageAttackRange(0, true);
         TransitionToState(AttackState.FirstAttack);
         ProcessBufferedInput();
@@ -195,7 +196,7 @@ public class Attack : MonoBehaviour
     }
     void FirstAttack_Sword_End()
     {
-        PlayerAnimator.applyRootMotion = false;
+        // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
         ManageAttackRange(0, false);
 
@@ -392,6 +393,16 @@ public class Attack : MonoBehaviour
         else if (GameManager_JS.Instance.PlayerWeaponCheck() == 3 && AttackAvailable)
         {
             // 차후에 수리검 실장시 추가
+            GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            AttackAvailable = false;
+            Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
+
+            // 화살 로테이션 / Y좌표 보정
+            Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+            shuriken.transform.rotation = arrowRotation;
+            shuriken.transform.position = new Vector3(shuriken.transform.position.x, 2f, shuriken.transform.position.z);
+
+            shuriken.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
         }
     }
 

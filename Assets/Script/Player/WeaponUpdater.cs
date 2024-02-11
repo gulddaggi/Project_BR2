@@ -26,7 +26,6 @@ public class WeaponUpdater: MonoBehaviour
     {
         if(playerWeapon == Attack.Weapon.Sword) // Sword 
         {
-
             GameManager_JS.Instance.playerWeapon = Attack.Weapon.Sword;
 
             Debug.Log(GameManager_JS.Instance.playerWeapon.ToString());
@@ -71,6 +70,22 @@ public class WeaponUpdater: MonoBehaviour
             Weapon_Deactivator();
             weaponUpdater.Weapons[3].SetActive(true);
             Debug.Log("플레이어 무기 : 활");
+
+        }
+        else if (playerWeapon == Attack.Weapon.Shuriken)
+        {
+            // player.GetComponent<Attack>().PlayerWeapon = Attack.Weapon.Axe;
+            // player.GetComponent<AnimationEventEffects>().playerweapon = Attack.Weapon.Axe;
+            GameManager_JS.Instance.playerWeapon = Attack.Weapon.Shuriken;
+            Debug.Log(GameManager_JS.Instance.playerWeapon.ToString());
+
+            var resourceName = "Player/Shuriken/Shuriken Override";
+            var animator = player.gameObject.GetComponent<Animator>();
+            animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load(resourceName);
+
+            Weapon_Deactivator();
+            weaponUpdater.Weapons[4].SetActive(true);
+            Debug.Log("플레이어 무기 : 수리검");
 
         }
     }
