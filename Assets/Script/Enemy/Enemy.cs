@@ -240,7 +240,7 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
-            TakeDamage(damage);
+            ApplyDamage(damage, 1);
 
             // 디버프 적용
             if (EnemyHP <= (FullHP * 0.2f))
@@ -283,7 +283,7 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
-            TakeDamage(damage);
+            ApplyDamage(damage, 2);
 
             // 디버프 적용
             if (EnemyHP <= (FullHP * 0.2f))
@@ -326,7 +326,7 @@ public class Enemy : MonoBehaviour
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
-            TakeDamage(damage);
+            ApplyDamage(damage, 3);
 
             // 디버프 적용
             if (EnemyHP <= (FullHP * 0.2f))

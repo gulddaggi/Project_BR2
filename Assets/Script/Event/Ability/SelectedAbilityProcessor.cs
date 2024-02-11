@@ -266,7 +266,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 디버프 : 화상, 적용 수치 : playerStrongAttackBurnDamamge
             case 1:
                 // 디버프 적용
-                playerStatus.SetDebuffToAttack(1, 1);
+                playerStatus.SetDebuffToStAttack(1, 1);
 
                 // 수치 적용
                 curValue = selectedAbility.plus_Value;
@@ -277,9 +277,14 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 디버프 : 화상, 적용 수치 : playerDodgeAttackBurnDamage
             case 2:
                 // 디버프 적용
-                playerStatus.SetDebuffToAttack(1, 1);
+                playerStatus.SetDebuffToDodgeAttack(1, 1);
 
                 // 수치 적용
+                if (playerStatus.PlayerDodgeAttackDamage == 0f)
+                {
+                    playerStatus.PlayerDodgeAttackDamage = 2f;
+                }
+
                 curValue = selectedAbility.plus_Value;
                 playerStatus.PlayerDodgeAttackBurnDamage = curValue;
                 break;
