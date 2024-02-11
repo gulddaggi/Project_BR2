@@ -11671,6 +11671,7 @@ MonoBehaviour:
   debuffEffects:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 631c359c0dc700e4ba8d02558b57df11, type: 3}
+  debuffObjs: []
   originvelocity: 0
   layerMask:
     serializedVersion: 2

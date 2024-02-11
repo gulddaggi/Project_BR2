@@ -10,6 +10,10 @@ public class DebuffManager : MonoBehaviour
     [SerializeField]
     GameObject[] debuffEffects;
 
+    // 능력 타입 별 디버프 이펙트를 자식으로 갖는 오브젝트 배열.
+    [SerializeField]
+    GameObject[] debuffObjs;
+
     // 적의 초기 속도
     public float originvelocity;
 
@@ -118,6 +122,29 @@ public class DebuffManager : MonoBehaviour
             GameObject freezeStackDebuff = Instantiate(debuffEffects[index + 1], this.gameObject.transform);
             freezeStackDebuff.name = "FreezeStackDebuff";
             freezeStackDebuff.transform.parent = this.gameObject.transform;
+        }
+    }
+
+    // 불 디버프 적용
+    public void FlameDebuffEffectOn(int _index)
+    {
+        // 적용 디버프 인덱스
+        int index = (_index == 3) ? (_index - 1) : 0;
+
+        // 적용 타입 이펙트의 부모 오브젝트
+        GameObject flameParent = debuffObjs[1];
+
+        // 인덱스에 따른 디버프 재생.
+        if (index == 0)
+        {
+            Transform targetChild = flameParent.transform.GetChild(index);
+            targetChild.GetComponent<ParticleSystem>().Stop();
+            targetChild.GetComponent<ParticleSystem>().Play();
+            ++targetChild.GetComponent<Debuff>().count;
+        }
+        else
+        {
+
         }
     }
 

@@ -6,6 +6,14 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+// 초당 데미지 클래스
+public class TimeDamage
+{
+    public float time = 0f;
+    public float targetTime = 0f;
+    public float calcDamage = 0f;
+}
+
 public class Enemy : MonoBehaviour
 {
     public GameObject Player;
@@ -69,6 +77,11 @@ public class Enemy : MonoBehaviour
     // 타이머 작동 시간
     float targetTime = 0f;
 
+    // 초당 데미지 리스트
+    List<TimeDamage> timeDamageList = new List<TimeDamage>();
+
+    Player playerdata;
+
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -81,7 +94,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        TakeStackDamage();
+        TakeTimeDamage();
     }
 
     void Track_Player()
@@ -171,7 +184,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
+            playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerAttackDamage;
@@ -181,8 +194,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
 
-            // 피격 시 체력 감소 계산
-            TakeDamage(damage);
+            ApplyDamage(damage, 0);
 
             // 디버프 적용
             if (EnemyHP <= (FullHP * 0.2f))
@@ -216,7 +228,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Strongly Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
+            playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerStrongAttackDamage;
@@ -259,7 +271,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Dodge damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
+            playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
@@ -302,7 +314,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Field damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponent<WaterField>().playerstatus;
+            playerdata = other.transform.GetComponent<WaterField>().playerstatus;
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerFieldAttackDamage;
@@ -359,27 +371,121 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeStackDamage()
+    // 시간당 데미지 적용
+    public void TakeTimeDamage()
     {
-        if (timerOn)
+        // 계산된 데미지 프레임당 적용
+        for (int i = 0; i < timeDamageList.Count; i++)
         {
-            time += Time.deltaTime;
-            TakeDamage(calcStackDamage);
+            timeDamageList[i].time += Time.deltaTime;
+            TakeDamage(timeDamageList[i].calcDamage);
         }
 
-        if (time > targetTime)
+        // 지정된 시간 초과 시 해당 객체 삭제
+        for (int i = 0; i < timeDamageList.Count; i++)
         {
-            time = 0f;
-            targetTime = 0f;
-            calcStackDamage = 0f;
-            timerOn = false;
+            if (timeDamageList[i].time > timeDamageList[i].targetTime)
+            {
+                timeDamageList.Remove(timeDamageList[i]);
+            }
         }
     }
 
+    // 스택 데미지 객체 생성. 물 타입 1티어 업그레이드 디버프 데미지.
     public void SetStackDamageOn(float _time)
     {
-        timerOn = true;
-        targetTime = _time;
-        calcStackDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.deltaTime;
+        TimeDamage timeDamage = new TimeDamage();
+        timeDamage.targetTime = _time;
+        timeDamage.calcDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.deltaTime;
+
+        timeDamageList.Add(timeDamage);
+
+    }
+
+    // 초당 데미지 객체 생성. 불 타입 디버프 데미지.
+    public void SetTimeDamageOn(float _time, float _damage)
+    {
+        TimeDamage timeDamage = new TimeDamage();
+        timeDamage.targetTime = _time;
+        timeDamage.calcDamage = _damage / _time * Time.deltaTime;
+
+        timeDamageList.Add(timeDamage);
+    }
+
+    // 공격 데미지 및 각 능력 타입 별 데미지 적용. 
+    void ApplyDamage(float _damage, int _attackType)
+    {
+        // 공격 데미지 적용
+        TakeDamage(_damage);
+
+        // 각 능력 타입 별 데미지 적용
+        for (int i = 0; i < debuffArray.Length; i++)
+        {
+            if (debuffArray[i] != 0)
+            {
+                switch (i)
+                {
+                    // 물 타입 : 스택 데미지 조건 충족 시 적용
+                    case 0:
+                        
+                        break;
+
+                    // 불 타입 : 해당 종류 공격 초당 데미지 디버프 활성화 시 적용
+                    case 1:
+                        float timeDamage = GetAbilityFlameDamage(_attackType);
+                        float time = 0.0f;
+                        
+                        if (debuffArray[i] == 3)
+                        {
+                            time = 3.0f;
+                        }
+                        else
+                        {
+                            time = 5.0f;
+                        }
+
+                        SetTimeDamageOn(time, timeDamage);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    // 공격 종류에 따른 초당 데미지 수치 반환
+    float GetAbilityFlameDamage(int _type)
+    {
+        float returnvalue;
+
+        switch (_type)
+        {
+            // 약공격
+            case 0:
+                returnvalue = playerdata.PlayerAttackBurnDamage;
+                break;
+
+            // 강공격
+            case 1:
+                returnvalue = playerdata.PlayerStrongAttackBurnDamamge;
+                break;
+
+            // 돌진 공격
+            case 2:
+                returnvalue = playerdata.PlayerDodgeAttackBurnDamage;
+                break;
+
+            // 필드 공격
+            case 3:
+                returnvalue = playerdata.PlayerFieldAttackBurnDamage;
+                break;
+
+            default:
+                returnvalue = 0.0f;
+                break;
+        }
+
+        return returnvalue;
     }
 }

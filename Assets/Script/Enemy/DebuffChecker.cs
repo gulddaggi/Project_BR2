@@ -23,6 +23,7 @@ public class DebuffChecker : MonoBehaviour
                         break;
 
                     case 1:
+                        debuffManager.FlameDebuffEffectOn(_debuffArray[i]);
                         break;
                     
                     default:
