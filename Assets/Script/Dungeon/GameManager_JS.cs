@@ -353,6 +353,12 @@ public class GameManager_JS : MonoBehaviour
             // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
             return 2;
         }
+        else if (GameManager_JS.Instance.playerWeapon
+== Attack.Weapon.Shuriken)
+        {
+            // Debug.Log("[플레이어 이펙트 콘솔] : 플레이어 무기 체크 -> 배틀액스[태그번호  : 1]");
+            return 3;
+        }
 
         return 0;
     }

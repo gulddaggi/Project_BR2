@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Attack : MonoBehaviour
 {
 
-    public enum Weapon { Sword, Axe, Bow };
+    public enum Weapon { Sword, Axe, Bow, Shuriken };
     public enum AttackState { Idle, FirstAttack, SecondAttack, ThirdAttack };
     public AttackState currentAttackState = AttackState.Idle;
 

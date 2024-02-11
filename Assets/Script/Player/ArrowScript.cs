@@ -11,6 +11,7 @@ public class ArrowScript : MonoBehaviour
     {
         // 일정 시간 후에 화살 파괴
         StartCoroutine(Self_Destruct());
+        FindObjectOfType<Enemy>().destroyProjectileDelegate += DestroyProjectile;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,21 +21,21 @@ public class ArrowScript : MonoBehaviour
         {
             // 적에게 맞았을 때의 동작을 여기에 작성
             Debug.Log("플레이어 투사체 충돌 감지 - 적");
-            // Destroy(gameObject);
         }
-        /*
-        else if (other.CompareTag("Obstacle"))
-        {
-            // 장애물과 충돌했을 때의 동작을 여기에 작성
-            Debug.Log("플레이어 투사체 충돌 감지 - 장애물");
-            Destroy(gameObject);
-        }
-        */
     }
 
     IEnumerator Self_Destruct()
     {
         yield return new WaitForSeconds(destroyTime);
         Destroy(gameObject);
+    }
+
+    void DestroyProjectile(GameObject projectile)
+    {
+        if (projectile == gameObject)
+        {
+            // Arrow 파괴 코드
+            Destroy(gameObject);
+        }
     }
 }
