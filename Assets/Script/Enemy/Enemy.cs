@@ -159,12 +159,6 @@ public class Enemy : MonoBehaviour
 
         // 디버프 적용
         debuffChecker.DebuffCheckJS(_debuffArray);
-
-        // 체력 바 업데이트
-        if (!isBoss)
-        {
-            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -197,15 +191,6 @@ public class Enemy : MonoBehaviour
             {
                 debuffChecker.DebuffCheckJS(debuffArray);
             }
-
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
-            // 체력 바 업데이트
-            if (!isBoss)
-            {
-                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
-            }
         }
 
         if (other.tag == "StrongPlayerAttack")
@@ -236,12 +221,6 @@ public class Enemy : MonoBehaviour
             else
             {
                 debuffChecker.DebuffCheckJS(debuffArray);
-            }
-
-            // 체력 바 업데이트
-            if (!isBoss)
-            {
-                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
         }
 
@@ -274,12 +253,6 @@ public class Enemy : MonoBehaviour
             {
                 debuffChecker.DebuffCheckJS(debuffArray);
             }
-
-            // 체력 바 업데이트
-            if (!isBoss)
-            {
-                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
-            }
         }
 
         if (other.tag == "PlayerFieldAttack")
@@ -311,12 +284,6 @@ public class Enemy : MonoBehaviour
             {
                 debuffChecker.DebuffCheckJS(debuffArray);
             }
-
-            // 체력 바 업데이트
-            if (!isBoss)
-            {
-                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
-            }
         }
 
         IEnumerator GetDamaged()
@@ -347,6 +314,12 @@ public class Enemy : MonoBehaviour
         if (EnemyHP <= 0)
         {
             Dead();
+        }
+
+        // 체력 바 업데이트
+        if (!isBoss)
+        {
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
         }
     }
 
@@ -389,11 +362,19 @@ public class Enemy : MonoBehaviour
             stackDamageArray[_index] = playerdata.GetStackDamageArray()[_index];
         }
 
-        TimeDamage timeDamage = new TimeDamage();
-        timeDamage.targetTime = _time;
-        timeDamage.calcDamage = stackDamageArray[_index] / _time * Time.deltaTime;
+        if (_time == 1f)
+        {
+            TakeDamage(stackDamageArray[_index]);
+        }
+        else
+        {
+            TimeDamage timeDamage = new TimeDamage();
+            timeDamage.targetTime = _time;
+            timeDamage.calcDamage = stackDamageArray[_index] / _time * Time.deltaTime;
 
-        timeDamageList.Add(timeDamage);
+            timeDamageList.Add(timeDamage);
+        }
+
     }
 
     // 초당 데미지 객체 생성. 불 타입 디버프 데미지.

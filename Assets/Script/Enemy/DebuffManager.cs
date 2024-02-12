@@ -157,8 +157,23 @@ public class DebuffManager : MonoBehaviour
         }
         else
         {
-
+            Transform IgnitionEffectTransform = flameParent.transform.GetChild(index);
+            IgnitionEffectTransform.GetComponent<ParticleSystem>().Stop();
+            IgnitionEffectTransform.GetComponent<ParticleSystem>().Play();
+            Invoke("FlameIgnitionStackEffectOn", 3f);
         }
+    }
+
+    // 점화 이펙트 재생 3초 후 재생되는 이펙트
+    void FlameIgnitionStackEffectOn()
+    {
+        GameObject flameParent = debuffObjs[1];
+        Transform ignitionStackEffectTransform = flameParent.transform.GetChild(3);
+        ignitionStackEffectTransform.GetComponent<ParticleSystem>().Stop();
+        ignitionStackEffectTransform.GetComponent<ParticleSystem>().Play();
+
+        // 데미지 적용
+        StackDamageOn(1, 1f);
     }
 
     public void WaterExcutionEffectOn()

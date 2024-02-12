@@ -350,11 +350,30 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 정령 결속 강화(불) : 모든 공격 피해가 증가하며 화상과 파열 효과가 점화 효과로 강화된다.
             // 디버프 : 점화, 적용 수치 : 모든 불 능력 데미지
             case 7:
+                // 디버프 적용
+                playerStatus.SetDebuffToAttack(1, 3);
+                playerStatus.SetDebuffToStAttack(1, 3);
+                playerStatus.SetDebuffToDodgeAttack(1, 3);
+                playerStatus.SetDebuffToFieldAttack(1, 3);
+
+                // 수치 적용
+                // 모든 데미지 증가
+                curValue = selectedAbility.plus_Value;
+
+                if (playerStatus.PlayerFieldAttackDamage == 0)
+                {
+                    playerStatus.PlayerFieldAttackDamage = 1.5f;
+                }
+                playerStatus.SetPlayerAllDamage(curValue);
+
+                // 점화 데미지 설정. StackDamageArray를 사용.
+                playerStatus.SetStackDamage(1, 50f);
                 break;
 
             // 업화 갑옷 : 적에게 공격받을 시 적에게 점화 효과를 입힌다.
-            // 디버프 : 빙결, 적용 수치 : PlayerCounterDamage
+            // 디버프 : 점화, 적용 수치 : PlayerCounterDamage
             case 8:
+
                 break;
 
             // 화염 처형 : 점화 효과를 입은 적의 체력이 25% 이하인 경우 적을 바로 처치하며 주변 적에게 점화 효과를 입힌다.

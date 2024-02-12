@@ -69,7 +69,6 @@ public class Player : MonoBehaviour, IListener
     public float PlayerFieldAttackBurnDamage { get { return playerFieldAttackBurnDamage; } set { playerFieldAttackBurnDamage = value; } }
     public float PlayerDodgeAttackBurnDamage { get { return playerDodgeAttackBurnDamage; } set { playerDodgeAttackBurnDamage = value; } }
     public float PlayerBurstDamage { get { return playerBurstDamage; } set { playerBurstDamage = value; } }
-
     public float PlayerFireBlessingDamage { get { return playerFireBlessingDamage; } set { playerFireBlessingDamage = value; } }
     public float PlayerCounterBurnDamage { get { return playerCounterBurnDamage; } set { playerCounterBurnDamage = value; } }
 
