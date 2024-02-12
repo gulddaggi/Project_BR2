@@ -97,6 +97,11 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        //TakeTimeDamage();
+    }
+
+    private void FixedUpdate()
+    {
         TakeTimeDamage();
     }
 
@@ -151,14 +156,14 @@ public class Enemy : MonoBehaviour
         isAttack = false;
     }
 
-    public void CounterAttacked(float _damage, int[] _debuffArray)
+    public void CounterAttacked(float _damage, Player _player)
     {
+        playerdata = _player;
+        debuffArray = playerdata.GetAttackDebuff();
         Debug.Log("Counter Damaged!");
-
-        TakeDamage(_damage);
-
+        ApplyDamage(_damage, 4);
         // 디버프 적용
-        debuffChecker.DebuffCheckJS(_debuffArray);
+        debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
     }
 
     void OnTriggerEnter(Collider other)
@@ -348,7 +353,7 @@ public class Enemy : MonoBehaviour
     {
         TimeDamage timeDamage = new TimeDamage();
         timeDamage.targetTime = _time;
-        timeDamage.calcDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.deltaTime;
+        timeDamage.calcDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.fixedDeltaTime;
 
         timeDamageList.Add(timeDamage);
 
@@ -370,7 +375,7 @@ public class Enemy : MonoBehaviour
         {
             TimeDamage timeDamage = new TimeDamage();
             timeDamage.targetTime = _time;
-            timeDamage.calcDamage = stackDamageArray[_index] / _time * Time.deltaTime;
+            timeDamage.calcDamage = stackDamageArray[_index] / _time * Time.fixedDeltaTime;
 
             timeDamageList.Add(timeDamage);
         }
@@ -382,7 +387,7 @@ public class Enemy : MonoBehaviour
     {
         TimeDamage timeDamage = new TimeDamage();
         timeDamage.targetTime = _time;
-        timeDamage.calcDamage = _damage / _time * Time.deltaTime;
+        timeDamage.calcDamage = _damage / _time * Time.fixedDeltaTime;
 
         timeDamageList.Add(timeDamage);
     }
@@ -432,35 +437,39 @@ public class Enemy : MonoBehaviour
     // 공격 종류에 따른 초당 데미지 수치 반환
     float GetAbilityFlameDamage(int _type)
     {
-        float returnvalue;
+        float returnValue;
 
         switch (_type)
         {
             // 약공격
             case 0:
-                returnvalue = playerdata.PlayerAttackBurnDamage;
+                returnValue = playerdata.PlayerAttackBurnDamage;
                 break;
 
             // 강공격
             case 1:
-                returnvalue = playerdata.PlayerStrongAttackBurnDamamge;
+                returnValue = playerdata.PlayerStrongAttackBurnDamamge;
                 break;
 
             // 돌진 공격
             case 2:
-                returnvalue = playerdata.PlayerDodgeAttackBurnDamage;
+                returnValue = playerdata.PlayerDodgeAttackBurnDamage;
                 break;
 
             // 필드 공격
             case 3:
-                returnvalue = playerdata.PlayerFieldAttackBurnDamage;
+                returnValue = playerdata.PlayerFieldAttackBurnDamage;
+                break;
+
+            // 카운터 공격
+            case 4:
+                returnValue = playerdata.PlayerCounterIgnitionDamage;
                 break;
 
             default:
-                returnvalue = 0.0f;
+                returnValue = 0.0f;
                 break;
         }
-
-        return returnvalue;
+        return returnValue;
     }
 }

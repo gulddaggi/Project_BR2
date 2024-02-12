@@ -371,14 +371,18 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 break;
 
             // 업화 갑옷 : 적에게 공격받을 시 적에게 점화 효과를 입힌다.
-            // 디버프 : 점화, 적용 수치 : PlayerCounterDamage
+            // 디버프 : 점화, 적용 수치 : PlayerCounterIgnitionDamage
             case 8:
-
+                // 수치 적용.
+                playerStatus.PlayerCounterIgnitionDamage = 10f;
+                // DB 업데이트 후 교체
+                //playerStatus.PlayerCounterIgnitionDamage = selectedAbility.plus_Value;
                 break;
 
             // 화염 처형 : 점화 효과를 입은 적의 체력이 25% 이하인 경우 적을 바로 처치하며 주변 적에게 점화 효과를 입힌다.
             // 디버프 : 점화, 처형, 처형 시 점화 전파
             case 9:
+
                 break;
 
             default:

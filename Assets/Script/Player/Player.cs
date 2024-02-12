@@ -70,7 +70,7 @@ public class Player : MonoBehaviour, IListener
     public float PlayerDodgeAttackBurnDamage { get { return playerDodgeAttackBurnDamage; } set { playerDodgeAttackBurnDamage = value; } }
     public float PlayerBurstDamage { get { return playerBurstDamage; } set { playerBurstDamage = value; } }
     public float PlayerFireBlessingDamage { get { return playerFireBlessingDamage; } set { playerFireBlessingDamage = value; } }
-    public float PlayerCounterBurnDamage { get { return playerCounterBurnDamage; } set { playerCounterBurnDamage = value; } }
+    public float PlayerCounterIgnitionDamage { get { return playerCounterIgnitionDamage; } set { playerCounterIgnitionDamage = value; } }
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
@@ -80,7 +80,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
     protected float playerStackDamage;
-    protected float playerCounterAbilityDamage;
+    [SerializeField] protected float playerCounterAbilityDamage;
     protected float playerSpecialAttackFillingAmount;
 
     [SerializeField] protected float playerAttackBurnDamage;
@@ -89,7 +89,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerDodgeAttackBurnDamage;
     [SerializeField] protected float playerBurstDamage;
     [SerializeField] protected float playerFireBlessingDamage;
-    [SerializeField] protected float playerCounterBurnDamage;
+    [SerializeField] protected float playerCounterIgnitionDamage;
 
     // 모든 데미지 일괄 계산 함수.
     public void SetPlayerAllDamage(float _value)
