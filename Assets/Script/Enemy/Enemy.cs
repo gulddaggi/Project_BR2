@@ -153,12 +153,6 @@ public class Enemy : MonoBehaviour
 
     public void CounterAttacked(float _damage, int[] _debuffArray)
     {
-        if (!isBoss && HPOn == false)
-        {
-            HPOn = true;
-            SetHpBar();
-        }
-
         Debug.Log("Counter Damaged!");
 
         TakeDamage(_damage);
@@ -178,12 +172,6 @@ public class Enemy : MonoBehaviour
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
-            if (!isBoss && HPOn == false)
-            {
-                HPOn = true;
-                SetHpBar();
-            }
-
             Debug.Log("Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -222,12 +210,6 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "StrongPlayerAttack")
         {
-            if (!isBoss && HPOn == false)
-            {
-                HPOn = true;
-                SetHpBar();
-            }
-
             Debug.Log("Strongly Damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -265,12 +247,6 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "PlayerDodgeAttack")
         {
-            if (!isBoss && HPOn == false)
-            {
-                HPOn = true;
-                SetHpBar();
-            }
-
             Debug.Log("Dodge damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -308,12 +284,6 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "PlayerFieldAttack")
         {
-            if (!isBoss && HPOn == false)
-            {
-                HPOn = true;
-                SetHpBar();
-            }
-
             Debug.Log("Field damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -366,6 +336,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
+        if (!isBoss && HPOn == false)
+        {
+            HPOn = true;
+            SetHpBar();
+        }
+
         EnemyHP -= _damage;
         
         if (EnemyHP <= 0)

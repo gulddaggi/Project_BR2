@@ -21,6 +21,10 @@ public class SelectedAbilityProcessor : MonoBehaviour
     [SerializeField]
     GameObject fieldAttackObj;
 
+    // 불의 가호 오브젝트
+    [SerializeField]
+    GameObject flameFieldObj;
+
     // 강화 전 기존 데미지 저장 배열. 전투 시작 후 일정시간 강화 수치 복구용으로 사용.
     float[] originDamages;
 
@@ -316,6 +320,8 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 불의 가호 : 전투 시작 후 10초 동안 주변 적에게 초당 피해를 입힌다.
             // 적용 수치 : PlayerFireBlessingDamage
             case 5:
+                curValue = selectedAbility.plus_Value;
+                GameManager_JS.Instance.OnStageChanged.AddListener(() => FlameAbilityFieldOn(curValue));
                 break;
 
             // 화염 지대 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적에게 화상 효과를 입히는 화염 지대를 생성한다.
@@ -341,5 +347,12 @@ public class SelectedAbilityProcessor : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    // 불의 가호 능력
+    void FlameAbilityFieldOn(float _damage)
+    {
+        flameFieldObj.SetActive(true);
+        flameFieldObj.GetComponent<FlameAbilityField>().damage = _damage;
     }
 }
