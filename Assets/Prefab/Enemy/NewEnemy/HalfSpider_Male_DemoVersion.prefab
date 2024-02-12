@@ -14617,10 +14617,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0ffb58bf0277a408139e43818dd1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FindPlayer: {fileID: 0}
+  FindPlayerE: {fileID: 0}
   FindPlayerOffset: {x: 0, y: 2.2, z: 0}
-  hpBarImage: {fileID: 0}
+  player: {fileID: 0}
   nvAgent: {fileID: 0}
+  animator: {fileID: 0}
+  range: 20
   EnemyPlayerAttackDistance: 5
 --- !u!114 &4970142004200578263
 MonoBehaviour:
@@ -14635,13 +14637,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  Movespeed: 0
-  nav: {fileID: 0}
   Enemy_Recognition_Range: 0
   EnemyHP: 30
   PrimitiveHP: 0
-  Damage: 10
+  Damage: 5
   attackRangeObj: {fileID: 4970142002836772998}
+  AttackDelay: 1
   isHit: 0
   hpBarPrefab: {fileID: 2519535995746167745, guid: ffcea7e15eb1d4b5e9dbe4bfca04c82c, type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
@@ -14652,6 +14653,13 @@ MonoBehaviour:
   HPOn: 0
   isBoss: 0
   drawnDamage: 0
+  FindPlayerE: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
+  range: 20
+  EnemyPlayerAttackDistance: 3
 --- !u!1 &4970142004211636847
 GameObject:
   m_ObjectHideFlags: 0

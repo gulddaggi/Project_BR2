@@ -127,7 +127,7 @@ public class Enemy : MonoBehaviour
         animator.SetBool("isAttack", false);
     }
 
-    protected virtual void EnemyAttackRangeOff()
+    protected virtual void EnemyAttackRangeON()
     {
         attackRangeObj.SetActive(true);
     }
