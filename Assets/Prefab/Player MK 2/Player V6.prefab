@@ -2134,6 +2134,12 @@ MonoBehaviour:
     UseLocalPosition: 0
     SpecialAttackRangeInitTime: 0
     SpecialAttackRangeDisableTime: 0
+  - SpecialAttackPrefab: {fileID: 0}
+    SpecialAttackRange: {fileID: 0}
+    DestroyAfter: 0
+    UseLocalPosition: 0
+    SpecialAttackRangeInitTime: 0
+    SpecialAttackRangeDisableTime: 0
   arrowPrefab: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
   shurikenPrefab: {fileID: 6822805066353117807, guid: ab31d5a8c92e7ee4488f51bb33615557, type: 3}
   arrowSpawnPoint: {fileID: 6868301823347437576}

@@ -365,9 +365,15 @@ public class GameManager_JS : MonoBehaviour
     
     public void Guage()
     {
-        if (CurrentGuage < 100) { attackGuage.SpecialAttackGuage.fillAmount = CurrentGuage / 100; }
+        Debug.Log("플레이어 Special Attack Current Guage 판정 시작");
+        if (CurrentGuage < 100) {
+            Debug.Log($"플레이어 Special Attack Guage를 채웁니다. 현재 양 : {CurrentGuage}");
+            attackGuage.SpecialAttackGuage.fillAmount = CurrentGuage / 100; 
+        }
         else
         {
+            Debug.Log("플레이어 Special Attack 준비 완료.");
+
             attackGuage.isSpecialReady = true;
             attackGuage.ReadyImage.SetActive(true);
             attackGuage.NonReadyImage.SetActive(false);

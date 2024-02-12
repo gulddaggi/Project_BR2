@@ -141,19 +141,29 @@ public class Attack : MonoBehaviour
         if (context.performed && GameManager_JS.Instance.attackGuage.isSpecialReady && SceneManager.GetActiveScene().name != "HomeScene")
         {
             Debug.Log("Special Attack");
-            var instance = Instantiate(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackPrefab, gameObject.transform.position, gameObject.transform.rotation);
-            if (specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].UseLocalPosition)
+
+            // 여기서는 근거리 무기의 Special Attack 판정!
+            // 원거리 공격은 ProjectileManagement()에서 따로 판정함! 
+            if (GameManager_JS.Instance.PlayerWeaponCheck() == 0 || GameManager_JS.Instance.PlayerWeaponCheck() == 1)
             {
-                instance.transform.parent = gameObject.transform;
-                instance.transform.localPosition = Vector3.zero;
-                instance.transform.localRotation = new Quaternion();
+
+                var instance = Instantiate(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackPrefab, gameObject.transform.position, gameObject.transform.rotation);
+                if (specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].UseLocalPosition)
+                {
+                    instance.transform.parent = gameObject.transform;
+                    instance.transform.localPosition = Vector3.zero;
+                    instance.transform.localRotation = new Quaternion();
+                }
+                Destroy(instance, specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
+
+                GameManager_JS.Instance.attackGuage.isSpecialReady = false;
+                GameManager_JS.Instance.InitGuage();
+                StartCoroutine(SpecialAttackRange());
             }
-            Destroy(instance, specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
-
-            GameManager_JS.Instance.attackGuage.isSpecialReady = false;
-            GameManager_JS.Instance.InitGuage();
-
-            StartCoroutine(SpecialAttackRange());
+            else
+            {
+                ProjectileManagement_SpecialAttack(GameManager_JS.Instance.PlayerWeaponCheck());
+            }
         }
     }
     #endregion
@@ -404,6 +414,59 @@ public class Attack : MonoBehaviour
 
             shuriken.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
         }
+    }
+
+    void ProjectileManagement_SpecialAttack(int PlayerWeapon)
+    {
+        MouseDirection = GetMouseWorldPosition();
+        transform.LookAt(MouseDirection);
+
+        GameManager_JS.Instance.attackGuage.isSpecialReady = false;
+        GameManager_JS.Instance.InitGuage();
+        StartCoroutine(SpecialAttackRange());
+
+        if (PlayerWeapon == 2)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+
+                // 각도 조절
+                float angle = (i - 1) * 30f; // -30, 0, 30
+                Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (MouseDirection - arrowSpawnPoint.position).normalized;
+
+                Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+                arrow.transform.rotation = arrowRotation;
+                arrow.transform.position = new Vector3(arrow.transform.position.x, 2f, arrow.transform.position.z);
+
+                arrow.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
+            }
+        }
+
+        if (PlayerWeapon == 3)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                StartCoroutine(SpawnShurikenDelayed(MouseDirection, i * 0.2f));
+            }
+            AttackAvailable = false;
+        }
+    }
+
+    IEnumerator SpawnShurikenDelayed(Vector3 targetPosition, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+
+        Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
+
+        // 수리검 로테이션 / Y좌표 보정
+        Quaternion shurikenRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+        shuriken.transform.rotation = shurikenRotation;
+        shuriken.transform.position = new Vector3(shuriken.transform.position.x, 2f, shuriken.transform.position.z);
+
+        shuriken.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
     }
 
 }

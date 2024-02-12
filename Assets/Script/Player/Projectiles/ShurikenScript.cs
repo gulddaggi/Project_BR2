@@ -8,7 +8,7 @@ public class ShurikenScript : PlayerProjectile
     {
         base.Start();
 
-        FindObjectOfType<Enemy>().destroyProjectileDelegate += DestroyProjectile;
+        // FindObjectOfType<Enemy>().destroyProjectileDelegate += DestroyProjectile;
     }
 
     protected override void OnTriggerEnter(Collider other)

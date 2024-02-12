@@ -189,7 +189,15 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
-            GameManager_JS.Instance.Guage();
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+            }
+            else
+            {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
@@ -223,7 +231,17 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
-            GameManager_JS.Instance.Guage();
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+                Debug.Log($"Player Special Attack Guage 채워질 양 : {playerdata.PlayerSpecialAttackFillingAmount}");
+                GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            }
+            else
+            {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
@@ -266,7 +284,14 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
-            GameManager_JS.Instance.Guage();
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+            }
+            else {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
