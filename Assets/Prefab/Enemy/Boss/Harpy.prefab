@@ -10105,13 +10105,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
-  Movespeed: 0
-  nav: {fileID: 0}
   Enemy_Recognition_Range: 0
   EnemyHP: 10
   PrimitiveHP: 0
   Damage: 10
   attackRangeObj: {fileID: 0}
+  AttackDelay: 1
   isHit: 0
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
@@ -10122,6 +10121,13 @@ MonoBehaviour:
   HPOn: 0
   isBoss: 0
   drawnDamage: 0
+  FindPlayerE: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
+  range: 20
+  EnemyPlayerAttackDistance: 3
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}

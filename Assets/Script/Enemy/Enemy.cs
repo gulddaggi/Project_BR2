@@ -11,11 +11,7 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
 
     protected Animator EnemyAnimator;
-    protected bool isAttack;
-    Rigidbody EnemyRigid;
-
-    public float Movespeed;
-    public NavMeshAgent nav;
+    protected bool isAttack = false;
 
     [SerializeField] public float Enemy_Recognition_Range;
 
@@ -33,6 +29,8 @@ public class Enemy : MonoBehaviour
     protected GameObject attackRangeObj;
 
     protected MeshRenderer SR;
+
+    public float AttackDelay = 1f;
 
     [SerializeField]
     protected bool isHit = false;
@@ -55,6 +53,19 @@ public class Enemy : MonoBehaviour
     // 1티어 업그레이드 디버프 적용 여부 확인 변수. 0이 아닐 경우 적용.
     public float drawnDamage = 0f;
 
+    public GameObject FindPlayerE;
+    public Vector3 FindPlayerOffset = new Vector3(0, 2.2f, 0);
+
+    public Transform player;
+    public UnityEngine.AI.NavMeshAgent nvAgent;
+    public Animator animator;
+
+    //탐색 범위
+    public float range = 20f;
+
+    // 이 범위 내에 플레이어가 들어올시 공격
+    [SerializeField] protected float EnemyPlayerAttackDistance = 3;
+
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -63,24 +74,29 @@ public class Enemy : MonoBehaviour
         EnemyAnimator = GetComponent<Animator>();
         SR = gameObject.GetComponent<MeshRenderer>();
         FullHP = EnemyHP;
+
+        nvAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
+        //0.25초마다 타깃 체크
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
     protected virtual void Update()
     {
-        //Track_Player();
-        //Enemy_Anim_Manage();
-    }
-
-    void Track_Player()
-    {
-        float distance = Vector3.Distance(Player.transform.position, transform.position);
-        if (distance < Enemy_Recognition_Range)
+        if (player != null)
         {
-            nav.destination = Player.transform.position;
-        }
-        else
-        {
-            EnemyRigid.velocity = Vector3.zero;
+            animator.SetBool("isWalk", true);
+            nvAgent.destination = player.position;
+            float dis = Vector3.Distance(player.position, gameObject.transform.position);
+            if (dis <= EnemyPlayerAttackDistance && isAttack == false)
+            {
+                EnemyAttackOn();
+            }
+            else
+            {
+                //animator.SetBool("isAttack", false);
+            }
         }
     }
 
@@ -96,30 +112,24 @@ public class Enemy : MonoBehaviour
         _hpbar.offset = hpBarOffset;
     }
 
-    void Enemy_Anim_Manage()
-    {
-        if (EnemyRigid.velocity.normalized != Vector3.zero)
-        {
-            // 속력벡터가 0이 아닐 시
-            EnemyAnimator.SetTrigger("Track");
-        }
-        else if (EnemyRigid.velocity == Vector3.zero)
-        {
-            EnemyAnimator.SetTrigger("Idle");
-        }
-    }
-
     protected virtual void EnemyAttackOn()
     {
         isAttack = true;
-        attackRangeObj.SetActive(true);
-        Invoke("EnemyAttackOff", 1f);
+        animator.SetBool("isAttack", true);
+        Invoke("EnemyAttackRangeON", 0.3f);
+        Invoke("EnemyAttackOff", AttackDelay);
     }
 
-    protected void EnemyAttackOff()
+    protected virtual void EnemyAttackOff()
     {
         attackRangeObj.SetActive(false);
         isAttack = false;
+        animator.SetBool("isAttack", false);
+    }
+
+    protected virtual void EnemyAttackRangeOff()
+    {
+        attackRangeObj.SetActive(true);
     }
 
     void OnTriggerEnter(Collider other)
@@ -137,6 +147,8 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Damaged!");
+            EnemyAnimator.SetTrigger("Damaged");
+
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
@@ -154,7 +166,7 @@ public class Enemy : MonoBehaviour
             EnemyHP -= damage;
 
             // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
+            StartCoroutine(GetDamaged());
 
             // 디버프 적용
             debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
@@ -174,7 +186,7 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Strongly Damaged!");
-
+            EnemyAnimator.SetTrigger("Damaged");
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
@@ -185,7 +197,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
+            StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
@@ -208,7 +220,7 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Dodge damaged!");
-
+            EnemyAnimator.SetTrigger("Damaged");
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = other.transform.GetComponentInParent<Player>();
             // 익사 디버프 여부 확인
@@ -219,7 +231,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
+            StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
@@ -243,9 +255,43 @@ public class Enemy : MonoBehaviour
 
         IEnumerator GetDamaged()
         {
+            EnemyAnimator.SetTrigger("Damaged");
             SR.material.color = Color.red;
             yield return new WaitForSeconds(0.6f);
             SR.material.color = Color.white;
         }
+    }
+
+    protected virtual void UpdateTarget()
+    {
+        //자신의 위치로부터 10f만큼의 반경의 충돌체를 검사하고 
+        Collider[] cols = Physics.OverlapSphere(transform.position, range);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                //반경 내에 플레이어가 존재할 경우 추적
+                if (cols[i].tag == "Player")
+                {
+                    //Debug.Log("Enemy find Target");
+
+                    player = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            //Debug.Log("Enemy lost Target");
+
+            animator.SetBool("isAttack", false);
+            player = null;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

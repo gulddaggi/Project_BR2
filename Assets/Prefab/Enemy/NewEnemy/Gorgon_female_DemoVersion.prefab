@@ -7102,7 +7102,6 @@ GameObject:
   - component: {fileID: 8437746007353163174}
   - component: {fileID: 8437746007353163173}
   - component: {fileID: 8437746007353163172}
-  - component: {fileID: 8437746007353163171}
   m_Layer: 3
   m_Name: Gorgon_female_DemoVersion
   m_TagString: Enemy
@@ -7446,6 +7445,7 @@ MonoBehaviour:
   PrimitiveHP: 0
   Damage: 10
   attackRangeObj: {fileID: 0}
+  AttackDelay: 1
   isHit: 0
   hpBarPrefab: {fileID: 2519535995746167745, guid: ffcea7e15eb1d4b5e9dbe4bfca04c82c, type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
@@ -7456,28 +7456,14 @@ MonoBehaviour:
   HPOn: 0
   isBoss: 0
   drawnDamage: 0
-  bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
---- !u!114 &8437746007353163171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8437746007353163169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26aad6f624c74d5a8c4f0cd9e72dd93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  FindPlayerE: {fileID: 0}
+  FindPlayerOffset: {x: 0, y: 2.2, z: 0}
+  player: {fileID: 0}
   nvAgent: {fileID: 0}
+  animator: {fileID: 0}
+  range: 20
+  EnemyPlayerAttackDistance: 3
   bulletPrefab: {fileID: 102920571250306707, guid: fa08d80a9e24e4958a0653e258c32308, type: 3}
-  bulletSpawnPoint: {fileID: 8437746007586723176}
-  fireRate: 2
-  rotationSpeed: 5
-  moveSpeed: 3
-  bulletSpeed: 30
-  moveInterval: 5
-  randomMoveDuration: 1
 --- !u!1 &8437746007362451443
 GameObject:
   m_ObjectHideFlags: 0

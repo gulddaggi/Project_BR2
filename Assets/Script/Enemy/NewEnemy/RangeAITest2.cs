@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RangeAITest2 : MonoBehaviour
 {
     private Transform player;
     public UnityEngine.AI.NavMeshAgent nvAgent;
     Animator animator;
+
     public GameObject bulletPrefab; // 원거리 공격을 위한 프리팹
     public Transform bulletSpawnPoint; // 총알 발사 위치
     public float fireRate = 2.0f; // 원거리 공격 발사 속도 (초당 발사 횟수)
@@ -29,7 +31,7 @@ public class RangeAITest2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //nvAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        nvAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent <Animator>();
 
         // 처음 이동 시간 설정
@@ -97,6 +99,7 @@ public class RangeAITest2 : MonoBehaviour
                 // 반경 내에 플레이어가 존재할 경우 추적
                 if (cols[i].CompareTag("Player"))
                 {
+
                     float distanceToPlayer = Vector3.Distance(transform.position, cols[i].transform.position);
                     if (distanceToPlayer < minDistance)
                     {
@@ -187,4 +190,3 @@ public class RangeAITest2 : MonoBehaviour
         }
     }
 }
-

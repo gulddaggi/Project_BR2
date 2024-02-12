@@ -11,11 +11,31 @@ public class MinotaurRangeAITest : RangeAITest
     //돌진 속도
     public float rush = 20f;
 
+    [SerializeField] float EnemyPlayerAttackDistance = 3;
+
     void Start()
     {
         nvAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
         InvokeRepeating("UpdateTarget", 0f, 1f);
+    }
+
+    void Update()
+    {
+        if (player != null)
+        {
+            animator.SetBool("isWalk", true);
+            nvAgent.destination = player.position;
+            float dis = Vector3.Distance(player.position, gameObject.transform.position);
+            if (dis <= EnemyPlayerAttackDistance)
+            {
+                animator.SetBool("isAttack", true);
+            }
+            else
+            {
+                animator.SetBool("isAttack", false);
+            }
+        }
     }
 
     // 플레이어와 접촉 시 호출됩니다.

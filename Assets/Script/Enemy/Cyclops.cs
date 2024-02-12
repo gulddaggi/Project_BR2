@@ -9,14 +9,5 @@ public class Cyclops : Enemy
     {
         base.Start();
     }
-    IEnumerator GetDamaged()
-    {
-        SR.material.color = Color.red;
-
-        yield return new WaitForSeconds(0.6f);
-        SR.material.color = Color.white;
-        isHit = false;
-
-    }
 }
     
