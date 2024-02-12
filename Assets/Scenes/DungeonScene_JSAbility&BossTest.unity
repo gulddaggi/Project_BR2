@@ -2898,9 +2898,21 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: debuffObjs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.size
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: debuffObjs.Array.data[0]
+      value: 
+      objectReference: {fileID: 513090212}
+    - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: debuffObjs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1191555662}
     - target: {fileID: 8613727375674025243, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: debuffEffects.Array.data[2]
       value: 
@@ -7722,6 +7734,18 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1865854134}
+    - target: {fileID: 1078623623913955625, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: fieldAttackObjArray.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078623623913955625, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: fieldAttackObjArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 2208666142750204271, guid: fcfdf1340cf67cb478710775cba29390, type: 3}
+    - target: {fileID: 1078623623913955625, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: fieldAttackObjArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 2208666142750204271, guid: 929a631896a70634c8f44304690ed923, type: 3}
     - target: {fileID: 1689446647727955234, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_Mesh
       value: 

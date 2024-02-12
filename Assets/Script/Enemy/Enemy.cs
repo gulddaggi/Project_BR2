@@ -287,7 +287,7 @@ public class Enemy : MonoBehaviour
             Debug.Log("Field damaged!");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponent<WaterField>().playerstatus;
+            playerdata = other.transform.GetComponent<Field>().playerstatus;
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerFieldAttackDamage;

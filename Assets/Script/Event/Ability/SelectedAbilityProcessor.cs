@@ -19,7 +19,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
 
     // 필드 공격 오브젝트
     [SerializeField]
-    GameObject fieldAttackObj;
+    GameObject[] fieldAttackObjArray;
 
     // 불의 가호 오브젝트
     [SerializeField]
@@ -244,7 +244,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
     // 습지 생성 능력
     private void WaterField()
     {
-        GameObject obj = Instantiate(fieldAttackObj, gameObject.transform.parent.position, Quaternion.identity);
+        GameObject obj = Instantiate(fieldAttackObjArray[0], gameObject.transform.parent.position, Quaternion.identity);
         obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
     }
 
@@ -320,13 +320,31 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 불의 가호 : 전투 시작 후 10초 동안 주변 적에게 초당 피해를 입힌다.
             // 적용 수치 : PlayerFireBlessingDamage
             case 5:
+                // 수치 적용
                 curValue = selectedAbility.plus_Value;
+                
+                // 능력 적용
                 GameManager_JS.Instance.OnStageChanged.AddListener(() => FlameAbilityFieldOn(curValue));
                 break;
 
             // 화염 지대 생성 : 이동 속도가 증가하며 돌진 후 2초 동안 적에게 화상 효과를 입히는 화염 지대를 생성한다.
             // 디버프 : 화상, 적용 수치 : playerFieldAttackBurnDamage
             case 6:
+                // 디버프 적용
+                playerStatus.SetDebuffToFieldAttack(1, 1);
+
+                // 수치 적용
+                // 이동 속도 증가
+                curValue = playerStatus.MoveSpeed;
+                calcValue = selectedAbility.plus_Value * 0.01f + 1f;
+                playerStatus.MoveSpeed = curValue * calcValue;
+
+                // 필드 데미지 설정
+                playerStatus.PlayerFieldAttackBurnDamage = 5f;
+
+                // 능력 적용
+                // 플레이어 컨트롤러 관련 이벤트에 AddListener.
+                playerController.OnPlayerFieldAttack.AddListener(() => FlameField());
                 break;
 
             // 정령 결속 강화(불) : 모든 공격 피해가 증가하며 화상과 파열 효과가 점화 효과로 강화된다.
@@ -354,5 +372,11 @@ public class SelectedAbilityProcessor : MonoBehaviour
     {
         flameFieldObj.SetActive(true);
         flameFieldObj.GetComponent<FlameAbilityField>().damage = _damage;
+    }
+
+    void FlameField()
+    {
+        GameObject obj = Instantiate(fieldAttackObjArray[1], gameObject.transform.parent.position, Quaternion.identity);
+        obj.GetComponent<Field>().playerstatus = this.GetComponentInParent<Player>();
     }
 }
