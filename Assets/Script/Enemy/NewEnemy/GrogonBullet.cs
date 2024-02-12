@@ -10,7 +10,7 @@ public class GrogonBullet : MonoBehaviour
     void Start()
     {
         // 일정 시간 후에 총알 파괴 
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject, 10.0f);
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class GrogonBullet : MonoBehaviour
         else
         {
             // 다른 충돌 대상에 부딪힐 경우 총알 파괴
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
