@@ -287,10 +287,10 @@ public class Enemy : MonoBehaviour
             damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = Player.GetComponent<Player>(); ;
+            playerdata = other.GetComponent<PlayerProjectile>().player;            
             // 익사 디버프 여부 확인
             if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
-            float damage = playerdata.PlayerStrongAttackDamage;
+            float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
             if (GameManager_JS.Instance != null)

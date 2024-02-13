@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     public float destroyTime = 5f;       // 투사체 파괴 시간
+    public Player player;
 
     protected virtual void Start()
     {
