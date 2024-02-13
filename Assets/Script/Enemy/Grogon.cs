@@ -60,7 +60,6 @@ public class Grogon : Enemy
         if (count == 3)
         {
             StartCoroutine(MoveBackwardFromPlayer());
-            count = 0;
         }
     }
 
@@ -97,6 +96,7 @@ public class Grogon : Enemy
             // 다음 프레임까지 대기합니다.
             yield return null;
         }
+        count = 0;
         animator.SetBool("isAttack", true);
     }
 

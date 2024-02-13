@@ -139,7 +139,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                animator.SetBool("isAttack", false);
+                //animator.SetBool("isAttack", false);
             }
         }
     }
@@ -193,9 +193,9 @@ public class Enemy : MonoBehaviour
         if(damaged == false)
         {
             animator.SetBool("isAttack", true);
+            Invoke("EnemyAttackRangeON", 0.3f);
+            Invoke("EnemyAttackOff", AttackDelay);
         }
-        Invoke("EnemyAttackRangeON", 0.3f);
-        Invoke("EnemyAttackOff", AttackDelay);
     }
 
     protected virtual void EnemyAttackOff()
@@ -620,7 +620,7 @@ public class Enemy : MonoBehaviour
         {
             //Debug.Log("Enemy lost Target");
 
-            animator.SetBool("isAttack", false);
+            //animator.SetBool("isAttack", false);
             player = null;
         }
     }
