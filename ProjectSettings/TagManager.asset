@@ -17,6 +17,7 @@ TagManager:
   - Event_Ability_1
   - EnemyAttack
   - PlayerDodgeAttack
+  - PlayerAttackProjectile
   - PlayerFieldAttack
   layers:
   - Default

@@ -85,6 +85,13 @@ public class Enemy : MonoBehaviour
 
     Player playerdata;
 
+    // 델리게이트 정의. 투사체 제거 명령에 이용됨
+    public delegate void DestroyProjectileDelegate(GameObject projectile);
+
+    // 델리게이트 인스턴스 생성
+    public DestroyProjectileDelegate destroyProjectileDelegate;
+
+
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -198,13 +205,75 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
-            GameManager_JS.Instance.Guage();
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+            }
+            else
+            {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 1);
+        }
+        
+        if (other.tag == "PlayerAttackProjectile")
+        {
+            if (!isBoss && HPOn == false)
+            {
+                HPOn = true;
+                SetHpBar();
+            }
+
+            Debug.Log("Damaged by Player Projectile");
+
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            Player playerdata = Player.GetComponent<Player>(); ;
+            // 익사 디버프 여부 확인
+            if (playerdata.PlayerDrawnDamage != 0f) drawnDamage = playerdata.PlayerDrawnDamage;
+            float damage = playerdata.PlayerStrongAttackDamage;
+            debuffArray = playerdata.GetStAttackDebuff();
+
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+                Debug.Log($"Player Special Attack Guage 채워질 양 : {playerdata.PlayerSpecialAttackFillingAmount}");
+                GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            }
+            else
+            {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
+
+            // 피격 시 넉백
+            //StartCoroutine(GetDamaged());
+
+            // 피격 시 체력 감소 계산
+            EnemyHP -= damage;
+
+            // 디버프 적용
+            debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
+
+            // 체력 바 업데이트
+            if (!isBoss)
+            {
+                hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+            }
+            Destroy(other.gameObject);
+
+            /*
+            if (destroyProjectileDelegate != null)
+            {
+                destroyProjectileDelegate(other.gameObject);
+            }
+            */
+
         }
 
         if (other.tag == "PlayerDodgeAttack")
@@ -218,7 +287,14 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
-            GameManager_JS.Instance.Guage();
+            if (GameManager_JS.Instance != null)
+            {
+                Debug.Log("피격 및 게이지 판정");
+                GameManager_JS.Instance.Guage();
+            }
+            else {
+                Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
+            }
 
             // 피격 시 넉백
             //StartCoroutine(GetDamaged());

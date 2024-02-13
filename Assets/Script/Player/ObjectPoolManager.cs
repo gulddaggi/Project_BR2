@@ -3,7 +3,7 @@ using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
 {
-
+    /*
     public static ObjectPoolManager instance;
 
     public int defaultCapacity = 10;
@@ -62,4 +62,5 @@ public class ObjectPoolManager : MonoBehaviour
     {
         Destroy(poolGo);
     }
+    */
 }

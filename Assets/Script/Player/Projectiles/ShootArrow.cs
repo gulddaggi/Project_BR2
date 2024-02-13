@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootArrow : MonoBehaviour
 {
+    /*
     Attack attack;
     public GameObject player;
     public GameObject Arrow;
@@ -33,4 +34,5 @@ public class ShootArrow : MonoBehaviour
             var bullet = ObjectPoolManager.instance.Pool.Get();
         }
     }
+    */
 }
