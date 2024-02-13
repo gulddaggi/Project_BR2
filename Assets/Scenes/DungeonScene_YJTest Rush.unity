@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2157474359228210181, guid: afebf0a308bfc0348a239a0a0794a312, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2157474359228210181, guid: afebf0a308bfc0348a239a0a0794a312, type: 3}
       propertyPath: m_TagString
@@ -1738,6 +1738,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 561067920825257743, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: AttackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 561067920825257743, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: EnemyPlayerAttackDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 561067920864737952, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: AttackDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 561067920864737952, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: EnemyPlayerAttackDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3127805909624388291, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: playerPos
       value: 
@@ -1790,6 +1806,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Stage_Pr
       objectReference: {fileID: 0}
+    - target: {fileID: 4721877508404517110, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99642634
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721877508404517110, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.07485635
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721877508404517110, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.036777638
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721877508404517110, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0133643
+      objectReference: {fileID: 0}
     - target: {fileID: 4899848627285104712, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1805,6 +1837,22 @@ PrefabInstance:
     - target: {fileID: 5155610352679301218, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173415092055510470, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173415092055510470, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173415092099184745, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173415092099184745, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}

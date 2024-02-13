@@ -8,6 +8,7 @@ public class HalfSpider : Enemy
     protected override void Start()
     {
         base.Start();
+        animator.applyRootMotion = false;
     }
 
     IEnumerator GetDamaged()

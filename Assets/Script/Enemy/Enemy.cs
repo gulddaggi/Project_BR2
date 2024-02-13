@@ -97,6 +97,8 @@ public class Enemy : MonoBehaviour
     //탐색 범위
     public float range = 20f;
 
+    protected bool damaged = false;
+
     // 이 범위 내에 플레이어가 들어올시 공격
     [SerializeField] protected float EnemyPlayerAttackDistance = 3;
 
@@ -129,13 +131,13 @@ public class Enemy : MonoBehaviour
             animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
-            if (dis <= EnemyPlayerAttackDistance && isAttack == false)
+            if (dis <= EnemyPlayerAttackDistance && isAttack == false && damaged == false)
             {
                 EnemyAttackOn();
             }
             else
             {
-                //animator.SetBool("isAttack", false);
+                animator.SetBool("isAttack", false);
             }
         }
     }
@@ -220,6 +222,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Damaged!");
             EnemyAnimator.SetTrigger("Damaged");
+            attackRangeObj.SetActive(false);
+            damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -239,6 +243,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Strongly Damaged!");
             EnemyAnimator.SetTrigger("Damaged");
+            attackRangeObj.SetActive(false);
+            damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -274,6 +280,8 @@ public class Enemy : MonoBehaviour
 
             Debug.Log("Damaged by Player Projectile");
             EnemyAnimator.SetTrigger("Damaged");
+            attackRangeObj.SetActive(false);
+            damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = Player.GetComponent<Player>(); ;
@@ -324,6 +332,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Dodge damaged!");
             EnemyAnimator.SetTrigger("Damaged");
+            attackRangeObj.SetActive(false);
+            damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -352,6 +362,8 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Field damaged!");
             EnemyAnimator.SetTrigger("Damaged");
+            attackRangeObj.SetActive(false);
+            damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponent<Field>().playerstatus;
@@ -375,6 +387,16 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(0.6f);
             SR.material.color = Color.white;
         }
+
+        if(damaged == true)
+        {
+            Invoke("DamagedDelay", 0.3f);
+        }
+    }
+
+    void DamagedDelay()
+    {
+        damaged = false;
     }
 
     public void Dead()
