@@ -131,7 +131,7 @@ public class Enemy : MonoBehaviour
             animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
-            if (dis <= EnemyPlayerAttackDistance && isAttack == false && damaged == false)
+            if (dis <= EnemyPlayerAttackDistance && isAttack == false)
             {
                 EnemyAttackOn();
             }
@@ -188,7 +188,10 @@ public class Enemy : MonoBehaviour
     protected virtual void EnemyAttackOn()
     {
         isAttack = true;
-        animator.SetBool("isAttack", true);
+        if(damaged == false)
+        {
+            animator.SetBool("isAttack", true);
+        }
         Invoke("EnemyAttackRangeON", 0.3f);
         Invoke("EnemyAttackOff", AttackDelay);
     }
@@ -390,7 +393,7 @@ public class Enemy : MonoBehaviour
 
         if(damaged == true)
         {
-            Invoke("DamagedDelay", 0.3f);
+            Invoke("DamagedDelay", 0.7f);
         }
     }
 
