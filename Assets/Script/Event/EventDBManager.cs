@@ -157,7 +157,7 @@ public class EventDBManager : MonoBehaviour
         }
 
         returnArray[0] = line;
-        if (totalAbilityDic[ab_index][line].plus_Value[grade] == "-")
+        if (totalAbilityDic[ab_index][line].plus_Value[0] == "-")
         {
             returnArray[1] = 0;
             format[3].GetComponent<Text>().text = " ";

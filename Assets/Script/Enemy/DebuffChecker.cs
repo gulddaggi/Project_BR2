@@ -57,6 +57,17 @@ public class DebuffChecker : MonoBehaviour
                         break;
 
                     case 1:
+                        if (_excutionArray[1])
+                        {
+                            // 처형 이펙트 재생 및 디버프 전염
+                            debuffManager.FlameExcutionEffectOn();
+                            // 사망 처리
+                            this.GetComponent<Enemy>().Dead();
+                        }
+                        else
+                        {
+                            debuffManager.FlameDebuffEffectOn(_debuffArray[i]);
+                        }
                         break;
 
                     default:

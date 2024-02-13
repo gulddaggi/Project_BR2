@@ -20,6 +20,8 @@ public class DebuffManager : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
 
+    bool isIgnitionStackOn = false;
+
     void Start()
     {
         // 초기 속도 초기화
@@ -160,8 +162,32 @@ public class DebuffManager : MonoBehaviour
             Transform IgnitionEffectTransform = flameParent.transform.GetChild(index);
             IgnitionEffectTransform.GetComponent<ParticleSystem>().Stop();
             IgnitionEffectTransform.GetComponent<ParticleSystem>().Play();
-            Invoke("FlameIgnitionStackEffectOn", 3f);
+            if (!isIgnitionStackOn)
+            {
+                isIgnitionStackOn = true;
+                Invoke("FlameIgnitionStackEffectOn", 3f);
+            }
         }
+    }
+
+    // 불 타입 능력 처형 이펙트
+    public void FlameExcutionEffectOn()
+    {
+        // 주변 적에게 디버프 적용
+        Collider[] cols = Physics.OverlapSphere(this.gameObject.transform.position, 3f, layerMask);
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (cols[i].tag == "Enemy")
+            {
+                cols[i].GetComponentInChildren<DebuffManager>().FlameDebuffEffectOn(3);
+            }
+        }
+
+        // 처형 이펙트 재생
+        Transform excutionEffectTransform = debuffObjs[1].transform.GetChild(4);
+        excutionEffectTransform.SetParent(null);
+        excutionEffectTransform.GetComponent<ParticleSystem>().Play();
+
     }
 
     // 점화 이펙트 재생 3초 후 재생되는 이펙트
@@ -174,6 +200,7 @@ public class DebuffManager : MonoBehaviour
 
         // 데미지 적용
         StackDamageOn(1, 1f);
+        isIgnitionStackOn = false;
     }
 
     public void WaterExcutionEffectOn()

@@ -71,6 +71,7 @@ public class Player : MonoBehaviour, IListener
     public float PlayerBurstDamage { get { return playerBurstDamage; } set { playerBurstDamage = value; } }
     public float PlayerFireBlessingDamage { get { return playerFireBlessingDamage; } set { playerFireBlessingDamage = value; } }
     public float PlayerCounterIgnitionDamage { get { return playerCounterIgnitionDamage; } set { playerCounterIgnitionDamage = value; } }
+    public float PlayerExcutionPercent { get { return playerExcutionPercent; } set { playerExcutionPercent = value; } }
 
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerBurstDamage;
     [SerializeField] protected float playerFireBlessingDamage;
     [SerializeField] protected float playerCounterIgnitionDamage;
+    [SerializeField] protected float playerExcutionPercent = -1.0f;
 
     // 모든 데미지 일괄 계산 함수.
     public void SetPlayerAllDamage(float _value)
