@@ -8,8 +8,6 @@ public class PlayerChangeWeapon : MonoBehaviour
     public Attack.Weapon crystal_weapon;
 
     GameObject player;
-    public GameObject Axe;
-    public GameObject Sword;
     public GameObject WeaponChangeUI;
 
     public bool Weapon_Change_Available = false;
