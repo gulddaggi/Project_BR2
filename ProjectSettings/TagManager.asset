@@ -18,6 +18,7 @@ TagManager:
   - EnemyAttack
   - PlayerDodgeAttack
   - PlayerAttackProjectile
+  - PlayerFieldAttack
   layers:
   - Default
   - TransparentFX

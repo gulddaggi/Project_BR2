@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Player))]
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public int DodgeButtonPressedCount;
 
     [SerializeField] private Vector3 PlayerMoveDirection;
+
+    // 필드 공격 발생 이벤트.
+    public UnityEvent OnPlayerFieldAttack;
 
     // 돌진 공격 판정 오브젝트
     [SerializeField]
@@ -75,6 +79,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("플레이어 기본 회피");
 
                 // PlayerColor.material.color = Color.red; 디버그용
+                
+                // 돌진 데미지 판정 오브젝트 활성화
                 dodgeAttackObj.SetActive(true);
 
                 Invoke("Basic_Dodge_Out", Basic_Dodge_Time);
@@ -159,6 +165,10 @@ public class PlayerController : MonoBehaviour
     {
         player.Player_MoveSpeed_Reclaimer();
         // damageField.gameObject.SetActive(false);
+
+        // 플레이어 필드 공격 이벤트 발생.
+        OnPlayerFieldAttack.Invoke();
+
         isDodge = false;
         Basic_Dodge_CoolDown = 0;
         PlayerAnimator.SetInteger("DodgeButtonPressedCount", 0);
@@ -195,6 +205,10 @@ public class PlayerController : MonoBehaviour
             isAttacked = true;
             Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
             player.TakeDamage(enemy.Damage);
+            if (player.PlayerCounterAbilityDamage != 0f)
+            {
+                enemy.CounterAttacked(player.PlayerCounterAbilityDamage, player.GetAttackDebuff());
+            }
             Debug.Log("Player Damaged : " + enemy.Damage);
             isAttacked = false;
         }

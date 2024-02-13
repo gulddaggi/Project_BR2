@@ -23,10 +23,11 @@ public class Player : MonoBehaviour, IListener
     private int[] stAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
+    private bool[] excutionAbilityArray = { false, false, false, false, false };
 
     public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
-    public float CurrentHP { 
-        get { return currentHP; } 
+    public float CurrentHP {
+        get { return currentHP; }
         set {
             currentHP = value;
             if (currentHP < 0)
@@ -35,15 +36,17 @@ public class Player : MonoBehaviour, IListener
                 BeforeDie();
             }
             else if (currentHP > FullHP) currentHP = FullHP;
-            OnPlayerHPUpdated.Invoke(FullHP, CurrentHP); 
-        } 
+            OnPlayerHPUpdated.Invoke(FullHP, CurrentHP);
+        }
     }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
     public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackDamage = value; } }
     public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackDamage = value; } }
-    public float PlayerDrawnDamage { get { return playerDrawnDamage; } set { playerDrawnDamage = value; } } // 단위 : %. 적 체력의 PlayerDrawnDamage(%) 만큼 데미지 적용.
+    public float PlayerCounterAbilityDamage { get { return playerCounterAbilityDamage; } set { playerCounterAbilityDamage = value; } }
+
+    public float PlayerStackDamage { get { return playerStackDamage; } set { playerStackDamage = value; } } // 단위 : %. 적 체력의 PlayerDrawnDamage(%) 만큼 데미지 적용.
 
     public float PlayerSpecialAttackFillingAmount { get { return playerSpecialAttackFillingAmount; } set { playerSpecialAttackFillingAmount = value; } }
 
@@ -54,7 +57,8 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
-    [SerializeField] protected float playerDrawnDamage;
+    [SerializeField] protected float playerStackDamage;
+    [SerializeField] protected float playerCounterAbilityDamage;
     [SerializeField] protected float playerSpecialAttackFillingAmount;
 
     // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
@@ -117,13 +121,13 @@ public class Player : MonoBehaviour, IListener
     }
 
     // 삭제 예정.
-   public float[] PlayerAttack(float EnemyHP)
+    public float[] PlayerAttack(float EnemyHP)
     {
-        float[] returnArray = new float[2] { EnemyHP, -1f};
+        float[] returnArray = new float[2] { EnemyHP, -1f };
 
         // 체력 계산
         returnArray[0] -= playerAttackDamage;
-        
+
         // 디버프 확인
         for (int i = 0; i < debuffOnArray.Length; i++)
         {
@@ -142,7 +146,7 @@ public class Player : MonoBehaviour, IListener
         float RemainedHP = EnemyHP;
         RemainedHP -= playerStrongAttackDamage;
 
-        return RemainedHP;    
+        return RemainedHP;
     }
 
     // 삭제 예정.
@@ -196,9 +200,9 @@ public class Player : MonoBehaviour, IListener
     // 능력 선택에 따른 필드공격 디버프 값 변경. SelectedAbilityProcessor에서 사용.
     public void SetDebuffToFieldAttack(int _index, int _value)
     {
-        if (stAttackDebuffArray[_index] < _value)
+        if (fieldAttackDebuffArray[_index] < _value)
         {
-            stAttackDebuffArray[_index] = _value;
+            fieldAttackDebuffArray[_index] = _value;
         }
     }
 
@@ -209,6 +213,12 @@ public class Player : MonoBehaviour, IListener
         {
             dodgeAttackDebuffArray[_index] = _value;
         }
+    }
+
+    // 능력 선택에 따른 처형 관련 능력 활성화. SelectedAbilityProcessor에서 사용.
+    public void SetExcutionAbility(int _index, bool _value)
+    {
+        excutionAbilityArray[_index] = _value;
     }
 
     // 플레이어에게 약공격으로 피격된 적이 디버프를 확인
@@ -233,6 +243,12 @@ public class Player : MonoBehaviour, IListener
     public int[] GetDodgeAttackDebuff()
     {
         return dodgeAttackDebuffArray;
+    }
+
+    // 플레이어에게 모든 공격에 대해 피격된 적이 처형 디버프를 확인
+    public bool[] GetExecutionAbilityArray()
+    {
+        return excutionAbilityArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)

@@ -149,7 +149,6 @@ public class EventDBManager : MonoBehaviour
         format[0].GetComponent<Text>().text = totalAbilityDic[ab_index][line].ability_name;
         format[1].GetComponent<Text>().text = totalAbilityDic[ab_index][line].description;
         format[2].GetComponent<Text>().text = totalAbilityDic[ab_index][line].option;
-        format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
         SetRank(format[4], grade);
         if(totalAbilityDic[ab_index][line].sub_Description != "")
         {
@@ -158,7 +157,16 @@ public class EventDBManager : MonoBehaviour
         }
 
         returnArray[0] = line;
-        returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
+        if (line == 9)
+        {
+            returnArray[1] = 0;
+            format[3].GetComponent<Text>().text = " ";
+        }
+        else
+        {
+            format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
+            returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
+        }
 
         return returnArray;
     }

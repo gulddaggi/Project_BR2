@@ -10,22 +10,54 @@ public class DebuffChecker : MonoBehaviour
     DebuffManager debuffManager;
 
     // 디버프 확인. 디버프 배열을 순회하며 인덱스에 맞는 이펙트 활성화
-    public void DebuffCheckJS(int[] _debuffArray, float _drawnDamage)
+    public void DebuffCheckJS(int[] _debuffArray)
     {
         for (int i = 0; i < _debuffArray.Length; i++)
         {
-            Debug.Log("_debuffArray[0]" + _debuffArray[0]);
             if (_debuffArray[i] != 0)
             {
                 switch (i)
                 {
                     case 0:
-                        debuffManager.WaterDebuffEffectOn(_debuffArray[i], _drawnDamage);
+                        debuffManager.WaterDebuffEffectOn(_debuffArray[i]);
                         break;
 
                     case 1:
                         break;
                     
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    // 디버프 확인. 디버프 배열을 순회하며 인덱스에 맞는 이펙트 활성화
+    public void DebuffCheckJS(int[] _debuffArray, bool[] _excutionArray)
+    {
+        for (int i = 0; i < _debuffArray.Length; i++)
+        {
+            if (_debuffArray[i] != 0)
+            {
+                switch (i)
+                {
+                    case 0:
+                        if (_excutionArray[0])
+                        {
+                            // 처형 이펙트 재생 및 디버프 전염
+                            debuffManager.WaterExcutionEffectOn();
+                            // 사망 처리
+                            this.GetComponent<Enemy>().Dead();
+                        }
+                        else
+                        {
+                            debuffManager.WaterDebuffEffectOn(_debuffArray[i]);
+                        }
+                        break;
+
+                    case 1:
+                        break;
+
                     default:
                         break;
                 }

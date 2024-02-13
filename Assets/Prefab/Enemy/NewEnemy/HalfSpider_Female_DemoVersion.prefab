@@ -6249,7 +6249,8 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
-  drawnDamage: 0
+  totalStackDamage: 0
+  time: 0
 --- !u!1 &3447095299496662616
 GameObject:
   m_ObjectHideFlags: 0
@@ -11671,7 +11672,9 @@ MonoBehaviour:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 631c359c0dc700e4ba8d02558b57df11, type: 3}
   originvelocity: 0
-  time: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &6081753696252092426
 GameObject:
   m_ObjectHideFlags: 0
