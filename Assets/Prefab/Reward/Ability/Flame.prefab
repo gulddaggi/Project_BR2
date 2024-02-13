@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 62cf7f8ed6597214bacb2f6d9d17d985, type: 2}
+  - {fileID: 2100000, guid: 578a66aa65c29e1428f95dbb9eb2303b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventType: 0
-  typeIndex: 0
-  NPCName: "\uBB3C\uC758 \uC815\uB839"
+  typeIndex: 1
+  NPCName: "\uBD88\uC758 \uC815\uB839"

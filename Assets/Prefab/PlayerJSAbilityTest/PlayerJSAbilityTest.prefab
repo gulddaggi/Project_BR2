@@ -964,8 +964,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &3813765441061861481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,8 +1515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &5540934960472098948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,6 +1916,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: db43a527-c362-4e1c-aedf-fa67a89b82a3
     m_ActionName: PlayerMove/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8836125a-6b25-44b4-922e-0047703e33f7
+    m_ActionName: PlayerMove/SpecialAttack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Personal Computer(x64)
   m_DefaultActionMap: PlayerMove
@@ -1941,6 +1941,9 @@ MonoBehaviour:
   PlayerRigid: {fileID: 0}
   DodgeButtonPressedCount: 0
   PlayerMoveDirection: {x: 0, y: 0, z: 0}
+  OnPlayerFieldAttack:
+    m_PersistentCalls:
+      m_Calls: []
   dodgeAttackObj: {fileID: 8917000803891725191}
   CanMove: 1
   Basic_Dodge_CoolDown: 0
@@ -1989,6 +1992,11 @@ MonoBehaviour:
     - {fileID: 5355507970589767934}
   inputBufferSize: 2
   BufferCount: 0
+  specialAttack: []
+  arrowPrefab: {fileID: 0}
+  shurikenPrefab: {fileID: 0}
+  arrowSpawnPoint: {fileID: 0}
+  arrowSpeed: 40
 --- !u!114 &6402893141203149823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,7 +2031,15 @@ MonoBehaviour:
   playerStrongAttackDamage: 15
   playerFieldAttackDamage: 0
   playerDodgeAttackDamage: 0
-  playerDrawnDamage: 0
+  playerCounterAbilityDamage: 0
+  playerAttackBurnDamage: 0
+  playerStrongAttackBurnDamamge: 0
+  playerFieldAttackBurnDamage: 0
+  playerDodgeAttackBurnDamage: 0
+  playerBurstDamage: 0
+  playerFireBlessingDamage: 0
+  playerCounterIgnitionDamage: 0
+  playerExcutionPercent: -1
 --- !u!114 &8269540173079867940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2216,8 +2232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ab99341b317fc45ad788d2aa8dc2eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  Arrow: {fileID: 1959729250425484, guid: 5187dfa4d8f19524e8bbf7c6894b7de7, type: 3}
 --- !u!1 &6411771761056946458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2906,10 +2920,12 @@ MonoBehaviour:
   events:
   - {fileID: 0}
   - {fileID: 4166162146691869422, guid: a937c08457eec1546ba9faaacdc99393, type: 3}
+  - {fileID: 0}
   event_Ability:
   - {fileID: 0}
   - {fileID: 0}
-  event_Merchant: []
+  event_Merchant:
+  - {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -2918,6 +2934,7 @@ MonoBehaviour:
   itemFormGetter: {fileID: 0}
   dialogues: []
   range: 50
+  eventOn: 0
 --- !u!1 &8269540173174422957
 GameObject:
   m_ObjectHideFlags: 0

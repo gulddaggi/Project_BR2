@@ -80,9 +80,9 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
-    protected float playerStackDamage;
+    [SerializeField] protected float playerStackDamage;
     [SerializeField] protected float playerCounterAbilityDamage;
-    protected float playerSpecialAttackFillingAmount;
+    [SerializeField] protected float playerSpecialAttackFillingAmount;
 
     [SerializeField] protected float playerAttackBurnDamage;
     [SerializeField] protected float playerStrongAttackBurnDamamge;

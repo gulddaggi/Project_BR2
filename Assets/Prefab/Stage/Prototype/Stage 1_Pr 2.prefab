@@ -646,9 +646,11 @@ MonoBehaviour:
   - {fileID: 4902527854752625825}
   - {fileID: 6428862160549074537}
   enemyPrefabs:
-  - {fileID: 4899848627645275925, guid: cd51f09facf7d5a499b40a77dda0da71, type: 3}
-  - {fileID: 6589860889163179333, guid: 5edf6f42135d14ed7b4f51023a508b4f, type: 3}
-  - {fileID: 3413503133081157565, guid: e0d7ebd29689042ee8c3a6c830194c24, type: 3}
+  - {fileID: 4899848627645275925, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
+  - {fileID: 6589860889163179333, guid: 30166a8d5c2d64544b96b10601330c54, type: 3}
+  - {fileID: 3413503133081157565, guid: c26033385899e88408e2abcb217e2fc2, type: 3}
+  - {fileID: 6163668485059913282, guid: b38bb319650ee5b4499f6000c21c629b, type: 3}
+  - {fileID: 2157474359228210181, guid: aff83e27e7d78cc4cb2d7147a6e47434, type: 3}
   curEnemy: {fileID: 0}
   curEnemyCount: 0
   spawnCount: 0100000002000000
@@ -1762,10 +1764,6 @@ MonoBehaviour:
   abilityPrefs:
   - {fileID: 1730505500892672122, guid: 43fb7723849960d46886df087d3196eb, type: 3}
   - {fileID: 1383268528513449817, guid: 1e9c725d1cf7ab24cbd9516e47f6d908, type: 3}
-  - {fileID: 1219918898106686457, guid: ce7ebc800c37ace48a6294b1b5e6d377, type: 3}
-  - {fileID: 5807706627265659821, guid: b26ab95f971b44940a68a3f8bde9d032, type: 3}
-  - {fileID: 1998034127036554764, guid: 4bece5101b72bf24ca86fb9b2014135e, type: 3}
-  - {fileID: 7939117737218285153, guid: 2f1aaa7ef5d6caa4f9c1aaff6bed6a8d, type: 3}
 --- !u!114 &818153031524234545
 MonoBehaviour:
   m_ObjectHideFlags: 0

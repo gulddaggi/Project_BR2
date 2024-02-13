@@ -23,6 +23,7 @@ public class FlameAbilityField : MonoBehaviour
         {
             if (cols[i].tag == "Enemy")
             {
+                cols[i].GetComponent<Enemy>().playerdata = this.GetComponentInParent<Player>();
                 cols[i].GetComponent<Enemy>().TakeDamage(damage);
             }
         }

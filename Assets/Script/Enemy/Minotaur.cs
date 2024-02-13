@@ -17,7 +17,7 @@ public class Minotaur : Enemy
         animator.SetBool("isAttack", true);
         nvAgent.enabled = false;
         Invoke("EnemyAttackRangeON", 0.3f);
-        Invoke("EnemyAttackOff", 2f);
+        Invoke("EnemyAttackOff", 1.3f);
     }
 
     protected override void EnemyAttackRangeON()

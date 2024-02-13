@@ -228,8 +228,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DBFiles_Ability:
   - DB_Ability_Water
+  - DB_Ability_Flame
   DBFiles_Dialogue:
   - DB_Dialogue_Water
+  - DB_Dialogue_Flame
   DBFiles_Merchant: DB_Merchant
   abilityCountArr: 000000000000000000000000
 --- !u!4 &135974880

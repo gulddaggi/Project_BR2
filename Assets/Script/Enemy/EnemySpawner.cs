@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
-        if (spawnTrigger && curEnemyCount == 0)
+        if (spawnTrigger && curEnemyCount <= 0)
         {
             spawnTrigger = false;
             EnemySpawn();

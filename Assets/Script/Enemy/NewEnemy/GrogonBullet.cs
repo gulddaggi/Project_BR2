@@ -6,6 +6,7 @@ public class GrogonBullet : MonoBehaviour
 {
     public float speed = 10.0f; // 총알의 속도
     public int damage = 10; // 총알의 피해량
+    public Enemy enemy;
 
     void Start()
     {

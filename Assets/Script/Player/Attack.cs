@@ -387,10 +387,10 @@ public class Attack : MonoBehaviour
 
     void ProjectileManagement(Vector3 targetPosition)
     {
-
         if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 && AttackAvailable)
         {
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            arrow.GetComponent<PlayerProjectile>().player = player;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
 
             // 화살 로테이션 / Y좌표 보정
@@ -404,6 +404,7 @@ public class Attack : MonoBehaviour
         {
             // 차후에 수리검 실장시 추가
             GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            shuriken.GetComponent<PlayerProjectile>().player = player;
             AttackAvailable = false;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
 

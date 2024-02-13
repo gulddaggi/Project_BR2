@@ -24504,8 +24504,11 @@ MonoBehaviour:
   debuffEffects:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  debuffObjs: []
   originvelocity: 0
-  time: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7565070017290413318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24529,10 +24532,19 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
-  hpBarImage: {fileID: 0}
-  hpBarImage2: {fileID: 0}
+  hpBar: {fileID: 0}
+  hpBarFill: {fileID: 0}
+  hpBarFrame: {fileID: 0}
   HPOn: 0
-  drawnDamage: 0
+  isBoss: 0
+  totalStackDamage: 0
+  time: 0
+  AttackDelay: 1
+  range: 20
+  EnemyPlayerAttackDistance: 3
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &362532355212276237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24545,7 +24557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 8107949578582575440}
   debuffManager: {fileID: 1610189114413921048}
 --- !u!65 &6742663044403621994
 BoxCollider:
@@ -24927,8 +24938,11 @@ MonoBehaviour:
   debuffEffects:
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
   - {fileID: 4853743860892869796, guid: 963313b6977f49e478d513939abbdbb4, type: 3}
+  debuffObjs: []
   originvelocity: 0
-  time: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &7565070017334071465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24952,10 +24966,19 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 0}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
-  hpBarImage: {fileID: 0}
-  hpBarImage2: {fileID: 0}
+  hpBar: {fileID: 0}
+  hpBarFill: {fileID: 0}
+  hpBarFrame: {fileID: 0}
   HPOn: 0
-  drawnDamage: 0
+  isBoss: 0
+  totalStackDamage: 0
+  time: 0
+  AttackDelay: 1
+  range: 20
+  EnemyPlayerAttackDistance: 3
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &362532355172796322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24968,7 +24991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3595dd69078c1474192ff370fcd7d686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objColor: {fileID: 8107949578673405183}
   debuffManager: {fileID: 4517505561031070192}
 --- !u!65 &6742663044448290245
 BoxCollider:
@@ -50740,7 +50762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints: []
-  enemy: {fileID: 0}
+  enemyPrefabs: []
+  curEnemy: {fileID: 0}
   curEnemyCount: 2
   spawnCount: 0000000000000000
 --- !u!1 &6954638438489170471

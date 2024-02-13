@@ -184,6 +184,8 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 playerStatus.PlayerFieldAttackDamage = playerStatus.PlayerFieldAttackDamage * calcValue;
                 playerStatus.PlayerDodgeAttackDamage = playerStatus.PlayerDodgeAttackDamage * calcValue;
 
+                // 익사 데미지 설정. StackDamageArray를 사용.
+                playerStatus.SetStackDamage(0, selectedAbility.plus_Value);
                 break;
 
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
@@ -245,7 +247,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
     private void WaterField()
     {
         GameObject obj = Instantiate(fieldAttackObjArray[0], gameObject.transform.parent.position, Quaternion.identity);
-        obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
+        obj.GetComponent<Field>().playerstatus = this.GetComponentInParent<Player>();
     }
 
     // 불 능력 선택 시 적용.
@@ -374,9 +376,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 디버프 : 점화, 적용 수치 : PlayerCounterIgnitionDamage
             case 8:
                 // 수치 적용.
-                playerStatus.PlayerCounterIgnitionDamage = 10f;
-                // DB 업데이트 후 교체
-                //playerStatus.PlayerCounterIgnitionDamage = selectedAbility.plus_Value;
+                playerStatus.PlayerCounterIgnitionDamage = selectedAbility.plus_Value;
                 break;
 
             // 화염 처형 : 점화 효과를 입은 적의 체력이 25% 이하인 경우 적을 바로 처치하며 주변 적에게 점화 효과를 입힌다.
