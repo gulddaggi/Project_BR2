@@ -184,6 +184,8 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 playerStatus.PlayerFieldAttackDamage = playerStatus.PlayerFieldAttackDamage * calcValue;
                 playerStatus.PlayerDodgeAttackDamage = playerStatus.PlayerDodgeAttackDamage * calcValue;
 
+                // 익사 데미지 설정. StackDamageArray를 사용.
+                playerStatus.SetStackDamage(0, selectedAbility.plus_Value);
                 break;
 
             // 얼음 갑옷 : 적에게 공격받을 시 적에게 피해를 가하고 적에게 빙결 효과를 입힌다.
@@ -245,7 +247,7 @@ public class SelectedAbilityProcessor : MonoBehaviour
     private void WaterField()
     {
         GameObject obj = Instantiate(fieldAttackObjArray[0], gameObject.transform.parent.position, Quaternion.identity);
-        obj.GetComponent<WaterField>().playerstatus = this.GetComponentInParent<Player>();
+        obj.GetComponent<Field>().playerstatus = this.GetComponentInParent<Player>();
     }
 
     // 불 능력 선택 시 적용.

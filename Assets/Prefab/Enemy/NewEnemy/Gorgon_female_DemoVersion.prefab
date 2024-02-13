@@ -7124,6 +7124,7 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  playerdata: {fileID: 0}
   AttackDelay: 1
   range: 20
   EnemyPlayerAttackDistance: 3

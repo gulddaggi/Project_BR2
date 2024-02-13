@@ -232,17 +232,25 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
             ApplyDamage(damage, 0);
-            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
 
             // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
         }
 
         if (other.tag == "StrongPlayerAttack")
@@ -254,8 +262,6 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -271,11 +277,21 @@ public class Enemy : MonoBehaviour
 
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 1);
-            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
 
             // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
         }
         
         if (other.tag == "PlayerAttackProjectile")
@@ -293,8 +309,6 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.GetComponent<PlayerProjectile>().player;            
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -315,7 +329,6 @@ public class Enemy : MonoBehaviour
 
             // 디버프 적용
             ApplyDamage(damage, 5);
-            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -327,6 +340,17 @@ public class Enemy : MonoBehaviour
             // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
 
             /*
             if (destroyProjectileDelegate != null)
@@ -346,8 +370,6 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -362,11 +384,21 @@ public class Enemy : MonoBehaviour
 
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 2);
-            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
 
             // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
         }
 
         if (other.tag == "PlayerFieldAttack")
@@ -378,8 +410,6 @@ public class Enemy : MonoBehaviour
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponent<Field>().playerstatus;
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
             float damage = playerdata.PlayerFieldAttackDamage;
             debuffArray = playerdata.GetFieldAttackDebuff();
 
@@ -389,7 +419,17 @@ public class Enemy : MonoBehaviour
 
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 3);
-            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
         }
 
         IEnumerator GetDamaged()
@@ -427,17 +467,6 @@ public class Enemy : MonoBehaviour
         }
 
         EnemyHP -= _damage;
-
-        // 디버프 적용
-        if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
-        {
-            excutionArray = playerdata.GetExecutionAbilityArray();
-            debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
-        }
-        else
-        {
-            debuffChecker.DebuffCheckJS(debuffArray);
-        }
 
         if (EnemyHP <= 0)
         {
@@ -477,9 +506,15 @@ public class Enemy : MonoBehaviour
     // 스택 데미지 객체 생성. 물 타입 1티어 업그레이드 디버프 데미지.
     public void SetStackDamageOn(float _time)
     {
+        if (playerdata.GetAttackDebuff()[0] >= 2f)
+        {
+            stackDamageArray[0] = playerdata.GetStackDamageArray()[0];
+        }
+
         TimeDamage timeDamage = new TimeDamage();
         timeDamage.targetTime = _time;
-        timeDamage.calcDamage = EnemyHP * (totalStackDamage * 0.01f) * Time.fixedDeltaTime;
+        Debug.Log("TimeDamage : " + timeDamage.calcDamage);
+        timeDamage.calcDamage = stackDamageArray[0] / _time * Time.fixedDeltaTime;
 
         timeDamageList.Add(timeDamage);
 

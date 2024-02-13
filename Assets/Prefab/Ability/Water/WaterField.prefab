@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2083347733673481938}
   - component: {fileID: 4337056692359640811}
   - component: {fileID: 7937406092402315353}
-  - component: {fileID: 6513892583317775136}
   - component: {fileID: 3467086806765466281}
+  - component: {fileID: 4200249178106314104}
   m_Layer: 0
   m_Name: WaterField
   m_TagString: PlayerFieldAttack
@@ -99,19 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &6513892583317775136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2208666142750204271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7efb18e078856845b80988581729839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerstatus: {fileID: 0}
 --- !u!54 &3467086806765466281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,3 +115,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4200249178106314104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2208666142750204271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e55d01602fc89cd409b2b5b0e3f00ede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerstatus: {fileID: 0}
