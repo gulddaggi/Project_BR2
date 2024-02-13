@@ -5482,6 +5482,12 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  AttackDelay: 1
+  range: 20
+  EnemyPlayerAttackDistance: 3
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &7652229387325939545
 MonoBehaviour:
   m_ObjectHideFlags: 0

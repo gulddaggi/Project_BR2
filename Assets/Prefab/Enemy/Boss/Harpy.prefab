@@ -10125,6 +10125,12 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  AttackDelay: 1
+  range: 20
+  EnemyPlayerAttackDistance: 3
+  player: {fileID: 0}
+  nvAgent: {fileID: 0}
+  animator: {fileID: 0}
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}

@@ -10,7 +10,8 @@ public class GrogonBullet : MonoBehaviour
     void Start()
     {
         // 일정 시간 후에 총알 파괴 
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject, 5.0f);
+        transform.Translate(Vector3.up * 1.0f);
     }
 
     void Update()
