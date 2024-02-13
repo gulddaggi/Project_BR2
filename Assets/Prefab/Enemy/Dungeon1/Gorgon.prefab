@@ -5695,6 +5695,37 @@ Transform:
   m_Father: {fileID: 2591299620225453069}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5488547202357451187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3853897368915082556}
+  m_Layer: 0
+  m_Name: AttackRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3853897368915082556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5488547202357451187}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.003818274, y: 1.7380972, z: -2.39176}
+  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5780426458606338047}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5514549160852094446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6844,7 +6875,7 @@ GameObject:
   - component: {fileID: 1509352678878987355}
   m_Layer: 0
   m_Name: Gorgon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6867,6 +6898,7 @@ Transform:
   - {fileID: 2880602368611371052}
   - {fileID: 1509352678510249960}
   - {fileID: 853574701582408331}
+  - {fileID: 3853897368915082556}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -7183,7 +7215,7 @@ MonoBehaviour:
   EnemyHP: 30
   PrimitiveHP: 0
   Damage: 5
-  attackRangeObj: {fileID: 0}
+  attackRangeObj: {fileID: 5488547202357451187}
   isHit: 0
   hpBarPrefab: {fileID: 2519535995746167745, guid: ffcea7e15eb1d4b5e9dbe4bfca04c82c, type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
@@ -7195,6 +7227,7 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  playerdata: {fileID: 0}
   AttackDelay: 1
   range: 20
   EnemyPlayerAttackDistance: 15

@@ -43,6 +43,7 @@ public class Grogon : Enemy
     {
         // 원거리 공격을 발사하는 함수
         GameObject bulletInstance = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        bulletInstance.GetComponent<GrogonBullet>().enemy = this.GetComponent<Enemy>();
 
         // 플레이어를 바라보는 방향을 구합니다
         Vector3 targetDirection = player.position - bulletSpawnPoint.position;

@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     // 초당 데미지 리스트
     List<TimeDamage> timeDamageList = new List<TimeDamage>();
 
-    Player playerdata;
+    public Player playerdata;
 
     // 델리게이트 정의. 투사체 제거 명령에 이용됨
     public delegate void DestroyProjectileDelegate(GameObject projectile);
@@ -98,6 +98,8 @@ public class Enemy : MonoBehaviour
     public float range = 20f;
 
     protected bool damaged = false;
+
+    bool isDead = false;
 
     // 이 범위 내에 플레이어가 들어올시 공격
     [SerializeField] protected float EnemyPlayerAttackDistance = 3;
@@ -235,11 +237,12 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
+            ApplyDamage(damage, 0);
+            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
+
             // 요 두 함수가 특수 공격 게이지 판정
             GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
-
-            ApplyDamage(damage, 0);
         }
 
         if (other.tag == "StrongPlayerAttack")
@@ -266,11 +269,13 @@ public class Enemy : MonoBehaviour
                 Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
             }
 
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 1);
+            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
+
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
         }
         
         if (other.tag == "PlayerAttackProjectile")
@@ -305,15 +310,12 @@ public class Enemy : MonoBehaviour
                 Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
             }
 
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
 
             // 디버프 적용
-            //debuffChecker.DebuffCheckJS(debuffArray, drawnDamage);
             ApplyDamage(damage, 5);
+            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
 
             // 체력 바 업데이트
             if (!isBoss)
@@ -321,6 +323,10 @@ public class Enemy : MonoBehaviour
                 hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
             }
             Destroy(other.gameObject);
+
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
 
             /*
             if (destroyProjectileDelegate != null)
@@ -354,11 +360,13 @@ public class Enemy : MonoBehaviour
                 Debug.Log("게임매니저가 탐지되지 않았습니다. 조치가 필요합니다.");
             }
 
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 2);
+            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
+
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
+            GameManager_JS.Instance.Guage();
         }
 
         if (other.tag == "PlayerFieldAttack")
@@ -375,13 +383,13 @@ public class Enemy : MonoBehaviour
             float damage = playerdata.PlayerFieldAttackDamage;
             debuffArray = playerdata.GetFieldAttackDebuff();
 
+            // 요 두 함수가 특수 공격 게이지 판정
+            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
             GameManager_JS.Instance.Guage();
-
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
 
             // 피격 시 체력 감소 계산
             ApplyDamage(damage, 3);
+            debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
         }
 
         IEnumerator GetDamaged()
@@ -404,6 +412,7 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
+        isDead = true;
         enemySpawner.EnemyDead();
         hpBar.SetActive(false);
         gameObject.SetActive(false);
@@ -432,7 +441,10 @@ public class Enemy : MonoBehaviour
 
         if (EnemyHP <= 0)
         {
-            Dead();
+            if (!isDead)
+            {
+                Dead();
+            }
         }
 
         // 체력 바 업데이트

@@ -1493,17 +1493,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 407401504}
-    - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
       propertyPath: itemFormGetter
       value: 
       objectReference: {fileID: 1012348183}
-    - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
-      propertyPath: events.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
       propertyPath: events.Array.data[0]
       value: 
@@ -1512,10 +1504,6 @@ PrefabInstance:
       propertyPath: events.Array.data[2]
       value: 
       objectReference: {fileID: 1956296403}
-    - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
-      propertyPath: event_Merchant.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8269540173148786912, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
       propertyPath: event_Ability.Array.data[0]
       value: 
@@ -1930,17 +1918,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385913130}
   m_CullTransparentMesh: 1
---- !u!1 &407401504 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6060381316887276210, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
-  m_PrefabInstance: {fileID: 281985201}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &407401508 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6402893141203149823, guid: 37e21a5565baa7a4683ee5a72348ea6f, type: 3}
   m_PrefabInstance: {fileID: 281985201}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407401504}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d0134899fd0e4e4f95a609921e5c9ab, type: 3}
@@ -2319,9 +2302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968eae6da3604584093db65eb455792e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCapacity: 10
-  maxPoolSize: 15
-  bulletPrefab: {fileID: 2221232183581687800, guid: 10d4dce8aa1588f40879024eec8eb740, type: 3}
 --- !u!4 &479894272
 Transform:
   m_ObjectHideFlags: 0
@@ -3001,6 +2981,12 @@ MonoBehaviour:
   OnStageChanged:
     m_PersistentCalls:
       m_Calls: []
+  attackGuage:
+    NonReadyImage: {fileID: 0}
+    ReadyImage: {fileID: 0}
+    SpecialAttackGuage: {fileID: 0}
+    isSpecialReady: 0
+  CurrentGuage: 0
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0

@@ -203,26 +203,44 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "EnemyAttack" && !isAttacked)
         {
             isAttacked = true;
-            Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
+            Enemy enemy;
 
-            player.TakeDamage(enemy.Damage);
-            Debug.Log("Player Damaged : " + enemy.Damage);
+            if (other.name == "bullet 1")
+            {
+                GrogonBullet bullet = other.gameObject.GetComponentInParent<GrogonBullet>();
+                enemy = bullet.enemy;
+                player.TakeDamage((float)bullet.damage);
+                Debug.Log("Player Damaged : " + bullet.damage);
+            }
+            else
+            {
+                enemy = other.gameObject.GetComponentInParent<Enemy>();
+                player.TakeDamage(enemy.Damage);
+                Debug.Log("Player Damaged : " + enemy.Damage);
+            }
 
             float value = 0.0f;
+            bool isCounterAttackOn = false;
 
             // 적 공격에 대한 카운터 어택 처리
             // 물 타입 카운터 어택
             if (player.PlayerCounterAbilityDamage != 0f)
             {
                 value += player.PlayerCounterAbilityDamage;
+                isCounterAttackOn = true;
             }
             // 불 타입 카운터 어택
             if (player.PlayerCounterIgnitionDamage != 0f)
             {
+                isCounterAttackOn = true;
                 value += 0;
             }
-            
-            enemy.CounterAttacked(value, player);
+
+            if (isCounterAttackOn)
+            {
+                isCounterAttackOn = false;
+                enemy.CounterAttacked(value, player);
+            }
 
             isAttacked = false;
         }

@@ -1760,10 +1760,6 @@ MonoBehaviour:
   abilityPrefs:
   - {fileID: 1730505500892672122, guid: 43fb7723849960d46886df087d3196eb, type: 3}
   - {fileID: 1383268528513449817, guid: 1e9c725d1cf7ab24cbd9516e47f6d908, type: 3}
-  - {fileID: 1219918898106686457, guid: ce7ebc800c37ace48a6294b1b5e6d377, type: 3}
-  - {fileID: 5807706627265659821, guid: b26ab95f971b44940a68a3f8bde9d032, type: 3}
-  - {fileID: 1998034127036554764, guid: 4bece5101b72bf24ca86fb9b2014135e, type: 3}
-  - {fileID: 7939117737218285153, guid: 2f1aaa7ef5d6caa4f9c1aaff6bed6a8d, type: 3}
 --- !u!114 &818153031524234545
 MonoBehaviour:
   m_ObjectHideFlags: 0

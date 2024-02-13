@@ -5811,7 +5811,7 @@ GameObject:
   - component: {fileID: 7746399088393893461}
   m_Layer: 0
   m_Name: HalfSpiderFemale
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6233,6 +6233,7 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  playerdata: {fileID: 0}
   AttackDelay: 1.5
   range: 20
   EnemyPlayerAttackDistance: 6

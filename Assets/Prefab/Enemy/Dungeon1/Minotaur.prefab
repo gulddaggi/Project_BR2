@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 8741914948528896336}
   m_Layer: 0
   m_Name: Minotaur
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2056,6 +2056,7 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  playerdata: {fileID: 0}
   AttackDelay: 2
   range: 20
   EnemyPlayerAttackDistance: 20
