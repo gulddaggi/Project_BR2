@@ -204,12 +204,26 @@ public class PlayerController : MonoBehaviour
         {
             isAttacked = true;
             Enemy enemy = other.gameObject.GetComponentInParent<Enemy>();
+
             player.TakeDamage(enemy.Damage);
+            Debug.Log("Player Damaged : " + enemy.Damage);
+
+            float value = 0.0f;
+
+            // 적 공격에 대한 카운터 어택 처리
+            // 물 타입 카운터 어택
             if (player.PlayerCounterAbilityDamage != 0f)
             {
-                enemy.CounterAttacked(player.PlayerCounterAbilityDamage, player.GetAttackDebuff());
+                value += player.PlayerCounterAbilityDamage;
             }
-            Debug.Log("Player Damaged : " + enemy.Damage);
+            // 불 타입 카운터 어택
+            if (player.PlayerCounterIgnitionDamage != 0f)
+            {
+                value += 0;
+            }
+            
+            enemy.CounterAttacked(value, player);
+
             isAttacked = false;
         }
     }

@@ -10,11 +10,17 @@ public class DebuffManager : MonoBehaviour
     [SerializeField]
     GameObject[] debuffEffects;
 
+    // 능력 타입 별 디버프 이펙트를 자식으로 갖는 오브젝트 배열.
+    [SerializeField]
+    GameObject[] debuffObjs;
+
     // 적의 초기 속도
     public float originvelocity;
 
     [SerializeField]
     private LayerMask layerMask;
+
+    bool isIgnitionStackOn = false;
 
     void Start()
     {
@@ -121,6 +127,82 @@ public class DebuffManager : MonoBehaviour
         }
     }
 
+    // 불 디버프 적용
+    public void FlameDebuffEffectOn(int _index)
+    {
+        // 적용 디버프 인덱스
+        int index = (_index == 3) ? (_index - 1) : 0;
+
+        // 적용 타입 이펙트의 부모 오브젝트
+        GameObject flameParent = debuffObjs[1];
+
+        // 인덱스에 따른 디버프 재생.
+        if (index == 0)
+        {
+            Transform burnEffectTransform = flameParent.transform.GetChild(index);
+            burnEffectTransform.GetComponent<ParticleSystem>().Stop();
+            burnEffectTransform.GetComponent<ParticleSystem>().Play();
+            ++burnEffectTransform.GetComponent<Debuff>().count;
+
+            // 디버프 중첩 효과 적용
+            if (burnEffectTransform.GetComponent<Debuff>().count >= 5 && _index == 2)
+            {
+                // 이펙트 재생
+                burnEffectTransform.GetComponent<Debuff>().count = 0;
+                Transform burstEffectTransform = flameParent.transform.GetChild(index + 1);
+                burstEffectTransform.GetComponent<ParticleSystem>().Stop();
+                burstEffectTransform.GetComponent<ParticleSystem>().Play();
+
+                // 데미지 적용
+                StackDamageOn(1, 3f);
+            }
+        }
+        else
+        {
+            Transform IgnitionEffectTransform = flameParent.transform.GetChild(index);
+            IgnitionEffectTransform.GetComponent<ParticleSystem>().Stop();
+            IgnitionEffectTransform.GetComponent<ParticleSystem>().Play();
+            if (!isIgnitionStackOn)
+            {
+                isIgnitionStackOn = true;
+                Invoke("FlameIgnitionStackEffectOn", 3f);
+            }
+        }
+    }
+
+    // 불 타입 능력 처형 이펙트
+    public void FlameExcutionEffectOn()
+    {
+        // 주변 적에게 디버프 적용
+        Collider[] cols = Physics.OverlapSphere(this.gameObject.transform.position, 3f, layerMask);
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (cols[i].tag == "Enemy")
+            {
+                cols[i].GetComponentInChildren<DebuffManager>().FlameDebuffEffectOn(3);
+            }
+        }
+
+        // 처형 이펙트 재생
+        Transform excutionEffectTransform = debuffObjs[1].transform.GetChild(4);
+        excutionEffectTransform.SetParent(null);
+        excutionEffectTransform.GetComponent<ParticleSystem>().Play();
+
+    }
+
+    // 점화 이펙트 재생 3초 후 재생되는 이펙트
+    void FlameIgnitionStackEffectOn()
+    {
+        GameObject flameParent = debuffObjs[1];
+        Transform ignitionStackEffectTransform = flameParent.transform.GetChild(3);
+        ignitionStackEffectTransform.GetComponent<ParticleSystem>().Stop();
+        ignitionStackEffectTransform.GetComponent<ParticleSystem>().Play();
+
+        // 데미지 적용
+        StackDamageOn(1, 1f);
+        isIgnitionStackOn = false;
+    }
+
     public void WaterExcutionEffectOn()
     {
         // 주변 적에게 디버프 적용
@@ -153,5 +235,10 @@ public class DebuffManager : MonoBehaviour
     void WaterDebuffStackOn(float _targetTime)
     {
         this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
+    }
+
+    void StackDamageOn(int _index, float _targetTime)
+    {
+        this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_index, _targetTime);
     }
 }

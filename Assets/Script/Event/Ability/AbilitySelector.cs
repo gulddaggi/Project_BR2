@@ -49,21 +49,10 @@ public class AbilitySelector : MonoBehaviour
     // 선행 능력 충족 여부에 따라 가중치 설정.
     void SetProbs()
     {
-        Debug.Log("리스트 초기화");
         for (int i = 0; i < 10; i++)
         {
             calcProb(i);
         }
-
-        /*
-        Debug.Log("리스트 가중치 출력");
-        Debug.Log("크기 : " + randomBoxList.Count);
-        for (int i = 0; i < randomBoxList.Count; i++)
-        {
-            Debug.Log("인덱스 : " + i + ", " + randomBoxList[i]);
-            
-        }
-        */
     }
 
     // 가중치 계산. 이후에 상세 수치 조정 필요.
@@ -83,7 +72,6 @@ public class AbilitySelector : MonoBehaviour
             ans = -1.0f;
         }
         randomBoxList.Add(ans);
-
     }
 
     // 능력 번호 추첨
@@ -98,7 +86,6 @@ public class AbilitySelector : MonoBehaviour
         {
             if (randomBoxList[i] == -1.0f)
             {
-                //Debug.Log(i + " 인덱스 스킵");
                 continue;
             }
 
@@ -107,7 +94,6 @@ public class AbilitySelector : MonoBehaviour
                 num = i;
                 total -= randomBoxList[i];
                 randomBoxList[i] = -1.0f;
-                //randomBoxList.Remove(randomBoxList[i]);
                 break;
             }
             else
@@ -151,7 +137,6 @@ public class AbilitySelector : MonoBehaviour
 
         if (minimumRank != -1 && minimumRank > _num)
         {
-            Debug.Log("추첨된 능력 등급이 낮아 조정");
             _num = minimumRank;
         }
         return _num;
@@ -160,7 +145,6 @@ public class AbilitySelector : MonoBehaviour
     // 능력 중복 확인 배열 초기화
     void init()
     {
-        Debug.Log("능력 추첨 완료. 초기화 진행");
         ab_index = 0;
         total = 0.0f;
         randomBoxList.Clear();
@@ -181,13 +165,6 @@ public class AbilitySelector : MonoBehaviour
         // 선행능력 있음
         else
         {
-            //Debug.Log(_id + " 인덱스의 사전 조건 : ");
-
-            /*for (int i = 0; i < cont.Length; i++)
-            {
-                Debug.Log(cont[i]);
-            }*/
-
             for (int i = 0; i < cont.Length; i++)
             {
                 int tmp = int.Parse(cont[i]);
@@ -195,10 +172,8 @@ public class AbilitySelector : MonoBehaviour
                 // 조건 미충족
                 if (!abManager.AbilityCheck(ab_index, tmp))
                 {
-                    //Debug.Log(_id + " 인덱스의 사전 조건" + tmp + "미충족");
                     return false;
                 }
-                //Debug.Log(_id + " 인덱스의 사전 조건" + tmp + "충족");
             }
         }
         return true;

@@ -24,8 +24,21 @@ public class Player : MonoBehaviour, IListener
     private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private bool[] excutionAbilityArray = { false, false, false, false, false };
+    private float[] stackDamageArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
-    public float FullHP { get { return fullHP; } set { fullHP = value; OnPlayerHPUpdated.Invoke(FullHP, currentHP); } }
+    // 불 타입 데미지
+
+    public float FullHP { 
+        get { return fullHP; } 
+        set { 
+            fullHP = value;
+            if (fullHP < CurrentHP)
+            {
+                CurrentHP = fullHP;
+            }
+            OnPlayerHPUpdated.Invoke(FullHP, currentHP); 
+        } 
+    }
     public float CurrentHP {
         get { return currentHP; }
         set {
@@ -50,6 +63,16 @@ public class Player : MonoBehaviour, IListener
 
     public float PlayerSpecialAttackFillingAmount { get { return playerSpecialAttackFillingAmount; } set { playerSpecialAttackFillingAmount = value; } }
 
+    // 불 타입 능력 변수 프로퍼티
+    public float PlayerAttackBurnDamage { get { return playerAttackBurnDamage; } set { playerAttackBurnDamage = value; } }
+    public float PlayerStrongAttackBurnDamamge { get { return playerStrongAttackBurnDamamge; } set { playerStrongAttackBurnDamamge = value; } }
+    public float PlayerFieldAttackBurnDamage { get { return playerFieldAttackBurnDamage; } set { playerFieldAttackBurnDamage = value; } }
+    public float PlayerDodgeAttackBurnDamage { get { return playerDodgeAttackBurnDamage; } set { playerDodgeAttackBurnDamage = value; } }
+    public float PlayerBurstDamage { get { return playerBurstDamage; } set { playerBurstDamage = value; } }
+    public float PlayerFireBlessingDamage { get { return playerFireBlessingDamage; } set { playerFireBlessingDamage = value; } }
+    public float PlayerCounterIgnitionDamage { get { return playerCounterIgnitionDamage; } set { playerCounterIgnitionDamage = value; } }
+    public float PlayerExcutionPercent { get { return playerExcutionPercent; } set { playerExcutionPercent = value; } }
+
     [SerializeField] protected float fullHP;
     [SerializeField] protected float currentHP;
     [SerializeField] protected float moveSpeed;
@@ -57,17 +80,26 @@ public class Player : MonoBehaviour, IListener
     [SerializeField] protected float playerStrongAttackDamage;
     [SerializeField] protected float playerFieldAttackDamage;
     [SerializeField] protected float playerDodgeAttackDamage;
-    [SerializeField] protected float playerStackDamage;
+    protected float playerStackDamage;
     [SerializeField] protected float playerCounterAbilityDamage;
-    [SerializeField] protected float playerSpecialAttackFillingAmount;
+    protected float playerSpecialAttackFillingAmount;
 
-    // 모든 데미지 일괄 계산 함수. 기존 값 * 매개변수(%단위) * 0.01f 를 기존 값에서 뺀다.
+    [SerializeField] protected float playerAttackBurnDamage;
+    [SerializeField] protected float playerStrongAttackBurnDamamge;
+    [SerializeField] protected float playerFieldAttackBurnDamage;
+    [SerializeField] protected float playerDodgeAttackBurnDamage;
+    [SerializeField] protected float playerBurstDamage;
+    [SerializeField] protected float playerFireBlessingDamage;
+    [SerializeField] protected float playerCounterIgnitionDamage;
+    [SerializeField] protected float playerExcutionPercent = -1.0f;
+
+    // 모든 데미지 일괄 계산 함수.
     public void SetPlayerAllDamage(float _value)
     {
-        PlayerAttackDamage = PlayerAttackDamage - (PlayerAttackDamage * _value * 0.01f);
-        PlayerStrongAttackDamage = PlayerStrongAttackDamage - (PlayerStrongAttackDamage * _value * 0.01f);
-        PlayerFieldAttackDamage = PlayerFieldAttackDamage - (PlayerFieldAttackDamage * _value * 0.01f);
-        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage - (PlayerDodgeAttackDamage * _value * 0.01f);
+        PlayerAttackDamage = PlayerAttackDamage + (PlayerAttackDamage * _value * 0.01f);
+        PlayerStrongAttackDamage = PlayerStrongAttackDamage + (PlayerStrongAttackDamage * _value * 0.01f);
+        PlayerFieldAttackDamage = PlayerFieldAttackDamage + (PlayerFieldAttackDamage * _value * 0.01f);
+        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage + (PlayerDodgeAttackDamage * _value * 0.01f);
     }
 
     public void PlayerStat(float fullHP, float currentHP, float moveSpeed, float playerAttackDamage, float playerStrongAttackDamage)
@@ -221,6 +253,11 @@ public class Player : MonoBehaviour, IListener
         excutionAbilityArray[_index] = _value;
     }
 
+    public void SetStackDamage(int _index, float _value)
+    {
+        stackDamageArray[_index] = _value;
+    }
+
     // 플레이어에게 약공격으로 피격된 적이 디버프를 확인
     public int[] GetAttackDebuff()
     {
@@ -249,6 +286,11 @@ public class Player : MonoBehaviour, IListener
     public bool[] GetExecutionAbilityArray()
     {
         return excutionAbilityArray;
+    }
+
+    public float[] GetStackDamageArray()
+    {
+        return stackDamageArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)

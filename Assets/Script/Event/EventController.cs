@@ -35,6 +35,9 @@ public class EventController : MonoBehaviour
     [SerializeField]
     float range;
 
+    // 전체 이름 배열
+    string[] namesArray = { "물의 정령", "불의 정령" };
+
     // 감지된 이벤트 중 ability의 NPCNAME을 임시저장하는 변수
     string tmpName;
 
@@ -100,17 +103,16 @@ public class EventController : MonoBehaviour
     }
 
     // 능력 테스트용 함수
-    public void AbilityTest()
+    public void AbilityTest(int _type)
     {
         if (eventOn) return;
         eventOn = true;
         GameManager_JS.Instance.isEventOn = true;
 
-        // 현재 테스트 : 물
-        int type = 0;
-        tmpTypeIndex = 0;
+        // 현재 테스트중인 능력의 타입 인덱스
+        tmpTypeIndex = _type;
 
-        tmpName = "물의 정령";
+        tmpName = namesArray[_type];
         ChoiceEventStart();
     }
 
