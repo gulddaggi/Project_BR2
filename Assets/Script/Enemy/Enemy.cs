@@ -91,6 +91,18 @@ public class Enemy : MonoBehaviour
     // 델리게이트 인스턴스 생성
     public DestroyProjectileDelegate destroyProjectileDelegate;
 
+    //공격 딜레이 값
+    public float AttackDelay = 1f;
+
+    //탐색 범위
+    public float range = 20f;
+
+    // 이 범위 내에 플레이어가 들어올시 공격
+    [SerializeField] protected float EnemyPlayerAttackDistance = 3;
+
+    public Transform player;
+    public UnityEngine.AI.NavMeshAgent nvAgent;
+    public Animator animator;
 
     protected virtual void Start()
     {
@@ -100,11 +112,32 @@ public class Enemy : MonoBehaviour
         EnemyAnimator = GetComponent<Animator>();
         SR = gameObject.GetComponent<MeshRenderer>();
         FullHP = EnemyHP;
+
+        nvAgent = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        animator = GetComponent<Animator>();
+
+        //0.25초마다 타깃 체크
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //TakeTimeDamage();
+
+        if (player != null)
+        {
+            animator.SetBool("isWalk", true);
+            nvAgent.destination = player.position;
+            float dis = Vector3.Distance(player.position, gameObject.transform.position);
+            if (dis <= EnemyPlayerAttackDistance && isAttack == false)
+            {
+                EnemyAttackOn();
+            }
+            else
+            {
+                //animator.SetBool("isAttack", false);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -150,17 +183,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void EnemyAttackOn()
+    protected virtual void EnemyAttackOn()
     {
         isAttack = true;
-        attackRangeObj.SetActive(true);
-        Invoke("EnemyAttackOff", 1f);
+        animator.SetBool("isAttack", true);
+        Invoke("EnemyAttackRangeON", 0.3f);
+        Invoke("EnemyAttackOff", AttackDelay);
     }
 
-    protected void EnemyAttackOff()
+    protected virtual void EnemyAttackOff()
     {
         attackRangeObj.SetActive(false);
         isAttack = false;
+        animator.SetBool("isAttack", false);
+    }
+
+    protected virtual void EnemyAttackRangeON()
+    {
+        attackRangeObj.SetActive(true);
     }
 
     public void CounterAttacked(float _damage, Player _player)
@@ -179,6 +219,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerAttack")
         {
             Debug.Log("Damaged!");
+            EnemyAnimator.SetTrigger("Damaged");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -197,6 +238,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "StrongPlayerAttack")
         {
             Debug.Log("Strongly Damaged!");
+            EnemyAnimator.SetTrigger("Damaged");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -231,6 +273,7 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Damaged by Player Projectile");
+            EnemyAnimator.SetTrigger("Damaged");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             Player playerdata = Player.GetComponent<Player>(); ;
@@ -280,6 +323,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerDodgeAttack")
         {
             Debug.Log("Dodge damaged!");
+            EnemyAnimator.SetTrigger("Damaged");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
@@ -307,6 +351,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerFieldAttack")
         {
             Debug.Log("Field damaged!");
+            EnemyAnimator.SetTrigger("Damaged");
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponent<Field>().playerstatus;
@@ -515,5 +560,37 @@ public class Enemy : MonoBehaviour
                 break;
         }
         return returnValue;
+    }
+
+    protected virtual void UpdateTarget()
+    {
+        //자신의 위치로부터 range만큼의 반경의 충돌체를 검사하고 
+        Collider[] cols = Physics.OverlapSphere(transform.position, range);
+
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                //반경 내에 플레이어가 존재할 경우 추적
+                if (cols[i].tag == "Player")
+                {
+                    //Debug.Log("Enemy find Target");
+                    player = cols[i].gameObject.transform;
+                }
+            }
+        }
+        else
+        {
+            //Debug.Log("Enemy lost Target");
+
+            animator.SetBool("isAttack", false);
+            player = null;
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
