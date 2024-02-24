@@ -188,8 +188,9 @@ public class DebuffManager : MonoBehaviour
             Debug.Log(cols[i].gameObject.name + "의 스택 증가");
             cols[i].GetComponentInChildren<DebuffManager>().WaterDebuffEffectOn(3);
         }
-        GameObject excutionEffect = Instantiate(debuffEffects[4], this.gameObject.transform);
-        excutionEffect.transform.SetParent(null);
+        Transform excutionEffectTransform = debuffObjs[0].transform.GetChild(4);
+        excutionEffectTransform.transform.SetParent(null);
+        excutionEffectTransform.GetComponent<ParticleSystem>().Play();
 
     }
 

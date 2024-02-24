@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
 
     // 디버프 배열
     int[] debuffArray;
-    bool[] excutionArray = { false, false, false, false, false };
+    float[] excutionArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
     // 타이머 변수.
     public float time = 0f;
@@ -213,11 +213,19 @@ public class Enemy : MonoBehaviour
     public void CounterAttacked(float _damage, Player _player)
     {
         playerdata = _player;
-        debuffArray = playerdata.GetAttackDebuff();
+        debuffArray = playerdata.GetCounterAttackDebuffArray();
         Debug.Log("Counter Damaged!");
         ApplyDamage(_damage, 4);
         // 디버프 적용
-        debuffChecker.DebuffCheckJS(playerdata.GetAttackDebuff());
+        if (EnemyHP <= (FullHP * 0.3f))
+        {
+            excutionArray = playerdata.GetExecutionAbilityArray();
+            debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+        }
+        else
+        {
+            debuffChecker.DebuffCheckJS(debuffArray);
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -242,7 +250,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 디버프 적용
-            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            if (EnemyHP <= (FullHP * 0.3f))
             {
                 excutionArray = playerdata.GetExecutionAbilityArray();
                 debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
@@ -283,7 +291,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 디버프 적용
-            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            if (EnemyHP <= (FullHP * 0.3f))
             {
                 excutionArray = playerdata.GetExecutionAbilityArray();
                 debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
@@ -342,7 +350,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 디버프 적용
-            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            if (EnemyHP <= (FullHP * 0.3f))
             {
                 excutionArray = playerdata.GetExecutionAbilityArray();
                 debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
@@ -351,14 +359,6 @@ public class Enemy : MonoBehaviour
             {
                 debuffChecker.DebuffCheckJS(debuffArray);
             }
-
-            /*
-            if (destroyProjectileDelegate != null)
-            {
-                destroyProjectileDelegate(other.gameObject);
-            }
-            */
-
         }
 
         if (other.tag == "PlayerDodgeAttack")
@@ -390,7 +390,7 @@ public class Enemy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             // 디버프 적용
-            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            if (EnemyHP <= (FullHP * 0.3f))
             {
                 excutionArray = playerdata.GetExecutionAbilityArray();
                 debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
@@ -421,7 +421,7 @@ public class Enemy : MonoBehaviour
             ApplyDamage(damage, 3);
 
             // 디버프 적용
-            if (EnemyHP <= (FullHP * playerdata.PlayerExcutionPercent * 0.01f))
+            if (EnemyHP <= (FullHP * 0.3f))
             {
                 excutionArray = playerdata.GetExecutionAbilityArray();
                 debuffChecker.DebuffCheckJS(debuffArray, excutionArray);

@@ -23,7 +23,8 @@ public class Player : MonoBehaviour, IListener
     private int[] stAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
-    private bool[] excutionAbilityArray = { false, false, false, false, false };
+    private int[] counterAttackDebuffArray = { 0, 0, 0, 0, 0 };
+    private float[] excutionPercentArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
     private float[] stackDamageArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
     // 불 타입 데미지
@@ -247,10 +248,16 @@ public class Player : MonoBehaviour, IListener
         }
     }
 
-    // 능력 선택에 따른 처형 관련 능력 활성화. SelectedAbilityProcessor에서 사용.
-    public void SetExcutionAbility(int _index, bool _value)
+    // 능력 선택에 따른 카운터 활성화. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToCounterAttack(int _index, int _value)
     {
-        excutionAbilityArray[_index] = _value;
+        counterAttackDebuffArray[_index] = _value;
+    }
+
+    // 능력 선택에 따른 처형 활성화. SelectedAbilityProcessor에서 사용.
+    public void SetExcutionAbility(int _index, float _value)
+    {
+        excutionPercentArray[_index] = _value;
     }
 
     public void SetStackDamage(int _index, float _value)
@@ -283,14 +290,19 @@ public class Player : MonoBehaviour, IListener
     }
 
     // 플레이어에게 모든 공격에 대해 피격된 적이 처형 디버프를 확인
-    public bool[] GetExecutionAbilityArray()
+    public float[] GetExecutionAbilityArray()
     {
-        return excutionAbilityArray;
+        return excutionPercentArray;
     }
 
     public float[] GetStackDamageArray()
     {
         return stackDamageArray;
+    }
+
+    public int[] GetCounterAttackDebuffArray()
+    {
+        return counterAttackDebuffArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)
