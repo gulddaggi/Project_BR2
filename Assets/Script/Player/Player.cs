@@ -17,6 +17,8 @@ public class Player : MonoBehaviour, IListener
 
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
 
+    private List<int> eventPlayList = new List<int>{ 0, 0, 0, 0, 0, 0 };
+
     // 현재 적에게 적용시킬 수 있는 디버프 확인 배열
     // 각 인덱스는 속성. 값은 0(적용안함), 1(1티어), 2(1티어 업그레이드), 3(2티어)
     private int[] attackDebuffArray = { 0, 0, 0, 0, 0 };
@@ -127,6 +129,9 @@ public class Player : MonoBehaviour, IListener
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sSpeedReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPToCoin, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sAllReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
     }
 
@@ -321,32 +326,42 @@ public class Player : MonoBehaviour, IListener
                 playerAttackDamage *= 1.25f;
                 break;
 
-            // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다.
+            // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다. 지속 턴수 3
             case SHOP_EVENT_TYPE.sHPPotion:
                 Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
-                if (eventPlayDic.ContainsKey(SHOP_EVENT_TYPE.sHPPotion))
-                {
-                    eventPlayDic[SHOP_EVENT_TYPE.sHPPotion] += 3;
-                    Debug.Log("턴수 증가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
-                }
-                else
-                {
-                    eventPlayDic.Add(SHOP_EVENT_TYPE.sHPPotion, 3);
-                    Debug.Log("새로 추가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
-                }
+                eventPlayList[(int)SHOP_EVENT_TYPE.sHPPotion] += 3;
+                Debug.Log("턴수 증가 : " + eventPlayList[(int)SHOP_EVENT_TYPE.sHPPotion]);
                 break;
-            
+
+            // 이동속도가 20% 증가한다. 지속 턴수 5
+            case SHOP_EVENT_TYPE.sSpeedReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sSpeedReinforce.ToString());
+
+                break;
+
+            // 현재 체력이 10 줄어들고 20~40 코인을 획득한다.
+            case SHOP_EVENT_TYPE.sHPToCoin:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPToCoin.ToString());
+
+                break;
+
+            // 모든 공격의 피해량이 15% 증가한다. 지속 턴수 3
+            case SHOP_EVENT_TYPE.sAllReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sAllReinforce.ToString());
+
+                break;
+
             default:
                 break;
         }
 
     }
 
-    public void TurnBasedEventOn()
+    public void TurnBasedEventOn(int _index)
     {
-        foreach (SHOP_EVENT_TYPE item in eventPlayDic.Keys)
+        if (eventPlayList[_index] > 0)
         {
-            switch (item)
+            switch ((SHOP_EVENT_TYPE)_index)
             {
                 case SHOP_EVENT_TYPE.sHPReinforce:
                     break;
@@ -356,6 +371,14 @@ public class Player : MonoBehaviour, IListener
                     Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
                     Debug.Log("가산 : " + (FullHP * 0.1f));
                     CurrentHP += (FullHP * 0.1f);
+                    --eventPlayList[_index];
+                    Debug.Log("인덱스 감소. 현재 : " + eventPlayList[_index]);
+                    break;
+                case SHOP_EVENT_TYPE.sSpeedReinforce:
+                    break;
+                case SHOP_EVENT_TYPE.sHPToCoin:
+                    break;
+                case SHOP_EVENT_TYPE.sAllReinforce:
                     break;
                 default:
                     break;

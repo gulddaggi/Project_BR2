@@ -6,13 +6,16 @@ public enum SHOP_EVENT_TYPE
 {
     sHPReinforce,
     sWeaponReinforce,
-    sHPPotion
+    sHPPotion,
+    sSpeedReinforce,
+    sHPToCoin,
+    sAllReinforce
 };
 
 public interface IListener
 {
     void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null);
-    void TurnBasedEventOn();
+    void TurnBasedEventOn(int _index);
 }
 
 public class EventListener : MonoBehaviour, IListener
@@ -22,7 +25,7 @@ public class EventListener : MonoBehaviour, IListener
 
     }
 
-    public void TurnBasedEventOn()
+    public void TurnBasedEventOn(int _index)
     {
 
     }
