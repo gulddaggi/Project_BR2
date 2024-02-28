@@ -28,7 +28,7 @@ public class StartStage : Dungeon
         else reward = rewardCreator.CreateReward(1);
 
         // 테스트용. 한 종류의 보상만 생성.
-        //reward = rewardCreator.CreateReward();
+        reward = rewardCreator.CreateReward(2, true);
 
         
         GameObject rewardObj = Instantiate(reward, rewardPos.position, Quaternion.identity);
