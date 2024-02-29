@@ -276,7 +276,7 @@ public class EventController : MonoBehaviour
             }
             
             // 해당 텍스트에 DB 데이터 입력.
-            shopItemList.Add(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
+            shopItemList.Add(EventDBManager.instance.MerchantTextDisplay(texts));
             texts.Clear();
         }
 
