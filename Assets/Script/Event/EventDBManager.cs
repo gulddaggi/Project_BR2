@@ -219,7 +219,7 @@ public class EventDBManager : MonoBehaviour
     }
 
     // 상품 텍스트 출력.
-    public ShopItem TextDisplay_And_ClassReturn_Merchant(List<Transform> format)
+    public ShopItem MerchantTextDisplay(List<Transform> format)
     {
         // 추출 대상 인덱스와 가산 수치.
         int line = ReturnRandom();
@@ -231,7 +231,7 @@ public class EventDBManager : MonoBehaviour
         format[2].GetComponent<Text>().text = merchantDic[line].option_Name;
         format[3].GetComponent<Text>().text = Value(merchantDic[line].value);
         if (merchantDic[line].turn == "0") format[4].GetComponent<Text>().text = "즉시";
-        else format[4].GetComponent<Text>().text = merchantDic[line].turn;
+        else format[4].GetComponent<Text>().text = "지속 : " + merchantDic[line].turn;
         format[5].GetComponent<Text>().text = "- " + merchantDic[line].price.ToString();
         ShopItem shopItem = merchantDic[line];
         return shopItem;

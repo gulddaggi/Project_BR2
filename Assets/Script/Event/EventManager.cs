@@ -62,16 +62,62 @@ public class EventManager : MonoBehaviour
     {
         List<IListener> listenerList = null;
 
-        // 우선은 턴 기반 이벤트를 직접 지정. 후에 수정 필요
-        if (!ListenerDic.TryGetValue(SHOP_EVENT_TYPE.sHPPotion, out listenerList))
+        for (int i = 0; i < System.Enum.GetValues(typeof(SHOP_EVENT_TYPE)).Length; i++)
         {
-            return;
-        }
-        else
-        {
-            for (int i = 0; i < listenerList.Count; i++)
+            switch (i)
             {
-                listenerList?[i].TurnBasedEventOn(); // ?. : 연산자. null이 아니면 참조. null이면 null로 처리   
+                case 0:
+                    break;
+
+                case 1:
+                    break;
+
+                case 2:
+                    if (!ListenerDic.TryGetValue(SHOP_EVENT_TYPE.sHPPotion, out listenerList))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        for (int j = 0; j < listenerList.Count; j++)
+                        {
+                            listenerList?[j].TurnBasedEventOn(i); // ?. : 연산자. null이 아니면 참조. null이면 null로 처리   
+                        }
+                    }
+                    break;
+
+                case 3:
+                    if (!ListenerDic.TryGetValue(SHOP_EVENT_TYPE.sSpeedReinforce, out listenerList))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        for (int j = 0; j < listenerList.Count; j++)
+                        {
+                            listenerList?[j].TurnBasedEventOn(i);
+                        }
+                    }
+                    break;
+
+                case 4:
+                    break;
+
+                case 5:
+                    if (!ListenerDic.TryGetValue(SHOP_EVENT_TYPE.sAllReinforce, out listenerList))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        for (int j = 0; j < listenerList.Count; j++)
+                        {
+                            listenerList?[j].TurnBasedEventOn(i);
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
