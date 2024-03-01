@@ -8,17 +8,21 @@ public class EventDBManager : MonoBehaviour
 {
     public static EventDBManager instance;
 
-    //import할 능력 DB 목록
+    //import할 능력 DB 파일명
     [SerializeField]
-    string[] DBFiles_Ability;
+    string[] DBFilesAbility;
 
-    //import할 대화 DB 목록
+    //import할 대화 DB 파일명
     [SerializeField]
-    string[] DBFiles_Dialogue;
+    string[] DBFilesDialogue;
 
-    //import할 상점 DB 목록
+    //import할 상점 DB 파일명
     [SerializeField]
-    string DBFiles_Merchant;
+    string DBFileMerchant;
+
+    //import할 업그레이드 DB 파일명
+    [SerializeField]
+    string DBFileUpgrade;
 
     // 한 종류(정령)의 선택지 딕셔너리를 담는 딕셔너리. 전체 능력에 대한 자료구조.
     [SerializeField]
@@ -39,6 +43,10 @@ public class EventDBManager : MonoBehaviour
     // 상점 객체 딕셔너리
     [SerializeField]
     Dictionary<int, ShopItem> merchantDic = new Dictionary<int, ShopItem>();
+
+    // 업그레이드 객체 딕셔너리
+    [SerializeField]
+    Dictionary<int, UpgradeItem> upgradeDic = new Dictionary<int, UpgradeItem>();
 
     // 능력 타입 별 개수 저장 배열
     [SerializeField]
@@ -65,6 +73,9 @@ public class EventDBManager : MonoBehaviour
             // 상점 DB 임포트 수행.
             Import_Merchant(DBImporter);
 
+            // 업그레이드 DB 임포트 수행.
+            Import_Upgrade(DBImporter);
+
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -76,9 +87,9 @@ public class EventDBManager : MonoBehaviour
     // 능력 DB 전체 임포트
     void Import_Ability(DBImporter _DBImporter)
     {
-        for (int i = 0; i < DBFiles_Ability.Length; i++)
+        for (int i = 0; i < DBFilesAbility.Length; i++)
         {
-            Ability[] abilityArray = _DBImporter.DBImport_Ability(DBFiles_Ability[i]); // 한 종류의 능력 데이터 전부를 임포트하여 반환받음.
+            Ability[] abilityArray = _DBImporter.DBImportAbility(DBFilesAbility[i]); // 한 종류의 능력 데이터 전부를 임포트하여 반환받음.
 
             abilityDic = new Dictionary<int, Ability>();
 
@@ -96,9 +107,9 @@ public class EventDBManager : MonoBehaviour
     // 대화 DB 전체 임포트
     void Import_Dialogue(DBImporter _DBImporter)
     {
-        for (int i = 0; i < DBFiles_Dialogue.Length; i++)
+        for (int i = 0; i < DBFilesDialogue.Length; i++)
         {
-            Dialogue[] dialogueArray = _DBImporter.DBImporter_Dialogue(DBFiles_Dialogue[i]);
+            Dialogue[] dialogueArray = _DBImporter.DBImportDialogue(DBFilesDialogue[i]);
 
             dialogueDic = new Dictionary<int, Dialogue>();
 
@@ -111,15 +122,25 @@ public class EventDBManager : MonoBehaviour
         }
     }
 
-    //상정 DB 임포트
+    //상점 DB 임포트
     void Import_Merchant(DBImporter _DBImporter)
     {
-        ShopItem[] shopItemArray = _DBImporter.DBImporter_Merchant(DBFiles_Merchant);
+        ShopItem[] shopItemArray = _DBImporter.DBImportMerchant(DBFileMerchant);
         for (int i = 0; i < shopItemArray.Length; i++)
         {
             merchantDic.Add(i, shopItemArray[i]);
         }
         lineList = Enumerable.Range(0, merchantDic.Count - 1).ToList();
+    }
+
+    // 업그레이드 DB 임포트
+    void Import_Upgrade(DBImporter _DBImporter)
+    {
+        UpgradeItem[] upgradeItemArray = _DBImporter.DBImportUpgrade(DBFileUpgrade);
+        for (int i = 0; i < upgradeItemArray.Length; i++)
+        {
+            upgradeDic.Add(i, upgradeItemArray[i]);
+        }
     }
 
     // 대화 텍스트 출력.
