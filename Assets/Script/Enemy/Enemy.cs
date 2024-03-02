@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
 
     public float Movespeed;
     private NavMeshAgent nav;
+    private HitEffectManager hitEffectManager;
 
     [SerializeField] public float Enemy_Recognition_Range;
 
@@ -113,6 +114,7 @@ public class Enemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         enemySpawner = this.gameObject.GetComponentInParent<EnemySpawner>();
         debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
+        hitEffectManager = this.gameObject.GetComponent<HitEffectManager>();
         EnemyAnimator = GetComponent<Animator>();
         SR = gameObject.GetComponent<MeshRenderer>();
         FullHP = EnemyHP;
@@ -230,6 +232,8 @@ public class Enemy : MonoBehaviour
             attackRangeObj.SetActive(false);
             damaged = true;
 
+            hitEffectManager.ShowHitEffect(transform.position, 0);
+
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerAttackDamage;
@@ -264,6 +268,8 @@ public class Enemy : MonoBehaviour
             playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
+
+            hitEffectManager.ShowHitEffect(transform.position, 0);
 
             if (GameManager_JS.Instance != null)
             {
@@ -306,6 +312,8 @@ public class Enemy : MonoBehaviour
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
+
+            hitEffectManager.ShowHitEffect(transform.position, 0);  
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.GetComponent<PlayerProjectile>().player;            
@@ -367,6 +375,8 @@ public class Enemy : MonoBehaviour
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
+
+            hitEffectManager.ShowHitEffect(transform.position, 0);
 
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.transform.GetComponentInParent<Player>();
