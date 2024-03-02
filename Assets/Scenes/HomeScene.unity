@@ -4012,6 +4012,7 @@ GameObject:
   - component: {fileID: 1891607784}
   - component: {fileID: 1891607786}
   - component: {fileID: 1891607785}
+  - component: {fileID: 1891607787}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -4079,6 +4080,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1891607787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891607783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d088defa0aa15341a3e9b148f75808c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpgradeContent: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
+  scrollbar: {fileID: 798422113}
 --- !u!1 &1896172574
 GameObject:
   m_ObjectHideFlags: 0

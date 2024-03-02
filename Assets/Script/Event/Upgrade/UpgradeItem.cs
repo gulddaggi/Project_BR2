@@ -18,4 +18,7 @@ public class UpgradeItem : MonoBehaviour
 
     // 비용
     public string[] price;
+
+    // 레벨
+    public int level = 0;
 }
