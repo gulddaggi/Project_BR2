@@ -3328,13 +3328,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DBFiles_Ability:
+  DBFilesAbility:
   - DB_Ability_Water
   - DB_Ability_Flame
-  DBFiles_Dialogue:
+  DBFilesDialogue:
   - DB_Dialogue_Water
   - DB_Dialogue_Flame
-  DBFiles_Merchant: DB_Merchant
+  DBFileMerchant: DB_Merchant
+  DBFileUpgrade: DB_Upgrade
   abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
 MonoBehaviour:
@@ -5064,7 +5065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5a72b16c5c2a94795fa16f3a6146bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityUIPref: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
+  abilityUIPref: {fileID: 1904974051213522207, guid: eb12892c832281344837a38b29f40cad, type: 3}
   totalAbilityNum: 0
   totalIDNum: 0
   player: {fileID: 1865854130}
@@ -5268,6 +5269,10 @@ PrefabInstance:
       propertyPath: itemFormGetter
       value: 
       objectReference: {fileID: 1012348183}
+    - target: {fileID: 8269540173148786912, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8269540173148786912, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: events.Array.data[0]
       value: 
