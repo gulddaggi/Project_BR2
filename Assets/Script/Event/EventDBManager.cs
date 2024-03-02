@@ -323,8 +323,11 @@ public class EventDBManager : MonoBehaviour
 
     public void UpgradeItemLevelup(int _index)
     {
-        ++upgradeDic[_index].level;
-        Debug.Log(upgradeDic[_index].name + " 레벨업 : " + upgradeDic[_index].level);
+        if (upgradeDic[_index].level < upgradeDic[_index].value.Length)
+        {
+            ++upgradeDic[_index].level;
+            Debug.Log(upgradeDic[_index].name + " 레벨업 : " + upgradeDic[_index].level);
+        }
     }
 
     public string[] GetPreAbility(int _type, int _id)

@@ -10,19 +10,29 @@ public class UpgradeManager : MonoBehaviour
 
     int totalUpgradeContentCount = 0;
 
+    bool isSet = false;
+
     [SerializeField]
     Scrollbar scrollbar;
 
+    private void Awake()
+    {
+        isSet = false;
+    }
+
     private void OnEnable()
     {
-        // 스크롤 위치 초기화
-        scrollbar.value = 1f;
-
         // UI 세팅
-        if (this.transform.childCount == 0)
+        if (!isSet)
         {
             UISetting();
         }
+    }
+
+    private void OnDisable()
+    {
+        // 스크롤 위치 초기화
+        scrollbar.value = 1f;
     }
 
     // 업그레이드 UI 세팅.
@@ -33,31 +43,58 @@ public class UpgradeManager : MonoBehaviour
         // 업그레이드 오브젝트 생성 후 텍스트 세팅
         for (int i = 0; i < totalUpgradeContentCount; i++)
         {
-            GameObject obj = Instantiate(UpgradeContent);
-            obj.transform.SetParent(this.gameObject.transform);
+            Transform target = this.transform.GetChild(i);
 
             UpgradeItem curItem = EventDBManager.instance.GetUpgradeItem(i);
-            obj.transform.GetChild(0).GetComponent<Text>().text = curItem.name;
-            obj.transform.GetChild(1).GetComponent<Text>().text = curItem.description;
-            obj.transform.GetChild(2).GetComponent<Text>().text = "Lv." + curItem.level.ToString();
+
+            target.GetChild(0).GetComponent<Text>().text = curItem.name;
+            target.GetChild(1).GetComponent<Text>().text = curItem.description;
+            target.GetChild(2).GetComponent<Text>().text = "Lv." + curItem.level.ToString();
             
             if (curItem.level == 0)
             {
-                obj.transform.GetChild(3).GetComponent<Text>().text = "-";
+                target.GetChild(3).GetComponent<Text>().text = "-";
             }
             else
             {
-                obj.transform.GetChild(3).GetComponent<Text>().text = "+ " + curItem.value[curItem.level-1];
+                target.GetChild(3).GetComponent<Text>().text = "+ " + curItem.value[curItem.level-1];
             }
 
             if (curItem.level == curItem.value.Length)
             {
-                obj.transform.GetChild(4).GetComponent<Text>().text = "최대";
+                target.GetChild(4).GetComponent<Text>().text = "최대";
             }
             else
             {
-                obj.transform.GetChild(4).GetComponent<Text>().text = curItem.price[curItem.level];
+                target.GetChild(4).GetComponent<Text>().text = curItem.price[curItem.level];
             }
+        }
+        isSet = true;
+    }
+
+    public void Levelup(int _index)
+    {
+        EventDBManager.instance.UpgradeItemLevelup(_index);
+        UIUpdate(_index);
+    }
+
+    // 레벨업 이후 해당 업그레이드 업데이트
+    void UIUpdate(int _index)
+    {
+        Transform updateTarget = this.transform.GetChild(_index);
+
+        UpgradeItem curItem = EventDBManager.instance.GetUpgradeItem(_index);
+
+        updateTarget.GetChild(2).GetComponent<Text>().text = "Lv." + curItem.level.ToString();
+        updateTarget.GetChild(3).GetComponent<Text>().text = "+ " + curItem.value[curItem.level - 1];
+        
+        if (curItem.level == curItem.value.Length)
+        {
+            updateTarget.GetChild(4).GetComponent<Text>().text = "최대";
+        }
+        else
+        {
+            updateTarget.GetChild(4).GetComponent<Text>().text = curItem.price[curItem.level];
         }
     }
 }
