@@ -15,12 +15,18 @@ public class Player : MonoBehaviour, IListener
 
     bool isPlayerDead = false;
 
+    // 플레이어 부활 가능 횟수
+    int playerResurrectionCount = 0;
+
+    // 플레이어 부활 시 적용 체력 퍼센트
+    float playerResurrectionPercent = 0f;
+
     // 수치 증가 후 복구 값. 상점 턴 기반 아이템
-    float merchantSpeedReinforceReturn;
-    float playerAttackReturn;
-    float playerStrongAttackReturn;
-    float playerFieldAttackReturn;
-    float playerDodgeAttackReturn;
+    float merchantSpeedReinforceReturn = 0f;
+    float playerAttackReturn =  0f;
+    float playerStrongAttackReturn = 0f;
+    float playerFieldAttackReturn = 0f;
+    float playerDodgeAttackReturn = 0f;
 
 
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
@@ -64,7 +70,17 @@ public class Player : MonoBehaviour, IListener
         }
     }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
-    public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackReturn = playerAttackReturn + (playerAttackDamage); playerAttackDamage = value; } }
+    public float PlayerAttackDamage { 
+        get { return playerAttackDamage; } 
+        set {
+            if (playerAttackReturn != 0f)
+            {
+                playerAttackReturn = playerAttackReturn + (playerAttackDamage);
+            }
+
+            playerAttackDamage = value; 
+        } 
+    }
     public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackReturn = playerStrongAttackDamage; playerStrongAttackDamage = value; } }
     public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackReturn = playerFieldAttackDamage; playerFieldAttackDamage = value; } }
     public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackReturn = playerDodgeAttackDamage; playerDodgeAttackDamage = value; } }
@@ -131,6 +147,7 @@ public class Player : MonoBehaviour, IListener
         {
             debuffOnArray[i] = false;
         }
+        GameManager_JS.Instance.OnStartStageLoaded.AddListener(() => ApplyPlayerUpgrade());
     }
 
     private void Start()
@@ -156,10 +173,24 @@ public class Player : MonoBehaviour, IListener
 
     public void BeforeDie()
     {
-        isPlayerDead = true;
-        this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
-        this.gameObject.GetComponent<PlayerController>().enabled = false;
-        Invoke("Die", 2.5f);
+        if (playerResurrectionCount == 0)
+        {
+            isPlayerDead = true;
+            this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
+            this.gameObject.GetComponent<PlayerController>().enabled = false;
+            Invoke("Die", 2.5f);
+        }
+        else
+        {
+            Resurrction();
+        }
+    }
+
+    // 플레이어 부활.
+    void Resurrction()
+    {
+        CurrentHP = FullHP * (0.01f * playerResurrectionPercent);
+        --playerResurrectionCount;
     }
 
     void Die()
@@ -424,4 +455,63 @@ public class Player : MonoBehaviour, IListener
             }
         }
     }
+
+    // 플레이어 업그레이드 적용
+    public void ApplyPlayerUpgrade()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            float value = (float)GameManager_JS.Instance.GetUpgradeInfo(i);
+            switch (i)
+            {
+                // 약공격 피해가 증가한다.
+                case 0:
+                    PlayerAttackDamage = PlayerAttackDamage + value; 
+                    break;
+
+                // 최대 체력이 증가한다.
+                case 1:
+                    FullHP = FullHP + value;
+                    CurrentHP = CurrentHP + value;
+                    break;
+
+                // 스테이지에서 벗어날 때마다 체력을 회복한다.
+                case 2:
+                    GameManager_JS.Instance.OnStageChanged.AddListener(() => PlayerUpgradeID2(value));
+                    break;
+
+                // 스테이지 보상으로 잼 획득 시 체력을 회복한다.
+                case 3:
+                    GameManager_JS.Instance.OnGemAdded.AddListener(() => PlayerUpgradeID3(value));
+                    break;
+
+                // 던전 진입 시 코인을 획득한다.
+                case 4:
+                    GameManager_JS.Instance.Coin = (int)value;
+                    break;
+
+                // 체력이 0에 도달하였을 때 죽지 않고 체력을 50% 회복한다.
+                case 5:
+                    playerResurrectionCount = (int)value;
+                    playerResurrectionPercent = 50f;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    // 플레이어 업그레이드(ID : 2 ) 정기적 회복
+    public void PlayerUpgradeID2(float _value)
+    {
+        CurrentHP = CurrentHP + _value;
+    }
+
+    // 플레이어 업그레이드(ID : 3) 회수 보상
+    public void PlayerUpgradeID3(float _value)
+    {
+        CurrentHP = CurrentHP + _value;
+    }
+    
 }

@@ -19,6 +19,7 @@ TagManager:
   - PlayerDodgeAttack
   - PlayerAttackProjectile
   - PlayerFieldAttack
+  - Upgrade
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - UI
   - Player
   - Bullet
-  - 
+  - Upgrade
   - 
   - 
   - 

@@ -961,9 +961,17 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2723852069648005943, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: rewardPrefs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2723852069648005943, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: abilityPrefs.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2723852069648005943, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
+      propertyPath: rewardPrefs.Array.data[3]
+      value: 
+      objectReference: {fileID: 1713416704636973071, guid: 4313a2c083f209344882f14382eec75c, type: 3}
     - target: {fileID: 2723852069648005943, guid: db2a9c39256a2b047ab7b431fb10b34b, type: 3}
       propertyPath: abilityPrefs.Array.data[2]
       value: 
@@ -1228,7 +1236,7 @@ RectTransform:
   - {fileID: 918727950}
   - {fileID: 642417058}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2216,7 +2224,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2507,7 +2515,7 @@ RectTransform:
   - {fileID: 1746293037}
   - {fileID: 1956296404}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3328,13 +3336,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DBFiles_Ability:
+  DBFilesAbility:
   - DB_Ability_Water
   - DB_Ability_Flame
-  DBFiles_Dialogue:
+  DBFilesDialogue:
   - DB_Dialogue_Water
   - DB_Dialogue_Flame
-  DBFiles_Merchant: DB_Merchant
+  DBFileMerchant: DB_Merchant
+  DBFileUpgrade: DB_Upgrade
   abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
 MonoBehaviour:
@@ -3381,11 +3390,19 @@ MonoBehaviour:
   dungeonCount: 0
   tryCount: 0
   coin: 100
+  gem: 1000
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
+  gemText: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartStageLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGemAdded:
     m_PersistentCalls:
       m_Calls: []
   attackGuage:
@@ -3991,7 +4008,7 @@ RectTransform:
   m_Children:
   - {fileID: 2001684979}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4172,6 +4189,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 739882018}
   m_CullTransparentMesh: 1
+--- !u!1 &777728744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777728745}
+  - component: {fileID: 777728748}
+  - component: {fileID: 777728747}
+  - component: {fileID: 777728746}
+  m_Layer: 0
+  m_Name: GemText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &777728745
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777728744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1359476790}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -826.26, y: -240}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &777728746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777728744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac989f2bea47ac4f811bb85474f8548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &777728747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777728744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 'Gem : '
+--- !u!222 &777728748
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777728744}
+  m_CullTransparentMesh: 1
 --- !u!1 &781780412
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,7 +4395,7 @@ RectTransform:
   - {fileID: 1359203271}
   - {fileID: 40185711}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5064,7 +5174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5a72b16c5c2a94795fa16f3a6146bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityUIPref: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
+  abilityUIPref: {fileID: 1904974051213522207, guid: eb12892c832281344837a38b29f40cad, type: 3}
   totalAbilityNum: 0
   totalIDNum: 0
   player: {fileID: 1865854130}
@@ -5268,6 +5378,10 @@ PrefabInstance:
       propertyPath: itemFormGetter
       value: 
       objectReference: {fileID: 1012348183}
+    - target: {fileID: 8269540173148786912, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8269540173148786912, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: events.Array.data[0]
       value: 
@@ -6894,6 +7008,7 @@ RectTransform:
   m_Children:
   - {fileID: 1257796755}
   - {fileID: 2114396190}
+  - {fileID: 777728745}
   - {fileID: 431468989}
   - {fileID: 1820901221}
   - {fileID: 731812436}
@@ -7404,7 +7519,7 @@ RectTransform:
   - {fileID: 1953585717}
   - {fileID: 650040846}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7919,7 +8034,7 @@ RectTransform:
   - {fileID: 39346169}
   - {fileID: 1362572287}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8596,7 +8711,7 @@ RectTransform:
   m_Children:
   - {fileID: 211751535}
   m_Father: {fileID: 1359476790}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -9988,7 +10103,7 @@ GameObject:
   - component: {fileID: 2114396192}
   - component: {fileID: 2114396191}
   m_Layer: 0
-  m_Name: CoinValue
+  m_Name: CoinText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

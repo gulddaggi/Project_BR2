@@ -19,6 +19,8 @@ public class StartStage : Dungeon
 
         // 첫 스테이지에 소환된 적의 수. 직접 입력해야함.
         enemyCount = 2;
+
+        GameManager_JS.Instance.OnStartStageLoaded.Invoke();
     }
 
     void StartReward()
@@ -28,7 +30,7 @@ public class StartStage : Dungeon
         else reward = rewardCreator.CreateReward(1);
 
         // 테스트용. 한 종류의 보상만 생성.
-        reward = rewardCreator.CreateReward(2, true);
+        reward = rewardCreator.CreateReward(3, true);
 
         
         GameObject rewardObj = Instantiate(reward, rewardPos.position, Quaternion.identity);
