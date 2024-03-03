@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // 해당 보상 NPC와의 대화 출력 여부 확인 클래스
 public class DialogueCheck
@@ -58,6 +58,9 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private int coin = 100; // 테스트를 위해 100 기본 제공
 
+    [SerializeField]
+    private int gem = 100;
+
     GameObject canvas;
 
     [SerializeField]
@@ -91,6 +94,10 @@ public class GameManager_JS : MonoBehaviour
     public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
 
     public UnityEvent OnStageChanged;
+
+    public UnityEvent OnStartStageLoaded;
+
+    public UnityEvent OnGemAdded;
 
     [SerializeField]
     public AttackGuage attackGuage;
@@ -293,6 +300,16 @@ public class GameManager_JS : MonoBehaviour
         }
     }
 
+    public int Gem
+    {
+        get { return gem; }
+        set
+        {
+            gem = value;
+            OnGemAdded.Invoke();
+        }
+    }
+
     public void CoinUpdate()
     {
         if (coinText_Play == null)
@@ -407,5 +424,10 @@ public class GameManager_JS : MonoBehaviour
             upgradeInfoList[_index] = int.Parse(upgradeItem.value[upgradeItem.level - 1]);
             Debug.Log("업그레이드 정보 갱신 : " + upgradeItem.name + " 레벨 : " + upgradeItem.level + " 값 : " + (upgradeItem.value[upgradeItem.level - 1]));
         }
+    }
+
+    public int GetUpgradeInfo(int _index)
+    {
+        return upgradeInfoList[_index];
     }
 }

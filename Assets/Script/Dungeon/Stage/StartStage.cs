@@ -19,6 +19,8 @@ public class StartStage : Dungeon
 
         // 첫 스테이지에 소환된 적의 수. 직접 입력해야함.
         enemyCount = 2;
+
+        GameManager_JS.Instance.OnStartStageLoaded.Invoke();
     }
 
     void StartReward()
