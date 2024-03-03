@@ -97,6 +97,9 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private float CurrentGuage;
 
+    // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
+    private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
+
     private void Awake()
     {
         if (instance == null)
@@ -395,5 +398,14 @@ public class GameManager_JS : MonoBehaviour
         attackGuage.isSpecialReady = false;
     }
 
-
+    // 업그레이드 정보 갱신
+    public void UpgradeInfoUpdate(int _index, int _level)
+    {
+        UpgradeItem upgradeItem = EventDBManager.instance.GetUpgradeItem(_index);
+        if (upgradeItem.level > 0)
+        {
+            upgradeInfoList[_index] = int.Parse(upgradeItem.value[upgradeItem.level - 1]);
+            Debug.Log("업그레이드 정보 갱신 : " + upgradeItem.name + " 레벨 : " + upgradeItem.level + " 값 : " + (upgradeItem.value[upgradeItem.level - 1]));
+        }
+    }
 }

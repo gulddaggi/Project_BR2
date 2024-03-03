@@ -72,6 +72,8 @@ public class UpgradeManager : MonoBehaviour
         isSet = true;
     }
 
+    
+    // 레벨업
     public void Levelup(int _index)
     {
         EventDBManager.instance.UpgradeItemLevelup(_index);
@@ -95,6 +97,16 @@ public class UpgradeManager : MonoBehaviour
         else
         {
             updateTarget.GetChild(4).GetComponent<Text>().text = curItem.price[curItem.level];
+        }
+    }
+
+    // 업그레이드 정보를 게임매니저에 전달
+    public void SendToGameManager()
+    {
+        for (int i = 0; i < totalUpgradeContentCount; i++)
+        {
+            UpgradeItem curItem = EventDBManager.instance.GetUpgradeItem(i);
+            GameManager_JS.Instance.UpgradeInfoUpdate(i, curItem.level);
         }
     }
 }
