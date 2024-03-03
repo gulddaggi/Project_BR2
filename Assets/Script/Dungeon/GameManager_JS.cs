@@ -97,6 +97,8 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private float CurrentGuage;
 
+    public int PlayerAbility; // 시연 후에는 리팩토링 필요(플레이어 능력)
+
     private void Awake()
     {
         if (instance == null)
@@ -362,7 +364,12 @@ public class GameManager_JS : MonoBehaviour
         return 0;
     }
 
-    
+    public void PlayerAbilityCheck(int abilityIndex)
+    {
+        PlayerAbility = abilityIndex;
+    }
+
+
     public void Guage()
     {
         Debug.Log("플레이어 Special Attack Current Guage 판정 시작");

@@ -1798,6 +1798,7 @@ GameObject:
   - component: {fileID: -1169196753002287245}
   - component: {fileID: 5931840581001839809}
   - component: {fileID: 8741914948528896336}
+  - component: {fileID: -4543805186101601984}
   m_Layer: 0
   m_Name: Minotaur
   m_TagString: Enemy
@@ -2098,6 +2099,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debuffManager: {fileID: 8288156176558879736}
+--- !u!114 &-4543805186101601984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2157474359228210181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27c4c647deeaa7489650dbaff6ee3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialHitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
+  hitEffectDuration: 1
 --- !u!1 &2300333845647899289
 GameObject:
   m_ObjectHideFlags: 0
