@@ -5,7 +5,7 @@ using UnityEngine;
 public class EventData : MonoBehaviour
 {
     // 이벤트 타입.
-    // 0 : 능력, 1 : 코인, 2 : 잼, 3 : 업그레이드
+    // 0 : 능력, 1 : 코인, 2 : 상점, 3 : 잼
     [SerializeField]
     private int eventType;
 

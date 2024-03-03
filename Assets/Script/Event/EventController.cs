@@ -102,6 +102,10 @@ public class EventController : MonoBehaviour
                         MerchantEventStart();
                         break;
 
+                    // 이벤트 : 잼
+                    case 3:
+                        GemEvent(tmpTypeIndex);
+                        break;
                     default:
                         break;
                 }
@@ -261,6 +265,18 @@ public class EventController : MonoBehaviour
         obj.transform.SetParent(this.gameObject.transform.parent);
         Destroy(obj, 2f);
         GameManager_JS.Instance.Coin = value;
+        eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
+    }
+
+    // 잼 획득 이벤트
+    void GemEvent(int value)
+    {
+        GameObject obj = Instantiate(events[1], player.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        obj.GetComponent<TextMesh>().text = "+" + value.ToString();
+        obj.transform.SetParent(this.gameObject.transform.parent);
+        Destroy(obj, 2f);
+        GameManager_JS.Instance.Gem = GameManager_JS.Instance.Gem + value;
         eventOn = false;
         GameManager_JS.Instance.isEventOn = false;
     }

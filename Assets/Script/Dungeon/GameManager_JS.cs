@@ -59,7 +59,7 @@ public class GameManager_JS : MonoBehaviour
     private int coin = 100; // 테스트를 위해 100 기본 제공
 
     [SerializeField]
-    private int gem = 100;
+    private int gem = 1000;
 
     GameObject canvas;
 
@@ -71,6 +71,9 @@ public class GameManager_JS : MonoBehaviour
 
     [SerializeField]
     public Text coinText_Event;
+
+    [SerializeField]
+    public GameObject gemText;
 
     GameObject curStage;
     GameObject nextStage;
@@ -307,6 +310,10 @@ public class GameManager_JS : MonoBehaviour
         {
             gem = value;
             OnGemAdded.Invoke();
+            if (gemText != null)
+            {
+                gemText.GetComponent<GemText>().GemTextUpdate(gem);
+            }
         }
     }
 

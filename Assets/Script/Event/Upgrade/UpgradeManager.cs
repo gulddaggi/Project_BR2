@@ -15,6 +15,9 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField]
     Scrollbar scrollbar;
 
+    [SerializeField]
+    Text gemText;
+
     private void Awake()
     {
         isSet = false;
@@ -26,6 +29,7 @@ public class UpgradeManager : MonoBehaviour
         if (!isSet)
         {
             UISetting();
+            GemTextSetting();
         }
     }
 
@@ -76,8 +80,16 @@ public class UpgradeManager : MonoBehaviour
     // 레벨업
     public void Levelup(int _index)
     {
-        EventDBManager.instance.UpgradeItemLevelup(_index);
-        UIUpdate(_index);
+        int price = int.Parse(this.transform.GetChild(_index).GetChild(4).GetComponent<Text>().text);
+
+        if (GameManager_JS.Instance.Gem >= price)
+        {
+            GameManager_JS.Instance.Gem = GameManager_JS.Instance.Gem - price;
+            EventDBManager.instance.UpgradeItemLevelup(_index);
+            UIUpdate(_index);
+            GemTextSetting();
+        }
+
     }
 
     // 레벨업 이후 해당 업그레이드 업데이트
@@ -108,5 +120,11 @@ public class UpgradeManager : MonoBehaviour
             UpgradeItem curItem = EventDBManager.instance.GetUpgradeItem(i);
             GameManager_JS.Instance.UpgradeInfoUpdate(i, curItem.level);
         }
+    }
+
+    // 잼 수량 텍스트 세팅
+    void GemTextSetting()
+    {
+        gemText.text = "Gem : " + GameManager_JS.Instance.Gem.ToString();
     }
 }
