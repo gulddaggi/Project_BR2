@@ -14,8 +14,6 @@ public class HalfSpider : Enemy
     protected override void Update()
     {
         base.Update();
-
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
     IEnumerator GetDamaged()

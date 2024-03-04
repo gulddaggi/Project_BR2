@@ -11,13 +11,13 @@ public class Minotaur : Enemy
     {
         base.Start();
         animator.applyRootMotion = false;
+
+        InvokeRepeating("UpdateTarget", delay, 0.25f);
     }
 
     protected override void Update()
     {
         base.Update();
-
-        InvokeRepeating("UpdateTarget", delay, 0.25f);
     }
 
     protected override void EnemyAttackOn()

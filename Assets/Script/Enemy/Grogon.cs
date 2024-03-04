@@ -22,8 +22,6 @@ public class Grogon : Enemy
     protected override void Update()
     {
         base.Update();
-
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
     protected override void EnemyAttackOn()
