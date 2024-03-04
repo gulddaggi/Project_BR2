@@ -11,6 +11,13 @@ public class HalfSpider : Enemy
         animator.applyRootMotion = false;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
+    }
+
     IEnumerator GetDamaged()
     {
         SR.material.color = Color.red;

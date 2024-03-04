@@ -19,6 +19,13 @@ public class Grogon : Enemy
         animator.applyRootMotion = false;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        InvokeRepeating("UpdateTarget", 0f, 0.25f);
+    }
+
     protected override void EnemyAttackOn()
     {
         isAttack = true;

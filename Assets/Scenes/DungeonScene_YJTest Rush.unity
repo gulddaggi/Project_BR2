@@ -780,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2157474359228210181, guid: afebf0a308bfc0348a239a0a0794a312, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2157474359228210181, guid: afebf0a308bfc0348a239a0a0794a312, type: 3}
       propertyPath: m_TagString
@@ -1331,6 +1331,7 @@ MonoBehaviour:
   isBoss: 0
   totalStackDamage: 0
   time: 0
+  playerdata: {fileID: 0}
   AttackDelay: 2
   range: 20
   EnemyPlayerAttackDistance: 20
@@ -5639,11 +5640,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DBFiles_Ability:
-  - DB_Ability_Water
-  DBFiles_Dialogue:
-  - DB_Dialogue_Water
-  DBFiles_Merchant: DB_Merchant
+  DBFilesAbility: []
+  DBFilesDialogue: []
+  DBFileMerchant: 
+  DBFileUpgrade: 
   abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
 MonoBehaviour:
@@ -5690,11 +5690,19 @@ MonoBehaviour:
   dungeonCount: 0
   tryCount: 0
   coin: 100
+  gem: 1000
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
+  gemText: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartStageLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGemAdded:
     m_PersistentCalls:
       m_Calls: []
   attackGuage:
