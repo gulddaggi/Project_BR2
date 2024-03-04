@@ -28,8 +28,8 @@ public class Grogon : Enemy
     {
         isAttack = true;
         animator.SetBool("isAttack", true);
-        Invoke("EnemyAttackRangeON", 0.1f);
-        Invoke("EnemyAttackOff", 1f);
+        Invoke("EnemyAttackRangeON", 0.2f);
+        Invoke("EnemyAttackOff", 1.5f);
     }
 
     protected override void EnemyAttackRangeON()
