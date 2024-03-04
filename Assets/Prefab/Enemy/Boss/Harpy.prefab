@@ -9943,6 +9943,7 @@ GameObject:
   - component: {fileID: 1494195293230048771}
   - component: {fileID: 5989579093108966914}
   - component: {fileID: 4270447766558571995}
+  - component: {fileID: 494541441639699895}
   m_Layer: 0
   m_Name: Harpy
   m_TagString: Untagged
@@ -10232,6 +10233,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2.656228, z: 1}
   m_Center: {x: 0, y: -0.82811403, z: 0}
+--- !u!114 &494541441639699895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794672803053467446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27c4c647deeaa7489650dbaff6ee3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialHitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
+  hitEffectDuration: 1
 --- !u!1 &8825019177895794812
 GameObject:
   m_ObjectHideFlags: 0

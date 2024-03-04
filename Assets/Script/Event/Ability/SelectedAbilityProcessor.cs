@@ -42,11 +42,13 @@ public class SelectedAbilityProcessor : MonoBehaviour
             // 물
             case 0:
                 Ability_Water(id);
+                GameManager_JS.Instance.PlayerAbilityCheck(0);
                 break;
 
             // 불
             case 1:
                 Ability_Flame(id);
+                GameManager_JS.Instance.PlayerAbilityCheck(1);
                 break;
         }
 

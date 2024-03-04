@@ -6873,6 +6873,7 @@ GameObject:
   - component: {fileID: 1509352678878987364}
   - component: {fileID: 1509352678878987365}
   - component: {fileID: 1509352678878987355}
+  - component: {fileID: 8642474825396778688}
   m_Layer: 0
   m_Name: Gorgon
   m_TagString: Enemy
@@ -7237,6 +7238,21 @@ MonoBehaviour:
   bulletPrefab: {fileID: 102920571250306707, guid: e73dd4495bb3f4bcd990785ac6e81257, type: 3}
   bulletSpawnPoint: {fileID: 5780426458606338047}
   bulletSpeed: 10
+--- !u!114 &8642474825396778688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6589860889163179333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27c4c647deeaa7489650dbaff6ee3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitialHitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
+  hitEffectDuration: 1
 --- !u!1 &6599198953223707425
 GameObject:
   m_ObjectHideFlags: 0

@@ -446,11 +446,30 @@ public class Attack : MonoBehaviour
 
         if (PlayerWeapon == 3)
         {
+            /*
             for (int i = 0; i < 3; i++)
             {
                 StartCoroutine(SpawnShurikenDelayed(MouseDirection, i * 0.2f));
             }
-            AttackAvailable = false;
+            AttackAvailable = true;
+            */
+
+            // Enemy 리팩토링으로 인한 임시 코드
+
+            for (int i = 0; i < 9; i++)
+            {
+                GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+
+                // 각도 조절
+                float angle = (i - 1) * 40f;
+                Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (MouseDirection - arrowSpawnPoint.position).normalized;
+
+                Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+                shuriken.transform.rotation = arrowRotation;
+                shuriken.transform.position = new Vector3(shuriken.transform.position.x, 2f, shuriken.transform.position.z);
+
+                shuriken.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
+            }
         }
     }
 

@@ -107,6 +107,8 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private float CurrentGuage;
 
+    public int PlayerAbility; // 시연 후에는 리팩토링 필요(플레이어 능력)
+    
     // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
     private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
 
@@ -389,7 +391,12 @@ public class GameManager_JS : MonoBehaviour
         return 0;
     }
 
-    
+    public void PlayerAbilityCheck(int abilityIndex)
+    {
+        PlayerAbility = abilityIndex;
+    }
+
+
     public void Guage()
     {
         Debug.Log("플레이어 Special Attack Current Guage 판정 시작");

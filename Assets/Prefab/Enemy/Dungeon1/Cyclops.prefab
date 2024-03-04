@@ -5219,6 +5219,7 @@ GameObject:
   - component: {fileID: 7652229387325939545}
   - component: {fileID: 3649911331882638654}
   - component: {fileID: 1969765198043702673}
+  - component: {fileID: 3260471375403038992}
   m_Layer: 3
   m_Name: Cyclops
   m_TagString: Enemy
@@ -5595,6 +5596,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3260471375403038992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4899848627645275925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27c4c647deeaa7489650dbaff6ee3d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffectPrefab:
+  - {fileID: 1621743294102328, guid: 4eb7ace54993de241bce25b99d5c2ecf, type: 3}
+  hitEffectDuration: 1
 --- !u!1 &4926668109611843148
 GameObject:
   m_ObjectHideFlags: 0
