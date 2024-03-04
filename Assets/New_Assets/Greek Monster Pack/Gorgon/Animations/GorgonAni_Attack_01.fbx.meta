@@ -63,7 +63,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.42857143
+        functionName: EnemyAttackOn
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: acb85019aa8ed4c9692cfe5a7356074e, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
