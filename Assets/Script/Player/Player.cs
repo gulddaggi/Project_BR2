@@ -15,7 +15,23 @@ public class Player : MonoBehaviour, IListener
 
     bool isPlayerDead = false;
 
+    // 플레이어 부활 가능 횟수
+    int playerResurrectionCount = 0;
+
+    // 플레이어 부활 시 적용 체력 퍼센트
+    float playerResurrectionPercent = 0f;
+
+    // 수치 증가 후 복구 값. 상점 턴 기반 아이템
+    float merchantSpeedReinforceReturn = 0f;
+    float playerAttackReturn =  0f;
+    float playerStrongAttackReturn = 0f;
+    float playerFieldAttackReturn = 0f;
+    float playerDodgeAttackReturn = 0f;
+
+
     private Dictionary<SHOP_EVENT_TYPE, int> eventPlayDic = new Dictionary<SHOP_EVENT_TYPE, int>();
+
+    private List<int> eventPlayList = new List<int>{ 0, 0, 0, 0, 0, 0 };
 
     // 현재 적에게 적용시킬 수 있는 디버프 확인 배열
     // 각 인덱스는 속성. 값은 0(적용안함), 1(1티어), 2(1티어 업그레이드), 3(2티어)
@@ -23,7 +39,8 @@ public class Player : MonoBehaviour, IListener
     private int[] stAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] fieldAttackDebuffArray = { 0, 0, 0, 0, 0 };
     private int[] dodgeAttackDebuffArray = { 0, 0, 0, 0, 0 };
-    private bool[] excutionAbilityArray = { false, false, false, false, false };
+    private int[] counterAttackDebuffArray = { 0, 0, 0, 0, 0 };
+    private float[] excutionPercentArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
     private float[] stackDamageArray = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
 
     // 불 타입 데미지
@@ -53,10 +70,20 @@ public class Player : MonoBehaviour, IListener
         }
     }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
-    public float PlayerAttackDamage { get { return playerAttackDamage; } set { playerAttackDamage = value; } }
-    public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackDamage = value; } }
-    public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackDamage = value; } }
-    public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackDamage = value; } }
+    public float PlayerAttackDamage { 
+        get { return playerAttackDamage; } 
+        set {
+            if (playerAttackReturn != 0f)
+            {
+                playerAttackReturn = playerAttackReturn + (playerAttackDamage);
+            }
+
+            playerAttackDamage = value; 
+        } 
+    }
+    public float PlayerStrongAttackDamage { get { return playerStrongAttackDamage; } set { playerStrongAttackReturn = playerStrongAttackDamage; playerStrongAttackDamage = value; } }
+    public float PlayerFieldAttackDamage { get { return playerFieldAttackDamage; } set { playerFieldAttackReturn = playerFieldAttackDamage; playerFieldAttackDamage = value; } }
+    public float PlayerDodgeAttackDamage { get { return playerDodgeAttackDamage; } set { playerDodgeAttackReturn = playerDodgeAttackDamage; playerDodgeAttackDamage = value; } }
     public float PlayerCounterAbilityDamage { get { return playerCounterAbilityDamage; } set { playerCounterAbilityDamage = value; } }
 
     public float PlayerStackDamage { get { return playerStackDamage; } set { playerStackDamage = value; } } // 단위 : %. 적 체력의 PlayerDrawnDamage(%) 만큼 데미지 적용.
@@ -96,6 +123,7 @@ public class Player : MonoBehaviour, IListener
     // 모든 데미지 일괄 계산 함수.
     public void SetPlayerAllDamage(float _value)
     {
+        // 수치 계산
         PlayerAttackDamage = PlayerAttackDamage + (PlayerAttackDamage * _value * 0.01f);
         PlayerStrongAttackDamage = PlayerStrongAttackDamage + (PlayerStrongAttackDamage * _value * 0.01f);
         PlayerFieldAttackDamage = PlayerFieldAttackDamage + (PlayerFieldAttackDamage * _value * 0.01f);
@@ -119,6 +147,7 @@ public class Player : MonoBehaviour, IListener
         {
             debuffOnArray[i] = false;
         }
+        GameManager_JS.Instance.OnStartStageLoaded.AddListener(() => ApplyPlayerUpgrade());
     }
 
     private void Start()
@@ -126,6 +155,9 @@ public class Player : MonoBehaviour, IListener
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPPotion, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPReinforce, this);
         EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sWeaponReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sSpeedReinforce, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sHPToCoin, this);
+        EventManager.Instance.AddListener(SHOP_EVENT_TYPE.sAllReinforce, this);
         OnPlayerHPUpdated.Invoke(FullHP, currentHP);
     }
 
@@ -141,10 +173,24 @@ public class Player : MonoBehaviour, IListener
 
     public void BeforeDie()
     {
-        isPlayerDead = true;
-        this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
-        this.gameObject.GetComponent<PlayerController>().enabled = false;
-        Invoke("Die", 2.5f);
+        if (playerResurrectionCount == 0)
+        {
+            isPlayerDead = true;
+            this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
+            this.gameObject.GetComponent<PlayerController>().enabled = false;
+            Invoke("Die", 2.5f);
+        }
+        else
+        {
+            Resurrction();
+        }
+    }
+
+    // 플레이어 부활.
+    void Resurrction()
+    {
+        CurrentHP = FullHP * (0.01f * playerResurrectionPercent);
+        --playerResurrectionCount;
     }
 
     void Die()
@@ -247,10 +293,16 @@ public class Player : MonoBehaviour, IListener
         }
     }
 
-    // 능력 선택에 따른 처형 관련 능력 활성화. SelectedAbilityProcessor에서 사용.
-    public void SetExcutionAbility(int _index, bool _value)
+    // 능력 선택에 따른 카운터 활성화. SelectedAbilityProcessor에서 사용.
+    public void SetDebuffToCounterAttack(int _index, int _value)
     {
-        excutionAbilityArray[_index] = _value;
+        counterAttackDebuffArray[_index] = _value;
+    }
+
+    // 능력 선택에 따른 처형 활성화. SelectedAbilityProcessor에서 사용.
+    public void SetExcutionAbility(int _index, float _value)
+    {
+        excutionPercentArray[_index] = _value;
     }
 
     public void SetStackDamage(int _index, float _value)
@@ -283,14 +335,19 @@ public class Player : MonoBehaviour, IListener
     }
 
     // 플레이어에게 모든 공격에 대해 피격된 적이 처형 디버프를 확인
-    public bool[] GetExecutionAbilityArray()
+    public float[] GetExecutionAbilityArray()
     {
-        return excutionAbilityArray;
+        return excutionPercentArray;
     }
 
     public float[] GetStackDamageArray()
     {
         return stackDamageArray;
+    }
+
+    public int[] GetCounterAttackDebuffArray()
+    {
+        return counterAttackDebuffArray;
     }
 
     public void EventOn(SHOP_EVENT_TYPE sEventType, Component from, object _param = null)
@@ -309,45 +366,152 @@ public class Player : MonoBehaviour, IListener
                 playerAttackDamage *= 1.25f;
                 break;
 
-            // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다.
+            // 3턴 동안 스테이지에 입장할 때마다 최대 체력의 10%를 회복한다. 지속 턴수 3
             case SHOP_EVENT_TYPE.sHPPotion:
                 Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
-                if (eventPlayDic.ContainsKey(SHOP_EVENT_TYPE.sHPPotion))
-                {
-                    eventPlayDic[SHOP_EVENT_TYPE.sHPPotion] += 3;
-                    Debug.Log("턴수 증가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
-                }
-                else
-                {
-                    eventPlayDic.Add(SHOP_EVENT_TYPE.sHPPotion, 3);
-                    Debug.Log("새로 추가 : " + eventPlayDic[SHOP_EVENT_TYPE.sHPPotion]);
-                }
+                eventPlayList[(int)SHOP_EVENT_TYPE.sHPPotion] += 3;
                 break;
-            
+
+            // 이동속도가 20% 증가한다. 지속 턴수 5
+            case SHOP_EVENT_TYPE.sSpeedReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sSpeedReinforce.ToString());
+                merchantSpeedReinforceReturn = MoveSpeed * 0.2f;
+                MoveSpeed = MoveSpeed + merchantSpeedReinforceReturn;
+                eventPlayList[(int)SHOP_EVENT_TYPE.sSpeedReinforce] += 5;
+                break;
+
+            // 현재 체력이 10 줄어들고 20~40 코인을 획득한다.
+            case SHOP_EVENT_TYPE.sHPToCoin:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPToCoin.ToString());
+                CurrentHP = CurrentHP - 10f;
+                int coinPlus = Random.Range(20, 41);
+                GameManager_JS.Instance.Coin = coinPlus;
+                break;
+
+            // 모든 공격의 피해량이 15% 증가한다. 지속 턴수 3
+            case SHOP_EVENT_TYPE.sAllReinforce:
+                Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sAllReinforce.ToString());
+                // 복구 데미지 저장
+                playerAttackReturn = playerAttackReturn + (PlayerAttackDamage * 0.15f);
+                playerStrongAttackReturn = playerStrongAttackReturn + (PlayerStrongAttackDamage * 0.15f);
+                playerFieldAttackReturn = playerFieldAttackReturn + (PlayerFieldAttackDamage * 0.15f);
+                playerDodgeAttackReturn = playerDodgeAttackReturn + PlayerDodgeAttackDamage * 0.15f;
+                SetPlayerAllDamage(15.0f);
+                eventPlayList[(int)SHOP_EVENT_TYPE.sAllReinforce] += 3;
+                break;
+
             default:
                 break;
         }
 
     }
 
-    public void TurnBasedEventOn()
+    public void TurnBasedEventOn(int _index)
     {
-        foreach (SHOP_EVENT_TYPE item in eventPlayDic.Keys)
+        if (eventPlayList[_index] > 0)
         {
-            switch (item)
+            switch ((SHOP_EVENT_TYPE)_index)
             {
                 case SHOP_EVENT_TYPE.sHPReinforce:
                     break;
+
                 case SHOP_EVENT_TYPE.sWeaponReinforce:
                     break;
+
                 case SHOP_EVENT_TYPE.sHPPotion:
                     Debug.Log("이벤트 발생 : " + SHOP_EVENT_TYPE.sHPPotion.ToString());
                     Debug.Log("가산 : " + (FullHP * 0.1f));
                     CurrentHP += (FullHP * 0.1f);
+                    --eventPlayList[_index];
+                    Debug.Log("인덱스 감소. 현재 : " + eventPlayList[_index]);
                     break;
+
+                case SHOP_EVENT_TYPE.sSpeedReinforce:
+                    --eventPlayList[_index];
+                    Debug.Log(SHOP_EVENT_TYPE.sSpeedReinforce.ToString() + " 인덱스 감소. 현재 : " + eventPlayList[_index]);
+                    if (eventPlayList[_index] == 0)
+                    {
+                        MoveSpeed = MoveSpeed - merchantSpeedReinforceReturn;
+                    }
+                    break;
+
+                case SHOP_EVENT_TYPE.sHPToCoin:
+                    break;
+
+                case SHOP_EVENT_TYPE.sAllReinforce:
+                    --eventPlayList[_index];
+                    Debug.Log(SHOP_EVENT_TYPE.sAllReinforce.ToString() + " 인덱스 감소. 현재 : " + eventPlayList[_index]);
+                    if (eventPlayList[_index] == 0)
+                    {
+                        PlayerAttackDamage = PlayerAttackDamage - playerAttackReturn;
+                        PlayerStrongAttackDamage = PlayerStrongAttackDamage - playerStrongAttackReturn;
+                        PlayerFieldAttackDamage = PlayerFieldAttackDamage - playerFieldAttackReturn;
+                        PlayerDodgeAttackDamage = PlayerDodgeAttackDamage - playerDodgeAttackReturn;
+                    }
+                    break;
+
                 default:
                     break;
             }
         }
     }
+
+    // 플레이어 업그레이드 적용
+    public void ApplyPlayerUpgrade()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            float value = (float)GameManager_JS.Instance.GetUpgradeInfo(i);
+            switch (i)
+            {
+                // 약공격 피해가 증가한다.
+                case 0:
+                    PlayerAttackDamage = PlayerAttackDamage + value; 
+                    break;
+
+                // 최대 체력이 증가한다.
+                case 1:
+                    FullHP = FullHP + value;
+                    CurrentHP = CurrentHP + value;
+                    break;
+
+                // 스테이지에서 벗어날 때마다 체력을 회복한다.
+                case 2:
+                    GameManager_JS.Instance.OnStageChanged.AddListener(() => PlayerUpgradeID2(value));
+                    break;
+
+                // 스테이지 보상으로 잼 획득 시 체력을 회복한다.
+                case 3:
+                    GameManager_JS.Instance.OnGemAdded.AddListener(() => PlayerUpgradeID3(value));
+                    break;
+
+                // 던전 진입 시 코인을 획득한다.
+                case 4:
+                    GameManager_JS.Instance.Coin = (int)value;
+                    break;
+
+                // 체력이 0에 도달하였을 때 죽지 않고 체력을 50% 회복한다.
+                case 5:
+                    playerResurrectionCount = (int)value;
+                    playerResurrectionPercent = 50f;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    // 플레이어 업그레이드(ID : 2 ) 정기적 회복
+    public void PlayerUpgradeID2(float _value)
+    {
+        CurrentHP = CurrentHP + _value;
+    }
+
+    // 플레이어 업그레이드(ID : 3) 회수 보상
+    public void PlayerUpgradeID3(float _value)
+    {
+        CurrentHP = CurrentHP + _value;
+    }
+    
 }

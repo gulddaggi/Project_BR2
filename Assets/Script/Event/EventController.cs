@@ -15,6 +15,9 @@ public class EventController : MonoBehaviour
     GameObject[] event_Merchant;
 
     [SerializeField]
+    GameObject eventUpgrade;
+
+    [SerializeField]
     LayerMask layerMask;
 
     [SerializeField]
@@ -65,40 +68,50 @@ public class EventController : MonoBehaviour
         // 이벤트 감지.
         if (Input.GetKey(KeyCode.E) && Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, range, layerMask))
         {
-            Debug.Log("인식은 됨.");
-            if (eventOn) return;
-            eventOn = true;
-            GameManager_JS.Instance.isEventOn = true;
-            EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
-
-            // 보상 오브젝트의 이벤트 관련 데이터 저장.
-            int type = eventData.EventType;
-            tmpTypeIndex = eventData.TypeIndex;
-
-            switch (type)
+            if (hit.transform.tag == "Upgrade")
             {
-                // 이벤트 : 능력
-                case 0:
-                    tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
-                    ChoiceEventStart();
-                    break;
-
-                // 이벤트 : 코인
-                case 1:
-                    CoinEvent(tmpTypeIndex);
-                    break;
-
-                // 이벤트 : 상점
-                case 2:
-                    MerchantEventStart();
-                    break;
-
-                default:
-                    break;
+                if (eventOn) return;
+                UpgradeEventStart();
             }
+            else
+            {
+                if (eventOn) return;
+                eventOn = true;
+                GameManager_JS.Instance.isEventOn = true;
+                EventData eventData = hit.transform.gameObject.GetComponent<EventData>();
 
-            Destroy(hit.transform.gameObject, 0.01f);
-  
+                // 보상 오브젝트의 이벤트 관련 데이터 저장.
+                int type = eventData.EventType;
+                tmpTypeIndex = eventData.TypeIndex;
+
+                switch (type)
+                {
+                    // 이벤트 : 능력
+                    case 0:
+                        tmpName = hit.transform.gameObject.GetComponent<AbilityData>().NPCNAME;
+                        ChoiceEventStart();
+                        break;
+
+                    // 이벤트 : 코인
+                    case 1:
+                        CoinEvent(tmpTypeIndex);
+                        break;
+
+                    // 이벤트 : 상점
+                    case 2:
+                        MerchantEventStart();
+                        break;
+
+                    // 이벤트 : 잼
+                    case 3:
+                        GemEvent(tmpTypeIndex);
+                        break;
+                    default:
+                        break;
+                }
+
+                Destroy(hit.transform.gameObject, 0.01f);
+            }
         }
     }
 
@@ -135,6 +148,24 @@ public class EventController : MonoBehaviour
         {
             SwitchToChoice();
         }
+    }
+
+    // 업그레이드 이벤트 시작
+    void UpgradeEventStart()
+    {
+        eventOn = true;
+        GameManager_JS.Instance.isEventOn = true;
+        eventUpgrade.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    // 업그레이드 이벤트 종료
+    public void UpgradeEventEnd()
+    {
+        Time.timeScale = 1f;
+        eventUpgrade.SetActive(false);
+        eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
     }
 
     public void SwitchToChoice()
@@ -238,6 +269,18 @@ public class EventController : MonoBehaviour
         GameManager_JS.Instance.isEventOn = false;
     }
 
+    // 잼 획득 이벤트
+    void GemEvent(int value)
+    {
+        GameObject obj = Instantiate(events[1], player.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        obj.GetComponent<TextMesh>().text = "+" + value.ToString();
+        obj.transform.SetParent(this.gameObject.transform.parent);
+        Destroy(obj, 2f);
+        GameManager_JS.Instance.Gem = GameManager_JS.Instance.Gem + value;
+        eventOn = false;
+        GameManager_JS.Instance.isEventOn = false;
+    }
+
     void MerchantEventStart()
     {
         // 선택 전체 UI 활성화
@@ -276,7 +319,7 @@ public class EventController : MonoBehaviour
             }
             
             // 해당 텍스트에 DB 데이터 입력.
-            shopItemList.Add(EventDBManager.instance.TextDisplay_And_ClassReturn_Merchant(texts));
+            shopItemList.Add(EventDBManager.instance.MerchantTextDisplay(texts));
             texts.Clear();
         }
 

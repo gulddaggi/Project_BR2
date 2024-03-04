@@ -87,7 +87,7 @@ public class AbilityListManager : MonoBehaviour
 
     private void OnDisable()
     {
-        ALOff();
+        //ALOff();
     }
 
     // 현재 보유 리스트에 선택된 능력을 추가하는 함수.
@@ -123,7 +123,7 @@ public class AbilityListManager : MonoBehaviour
         {
             // 레벨 증가
             ability.level = ++levelCheckList[abilityIndex][id];
-            
+            Debug.Log(ability.ability_name + "이 선택되어 추가");
             // 현재 선택 리스트에 삽입
             playerAbilityList.Add(ability);
         }
@@ -131,6 +131,9 @@ public class AbilityListManager : MonoBehaviour
         {
             if (playerAbilityList.Exists(x => x.ability_name == ability.ability_name))
             {
+                Debug.Log("기 선택 능력" + ability.ability_name + "을 업데이트");
+
+
                 int index = playerAbilityList.FindIndex(x => x.ability_name == ability.ability_name);
                 
                 // 기존 랭크가 선택된 랭크보다 작을 경우. 데이터 교체
@@ -187,9 +190,11 @@ public class AbilityListManager : MonoBehaviour
 
     public void ALOff()
     {
-        for (int i = 0; i < gameObject.transform.childCount; i++)
+        int childNum = gameObject.transform.childCount;
+
+        for (int i = 0; i < childNum; i++)
         {
-            GameObject.DestroyImmediate(gameObject.transform.GetChild(i).gameObject);
+            GameObject.DestroyImmediate(gameObject.transform.GetChild(0).gameObject);
         }
         Transform _parent = transform.parent;
         _parent.parent.gameObject.SetActive(false);

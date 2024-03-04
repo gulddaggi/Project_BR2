@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // 해당 보상 NPC와의 대화 출력 여부 확인 클래스
 public class DialogueCheck
@@ -58,6 +58,9 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private int coin = 100; // 테스트를 위해 100 기본 제공
 
+    [SerializeField]
+    private int gem = 1000;
+
     GameObject canvas;
 
     [SerializeField]
@@ -68,6 +71,9 @@ public class GameManager_JS : MonoBehaviour
 
     [SerializeField]
     public Text coinText_Event;
+
+    [SerializeField]
+    public GameObject gemText;
 
     GameObject curStage;
     GameObject nextStage;
@@ -92,12 +98,19 @@ public class GameManager_JS : MonoBehaviour
 
     public UnityEvent OnStageChanged;
 
+    public UnityEvent OnStartStageLoaded;
+
+    public UnityEvent OnGemAdded;
+
     [SerializeField]
     public AttackGuage attackGuage;
     [SerializeField]
     private float CurrentGuage;
 
     public int PlayerAbility; // 시연 후에는 리팩토링 필요(플레이어 능력)
+    
+    // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
+    private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
 
     private void Awake()
     {
@@ -292,6 +305,20 @@ public class GameManager_JS : MonoBehaviour
         }
     }
 
+    public int Gem
+    {
+        get { return gem; }
+        set
+        {
+            gem = value;
+            OnGemAdded.Invoke();
+            if (gemText != null)
+            {
+                gemText.GetComponent<GemText>().GemTextUpdate(gem);
+            }
+        }
+    }
+
     public void CoinUpdate()
     {
         if (coinText_Play == null)
@@ -402,5 +429,19 @@ public class GameManager_JS : MonoBehaviour
         attackGuage.isSpecialReady = false;
     }
 
+    // 업그레이드 정보 갱신
+    public void UpgradeInfoUpdate(int _index, int _level)
+    {
+        UpgradeItem upgradeItem = EventDBManager.instance.GetUpgradeItem(_index);
+        if (upgradeItem.level > 0)
+        {
+            upgradeInfoList[_index] = int.Parse(upgradeItem.value[upgradeItem.level - 1]);
+            Debug.Log("업그레이드 정보 갱신 : " + upgradeItem.name + " 레벨 : " + upgradeItem.level + " 값 : " + (upgradeItem.value[upgradeItem.level - 1]));
+        }
+    }
 
+    public int GetUpgradeInfo(int _index)
+    {
+        return upgradeInfoList[_index];
+    }
 }

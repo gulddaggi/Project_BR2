@@ -202,12 +202,15 @@ public class SelectedAbilityProcessor : MonoBehaviour
                 }
 
                 playerStatus.PlayerCounterAbilityDamage = playerStatus.PlayerCounterAbilityDamage * calcValue;
+
+                // 디버프 적용
+                playerStatus.SetDebuffToCounterAttack(0, 3);
                 break;
 
             // 빙결 처형 : 빙결 효과를 입은 적의 체력이 20% 이하인 경우 적을 바로 처치한다. 주변의 적에게 빙결 효과를 입힌다.
             // 디버프 : 빙결, 빙결장판, 처형
             case 9:
-                playerStatus.SetExcutionAbility(0, true);
+                playerStatus.SetExcutionAbility(0, 0.3f);
                 break;
 
             default:
@@ -379,14 +382,16 @@ public class SelectedAbilityProcessor : MonoBehaviour
             case 8:
                 // 수치 적용.
                 playerStatus.PlayerCounterIgnitionDamage = selectedAbility.plus_Value;
+
+                // 디버프 적용
+                playerStatus.SetDebuffToCounterAttack(1, 3);
                 break;
 
             // 화염 처형 : 점화 효과를 입은 적의 체력이 25% 이하인 경우 적을 바로 처치하며 주변 적에게 점화 효과를 입힌다.
             // 디버프 : 점화, 처형, 처형 시 점화 전파
             case 9:
                 // 능력 적용
-                playerStatus.SetExcutionAbility(1, true);
-                playerStatus.PlayerExcutionPercent = 25f;
+                playerStatus.SetExcutionAbility(1, 0.25f);
                 break;
 
             default:

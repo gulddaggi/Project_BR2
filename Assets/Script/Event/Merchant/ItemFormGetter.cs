@@ -39,6 +39,7 @@ public class ItemFormGetter : MonoBehaviour
             Debug.Log(shopItemList[_index].item_Name + "구매");
             GameManager_JS.Instance.Coin = -price;
             shopItemList[_index].EventOccur();
+            objs[_index + 3].GetComponent<ItemSoldOut>().SoldOutTextOn();
         }
         else
         {

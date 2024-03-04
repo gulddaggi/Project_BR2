@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4558761890925477158}
   - component: {fileID: 3656775003189824124}
   - component: {fileID: 1190463306390893930}
-  - component: {fileID: 5633456481854303401}
+  - component: {fileID: 6594368983095893729}
   m_Layer: 3
   m_Name: Gem
   m_TagString: Event_Gem
@@ -98,7 +98,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5633456481854303401
+--- !u!114 &6594368983095893729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +107,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713416704636973071}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1f83d1e506e2c4ab3234bc6c16f07a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8406b434238eed14294e5b5134165df3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventType: 0
+  eventType: 3
   typeIndex: 0
