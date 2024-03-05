@@ -738,6 +738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 6402893141203149823}
+  playerController: {fileID: 0}
+  fieldAttackObjArray: []
+  flameFieldObj: {fileID: 0}
 --- !u!1 &2637213443470838119
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,6 +2065,9 @@ MonoBehaviour:
   PlayerRigid: {fileID: 0}
   DodgeButtonPressedCount: 0
   PlayerMoveDirection: {x: 0, y: 0, z: 0}
+  OnPlayerFieldAttack:
+    m_PersistentCalls:
+      m_Calls: []
   dodgeAttackObj: {fileID: 1719984384}
   CanMove: 1
   Basic_Dodge_CoolDown: 0
@@ -2178,8 +2184,17 @@ MonoBehaviour:
   playerStrongAttackDamage: 15
   playerFieldAttackDamage: 0
   playerDodgeAttackDamage: 0
-  playerDrawnDamage: 0
+  playerStackDamage: 0
+  playerCounterAbilityDamage: 0
   playerSpecialAttackFillingAmount: 5
+  playerAttackBurnDamage: 0
+  playerStrongAttackBurnDamamge: 0
+  playerFieldAttackBurnDamage: 0
+  playerDodgeAttackBurnDamage: 0
+  playerBurstDamage: 0
+  playerFireBlessingDamage: 0
+  playerCounterIgnitionDamage: 0
+  playerExcutionPercent: -1
 --- !u!114 &8269540173079867940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,6 +3095,7 @@ MonoBehaviour:
   - {fileID: 0}
   event_Merchant:
   - {fileID: 0}
+  eventUpgrade: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -5544,7 +5560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 831762887220803101, guid: 26e57d01eaec1614bae8719b1cc2c31c, type: 3}
       propertyPath: m_VersionIndex
-      value: 10720
+      value: 10723
       objectReference: {fileID: 0}
     - target: {fileID: 831762887220803101, guid: 26e57d01eaec1614bae8719b1cc2c31c, type: 3}
       propertyPath: m_Faces.Array.size
