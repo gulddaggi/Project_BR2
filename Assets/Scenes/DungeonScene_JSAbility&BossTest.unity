@@ -4225,8 +4225,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -87.49994, y: 0.000015258789}
-  m_SizeDelta: {x: -175.00012, y: -120.00004}
+  m_AnchoredPosition: {x: -87.49994, y: 7.5000324}
+  m_SizeDelta: {x: -175.00012, y: -105.00006}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &355351530
 MonoBehaviour:
@@ -5652,8 +5652,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -179.74988, y: 3.2999878}
-  m_SizeDelta: {x: -559.49976, y: 1026.6}
+  m_AnchoredPosition: {x: -25, y: 3.2999878}
+  m_SizeDelta: {x: -250, y: 1026.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &542150020
 MonoBehaviour:
@@ -5685,7 +5685,7 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Discription
@@ -5732,8 +5732,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -179.74988, y: 5.5000153}
-  m_SizeDelta: {x: -559.49976, y: 479.00003}
+  m_AnchoredPosition: {x: -25, y: 5.5000153}
+  m_SizeDelta: {x: -250.00006, y: 479.00003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &569775522
 MonoBehaviour:
@@ -5765,7 +5765,7 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Discription
@@ -5824,14 +5824,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a568b44ebff12f6469ed2b9fc6462687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DBFiles_Ability:
+  DBFilesAbility:
   - DB_Ability_Water
   - DB_Ability_Flame
-  DBFiles_Dialogue:
+  DBFilesDialogue:
   - DB_Dialogue_Water
   - DB_Dialogue_Flame
-  DBFiles_Merchant: DB_Merchant
-  abilityCountArr: 000000000000000000000000
+  DBFileMerchant: DB_Merchant
+  DBFileUpgrade: DB_Upgrade
 --- !u!114 &575170315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5877,11 +5877,19 @@ MonoBehaviour:
   dungeonCount: 0
   tryCount: 0
   coin: 100
+  gem: 1000
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
+  gemText: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStartStageLoaded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGemAdded:
     m_PersistentCalls:
       m_Calls: []
   attackGuage:
@@ -5890,6 +5898,7 @@ MonoBehaviour:
     SpecialAttackGuage: {fileID: 253078651}
     isSpecialReady: 0
   CurrentGuage: 0
+  PlayerAbility: 0
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -6130,7 +6139,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -7921,7 +7930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5a72b16c5c2a94795fa16f3a6146bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityUIPref: {fileID: 1904974051213522207, guid: 5aaeb8174791bcc42ad0245b49df7aad, type: 3}
+  abilityUIPref: {fileID: 1904974051213522207, guid: eb12892c832281344837a38b29f40cad, type: 3}
   totalAbilityNum: 0
   totalIDNum: 0
   player: {fileID: 1865854130}
@@ -11351,8 +11360,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -87.49988, y: -143.40002}
-  m_SizeDelta: {x: -175.00024, y: 162.80006}
+  m_AnchoredPosition: {x: -87.49988, y: -134.90002}
+  m_SizeDelta: {x: -175.00024, y: 179.80005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779066618
 MonoBehaviour:
@@ -11905,8 +11914,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -87.49988, y: -281.09998}
-  m_SizeDelta: {x: -175.00024, y: 438.19995}
+  m_AnchoredPosition: {x: -87.49988, y: -272.59998}
+  m_SizeDelta: {x: -175.00024, y: 455.19995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845566036
 MonoBehaviour:
@@ -13474,8 +13483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -179.74988, y: 9.999992}
-  m_SizeDelta: {x: -559.49976, y: -80.000015}
+  m_AnchoredPosition: {x: -25, y: 9.999992}
+  m_SizeDelta: {x: -250.00006, y: -80.000015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2133620214
 MonoBehaviour:
@@ -13507,7 +13516,7 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Discription
