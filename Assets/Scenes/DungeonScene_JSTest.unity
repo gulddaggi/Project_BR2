@@ -940,7 +940,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Value
+  m_Text: 0
 --- !u!222 &123455621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2475,7 +2475,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Value
+  m_Text: 0
 --- !u!222 &440187921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3344,7 +3344,6 @@ MonoBehaviour:
   - DB_Dialogue_Flame
   DBFileMerchant: DB_Merchant
   DBFileUpgrade: DB_Upgrade
-  abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3411,6 +3410,7 @@ MonoBehaviour:
     SpecialAttackGuage: {fileID: 253078651}
     isSpecialReady: 0
   CurrentGuage: 0
+  PlayerAbility: 0
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -4676,7 +4676,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Value
+  m_Text: 0
 --- !u!222 &832771002
 CanvasRenderer:
   m_ObjectHideFlags: 0

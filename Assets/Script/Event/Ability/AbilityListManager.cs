@@ -28,6 +28,8 @@ public class Ability_ListComponent
 
     public string rank;
 
+    public string valueText;
+
     // 능력 인덱스. 0 : 능력 종류, 1 : 해당 능력의 DB 상 ID
     public int[] indexArr = new int[2];
 };
@@ -110,6 +112,7 @@ public class AbilityListManager : MonoBehaviour
         ability.ability_name = _selected.transform.GetChild(0).GetComponent<Text>().text;
         ability.description = _selected.transform.GetChild(1).GetComponent<Text>().text;
         ability.option = _selected.transform.GetChild(2).GetComponent<Text>().text;
+        ability.valueText = _selected.transform.GetChild(3).GetComponent<Text>().text;
         ability.plus_Value = value;
         ability.rank = _selected.transform.GetChild(4).GetComponent<Text>().text;
         ability.level = 1;
@@ -183,7 +186,7 @@ public class AbilityListManager : MonoBehaviour
             obj.transform.GetChild(0).GetComponent<Text>().text = playerAbilityList[i].ability_name;
             obj.transform.GetChild(1).GetComponent<Text>().text = playerAbilityList[i].description;
             obj.transform.GetChild(2).GetComponent<Text>().text = playerAbilityList[i].option;
-            obj.transform.GetChild(3).GetComponent<Text>().text = "+" + playerAbilityList[i].plus_Value + "%";
+            obj.transform.GetChild(3).GetComponent<Text>().text = playerAbilityList[i].valueText;
         }
     }
 

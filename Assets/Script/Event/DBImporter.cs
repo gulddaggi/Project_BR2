@@ -29,6 +29,7 @@ public class DBImporter : MonoBehaviour
             ability.plus_Value = row[5].Split('/'); // 가산 수치. 등급별로 값을 구분하여 삽입
             ability.sub_Description = row[6]; // 부가 설명. 이후에 UI에 적용 필요.
             ability.pre_abilities = row[7].Split('/'); // 선행 능력. UI 표시 없이 시스템 단위에서 사용.
+            ability.unit = row[8]; // 적용 단위
 
             // 레벨 및 선택 여부 초기화
             ability.level = 0;

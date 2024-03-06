@@ -179,7 +179,7 @@ public class EventDBManager : MonoBehaviour
         }
         else
         {
-            format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
+            format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + totalAbilityDic[ab_index][line].unit;
             returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
         }
 
