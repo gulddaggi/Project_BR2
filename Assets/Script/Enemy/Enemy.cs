@@ -523,7 +523,6 @@ public class Enemy : MonoBehaviour
 
         TimeDamage timeDamage = new TimeDamage();
         timeDamage.targetTime = _time;
-        Debug.Log("TimeDamage : " + timeDamage.calcDamage);
         timeDamage.calcDamage = stackDamageArray[0] / _time * Time.fixedDeltaTime;
 
         timeDamageList.Add(timeDamage);

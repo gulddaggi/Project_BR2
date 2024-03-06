@@ -178,7 +178,6 @@ public class AbilityListManager : MonoBehaviour
     {
         for (int i = 0; i < playerAbilityList.Count; i++)
         {
-            Debug.Log(playerAbilityList[i].ability_name);
             GameObject obj = Instantiate(abilityUIPref);
             obj.transform.SetParent(this.gameObject.transform);
             obj.transform.GetChild(0).GetComponent<Text>().text = playerAbilityList[i].ability_name;

@@ -213,7 +213,6 @@ public class DebuffManager : MonoBehaviour
     // 중첩 데미지 적용
     void WaterDebuffStackOn(float _targetTime)
     {
-        Debug.Log("1");
         this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
         isWaterStackOn = false;
     }
