@@ -36,6 +36,9 @@ public class Ability : MonoBehaviour
     // 레벨
     public int level;
 
+    // 단위
+    public string unit;
+
     public string plus_Value_Done;
 
     public string rank;

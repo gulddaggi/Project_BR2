@@ -48,10 +48,6 @@ public class EventDBManager : MonoBehaviour
     [SerializeField]
     Dictionary<int, UpgradeItem> upgradeDic = new Dictionary<int, UpgradeItem>();
 
-    // 능력 타입 별 개수 저장 배열
-    [SerializeField]
-    int[] abilityCountArr = new int[3]{0, 0, 0};
-
     AbilitySelector abilitySelector;
     List<int> lineList;
     List<int> indexList = new List<int>();
@@ -100,8 +96,6 @@ public class EventDBManager : MonoBehaviour
 
             totalAbilityDic.Add(i, abilityDic);
         }
-
-        _DBImporter.GetCount(abilityCountArr);
     }
 
     // 대화 DB 전체 임포트
@@ -185,33 +179,11 @@ public class EventDBManager : MonoBehaviour
         }
         else
         {
-            format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + "%";
+            format[3].GetComponent<Text>().text = "+" + totalAbilityDic[ab_index][line].plus_Value[grade] + totalAbilityDic[ab_index][line].unit;
             returnArray[1] = int.Parse(totalAbilityDic[ab_index][line].plus_Value[grade]);
         }
 
         return returnArray;
-    }
-
-    // 적용 능력치 인덱스 지정. DB 파일 완성 이후 변수 구분 기능 수정 필요.
-    int StatIndex(int _index, int _value)
-    {
-        if (_index == 0 || _index == 1)
-        {
-            return _index;
-        }
-        else
-        {
-            // 4, 5
-            if (_value >= 4 && _value < 6)
-            {
-                return 2;
-            }
-            // 6
-            else
-            {
-                return 3;
-            }
-        }
     }
 
     void SetRank(Transform transform, int grade)
