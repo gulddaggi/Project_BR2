@@ -22,16 +22,14 @@ public class Grogon : Enemy
     protected override void Update()
     {
         base.Update();
-
-        InvokeRepeating("UpdateTarget", 0f, 0.25f);
     }
 
     protected override void EnemyAttackOn()
     {
         isAttack = true;
         animator.SetBool("isAttack", true);
-        Invoke("EnemyAttackRangeON", 0.1f);
-        Invoke("EnemyAttackOff", 1f);
+        Invoke("EnemyAttackRangeON", 0.2f);
+        Invoke("EnemyAttackOff", 1.5f);
     }
 
     protected override void EnemyAttackRangeON()

@@ -369,7 +369,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        if (other.tag == "PlayerDodgeAttack")
+        if (other.tag == "PlayerDodgeAttack" && playerdata.PlayerDodgeAttackDamage != 0)
         {
             Debug.Log("Dodge damaged!");
             EnemyAnimator.SetTrigger("Damaged");

@@ -5608,8 +5608,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27c4c647deeaa7489650dbaff6ee3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffectPrefab:
-  - {fileID: 1621743294102328, guid: 4eb7ace54993de241bce25b99d5c2ecf, type: 3}
+  InitialHitEffectPrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
   hitEffectDuration: 1
 --- !u!1 &4926668109611843148
 GameObject:
