@@ -5,7 +5,7 @@ using UnityEngine;
 public class AbilitySelector : MonoBehaviour
 {
     // 등급별 확률
-    float[] rankProbs = new float[3] { 70.0f, 25.0f, 5.0f };
+    float[] rankProbs = new float[3] { 70.0f, 27.0f, 3.0f };
 
     // 플레이어의 능력 선택 이후마다 업데이트
     List<float> randomBoxList = new List<float>();
