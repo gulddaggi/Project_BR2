@@ -152,94 +152,15 @@ public class Harpy : Enemy
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
-        // 디버프 배열
-        int[] debuffArray;
+        base.OnTriggerEnter(other);
 
         // 공격 종류에 따른 피격 관련 기능 수행
-        if (other.tag == "PlayerAttack")
+        if (other.tag == "PlayerAttack" || other.tag == "StrongPlayerAttack" || other.tag == "PlayerDodgeAttack")
         {
-            Debug.Log("Damaged!");
-
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
-            float damage = playerdata.PlayerAttackDamage;
-            debuffArray = playerdata.GetAttackDebuff();
-
-            // 요 두 함수가 특수 공격 게이지 판정
-            GameManager_JS.Instance.GuageUpdate(playerdata.PlayerSpecialAttackFillingAmount);
-            GameManager_JS.Instance.Guage();
-
-            // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
             OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
-            // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
-        }
-        else if (other.tag == "StrongPlayerAttack")
-        {
-            Debug.Log("Strongly Damaged!");
-
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
-            float damage = playerdata.PlayerStrongAttackDamage;
-            debuffArray = playerdata.GetStAttackDebuff();
-
-            GameManager_JS.Instance.Guage();
-
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
-            // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
-            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-
-            // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
-        }
-        else if (other.tag == "PlayerDodgeAttack")
-        {
-            Debug.Log("Dodge damaged!");
-
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            Player playerdata = other.transform.GetComponentInParent<Player>();
-            // 익사 디버프 여부 확인
-            if (playerdata.PlayerStackDamage != 0f) totalStackDamage = playerdata.PlayerStackDamage;
-            float damage = playerdata.PlayerDodgeAttackDamage;
-            debuffArray = playerdata.GetDodgeAttackDebuff();
-
-            GameManager_JS.Instance.Guage();
-
-            // 피격 시 넉백
-            //StartCoroutine(GetDamaged());
-
-            // 피격 시 체력 감소 계산
-            EnemyHP -= damage;
-            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
-
-            // 디버프 적용
-            debuffChecker.DebuffCheckJS(debuffArray);
-        }
-
-        if (EnemyHP <= 0)
-        {
-            gameObject.SetActive(false);
-        }
-
-        IEnumerator GetDamaged()
-        {
-            SR.material.color = Color.red;
-            yield return new WaitForSeconds(0.6f);
-            SR.material.color = Color.white;
+            Debug.Log("하피 피격");
         }
     }
 

@@ -230,7 +230,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")

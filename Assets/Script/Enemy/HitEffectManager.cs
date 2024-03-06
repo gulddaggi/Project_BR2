@@ -11,12 +11,6 @@ public class HitEffectManager : MonoBehaviour
 
     private void Start()
     {
-        if (hitEffectPrefab == null)
-        {
-            Debug.LogError("Hit Effect Prefab is not Allocated.");
-            enabled = false; 
-        }
-
         HitPrefabNum = GameManager_JS.Instance.PlayerAbility + 1;
         Debug_PlayerAbilityCheck();
         SetHitEffect();
