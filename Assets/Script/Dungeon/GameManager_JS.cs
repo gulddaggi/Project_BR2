@@ -75,8 +75,11 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     public GameObject gemText;
 
-    GameObject curStage;
+    public GameObject curStage;
     GameObject nextStage;
+
+    // 스테이지 변경 이벤트 델리게이트
+    public delegate void OnStageChangedDelegate(string newStage);
 
     //플레이어 Transform 전달을 위한 임시 변수
     Transform tmpPlayerPos;
@@ -247,6 +250,7 @@ public class GameManager_JS : MonoBehaviour
             // 다음 스테이지 큐로부터 전달 후 활성화.
             nextStage = stageQueue.Dequeue();
             nextStage.SetActive(true);
+            Debug.Log("다음 스테이지 : " + nextStage.ToString());
             // 플레이어를 스테이지 시작 위치로 이동
             nextStage.GetComponent<Stage>().PlayerPosToStart(tmpPlayerPos);
             // 출구에 표시된 보상을 스테이지 보상으로 지정
@@ -444,4 +448,5 @@ public class GameManager_JS : MonoBehaviour
     {
         return upgradeInfoList[_index];
     }
+
 }
