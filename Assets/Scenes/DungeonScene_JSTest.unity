@@ -1640,6 +1640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiElement: {fileID: 304623799}
+  uiText: {fileID: 0}
   moveDuration: 1.5
 --- !u!114 &304623801
 MonoBehaviour:
@@ -3578,6 +3579,7 @@ MonoBehaviour:
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
   gemText: {fileID: 0}
+  curStage: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
     m_PersistentCalls:
@@ -7671,6 +7673,11 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!4 &1430941845 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3117468207324827813, guid: dfba280f9662ce64fa7d20ead28855a9, type: 3}
+  m_PrefabInstance: {fileID: 1625453627}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1491114004
 GameObject:
   m_ObjectHideFlags: 0
@@ -7978,6 +7985,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3127805909624388291, guid: dfba280f9662ce64fa7d20ead28855a9, type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 1430941845}
     - target: {fileID: 3927398029359685523, guid: dfba280f9662ce64fa7d20ead28855a9, type: 3}
       propertyPath: m_RootOrder
       value: 1
