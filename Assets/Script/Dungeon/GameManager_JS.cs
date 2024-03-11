@@ -75,7 +75,7 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     public GameObject gemText;
 
-    GameObject curStage;
+    public GameObject curStage;
     GameObject nextStage;
 
     //플레이어 Transform 전달을 위한 임시 변수
