@@ -6244,6 +6244,8 @@ MonoBehaviour:
   hpBarPrefab: {fileID: 2519535995746167745, guid: ffcea7e15eb1d4b5e9dbe4bfca04c82c, type: 3}
   hpBarOffset: {x: 0, y: 2.2, z: 0}
   FullHP: 0
+  DamageTakePrefab: {fileID: 0}
+  fixedRotation: {x: 0, y: 0, z: 0}
   hpBar: {fileID: 0}
   hpBarFill: {fileID: 0}
   hpBarFrame: {fileID: 0}

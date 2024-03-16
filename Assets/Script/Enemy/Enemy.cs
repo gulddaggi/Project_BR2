@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 
 // 초당 데미지 클래스
 public class TimeDamage
@@ -52,6 +53,9 @@ public class Enemy : MonoBehaviour
     public float FullHP;
 
     private Canvas uiCanvas;
+
+    public GameObject DamageTakePrefab;
+    public Vector3 fixedRotation = new Vector3(0, 0, 0);
 
     // hp UI 변수
     public GameObject hpBar;
@@ -477,6 +481,10 @@ public class Enemy : MonoBehaviour
         }
 
         EnemyHP -= _damage;
+        Quaternion rotation = Quaternion.Euler(fixedRotation);
+        Instantiate(DamageTakePrefab, transform.position, rotation);
+
+        Mathf.RoundToInt(_damage);
 
         if (EnemyHP <= 0)
         {
