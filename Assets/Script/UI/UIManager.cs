@@ -43,22 +43,10 @@ public class UIManager : MonoBehaviour
 
     void SetStageUIText()
     {
+
         // 초기 위치를 화면 상단으로 설정
         uiElement.anchoredPosition = new Vector2(0, Screen.height);
         uiText = transform.GetComponentInChildren<TextMeshProUGUI>();
-
-        // 찾은 TextMeshProUGUI에 접근
-        if (uiText != null)
-        {
-            // SetStageUIText 메서드를 콜백으로 등록
-            LeanTween.move(uiElement, new Vector2(0, -50), moveDuration).setEase(LeanTweenType.easeOutExpo);
-        }
-        else
-        {
-            Debug.LogError("TextMeshProUGUI를 확인할 없습니다.");
-        }
-
-        StartCoroutine(UIOut());
 
         Debug.Log("UIText 판정 시작");
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -66,6 +54,10 @@ public class UIManager : MonoBehaviour
         if (currentSceneName == "HomeScene")
         {
             uiText.text = "봄이 닿지 않는 정원";
+        }
+        else if (currentSceneName == "Title")
+        {
+            uiText.text = "Project";
         }
         else if (currentSceneName == "DungeonScene_JSTest")
         {
@@ -75,13 +67,26 @@ public class UIManager : MonoBehaviour
             }
             else if (GameManager_JS.Instance.curStage.ToString().StartsWith("Stage 2"))
             {
-                uiText.text = "깊은 숲 최심부 - 하피의 둥지";
+                uiText.text = "빛바랜 봄의 정원";
             }
             else
             {
                 uiText.text = "깊고 어두운 숲 초입";
             }
         }
+
+        // 찾은 TextMeshProUGUI에 접근
+        if (uiText != null)
+        {
+            LeanTween.move(uiElement, new Vector2(0, -50), moveDuration).setEase(LeanTweenType.easeOutExpo);
+        }
+        else
+        {
+            Debug.LogError("TextMeshProUGUI를 확인할 수 없습니다.");
+        }
+
+        if (currentSceneName != "Title") { StartCoroutine(UIOut()); }
+
         Debug.Log("현재 Scene 이름 : " + currentSceneName + " / Stage UI Text 출력 확인");
     }
 }
