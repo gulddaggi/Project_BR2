@@ -69,6 +69,10 @@ public class UIManager : MonoBehaviour
             {
                 uiText.text = "빛바랜 봄의 정원";
             }
+            else if (GameManager_JS.Instance.curStage.ToString().StartsWith("Boss"))
+            {
+                uiText.text = "최심부 - 빛바랜 꽃의 정원";
+            }
             else
             {
                 uiText.text = "깊고 어두운 숲 초입";
