@@ -26,17 +26,9 @@ public class SaveData
     //클래스 생성자
     public SaveData(List<int> _upgradeLevelList, List<int> _NPCEncounterCount, int _gem, int _dungeonEntryCount, int _bossKilledCount)
     {
-        upgradeLevelList = new List<int>();
-        foreach (int level in _upgradeLevelList)
-        {
-            upgradeLevelList.Add(level);
-        }
+        upgradeLevelList = new List<int>(_upgradeLevelList);
 
-        NPCEncounterCount = new List<int>();
-        foreach (int count in _NPCEncounterCount)
-        {
-            NPCEncounterCount.Add(count);
-        }
+        NPCEncounterCount = new List<int>(_NPCEncounterCount);
 
         _gem = gem;
 

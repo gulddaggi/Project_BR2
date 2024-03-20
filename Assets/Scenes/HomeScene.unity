@@ -201,6 +201,7 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 0}
   coinText_Event: {fileID: 0}
+  gemText: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
     m_PersistentCalls:
@@ -217,6 +218,7 @@ MonoBehaviour:
     SpecialAttackGuage: {fileID: 0}
     isSpecialReady: 0
   CurrentGuage: 0
+  PlayerAbility: 0
 --- !u!4 &32346578
 Transform:
   m_ObjectHideFlags: 0
@@ -282,7 +284,6 @@ MonoBehaviour:
   - DB_Dialogue_Flame
   DBFileMerchant: DB_Merchant
   DBFileUpgrade: DB_Upgrade
-  abilityCountArr: 000000000000000000000000
 --- !u!4 &135974880
 Transform:
   m_ObjectHideFlags: 0
@@ -1387,6 +1388,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NPCText: {fileID: 2104514494}
+--- !u!1 &572212062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 572212064}
+  - component: {fileID: 572212063}
+  m_Layer: 0
+  m_Name: SaveNLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &572212063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572212062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 550d20a448e343d4cb4477b793a33a3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &572212064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572212062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &612472406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1634,6 +1679,7 @@ MonoBehaviour:
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 0}
   coinText_Event: {fileID: 0}
+  gemText: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
     m_PersistentCalls:
@@ -1650,6 +1696,7 @@ MonoBehaviour:
     SpecialAttackGuage: {fileID: 0}
     isSpecialReady: 0
   CurrentGuage: 0
+  PlayerAbility: 0
 --- !u!4 &728007587
 Transform:
   m_ObjectHideFlags: 0
