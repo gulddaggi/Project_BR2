@@ -138,13 +138,16 @@ public class EventDBManager : MonoBehaviour
     }
 
     // 대화 텍스트 출력.
-    public List<string> TextDisplay_Ability_Dialogue(int dia_index, int _id)
+    public List<string> TextDisplay_Ability_Dialogue(int diaIndex, int _id)
     {
         List<string> dialogues = new List<string>();
 
-        for (int i = 0; i < totalDialogueDic[dia_index][_id-1].texts.Length; i++)
+        if (_id-1 < totalDialogueDic[diaIndex].Count && totalDialogueDic[diaIndex][_id - 1].texts.Length != 1)
         {
-            dialogues.Add(totalDialogueDic[dia_index][_id - 1].texts[i]);
+            for (int i = 0; i < totalDialogueDic[diaIndex][_id - 1].texts.Length; i++)
+            {
+                dialogues.Add(totalDialogueDic[diaIndex][_id - 1].texts[i]);
+            }
         }
 
         return dialogues;

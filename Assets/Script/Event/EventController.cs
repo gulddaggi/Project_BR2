@@ -222,7 +222,6 @@ public class EventController : MonoBehaviour
         {
             string output = dialogues[0];
             output = output.Replace("'", ",");
-            // 이후에 개행 부분도 추가 예정.
             dialogueGetter.objs[1].GetComponentInChildren<Text>().text = output;
             dialogues.Remove(dialogues[0]);
         }
