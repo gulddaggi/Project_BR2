@@ -12,7 +12,7 @@ public class SaveData
     private List<int> upgradeLevelList;
     // 각 NPC별 회차당 첫 조우 횟수
     [SerializeField]
-    private List<int> NPCEncounterCount;
+    private List<int> NPCEncounterCountList;
     // 재화 잼 보유량
     [SerializeField]
     private int gem;
@@ -28,7 +28,7 @@ public class SaveData
     {
         upgradeLevelList = new List<int>(_upgradeLevelList);
 
-        NPCEncounterCount = new List<int>(_NPCEncounterCount);
+        NPCEncounterCountList = new List<int>(_NPCEncounterCount);
 
         _gem = gem;
 

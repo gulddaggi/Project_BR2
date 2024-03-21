@@ -94,7 +94,7 @@ public class GameManager_JS : MonoBehaviour
     // 이벤트 실행 중 여부 확인 변수
     public bool isEventOn = false;
 
-    public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
+    public DialogueCheck[] dialogueChecks = new DialogueCheck[2];
 
     public UnityEvent OnStageChanged;
 
@@ -107,10 +107,12 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private float CurrentGuage;
 
-    public int PlayerAbility; // 시연 후에는 리팩토링 필요(플레이어 능력)
+    public int PlayerAbility;
     
     // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
     private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
+
+    private int bossKillCount;
 
     private void Awake()
     {
@@ -443,5 +445,15 @@ public class GameManager_JS : MonoBehaviour
     public int GetUpgradeInfo(int _index)
     {
         return upgradeInfoList[_index];
+    }
+
+    public void AddBossKillCount()
+    {
+        ++bossKillCount;
+    }
+
+    public int GetBossKillCount()
+    {
+        return bossKillCount;
     }
 }
