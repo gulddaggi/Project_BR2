@@ -9,14 +9,14 @@ using UnityEngine.UI;
 public class DialogueCheck
 {
     // 만난 횟수
-    int count = 0;
+    int encounterCount = 0;
     // 이번 회차에서 만났는가
     bool isEncounter = false;
 
-    public int Count
+    public int EncounterCount
     {
-        get { return count; }
-        set { count = value; }
+        get { return encounterCount; }
+        set { encounterCount = value; }
     }
 
     public bool IsEncounter
@@ -54,7 +54,7 @@ public class GameManager_JS : MonoBehaviour
     private int dungeonCount = 0;
 
     [SerializeField]
-    private int tryCount = 0;
+    private int totalDungeonTryCount = 0;
 
     [SerializeField]
     private int coin = 100; // 테스트를 위해 100 기본 제공
@@ -95,7 +95,7 @@ public class GameManager_JS : MonoBehaviour
     // 이벤트 실행 중 여부 확인 변수
     public bool isEventOn = false;
 
-    public DialogueCheck[] dialogueChecks = new DialogueCheck[6];
+    public DialogueCheck[] dialogueChecks = new DialogueCheck[2];
 
     public UnityEvent OnStageChanged;
 
@@ -108,12 +108,14 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     private float CurrentGuage;
 
-    public int PlayerAbility; // 시연 후에는 리팩토링 필요(플레이어 능력)
+    public int PlayerAbility;
 
     public bool GameIsPaused = false; // 게임 일시정지 판정
 
     // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
     private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
+
+    private int bossKillCount = 0;
 
     private void Awake()
     {
@@ -223,7 +225,7 @@ public class GameManager_JS : MonoBehaviour
         if (dungeonCount == 0)
         {
             //마을에서 던전 입장 시 tryCount 증가. 추후 제일 처음 입장에 대한 시도 수 증가도 고려해야함.
-            if (SceneManager.GetActiveScene().name == "HomeScene") ++tryCount;
+            if (SceneManager.GetActiveScene().name == "HomeScene") ++totalDungeonTryCount;
 
             //SceneManager.LoadScene("DungeonScene");
             // 테스트용
@@ -295,7 +297,7 @@ public class GameManager_JS : MonoBehaviour
 
     public int GetTryCount()
     {
-        return tryCount;
+        return totalDungeonTryCount;
     }
 
     public int Coin
@@ -320,6 +322,11 @@ public class GameManager_JS : MonoBehaviour
                 gemText.GetComponent<GemText>().GemTextUpdate(gem);
             }
         }
+    }
+
+    public int BossKillCount
+    {
+        get { return bossKillCount; }
     }
 
     public void CoinUpdate()
@@ -446,5 +453,29 @@ public class GameManager_JS : MonoBehaviour
     public int GetUpgradeInfo(int _index)
     {
         return upgradeInfoList[_index];
+    }
+
+    // 불러오기 데이터 적용
+    public void ApplyLoadedData(List<int> _NPCEncounterCountList, int _gem, int _dungeonEntryCount, int _bossKilledCount)
+    {
+        // NPCEncounterCountList
+        for (int i = 0; i < dialogueChecks.Length; i++)
+        {
+            dialogueChecks[i].EncounterCount = _NPCEncounterCountList[i];
+            Debug.Log(" 조우 횟수 " + _NPCEncounterCountList[i] + " 적용 : " + dialogueChecks[i].EncounterCount);
+        }
+
+        // gem
+        Gem = _gem;
+        Debug.Log("잼 수량 " + _gem + " 적용 : " + Gem);
+
+        // dungeonEntryCount
+        totalDungeonTryCount = _dungeonEntryCount;
+        Debug.Log("던전 총 시도 횟수 " + _dungeonEntryCount + " 적용 : " + totalDungeonTryCount);
+
+        // bossKilledCount
+        bossKillCount = _bossKilledCount;
+        Debug.Log("보스 처치 횟수 : " + _bossKilledCount + " 적용 : " + bossKillCount);
+
     }
 }
