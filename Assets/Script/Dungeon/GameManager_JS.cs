@@ -35,6 +35,7 @@ public struct AttackGuage
     public bool isSpecialReady;
 };
 
+
 public class GameManager_JS : MonoBehaviour
 {
     #region 플레이어 관련 변수체크
@@ -75,7 +76,7 @@ public class GameManager_JS : MonoBehaviour
     [SerializeField]
     public GameObject gemText;
 
-    GameObject curStage;
+    public GameObject curStage;
     GameObject nextStage;
 
     //플레이어 Transform 전달을 위한 임시 변수
@@ -108,7 +109,9 @@ public class GameManager_JS : MonoBehaviour
     private float CurrentGuage;
 
     public int PlayerAbility;
-    
+
+    public bool GameIsPaused = false; // 게임 일시정지 판정
+
     // 업그레이드 정보 저장 리스트. 각 업그레이드의 가산 수치 정보를 저장.
     private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
 
