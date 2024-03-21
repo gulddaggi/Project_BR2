@@ -29,8 +29,15 @@ public class UpgradeManager : MonoBehaviour
         if (!isSet)
         {
             UISetting();
-            GemTextSetting();
         }
+        else
+        {
+            for (int i = 0; i < totalUpgradeContentCount; i++)
+            {
+                UIUpdate(i);
+            }
+        }
+        GemTextSetting();
     }
 
     private void OnDisable()
@@ -100,8 +107,15 @@ public class UpgradeManager : MonoBehaviour
         UpgradeItem curItem = EventDBManager.instance.GetUpgradeItem(_index);
 
         updateTarget.GetChild(2).GetComponent<Text>().text = "Lv." + curItem.level.ToString();
-        updateTarget.GetChild(3).GetComponent<Text>().text = "+ " + curItem.value[curItem.level - 1];
-        
+        if (curItem.level == 0)
+        {
+            updateTarget.GetChild(3).GetComponent<Text>().text = "-";
+        }
+        else
+        {
+            updateTarget.GetChild(3).GetComponent<Text>().text = "+ " + curItem.value[curItem.level - 1];
+        }
+
         if (curItem.level == curItem.value.Length)
         {
             updateTarget.GetChild(4).GetComponent<Text>().text = "최대";

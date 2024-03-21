@@ -21,14 +21,14 @@ public class SaveNLoad : MonoBehaviour
         int totalNPCCount = GameManager_JS.Instance.dialogueChecks.Length;
         for (int i = 0; i < totalNPCCount; i++)
         {
-            NPCEncounterCountList.Add(GameManager_JS.Instance.dialogueChecks[i].Count);
+            NPCEncounterCountList.Add(GameManager_JS.Instance.dialogueChecks[i].EncounterCount);
         }
         // gem
         int gem = GameManager_JS.Instance.Gem;
         // dungeonEntryCount
         int dungeonEntryCount = GameManager_JS.Instance.GetTryCount();
         // bossKilledCount
-        int bossKilledCount = 0;
+        int bossKilledCount = GameManager_JS.Instance.BossKillCount;
 
         // SaveData 클래스 생성
         SaveData saveData = new SaveData(upgradeLevelList, NPCEncounterCountList, gem, dungeonEntryCount, bossKilledCount);
@@ -78,6 +78,11 @@ public class SaveNLoad : MonoBehaviour
 
         string jsonData = LoadSaveFile();
         SaveData saveData = JSONTOSaveData(jsonData);
+
+        // 데이터 적용
+        saveData.ApplyLoadData();
+
+        Debug.Log("불러오기 수행 완료");
     }
 
     static string LoadSaveFile()

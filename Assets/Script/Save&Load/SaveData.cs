@@ -30,11 +30,20 @@ public class SaveData
 
         NPCEncounterCountList = new List<int>(_NPCEncounterCount);
 
-        _gem = gem;
+        gem = _gem;
 
         dungeonEntryCount = _dungeonEntryCount;
 
         bossKilledCount = _bossKilledCount;
     }
 
+    // 불러오기 데이터 적용
+    public void ApplyLoadData()
+    {
+        // upgradeLevelList
+        EventDBManager.instance.SetLoadedUpgradeLevel(upgradeLevelList);
+
+        // NPCEncounterCountList, gem, dungeonEntryCount, bossKilledCount
+        GameManager_JS.Instance.ApplyLoadedData(NPCEncounterCountList, gem, dungeonEntryCount, bossKilledCount);
+    }
 }

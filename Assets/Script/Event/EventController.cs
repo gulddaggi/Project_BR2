@@ -204,12 +204,12 @@ public class EventController : MonoBehaviour
         // 이름 세팅
         dialogueGetter.objs[0].GetComponentInChildren<Text>().text = tmpName;
 
-        int count = GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count;
+        int count = GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].EncounterCount;
 
         // 대화 세팅. DB에 접근. 
         dialogues = EventDBManager.instance.TextDisplay_Ability_Dialogue(tmpTypeIndex, count + 1);
 
-        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].Count += 1;
+        GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].EncounterCount += 1;
         GameManager_JS.Instance.dialogueChecks[tmpTypeIndex].IsEncounter = true;
 
         // 대화 진행

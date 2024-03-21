@@ -305,6 +305,15 @@ public class EventDBManager : MonoBehaviour
         }
     }
 
+    public void SetLoadedUpgradeLevel(List<int> _upgradeLevelList)
+    {
+        for (int i = 0; i < upgradeDic.Count; i++)
+        {
+            upgradeDic[i].level = _upgradeLevelList[i];
+            Debug.Log(upgradeDic[i].name + " 의 레벨 " + _upgradeLevelList[i] + "적용 : " + upgradeDic[i].level);
+        }
+    }
+
     public string[] GetPreAbility(int _type, int _id)
     {
         return totalAbilityDic[_type][_id].pre_abilities;
