@@ -16,7 +16,7 @@ public class BossText : MonoBehaviour
     }
 
     // Update is called once per frame
-    void BossTexting(float SetupTime) {
+    public void BossTexting(float SetupTime) {
         StartCoroutine(UIRectSetUp(SetupTime));
     }
 
