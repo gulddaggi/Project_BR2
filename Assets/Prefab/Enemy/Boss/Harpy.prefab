@@ -10254,6 +10254,19 @@ MonoBehaviour:
   player: {fileID: 0}
   nvAgent: {fileID: 0}
   animator: {fileID: 0}
+  hudDamageText: {fileID: 0}
+  hudPos: {fileID: 0}
+  AttackPO1: {fileID: 0}
+  AttackPO2: {fileID: 5989579091768020585}
+  Harpy_point: {fileID: 0}
+  Harpy_Big_Projecter: {fileID: 0}
+  isLook: 1
+  isOverdriving: 0
+  Boss_Pattern_Waiting_Time: 3
+  OnBossHPUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
 --- !u!65 &4270447766558571995
 BoxCollider:
   m_ObjectHideFlags: 0

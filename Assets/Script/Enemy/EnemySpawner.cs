@@ -62,20 +62,27 @@ public class EnemySpawner : MonoBehaviour
     // 적 스폰
     void EnemySpawn()
     {
-        int points;
-        points = 3;
+        int minSpawnPoints = 3; // 최소 spawnPoint 수
+        int maxSpawnPoints = 6; // 최대 spawnPoint 수
+        int numSpawnPoints = Random.Range(minSpawnPoints, maxSpawnPoints);
+        List<int> spawnCounts = new List<int>();
+        for (int i = 0; i < numSpawnPoints; i++)
+        {
+            int randomSpawnCount = Random.Range(0, 36);
+            spawnCounts.Add(randomSpawnCount);
+        }
         float rad = 2f;
         float angle;
         EnemyChoice();
 
         if (curWaveCount == 0)
         {
-            for (int i = 0; i < points; i++)
+            for (int i = 0; i < numSpawnPoints; i++)
             {
-                angle = i * (Mathf.PI * 2.0f) / points;
+                angle = i * (Mathf.PI * 2.0f) / numSpawnPoints;
 
                 GameObject spawnEnemy = Instantiate(curEnemy, 
-                    (spawnPoints[curWaveCount].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
+                    (spawnPoints[spawnCounts[i]].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
                      Quaternion.identity);
                 spawnEnemy.transform.SetParent(this.gameObject.transform);
                 ++curEnemyCount;
@@ -84,20 +91,17 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            for (int i = curWaveCount; i < spawnPoints.Count; i++)
-            {
-                for (int j = 0; j < points; j++)
+                for (int i = 0; i < numSpawnPoints; i++)
                 {
-                    angle = j * (Mathf.PI * 2.0f) / points;
+                    angle = i * (Mathf.PI * 2.0f) / numSpawnPoints;
 
                     GameObject spawnEnemy = Instantiate(curEnemy,
-                        (spawnPoints[i].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
+                        (spawnPoints[spawnCounts[i]].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
                          Quaternion.identity);
                     spawnEnemy.transform.SetParent(this.gameObject.transform);
                     ++curEnemyCount;
                 }
                 ++curWaveCount;
-            }
         }
         this.gameObject.GetComponentInParent<Dungeon>().SetEnemyCount(curEnemyCount);
     }

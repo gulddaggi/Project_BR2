@@ -3346,6 +3346,8 @@ MonoBehaviour:
   player: {fileID: 0}
   nvAgent: {fileID: 0}
   animator: {fileID: 0}
+  hudDamageText: {fileID: 0}
+  hudPos: {fileID: 0}
   bulletPrefab: {fileID: 102920571250306707, guid: e73dd4495bb3f4bcd990785ac6e81257, type: 3}
   bulletSpawnPoint: {fileID: 4275383569178417468}
   bulletSpeed: 10

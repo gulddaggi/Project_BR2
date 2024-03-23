@@ -1338,6 +1338,8 @@ MonoBehaviour:
   player: {fileID: 0}
   nvAgent: {fileID: 0}
   animator: {fileID: 0}
+  hudDamageText: {fileID: 0}
+  hudPos: {fileID: 0}
 --- !u!4 &81273494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1637959871405999807, guid: afebf0a308bfc0348a239a0a0794a312, type: 3}
@@ -7934,7 +7936,6 @@ MonoBehaviour:
   DBFilesDialogue: []
   DBFileMerchant: 
   DBFileUpgrade: 
-  abilityCountArr: 000000000000000000000000
 --- !u!114 &575170315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7978,13 +7979,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerWeapon: 0
   dungeonCount: 0
-  tryCount: 0
+  totalDungeonTryCount: 0
   coin: 100
   gem: 1000
   panelImage: {fileID: 0}
   coinText_Play: {fileID: 2114396191}
   coinText_Event: {fileID: 1553492223}
   gemText: {fileID: 0}
+  curStage: {fileID: 0}
   isEventOn: 0
   OnStageChanged:
     m_PersistentCalls:
@@ -8002,6 +8004,7 @@ MonoBehaviour:
     isSpecialReady: 0
   CurrentGuage: 0
   PlayerAbility: 0
+  GameIsPaused: 0
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -13496,6 +13499,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 174279171}
     m_Modifications:
+    - target: {fileID: -8662304115171211182, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
+      propertyPath: hudPos
+      value: 
+      objectReference: {fileID: 1491019756}
+    - target: {fileID: -8662304115171211182, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
+      propertyPath: hudDamageText
+      value: 
+      objectReference: {fileID: 3633019515484952853, guid: f1f58f0c33dac47578475642e9f6730a, type: 3}
     - target: {fileID: 1372413732265153340, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -13606,6 +13617,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
+--- !u!1 &1491019755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491019756}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1491019756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491019755}
+  m_LocalRotation: {x: -0, y: 0.38268343, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1713334660}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491114004
 GameObject:
   m_ObjectHideFlags: 0
@@ -15640,6 +15682,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 39346170}
   text: {fileID: 1362572288}
+--- !u!4 &1713334660 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5238833094400345519, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
+  m_PrefabInstance: {fileID: 1478652442}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1743911893
 GameObject:
   m_ObjectHideFlags: 0
