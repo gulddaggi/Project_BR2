@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0803122, g: 0.09969489, b: 0.3009709, a: 1}
+  m_IndirectSpecularColor: {r: 0.0801494, g: 0.099541955, b: 0.30094472, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerWeapon: 0
   dungeonCount: 0
-  tryCount: 0
+  totalDungeonTryCount: 0
   coin: 100
   gem: 1000
   panelImage: {fileID: 0}
@@ -374,6 +374,7 @@ MonoBehaviour:
     isSpecialReady: 0
   CurrentGuage: 0
   PlayerAbility: 0
+  GameIsPaused: 0
 --- !u!4 &32346578
 Transform:
   m_ObjectHideFlags: 0
@@ -884,7 +885,7 @@ GameObject:
   - component: {fileID: 201788869}
   - component: {fileID: 201788870}
   m_Layer: 5
-  m_Name: UI
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b461281e81a5207489c2fa24a55db455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: DungeonScene_JSTest
+  sceneName: HomeScene
 --- !u!1 &211751534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,7 +2676,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerWeapon: 0
   dungeonCount: 0
-  tryCount: 0
+  totalDungeonTryCount: 0
   coin: 0
   gem: 100
   panelImage: {fileID: 0}
@@ -2700,6 +2701,7 @@ MonoBehaviour:
     isSpecialReady: 0
   CurrentGuage: 0
   PlayerAbility: 0
+  GameIsPaused: 0
 --- !u!4 &728007587
 Transform:
   m_ObjectHideFlags: 0
@@ -5688,6 +5690,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402005220}
   m_CullTransparentMesh: 1
+--- !u!1 &1414878843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1414878844}
+  m_Layer: 0
+  m_Name: LoadingSceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1414878844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1414878843}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1564.8525, y: 70.47928, z: -33.33054}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1497467741
 PrefabInstance:
   m_ObjectHideFlags: 0

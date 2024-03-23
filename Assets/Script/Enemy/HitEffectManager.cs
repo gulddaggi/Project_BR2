@@ -46,21 +46,7 @@ public class HitEffectManager : MonoBehaviour
     {
         var DefaultResourceName = "Effect/Default_Hit_Effect";
         InitialHitEffectPrefab = Resources.Load<GameObject>(DefaultResourceName);
-
-        if (HitPrefabNum == 0) // 물
-        {
-            var resourceName = "Effect/Default_Hit_Effect";
-            hitEffectPrefab = Resources.Load<GameObject>(resourceName);
-        }
-        if (HitPrefabNum == 1) // 물
-        {
-            var resourceName = "Effect/Hit_Water";
-            hitEffectPrefab = Resources.Load<GameObject>(resourceName);
-        }
-        if (HitPrefabNum == 2) // 불
-        {
-            var resourceName = "Effect/Hit_Fire";
-            hitEffectPrefab = Resources.Load<GameObject>(resourceName);
-        }
+        var resourceName = "Effect/Hit_Fire";
+        hitEffectPrefab = Resources.Load<GameObject>(resourceName);
     }
 }

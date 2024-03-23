@@ -229,7 +229,7 @@ public class GameManager_JS : MonoBehaviour
 
             //SceneManager.LoadScene("DungeonScene");
             // 테스트용
-            SceneManager.LoadScene("DungeonScene_JSTest");
+            SceneLoader.LoadScene("DungeonScene_JSTest");
         }
         // 던전 씬 내에서 스테이지 이동 시 스테이지 변경 수행
         else
