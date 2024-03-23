@@ -12783,6 +12783,8 @@ MonoBehaviour:
   player: {fileID: 0}
   nvAgent: {fileID: 0}
   animator: {fileID: 0}
+  hudDamageText: {fileID: 0}
+  hudPos: {fileID: 0}
 --- !u!114 &3055433662378184954
 MonoBehaviour:
   m_ObjectHideFlags: 0

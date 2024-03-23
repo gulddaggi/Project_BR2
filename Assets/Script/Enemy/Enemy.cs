@@ -109,6 +109,10 @@ public class Enemy : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent nvAgent;
     public Animator animator;
 
+    //DamageText
+    public GameObject hudDamageText;
+    public Transform hudPos;
+    
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -476,8 +480,14 @@ public class Enemy : MonoBehaviour
             SetHpBar();
         }
 
-        EnemyHP -= _damage;
-
+        int damage = Mathf.RoundToInt(_damage);
+        
+        EnemyHP -= damage;
+        
+        GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
+        hudText.transform.position = hudPos.position; // 표시될 위치
+        hudText.GetComponent<DamageText>().damage = damage; // 데미지 전달
+        
         if (EnemyHP <= 0)
         {
             if (!isDead)
