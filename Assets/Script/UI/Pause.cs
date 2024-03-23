@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
+
+    public RectTransform uiElement;
+    public float moveDuration = 1.5f;
     public GameObject pauseMenuCanvas;
     public GameObject pauseButton;
 
     private void Start()
     {
-        pauseMenuCanvas.SetActive(false);
+        uiElement.anchoredPosition = new Vector2(0, Screen.height);
     }
 
     void Update()
@@ -18,21 +21,26 @@ public class Pause : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager_JS.Instance.GameIsPaused) { Resume(); }
-            else { Pausing(); } }
+            else { StartCoroutine(Pausing()); } }
     }
 
     public void Resume()
     {
-        pauseMenuCanvas.SetActive(false);
-        pauseButton.SetActive(true);
+        LeanTween.move(uiElement, new Vector2(0, Screen.height), moveDuration).setEase(LeanTweenType.easeOutExpo);
         Time.timeScale = 1f;
+        pauseButton.SetActive(true);
         GameManager_JS.Instance.GameIsPaused = false;
     }
-
-    public void Pausing()
+    public void ButtonPausingOnClickEvent()
     {
-        pauseMenuCanvas.SetActive(true);
+        StartCoroutine(Pausing());
+    }
+
+    IEnumerator Pausing()
+    {
+        LeanTween.move(uiElement, new Vector2(0, 0), moveDuration).setEase(LeanTweenType.easeOutExpo);
         pauseButton.SetActive(false);
+        yield return new WaitForSeconds(1.2f);
         Time.timeScale = 0f;
         GameManager_JS.Instance.GameIsPaused = true;
     }

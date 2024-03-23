@@ -15,5 +15,9 @@ public class HPBar_Boss : MonoBehaviour
     {
         text.text = _curHP.ToString() + " / " + _fullHp.ToString();
         image.fillAmount = _curHP / _fullHp;
+        if(image.fillAmount <= 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

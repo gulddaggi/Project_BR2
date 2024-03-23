@@ -431,6 +431,7 @@ public class Attack : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                arrow.GetComponent<PlayerProjectile>().player = player;
 
                 // 각도 조절
                 float angle = (i - 1) * 30f; // -30, 0, 30
@@ -459,6 +460,7 @@ public class Attack : MonoBehaviour
             for (int i = 0; i < 9; i++)
             {
                 GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                shuriken.GetComponent<PlayerProjectile>().player = player;
 
                 // 각도 조절
                 float angle = (i - 1) * 40f;
