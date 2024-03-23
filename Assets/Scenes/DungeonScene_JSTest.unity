@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1326197, g: 0.11299613, b: 0.10438427, a: 1}
+  m_IndirectSpecularColor: {r: 0.13262, g: 0.11299641, b: 0.10438463, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2800,6 +2800,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 385913130}
   m_CullTransparentMesh: 1
+--- !u!4 &397897529 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5698373574012263603, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+  m_PrefabInstance: {fileID: 549617697360506577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &428018294
 GameObject:
   m_ObjectHideFlags: 0
@@ -8016,6 +8021,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290915815}
   m_CullTransparentMesh: 1
+--- !u!4 &1291594003 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5698373575797394304, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+  m_PrefabInstance: {fileID: 549617697360506577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1291780297
 GameObject:
   m_ObjectHideFlags: 0
@@ -12867,6 +12877,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 29821156498510158, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: hudPos
+      value: 
+      objectReference: {fileID: 397897529}
+    - target: {fileID: 29821156498510158, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: hudDamageText
+      value: 
+      objectReference: {fileID: 8567139154549976502, guid: 292da1ddebbc74455ae5081e640f1be9, type: 3}
+    - target: {fileID: 29821157934597757, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: hudPos
+      value: 
+      objectReference: {fileID: 1291594003}
+    - target: {fileID: 29821157934597757, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: hudDamageText
+      value: 
+      objectReference: {fileID: 8567139154549976502, guid: 292da1ddebbc74455ae5081e640f1be9, type: 3}
     - target: {fileID: 404450148130892738, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: m_RootOrder
       value: 10

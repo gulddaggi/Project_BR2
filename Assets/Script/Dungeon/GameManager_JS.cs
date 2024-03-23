@@ -60,7 +60,7 @@ public class GameManager_JS : MonoBehaviour
     private int coin = 100; // 테스트를 위해 100 기본 제공
 
     [SerializeField]
-    private int gem = 1000;
+    private int gem = 0;
 
     GameObject canvas;
 
@@ -116,6 +116,8 @@ public class GameManager_JS : MonoBehaviour
     private List<int> upgradeInfoList = new List<int> { 0, 0, 0, 0, 0, 0 };
 
     private int bossKillCount = 0;
+
+    private bool isLoad = false;
 
     private void Awake()
     {
@@ -297,6 +299,10 @@ public class GameManager_JS : MonoBehaviour
 
     public int GetTryCount()
     {
+        if (totalDungeonTryCount == 0)
+        {
+            ++totalDungeonTryCount;
+        }
         return totalDungeonTryCount;
     }
 
@@ -477,5 +483,20 @@ public class GameManager_JS : MonoBehaviour
         bossKillCount = _bossKilledCount;
         Debug.Log("보스 처치 횟수 : " + _bossKilledCount + " 적용 : " + bossKillCount);
 
+    }
+
+    public bool GetLoad()
+    {
+        return isLoad;
+    }
+
+    public void LoadStart()
+    {
+        isLoad = true;
+    }
+
+    public void LoadEnd()
+    {
+        isLoad = false;
     }
 }
