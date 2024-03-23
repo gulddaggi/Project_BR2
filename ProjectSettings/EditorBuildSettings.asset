@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HomeScene(Legacy).unity
     guid: fac5e8f7d1d2fad44993f04e007a9a7f
   - enabled: 1
@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DungeonScene_JSTest.unity
     guid: 1bc379a1de06c34419414738c208b4ca
+  - enabled: 1
+    path: Assets/Scenes/Rework/HomeScene.unity
+    guid: 84325ac072e98a24ca188c91955c5bb7
   m_configObjects: {}
