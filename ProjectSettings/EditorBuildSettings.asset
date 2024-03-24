@@ -15,12 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/DungeonScene_JSTest.unity
     guid: 1bc379a1de06c34419414738c208b4ca
   - enabled: 1
-    path: Assets/Scenes/Rework/Title.unity
-    guid: 6b7872c347c47ce4f9c30708bc8fc92b
-  - enabled: 1
     path: Assets/Scenes/Rework/HomeScene.unity
     guid: 84325ac072e98a24ca188c91955c5bb7
-  - enabled: 1
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 0667c1833cd8ebb4bbae36e826c24338
   m_configObjects: {}

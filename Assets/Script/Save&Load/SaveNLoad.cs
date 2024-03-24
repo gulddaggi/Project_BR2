@@ -2,10 +2,57 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveNLoad : MonoBehaviour
 {
-    // 저장 수행
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "HomeScene" && GameManager_JS.Instance.GetLoad())
+        {
+            GameManager_JS.Instance.LoadEnd();
+            Debug.Log("자동 로드 진행");
+            Load();
+        }
+    }
+
+
+    // 기본 저장 수행. 타이틀에서 첫 게임 시작 시 기본 세이브 데이터를 생성.
+    public static void DefaultSave()
+    {
+        // 매개변수 구성. 모든 데이터 값은 0.
+        // upgradeLevelList
+        List<int> upgradeLevelList = new List<int>();
+        int totalUpgradeContentCount = 6;
+        for (int i = 0; i < totalUpgradeContentCount; i++)
+        {
+            upgradeLevelList.Add(0);
+        }
+        // NPCEncounterCountList
+        List<int> NPCEncounterCountList = new List<int>();
+        int totalNPCCount = 2;
+        for (int i = 0; i < totalNPCCount; i++)
+        {
+            NPCEncounterCountList.Add(0);
+        }
+        // gem
+        int gem = 0;
+        // dungeonEntryCount
+        int dungeonEntryCount = GameManager_JS.Instance.GetTryCount();
+        // bossKilledCount
+        int bossKilledCount = 0;
+
+        // SaveData 클래스 생성
+        SaveData saveData = new SaveData(upgradeLevelList, NPCEncounterCountList, gem, dungeonEntryCount, bossKilledCount);
+
+        // JSON 변환
+        string jsonData = SaveDataToJSON(saveData);
+
+        // 세이브 파일 생성
+        CreateSaveFile(jsonData);
+    }
+
+    // 일반 저장 수행. 플레이어가 게임 실행 중 마을에서 저장 시 해당 시점까지의 세이브 데이터를 생성.
     public static void Save()
     {
         // 매개변수 구성
