@@ -11,6 +11,8 @@ public class Pause : MonoBehaviour
     public GameObject pauseMenuCanvas;
     public GameObject pauseButton;
 
+    private bool isPausedCoroutineRunning = false;
+
     private void Start()
     {
         uiElement.anchoredPosition = new Vector2(0, Screen.height);
@@ -21,8 +23,10 @@ public class Pause : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager_JS.Instance.GameIsPaused) { Resume(); }
-            else { StartCoroutine(Pausing()); } }
+            else { StartCoroutine(Pausing()); }
+        }
     }
+
 
     public void Resume()
     {
@@ -33,13 +37,17 @@ public class Pause : MonoBehaviour
     }
     public void ButtonPausingOnClickEvent()
     {
-        StartCoroutine(Pausing());
+        if (Input.GetKey(KeyCode.Space) == false)
+        {
+            Debug.Log("OnClickEvent - Pause");
+            pauseButton.SetActive(false);
+            StartCoroutine(Pausing());
+        }
     }
 
     IEnumerator Pausing()
     {
         LeanTween.move(uiElement, new Vector2(0, 0), moveDuration).setEase(LeanTweenType.easeOutExpo);
-        pauseButton.SetActive(false);
         yield return new WaitForSeconds(1.2f);
         Time.timeScale = 0f;
         GameManager_JS.Instance.GameIsPaused = true;
@@ -47,7 +55,7 @@ public class Pause : MonoBehaviour
 
     public void Title()
     {
-        SceneManager.LoadScene("Title");
+        SceneLoader.LoadScene("Title");
     }
 
     public void Config()

@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/HomeScene(Legacy).unity
     guid: fac5e8f7d1d2fad44993f04e007a9a7f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DungeonScene.unity
     guid: 50140cade69a79043aecdde6d9a91e8c
   - enabled: 1
