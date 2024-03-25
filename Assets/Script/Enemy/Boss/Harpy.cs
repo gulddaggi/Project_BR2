@@ -29,6 +29,8 @@ public class Harpy : MonoBehaviour
     #region * 하피 투사체 오브젝트 풀링
 
     public BossBullet BossBullet1_Harpy;
+    public GameObject BossBullet2_Harpy;
+    public float BossBullet2Speed = 10.0f;
     private List<BossBullet> BossBulletPool = new List<BossBullet>();
     private readonly int BossBulletMaxCount = 20;
     private int currentBulletIndex = 0;
@@ -171,7 +173,9 @@ public class Harpy : MonoBehaviour
 
     IEnumerator Check_Camera() // 하피 패턴관리
     {
-        yield return new WaitForSeconds(13f);
+        GameManager_JS.Instance.isCutScene = true;
+        yield return new WaitForSeconds(14f);
+        GameManager_JS.Instance.isCutScene = false;
         StartCoroutine("Harpy_Pattern_Management");
     }
 
@@ -179,7 +183,7 @@ public class Harpy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        int RAD_ACT = Random.Range(0, 2); // 패턴 처리 위해서 난수 부여
+        int RAD_ACT = Random.Range(0, 3); // 패턴 처리 위해서 난수 부여
         Debug.Log(RAD_ACT);
 
         // 하드모드 패턴 추가시 Range를 늘리는 방향으로 구현 가능. 아니면 break문을 없애서 조건을 늘리던가..
@@ -195,6 +199,9 @@ public class Harpy : MonoBehaviour
                 StartCoroutine(Harpy_Fire_2());
                 break;
 
+            case 2:
+                StartCoroutine(Harpy_Fire_3());
+                break;
         }
     }
 
@@ -250,6 +257,44 @@ public class Harpy : MonoBehaviour
         else
         {
             GameObject Big_Projecter_2 = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
+            yield return new WaitForSeconds((2 * Boss_Pattern_Waiting_Time) / 3);
+        } // 폭주 패턴
+        StartCoroutine(Harpy_Pattern_Management());
+    }
+    IEnumerator Harpy_Fire_3() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
+    {
+        Debug.Log("Pattern 3 Activated!");
+        for (int i = 0; i < 9; i++)
+        {
+            GameObject BossBullet2 = Instantiate(BossBullet2_Harpy, gameObject.transform.position, Quaternion.identity);
+
+            // 각도 조절
+            float angle = (i - 1) * 40f;
+            Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (LookVec - gameObject.transform.position).normalized;
+
+            Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+            BossBullet2.transform.rotation = arrowRotation;
+            BossBullet2.transform.position = new Vector3(BossBullet2.transform.position.x, 2f, BossBullet2.transform.position.z);
+
+            BossBullet2.GetComponent<Rigidbody>().AddForce(shootDirection * BossBullet2Speed, ForceMode.Impulse);
+        }
+        if (!isOverdriving) { yield return new WaitForSeconds(Boss_Pattern_Waiting_Time); } // 일반 패턴
+        else
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                GameObject BossBullet2 = Instantiate(BossBullet2_Harpy, gameObject.transform.position, Quaternion.identity);
+
+                // 각도 조절
+                float angle = (i - 1) * 30f;
+                Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (LookVec - gameObject.transform.position).normalized;
+
+                Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
+                BossBullet2.transform.rotation = arrowRotation;
+                BossBullet2.transform.position = new Vector3(BossBullet2.transform.position.x, 2f, BossBullet2.transform.position.z);
+
+                BossBullet2.GetComponent<Rigidbody>().AddForce(shootDirection * BossBullet2Speed, ForceMode.Impulse);
+            }
             yield return new WaitForSeconds((2 * Boss_Pattern_Waiting_Time) / 3);
         } // 폭주 패턴
         StartCoroutine(Harpy_Pattern_Management());

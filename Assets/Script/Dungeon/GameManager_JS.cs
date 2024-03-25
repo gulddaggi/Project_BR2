@@ -119,6 +119,8 @@ public class GameManager_JS : MonoBehaviour
 
     private bool isLoad = false;
 
+    public bool isCutScene = false;
+
     private void Awake()
     {
         if (instance == null)
