@@ -2,14 +2,26 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PT_mat
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 39cf68574afc7f248bd78a99c3800e00, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - BACKFACE_NORMAL_MODE_MIRROR
+  - EFFECT_BUMP
+  - EFFECT_HUE_VARIATION
+  - _ANIMATEDECALEMISSIONONOFF_ON
+  - _CUSTOMCOLORSTINTING_ON
+  - _CUSTOMWIND_ON
+  - _DECALEMISSIONONOFF_ON
+  - _SNOWNOISEONOFF_ON
+  - _TRANSLUCENCYONOFF_ON
+  - _WINDQUALITY_FASTEST
+  - _WORLDOBJECTGRADIENT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,7 +31,23 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BASETEXTURE:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
+        m_Texture: {fileID: 2800000, guid: a195a893970f3ab4990bd06e18a0b308, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Control:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalsTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -35,7 +63,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ExtraTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -43,8 +79,44 @@ Material:
         m_Texture: {fileID: 2800000, guid: 16357eda3fc18dd459a8218b92769643, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMapTexture:
+        m_Texture: {fileID: 2800000, guid: a78adb8868cccbe4a92d9d81db916e6e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -55,24 +127,168 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Splat0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Splat3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SubsurfaceTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TerrainHolesTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopProjectionTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
+    - BACKFACE_NORMAL_MODE: 1
+    - EFFECT_BILLBOARD: 0
+    - EFFECT_EXTRA_TEX: 1
+    - _ANIMATEDECALEMISSIONONOFF: 1
+    - _ANIMATEOREEMISSIONONOFF: 0
+    - _AlphaClipThreshold: 0.33
+    - _AlphaCutoff: 0.5
+    - _BillboardKwToggle: 0
+    - _BillboardShadowFade: 0.5
     - _BumpScale: 1
+    - _CUSTOMCOLORSTINTING: 1
+    - _CUSTOMFLOWERSCOLOR: 0
+    - _CUSTOMWIND: 1
     - _Cutoff: 0.5
+    - _DECALEMISSIONONOFF: 1
+    - _DECALSONOFF: 0
+    - _DETAILTEXTUREONOFF: 0
+    - _DecalEmissionIntensity: 4
+    - _Depth: 0.3
+    - _DepthStrength: 0.3
     - _DetailNormalMapScale: 1
+    - _DetailTextureTiling: 0.5
     - _DstBlend: 0
+    - _EnableHeightBlend: 0
+    - _EnableInstancedPerPixelNormal: 1
+    - _EnvironmentReflections: 1
+    - _FoamAmount: 1.5
+    - _FoamNoiseScale: 150
+    - _FoamPower: 0.5
+    - _GRADIENTONOFF: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.4
     - _GlossyReflections: 1
+    - _Gradient: 1
+    - _HeightTransition: 0
+    - _HueVariationKwToggle: 1
+    - _LeavesThickness: 0.5
     - _Metallic: 0.3
+    - _Metallic0: 0
+    - _Metallic1: 0
+    - _Metallic2: 0
+    - _Metallic3: 0
+    - _Mettalic: 1
     - _Mode: 0
+    - _NormalMapKwToggle: 1
+    - _NormalMapWavesSpeed: 0.1
+    - _NormalMapsWavesSize: 5
+    - _NumLayersCount: 1
+    - _OREEMISSIONONOFF: 0
     - _OcclusionStrength: 1
+    - _OldHueVarBehavior: 0
+    - _OreEmissionIntensity: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _SNOWONOFF: 0
+    - _Smoothness: 0.2
+    - _Smoothness0: 0.5
+    - _Smoothness1: 0.5
+    - _Smoothness2: 0.5
+    - _Smoothness3: 0.5
     - _SmoothnessTextureChannel: 0
+    - _Smootness: 1
+    - _SnowAmount: 1
+    - _SnowCoverage: 0.46
+    - _SnowFade: 0.32
+    - _SnowNoiseContrast: 0.002
+    - _SnowNoiseOnOff: 1
+    - _SnowNoiseScale: 87.23351
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _SubsurfaceIndirect: 0.25
+    - _SubsurfaceKwToggle: 0
+    - _TOPPROJECTIONONOFF: 0
+    - _TRANSLUCENCYONOFF: 1
+    - _TopProjectionTextureCoverage: 1
+    - _TopProjectionTextureTiling: 0.5
+    - _TransAmbient: 0.1
+    - _TransDirect: 0.9
+    - _TransNormal: 0.5
+    - _TransScattering: 2
+    - _TransShadow: 0.5
+    - _TransStrength: 1
+    - _TwoSided: 2
     - _UVSec: 0
+    - _WINDQUALITY: 4
+    - _WaveAmplitude: 0.2
+    - _WaveSpeed: 0.5
+    - _WaveTile: 0.5
+    - _WindDensity: 0.2
+    - _WindMovement: 0.5
+    - _WindQuality: 1
+    - _WindStrength: 0.3
+    - _WorldObjectGradient: 1
     - _ZWrite: 1
     m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DecakEmissionColor: {r: 1, g: 0.9248579, b: 0, a: 0}
+    - _DecalsColor: {r: 0, g: 0, b: 0, a: 0}
+    - _DeepColor: {r: 0.31149876, g: 0.5266015, b: 0.5283019, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FLOWERSCOLOR: {r: 1, g: 0, b: 0, a: 0}
+    - _FoamColor: {r: 0.30660376, g: 1, b: 0.9145772, a: 0}
+    - _GroundColor: {r: 0.08490568, g: 0.05234205, b: 0.04846032, a: 1}
+    - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.2}
+    - _OreColor: {r: 1, g: 0.9248579, b: 0, a: 0}
+    - _OreEmissionColor: {r: 1, g: 0.9248579, b: 0, a: 0}
+    - _ShallowColor: {r: 0.52380735, g: 0.7314408, b: 0.745283, a: 0}
+    - _SnowDirection: {r: 0.1, g: 1, b: 0.1, a: 0}
+    - _SubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TopColor: {r: 0.4811321, g: 0.4036026, b: 0.2382966, a: 1}
+    - _Vector1: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
