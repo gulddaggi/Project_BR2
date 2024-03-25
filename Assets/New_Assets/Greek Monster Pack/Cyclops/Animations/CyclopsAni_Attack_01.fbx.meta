@@ -60,15 +60,15 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.31660232
-        functionName: NewEvent
+      - time: 0.37089044
+        functionName: EnemyAttackOn
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: 63841b1ff149a2241a84ff1317f3e669, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3294961
-        functionName: EnemyAttackOn
+      - time: 0.9440533
+        functionName: EnemyAttackOff
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 63841b1ff149a2241a84ff1317f3e669, type: 3}
         floatParameter: 0

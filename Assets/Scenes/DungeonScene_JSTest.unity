@@ -1634,9 +1634,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 791649354}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
-        m_MethodName: Pausing
+        m_MethodName: ButtonPausingOnClickEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3506,6 +3506,7 @@ MonoBehaviour:
   CurrentGuage: 0
   PlayerAbility: 0
   GameIsPaused: 0
+  isCutScene: 0
 --- !u!4 &580337973
 Transform:
   m_ObjectHideFlags: 0
@@ -8729,7 +8730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1478906854}
   m_LocalRotation: {x: 0, y: 0.4947004, z: 0, w: 0.8690636}
-  m_LocalPosition: {x: -15.63, y: 2.4978004, z: -32.09}
+  m_LocalPosition: {x: -15.06, y: 2.4978004, z: -33.04}
   m_LocalScale: {x: 10.2, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12147,18 +12148,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 404450148130892738, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -26.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 404450148130892738, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stageSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: stages.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: stages.Array.data[1]
       value: 
-      objectReference: {fileID: 8019505317409233420, guid: f8f5cd0fbf8334705b9d34b14c416e04, type: 3}
+      objectReference: {fileID: 4716351489442860770, guid: e1f934f47b565b14fbbea22307a05418, type: 3}
     - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: stages.Array.data[2]
       value: 
-      objectReference: {fileID: 4716351489442860770, guid: e1f934f47b565b14fbbea22307a05418, type: 3}
+      objectReference: {fileID: 4716351489442860770, guid: e5585253cacd111499fd0d58afe47d90, type: 3}
     - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: stages.Array.data[3]
       value: 
