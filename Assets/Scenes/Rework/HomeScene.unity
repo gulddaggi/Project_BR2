@@ -375,7 +375,6 @@ MonoBehaviour:
   CurrentGuage: 0
   PlayerAbility: 0
   GameIsPaused: 0
-  isLoad: 0
 --- !u!4 &32346578
 Transform:
   m_ObjectHideFlags: 0
@@ -3025,7 +3024,6 @@ MonoBehaviour:
   CurrentGuage: 0
   PlayerAbility: 0
   GameIsPaused: 0
-  isLoad: 0
 --- !u!4 &728007587
 Transform:
   m_ObjectHideFlags: 0
@@ -6062,7 +6060,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1645395432}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

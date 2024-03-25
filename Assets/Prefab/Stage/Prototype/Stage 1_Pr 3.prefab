@@ -644,11 +644,11 @@ MonoBehaviour:
   - {fileID: 3008070391891338910}
   - {fileID: 6428862160549074537}
   enemyPrefabs:
-  - {fileID: 4899848627645275925, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
-  - {fileID: 3467461757597614982, guid: 10408860cd1904e3ea3ab7a32ff7f5d5, type: 3}
-  - {fileID: 3413503133081157565, guid: c26033385899e88408e2abcb217e2fc2, type: 3}
-  - {fileID: 6163668485059913282, guid: b38bb319650ee5b4499f6000c21c629b, type: 3}
-  - {fileID: 521717319447620932, guid: eef2f00e15d204740ae60841a07b3862, type: 3}
+  - {fileID: 3932981248273183277, guid: f50f64f612d9c4c448430d1fbd68d6e8, type: 3}
+  - {fileID: 2292588278774629108, guid: bb769abd3109642c1a3fbe92823a6ff4, type: 3}
+  - {fileID: 3324208734362056805, guid: e5ff26a3ceeee431fa4ec8b9d1ac376d, type: 3}
+  - {fileID: 1571163543690514175, guid: cc0c2b290734e4d48a36c4407ad1cee0, type: 3}
+  - {fileID: 3795605212863643116, guid: f00262a386afd4d45975ff767241d8da, type: 3}
   curEnemy: {fileID: 0}
   curEnemyCount: 0
   spawnCount: 0100000002000000

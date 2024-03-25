@@ -1637,7 +1637,7 @@ MonoBehaviour:
   reward: {fileID: 0}
   curReward: {fileID: 0}
   rewardCreator: {fileID: 2723852069648005943}
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 8096249633018906935}
 --- !u!114 &-3973800757395564634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2002,48 +2002,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7171645550703882859}
+  - {fileID: 8629828365378789333}
+  - {fileID: 4948175898474302516}
+  - {fileID: 7821660108897430436}
+  - {fileID: 3579703759005140352}
+  - {fileID: 4722133018054435458}
+  - {fileID: 3536164716654861441}
+  - {fileID: 5761341926670104350}
+  - {fileID: 2761582379258387417}
+  - {fileID: 1955854837189948786}
+  - {fileID: 8913904231294952074}
+  - {fileID: 1599241897288744438}
+  - {fileID: 1744071808976322668}
+  - {fileID: 2011065134525289444}
+  - {fileID: 2595896820102844336}
+  - {fileID: 5217221600930478996}
+  - {fileID: 2362803290295134852}
+  - {fileID: 2662961360634219887}
+  - {fileID: 5413086611222467438}
+  - {fileID: 1328147599656463348}
+  - {fileID: 8414321367760382420}
+  - {fileID: 757625010316451811}
+  - {fileID: 6016882528785694035}
+  - {fileID: 3414393137627058221}
+  - {fileID: 6101276969467047443}
+  - {fileID: 8863034465244119513}
+  - {fileID: 1613606500248912076}
+  - {fileID: 8999816662211110306}
+  - {fileID: 6026351585492944949}
+  - {fileID: 7519299329557900600}
+  - {fileID: 163074235478863418}
+  - {fileID: 5441435243373966962}
+  - {fileID: 715809601783336291}
+  - {fileID: 5213580701514606459}
+  - {fileID: 4876964949878977849}
   enemyPrefabs:
-  - {fileID: 4899848627645275925, guid: 401a7c96f3bcf5d4cbb42a09b9d3fa4e, type: 3}
-  - {fileID: 3467461757597614982, guid: 10408860cd1904e3ea3ab7a32ff7f5d5, type: 3}
-  - {fileID: 3413503133081157565, guid: c26033385899e88408e2abcb217e2fc2, type: 3}
-  - {fileID: 6163668485059913282, guid: b38bb319650ee5b4499f6000c21c629b, type: 3}
-  - {fileID: 521717319447620932, guid: eef2f00e15d204740ae60841a07b3862, type: 3}
+  - {fileID: 3932981248273183277, guid: f50f64f612d9c4c448430d1fbd68d6e8, type: 3}
+  - {fileID: 2292588278774629108, guid: bb769abd3109642c1a3fbe92823a6ff4, type: 3}
+  - {fileID: 3324208734362056805, guid: e5ff26a3ceeee431fa4ec8b9d1ac376d, type: 3}
+  - {fileID: 1571163543690514175, guid: cc0c2b290734e4d48a36c4407ad1cee0, type: 3}
+  - {fileID: 3795605212863643116, guid: f00262a386afd4d45975ff767241d8da, type: 3}
   curEnemy: {fileID: 0}
   curEnemyCount: 0
   spawnCount: 0100000002000000

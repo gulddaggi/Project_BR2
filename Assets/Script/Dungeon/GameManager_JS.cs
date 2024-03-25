@@ -299,9 +299,11 @@ public class GameManager_JS : MonoBehaviour
 
     public int GetTryCount()
     {
+        // 첫 시작 시 바로 던전 입장이 되므로 가산
         if (totalDungeonTryCount == 0)
         {
             ++totalDungeonTryCount;
+            ++dungeonCount;
         }
         return totalDungeonTryCount;
     }

@@ -503,6 +503,31 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float _damage, bool _isHUDTextOn)
+    {
+        if (!isBoss && HPOn == false)
+        {
+            HPOn = true;
+            SetHpBar();
+        }
+
+        EnemyHP -= _damage;
+
+        if (EnemyHP <= 0)
+        {
+            if (!isDead)
+            {
+                Dead();
+            }
+        }
+
+        // 체력 바 업데이트
+        if (!isBoss)
+        {
+            hpBarFill.GetComponent<Image>().fillAmount = EnemyHP / FullHP;
+        }
+    }
+
     // 시간당 데미지 적용
     public void TakeTimeDamage()
     {
@@ -510,7 +535,7 @@ public class Enemy : MonoBehaviour
         for (int i = 0; i < timeDamageList.Count; i++)
         {
             timeDamageList[i].time += Time.deltaTime;
-            TakeDamage(timeDamageList[i].calcDamage);
+            TakeDamage(timeDamageList[i].calcDamage, false);
         }
 
         // 지정된 시간 초과 시 해당 객체 삭제

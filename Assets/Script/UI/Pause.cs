@@ -20,11 +20,13 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameManager_JS.Instance.GameIsPaused) { Resume(); }
             else { StartCoroutine(Pausing()); }
         }
+        */
     }
 
 
