@@ -9078,7 +9078,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 791649354}
         m_TargetAssemblyTypeName: Pause, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

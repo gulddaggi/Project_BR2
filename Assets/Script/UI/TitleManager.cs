@@ -10,4 +10,19 @@ public class TitleManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNameArray[_sceneNum]); // 씬을 로드하는 함수 호출
     }
+
+    public void StartButtonSceneLoad()
+    {
+        SceneLoader.LoadScene("DungeonScene_JSTest");
+    }
+
+    public void LoadButtonSceneLoad()
+    {
+        SceneLoader.LoadScene("HomeScene");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
