@@ -1502,7 +1502,7 @@ PrefabInstance:
     - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
       propertyPath: Harpy_Big_Projecter
       value: 
-      objectReference: {fileID: 6751444333788070656, guid: 31c2699cd4f78e44087315a2598b5a8b, type: 3}
+      objectReference: {fileID: 6287953604210959080, guid: 6c96bdc4f3164844e9c89e013d712640, type: 3}
     - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
       propertyPath: OnBossHPUpdated.m_PersistentCalls.m_Calls.Array.size
       value: 1

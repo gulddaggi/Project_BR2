@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeNPC : MonoBehaviour
+public class NPC : MonoBehaviour
 {
     [SerializeField]
     GameObject NPCText;

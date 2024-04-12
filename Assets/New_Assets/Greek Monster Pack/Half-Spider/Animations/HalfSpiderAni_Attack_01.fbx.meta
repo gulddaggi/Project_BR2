@@ -75,6 +75,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.9126883
+        functionName: EnemyAttackOff
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 4b42e61026be04f3b8e5a3b0b509b97f, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

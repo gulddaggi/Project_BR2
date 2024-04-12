@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if (CanMove)
+        if (CanMove && !GameManager_JS.Instance.isCutScene)
         {
             Vector2 input = context.ReadValue<Vector2>();
             PlayerMoveDirection = new Vector3(input.x, 0f, input.y);

@@ -16,6 +16,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     GameObject curEnemy;
 
+    [SerializeField]
     int curWaveCount = 0;
 
     // 최대 웨이브
@@ -55,7 +56,10 @@ public class EnemySpawner : MonoBehaviour
         if (spawnTrigger && curEnemyCount <= 0)
         {
             spawnTrigger = false;
-            EnemySpawn();
+            if (!IsAllWaveEnd())
+            {
+                EnemySpawn();
+            }
         }
     }
 
@@ -68,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
         List<int> spawnCounts = new List<int>();
         for (int i = 0; i < numSpawnPoints; i++)
         {
-            int randomSpawnCount = Random.Range(0, 36);
+            int randomSpawnCount = Random.Range(0, spawnPoints.Count);
             spawnCounts.Add(randomSpawnCount);
         }
         float rad = 2f;
@@ -79,10 +83,8 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int i = 0; i < numSpawnPoints; i++)
             {
-                angle = i * (Mathf.PI * 2.0f) / numSpawnPoints;
-
                 GameObject spawnEnemy = Instantiate(curEnemy, 
-                    (spawnPoints[spawnCounts[i]].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
+                    spawnPoints[spawnCounts[i]].position ,
                      Quaternion.identity);
                 spawnEnemy.transform.SetParent(this.gameObject.transform);
                 ++curEnemyCount;
@@ -93,11 +95,7 @@ public class EnemySpawner : MonoBehaviour
         {
                 for (int i = 0; i < numSpawnPoints; i++)
                 {
-                    angle = i * (Mathf.PI * 2.0f) / numSpawnPoints;
-
-                    GameObject spawnEnemy = Instantiate(curEnemy,
-                        (spawnPoints[spawnCounts[i]].position + new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle)) * rad) ,
-                         Quaternion.identity);
+                    GameObject spawnEnemy = Instantiate(curEnemy, spawnPoints[spawnCounts[i]].position, Quaternion.identity);
                     spawnEnemy.transform.SetParent(this.gameObject.transform);
                     ++curEnemyCount;
                 }

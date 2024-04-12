@@ -390,6 +390,7 @@ public class Attack : MonoBehaviour
         if (GameManager_JS.Instance.PlayerWeaponCheck() == 2 && AttackAvailable)
         {
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            arrow.SetActive(true);
             arrow.GetComponent<PlayerProjectile>().player = player;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
 
@@ -404,6 +405,7 @@ public class Attack : MonoBehaviour
         {
             // 차후에 수리검 실장시 추가
             GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+            shuriken.SetActive(true);
             shuriken.GetComponent<PlayerProjectile>().player = player;
             AttackAvailable = false;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
@@ -431,6 +433,7 @@ public class Attack : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                arrow.SetActive(true);
                 arrow.GetComponent<PlayerProjectile>().player = player;
 
                 // 각도 조절
@@ -460,6 +463,7 @@ public class Attack : MonoBehaviour
             for (int i = 0; i < 9; i++)
             {
                 GameObject shuriken = Instantiate(shurikenPrefab, arrowSpawnPoint.position, Quaternion.identity);
+                shuriken.SetActive(true);
                 shuriken.GetComponent<PlayerProjectile>().player = player;
 
                 // 각도 조절

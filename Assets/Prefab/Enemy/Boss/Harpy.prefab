@@ -10219,7 +10219,7 @@ MonoBehaviour:
   AttackPO1: {fileID: 0}
   AttackPO2: {fileID: 5989579091768020585}
   Harpy_point: {fileID: 0}
-  Harpy_Big_Projecter: {fileID: 0}
+  Harpy_Big_Projecter: {fileID: 6287953604210959080, guid: 6c96bdc4f3164844e9c89e013d712640, type: 3}
   isLook: 1
   isOverdriving: 0
   Boss_Pattern_Waiting_Time: 3
@@ -10229,6 +10229,8 @@ MonoBehaviour:
   bossText: {fileID: 0}
   bossHPUI: {fileID: 0}
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
+  BossBullet2_Harpy: {fileID: 1830583763896258589, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
+  BossBullet2Speed: 10
   Player: {fileID: 0}
   Movespeed: 0
   Enemy_Recognition_Range: 0

@@ -53,7 +53,8 @@ public class UIManager : MonoBehaviour
 
         if (currentSceneName == "HomeScene")
         {
-            uiText.text = "봄이 닿지 않는 정원";
+            if (GameManager_JS.Instance.BossKillCount > 0) { uiText.text = "돌아온 봄의 정원"; }
+            else { uiText.text = "봄이 닿지 않는 정원"; }
         }
         else if (currentSceneName == "Title")
         {
