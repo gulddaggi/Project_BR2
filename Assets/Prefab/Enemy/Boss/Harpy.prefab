@@ -9977,7 +9977,7 @@ GameObject:
   - component: {fileID: 494541441639699895}
   m_Layer: 0
   m_Name: Harpy
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10252,6 +10252,7 @@ MonoBehaviour:
   playerdata: {fileID: 0}
   AttackDelay: 1
   range: 20
+  CutScene: 0
   EnemyPlayerAttackDistance: 3
   player: {fileID: 0}
   nvAgent: {fileID: 0}
