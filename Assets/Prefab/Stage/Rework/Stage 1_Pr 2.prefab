@@ -367,6 +367,7 @@ MonoBehaviour:
   - {fileID: 6163668485059913282, guid: b38bb319650ee5b4499f6000c21c629b, type: 3}
   - {fileID: 521717319447620932, guid: eef2f00e15d204740ae60841a07b3862, type: 3}
   curEnemy: {fileID: 0}
+  curWaveCount: 0
   curEnemyCount: 0
   spawnCount: 0100000002000000
 --- !u!1 &1224999481615851488
@@ -610,7 +611,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &249114224526116003
 Transform:
