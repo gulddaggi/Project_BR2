@@ -2278,6 +2278,7 @@ MonoBehaviour:
   - {fileID: 1571163543690514175, guid: cc0c2b290734e4d48a36c4407ad1cee0, type: 3}
   - {fileID: 3795605212863643116, guid: f00262a386afd4d45975ff767241d8da, type: 3}
   curEnemy: {fileID: 0}
+  curWaveCount: 0
   curEnemyCount: 0
   spawnCount: 0100000002000000
 --- !u!1 &5745724053548529919
@@ -2564,14 +2565,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7338793354928685925}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.17364825, y: 0, z: 0, w: 0.9848078}
   m_LocalPosition: {x: 4.82, y: -6.5, z: -12.01}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3927398029359685523}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
 --- !u!1 &7340581048400741358
 GameObject:
   m_ObjectHideFlags: 0

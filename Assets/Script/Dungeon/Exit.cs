@@ -87,7 +87,7 @@ public class Exit : MonoBehaviour
     // 지정된 다음 보상 생성 후 출구에 표시
     public void CreateSampleReward(GameObject obj)
     {
-        reward = Instantiate(obj, rewardSocket.transform.position, Quaternion.identity);
+        reward = Instantiate(obj, rewardSocket.transform.position, rewardSocket.transform.rotation);
         reward.gameObject.SetActive(true);
         reward.transform.SetParent(this.gameObject.transform);
         //reward.GetComponent<SphereCollider>().enabled = false;

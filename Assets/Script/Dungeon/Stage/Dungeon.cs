@@ -63,10 +63,10 @@ public class Dungeon : Stage
     {
         if (curReward != null)
         {
-            GameObject rewardObj = Instantiate(curReward, rewardPos.position, Quaternion.identity);
+            GameObject rewardObj = Instantiate(curReward, rewardPos);
             rewardObj.transform.SetParent(this.gameObject.transform);
             reward.gameObject.SetActive(true);
-            rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            //rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
     }

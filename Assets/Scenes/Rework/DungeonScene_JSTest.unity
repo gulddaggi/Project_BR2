@@ -12236,5 +12236,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Stage_Pr
       objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.17364825
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6835846428292729162, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
