@@ -45,6 +45,9 @@ public class Dungeon : Stage
             SetNextReward();
         }
 
+        // 보상 테스트
+        CreateReward();
+
     }
 
     private void OnEnable()
