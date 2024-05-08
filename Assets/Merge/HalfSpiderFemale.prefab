@@ -6246,7 +6246,7 @@ MonoBehaviour:
   death: {fileID: 0}
   hit: {fileID: 0}
   Attack: {fileID: 0}
-  Play: {fileID: 0}
+  PlaySound: {fileID: 0}
 --- !u!114 &-4368477188484999694
 MonoBehaviour:
   m_ObjectHideFlags: 0

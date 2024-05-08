@@ -2567,7 +2567,7 @@ MonoBehaviour:
   death: {fileID: 8300000, guid: a209e608cc9504436845dae0f5dc90b6, type: 3}
   hit: {fileID: 8300000, guid: ff53004d66c40430e9ecbe1069a6c650, type: 3}
   Attack: {fileID: 8300000, guid: fc08b71eb4d644b0caf88d133e730e89, type: 3}
-  PlaySound: {fileID: 0}
+  PlaySound: {fileID: -7305380068123102395}
   bulletPrefab: {fileID: 102920571250306707, guid: e73dd4495bb3f4bcd990785ac6e81257, type: 3}
   bulletSpawnPoint: {fileID: 1484842384274905166}
   bulletSpeed: 10
