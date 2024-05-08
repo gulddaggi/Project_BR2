@@ -8703,6 +8703,11 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!82 &1466467332 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1660919951544010164, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+  m_PrefabInstance: {fileID: 549617697360506577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1478906854
 GameObject:
   m_ObjectHideFlags: 0
@@ -8920,6 +8925,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522318086}
   m_CullTransparentMesh: 1
+--- !u!82 &1528729869 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5146348952595191660, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+  m_PrefabInstance: {fileID: 549617697360506577}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1553492221
 GameObject:
   m_ObjectHideFlags: 0
@@ -12228,6 +12238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3732977294820040383, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: PlaySound
+      value: 
+      objectReference: {fileID: 1528729869}
     - target: {fileID: 4961615200225011914, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -12236,5 +12250,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Start Stage_Pr
       objectReference: {fileID: 0}
+    - target: {fileID: 7181402937218354279, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: PlaySound
+      value: 
+      objectReference: {fileID: 1466467332}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
