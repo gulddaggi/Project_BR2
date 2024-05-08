@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0803122, g: 0.09969489, b: 0.3009709, a: 1}
+  m_IndirectSpecularColor: {r: 0.0801494, g: 0.099541955, b: 0.30094472, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -375,6 +375,7 @@ MonoBehaviour:
   CurrentGuage: 0
   PlayerAbility: 0
   GameIsPaused: 0
+  isCutScene: 0
 --- !u!4 &32346578
 Transform:
   m_ObjectHideFlags: 0
@@ -3024,6 +3025,7 @@ MonoBehaviour:
   CurrentGuage: 0
   PlayerAbility: 0
   GameIsPaused: 0
+  isCutScene: 0
 --- !u!4 &728007587
 Transform:
   m_ObjectHideFlags: 0
@@ -7038,6 +7040,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 97817594786103496, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: weaponSounds.Array.data[2].audioClip.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
+    - target: {fileID: 97817594786103496, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: weaponSounds.Array.data[2].audioClip.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
+    - target: {fileID: 97817594786103496, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: weaponSounds.Array.data[2].audioClip.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: bbf962a63a63c7b46a8e1d13be6b9177, type: 3}
     - target: {fileID: 1689446647727955233, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: m_IsActive
       value: 0

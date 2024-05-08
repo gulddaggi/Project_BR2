@@ -13111,6 +13111,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 693247935284017573, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 87
+      objectReference: {fileID: 0}
     - target: {fileID: 1021062407546535642, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: m_LocalPosition.x
       value: -38.1
