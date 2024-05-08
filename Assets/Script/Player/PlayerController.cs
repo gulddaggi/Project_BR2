@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     protected void PlayerMove()
     {
-        if (PlayerMoveDirection != Vector3.zero)
+        if (PlayerMoveDirection != Vector3.zero && attack.isAttack == false)
             { Quaternion LookAngle = Quaternion.LookRotation(PlayerMoveDirection); PlayerRigid.rotation = LookAngle; }
         // 여기까지 인풋값에 따른 플레이어 프리팹 회전
         PlayerRigid.velocity = PlayerMoveDirection * player.MoveSpeed + Vector3.up * PlayerRigid.velocity.y;

@@ -113,6 +113,13 @@ public class Enemy : MonoBehaviour
     public GameObject hudDamageText;
     public Transform hudPos;
     
+    // 사운드
+    public AudioClip death;
+    public AudioClip hit;
+    public AudioClip Attack;
+    public AudioSource PlaySound;
+
+    
     protected virtual void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -214,6 +221,7 @@ public class Enemy : MonoBehaviour
     protected virtual void EnemyAttackRangeON()
     {
         attackRangeObj.SetActive(true);
+        PlaySound.PlayOneShot(Attack);
     }
 
     public void CounterAttacked(float _damage, Player _player)
@@ -221,6 +229,7 @@ public class Enemy : MonoBehaviour
         playerdata = _player;
         debuffArray = playerdata.GetCounterAttackDebuffArray();
         Debug.Log("Counter Damaged!");
+        PlaySound.PlayOneShot(hit);
         ApplyDamage(_damage, 4);
         // 디버프 적용
         if (EnemyHP <= (FullHP * 0.3f))
@@ -240,6 +249,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerAttack")
         {
             Debug.Log("Damaged!");
+            PlaySound.PlayOneShot(hit);
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
@@ -272,6 +282,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "StrongPlayerAttack")
         {
             Debug.Log("Strongly Damaged!");
+            PlaySound.PlayOneShot(hit);
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
@@ -321,6 +332,7 @@ public class Enemy : MonoBehaviour
             }
 
             Debug.Log("Damaged by Player Projectile");
+            PlaySound.PlayOneShot(hit);
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
@@ -418,6 +430,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "PlayerFieldAttack")
         {
             Debug.Log("Field damaged!");
+            PlaySound.PlayOneShot(hit);
             EnemyAnimator.SetTrigger("Damaged");
             attackRangeObj.SetActive(false);
             damaged = true;
@@ -466,6 +479,7 @@ public class Enemy : MonoBehaviour
 
     public void Dead()
     {
+        PlaySound.PlayOneShot(death);
         isDead = true;
         enemySpawner.EnemyDead();
         hpBar.SetActive(false);

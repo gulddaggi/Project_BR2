@@ -109,6 +109,8 @@ public class Harpy : MonoBehaviour
 
     protected bool damaged = false;
 
+    public bool CutScene;
+
     bool isDead = false;
 
     // 이 범위 내에 플레이어가 들어올시 공격
@@ -147,7 +149,7 @@ public class Harpy : MonoBehaviour
         FullHP = EnemyHP;
         isBoss = true;
         hitEffectManager = this.gameObject.GetComponent<HitEffectManager>();
-        
+        CutScene = true;
     }
 
     private void OnEnable()
@@ -161,7 +163,7 @@ public class Harpy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isLook) // 시선이 플레이어를 향하도록 함
+        if(isLook && !GameManager_JS.Instance.isCutScene) // 시선이 플레이어를 향하도록 함
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");

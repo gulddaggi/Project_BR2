@@ -12,6 +12,7 @@ public class Attack : MonoBehaviour
     public AttackState currentAttackState = AttackState.Idle;
 
     public Weapon PlayerWeapon = Weapon.Axe;
+    SoundManager soundManager;
 
     // 차후에 추상 클래스로 개조 필요.
     protected Player player;
@@ -85,6 +86,7 @@ public class Attack : MonoBehaviour
         PlayerRigid = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
+        soundManager = GetComponent<SoundManager>();
         GameManager_JS.Instance.GetGuage();
     }
 
@@ -137,10 +139,10 @@ public class Attack : MonoBehaviour
 
     public void OnSpecialAttack(InputAction.CallbackContext context)
     {
-        Debug.Log("Special!");
+        Debug.Log("플레이어 특수 공격 시도");
         if (context.performed && GameManager_JS.Instance.attackGuage.isSpecialReady && SceneManager.GetActiveScene().name != "HomeScene")
         {
-            Debug.Log("Special Attack");
+            Debug.Log("플레이어 특수 공격 이행");
 
             // 여기서는 근거리 무기의 Special Attack 판정!
             // 원거리 공격은 ProjectileManagement()에서 따로 판정함! 
@@ -154,6 +156,8 @@ public class Attack : MonoBehaviour
                     instance.transform.localPosition = Vector3.zero;
                     instance.transform.localRotation = new Quaternion();
                 }
+
+
                 Destroy(instance, specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].DestroyAfter);
 
                 GameManager_JS.Instance.attackGuage.isSpecialReady = false;
@@ -185,6 +189,8 @@ public class Attack : MonoBehaviour
     {
         yield return new WaitForSeconds(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRangeInitTime);
         specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRange.SetActive(true);
+        soundManager.SpecialAttackSound();
+        Debug.Log("플레이어 특수공격 사운드 재생(검/배틀액스)");
         yield return new WaitForSeconds(specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRangeDisableTime);
         specialAttack[GameManager_JS.Instance.PlayerWeaponCheck()].SpecialAttackRange.SetActive(false);
     }
@@ -202,6 +208,7 @@ public class Attack : MonoBehaviour
         ManageAttackRange(0, true);
         TransitionToState(AttackState.FirstAttack);
         ProcessBufferedInput();
+        soundManager.PlayWeaponSound(0);
         // Debug.Log("First Combo Start");
     }
     void FirstAttack_Sword_End()
@@ -226,6 +233,9 @@ public class Attack : MonoBehaviour
         ProcessBufferedInput();
 
         buttonPressedCount = 0;
+
+        soundManager.PlayWeaponSound(1);
+
 
         // Debug.Log("Second Combo Start");
     }
@@ -252,6 +262,8 @@ public class Attack : MonoBehaviour
         ProcessBufferedInput();
 
         buttonPressedCount = 0;
+
+        soundManager.PlayWeaponSound(2);
 
         // Debug.Log("Third Combo Start");
     }
@@ -394,6 +406,9 @@ public class Attack : MonoBehaviour
             arrow.GetComponent<PlayerProjectile>().player = player;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
 
+            soundManager.PlayWeaponSound(0);
+            Debug.Log("Player Weapon Sound");
+
             // 화살 로테이션 / Y좌표 보정
             Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
             arrow.transform.rotation = arrowRotation;
@@ -409,6 +424,8 @@ public class Attack : MonoBehaviour
             shuriken.GetComponent<PlayerProjectile>().player = player;
             AttackAvailable = false;
             Vector3 shootDirection = (targetPosition - arrowSpawnPoint.position).normalized;
+
+            soundManager.PlayWeaponSound(0);
 
             // 화살 로테이션 / Y좌표 보정
             Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
@@ -428,6 +445,7 @@ public class Attack : MonoBehaviour
         GameManager_JS.Instance.InitGuage();
         StartCoroutine(SpecialAttackRange());
 
+
         if (PlayerWeapon == 2)
         {
             for (int i = 0; i < 3; i++)
@@ -439,6 +457,8 @@ public class Attack : MonoBehaviour
                 // 각도 조절
                 float angle = (i - 1) * 30f; // -30, 0, 30
                 Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (MouseDirection - arrowSpawnPoint.position).normalized;
+
+                soundManager.SpecialAttackSound();
 
                 Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
                 arrow.transform.rotation = arrowRotation;
@@ -470,6 +490,8 @@ public class Attack : MonoBehaviour
                 float angle = (i - 1) * 40f;
                 Vector3 shootDirection = Quaternion.Euler(0, angle, 0) * (MouseDirection - arrowSpawnPoint.position).normalized;
 
+                soundManager.SpecialAttackSound();
+
                 Quaternion arrowRotation = Quaternion.LookRotation(Vector3.up, shootDirection);
                 shuriken.transform.rotation = arrowRotation;
                 shuriken.transform.position = new Vector3(shuriken.transform.position.x, 2f, shuriken.transform.position.z);
@@ -477,6 +499,7 @@ public class Attack : MonoBehaviour
                 shuriken.GetComponent<Rigidbody>().AddForce(shootDirection * arrowSpeed, ForceMode.Impulse);
             }
         }
+
     }
 
     IEnumerator SpawnShurikenDelayed(Vector3 targetPosition, float delay)
