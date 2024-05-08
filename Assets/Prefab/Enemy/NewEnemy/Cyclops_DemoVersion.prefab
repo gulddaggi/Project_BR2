@@ -5492,10 +5492,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   hudDamageText: {fileID: 0}
   hudPos: {fileID: 0}
-  death: {fileID: 0}
-  hit: {fileID: 0}
-  Attack: {fileID: 0}
-  Play: {fileID: 0}
 --- !u!114 &7652229387325939545
 MonoBehaviour:
   m_ObjectHideFlags: 0
