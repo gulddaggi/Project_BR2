@@ -4491,7 +4491,7 @@ MonoBehaviour:
   death: {fileID: 8300000, guid: a209e608cc9504436845dae0f5dc90b6, type: 3}
   hit: {fileID: 8300000, guid: ff53004d66c40430e9ecbe1069a6c650, type: 3}
   Attack: {fileID: 8300000, guid: fc08b71eb4d644b0caf88d133e730e89, type: 3}
-  PlaySound: {fileID: 0}
+  PlaySound: {fileID: -7882774051066285892}
 --- !u!114 &7648044028279208007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4519,7 +4519,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
