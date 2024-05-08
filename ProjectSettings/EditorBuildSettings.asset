@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Rework/Title.unity
     guid: 6b7872c347c47ce4f9c30708bc8fc92b
   - enabled: 1
-    path: Assets/Scenes/DungeonScene_JSTest.unity
+    path: Assets/Scenes/Rework/DungeonScene_JSTest.unity
     guid: 1bc379a1de06c34419414738c208b4ca
   - enabled: 1
     path: Assets/Scenes/Rework/HomeScene.unity
