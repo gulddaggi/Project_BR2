@@ -20,6 +20,7 @@ TagManager:
   - PlayerAttackProjectile
   - PlayerFieldAttack
   - Upgrade
+  - Boss
   layers:
   - Default
   - TransparentFX

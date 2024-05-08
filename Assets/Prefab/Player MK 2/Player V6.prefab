@@ -738,6 +738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 6402893141203149823}
+  playerController: {fileID: 0}
+  fieldAttackObjArray: []
+  flameFieldObj: {fileID: 0}
 --- !u!1 &2637213443470838119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,6 +1859,7 @@ GameObject:
   - component: {fileID: 8269540173079867940}
   - component: {fileID: 6730491723129743474}
   - component: {fileID: 6188118814411956014}
+  - component: {fileID: 97817594786103496}
   m_Layer: 0
   m_Name: Player V6
   m_TagString: Player
@@ -2062,6 +2066,9 @@ MonoBehaviour:
   PlayerRigid: {fileID: 0}
   DodgeButtonPressedCount: 0
   PlayerMoveDirection: {x: 0, y: 0, z: 0}
+  OnPlayerFieldAttack:
+    m_PersistentCalls:
+      m_Calls: []
   dodgeAttackObj: {fileID: 1719984384}
   CanMove: 1
   Basic_Dodge_CoolDown: 0
@@ -2178,8 +2185,17 @@ MonoBehaviour:
   playerStrongAttackDamage: 15
   playerFieldAttackDamage: 0
   playerDodgeAttackDamage: 0
-  playerDrawnDamage: 0
+  playerStackDamage: 0
+  playerCounterAbilityDamage: 0
   playerSpecialAttackFillingAmount: 5
+  playerAttackBurnDamage: 0
+  playerStrongAttackBurnDamamge: 0
+  playerFieldAttackBurnDamage: 0
+  playerDodgeAttackBurnDamage: 0
+  playerBurstDamage: 0
+  playerFireBlessingDamage: 0
+  playerCounterIgnitionDamage: 0
+  playerExcutionPercent: -1
 --- !u!114 &8269540173079867940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,6 +2293,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aLObject: {fileID: 0}
+--- !u!114 &97817594786103496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6060381316887276210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c90cedadd0fb341a626b651b1adb51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboClips: []
+  audioPoolSize: 5
+  weaponSounds:
+  - audioClip:
+    - {fileID: 8300000, guid: 80502e18f68bb734b9dded7bb8d2e750, type: 3}
+    - {fileID: 8300000, guid: 80502e18f68bb734b9dded7bb8d2e750, type: 3}
+    - {fileID: 8300000, guid: 180f35aef2ea2654086bcbb52d58ec0b, type: 3}
+    specialAttackAudioClip: {fileID: 8300000, guid: bbf962a63a63c7b46a8e1d13be6b9177, type: 3}
+  - audioClip:
+    - {fileID: 8300000, guid: 94c93377631b5c14e959b951b435b46a, type: 3}
+    - {fileID: 8300000, guid: 594c4d362d2ee664e91397fd725b3b3f, type: 3}
+    - {fileID: 8300000, guid: b0c1abd0649fdfd428d028574a0805fe, type: 3}
+    specialAttackAudioClip: {fileID: 8300000, guid: 9b6c52dc63fcf6d45892aea2d2b717f2, type: 3}
+  - audioClip:
+    - {fileID: 8300000, guid: 07cc499b4e48b544aadf3af4b86365bd, type: 3}
+    specialAttackAudioClip: {fileID: 8300000, guid: 9496feb530c6bc647a5d5a9208e8eaa3, type: 3}
+  - audioClip:
+    - {fileID: 8300000, guid: 0a1c8512ec0ce824fa0485eaaccf700f, type: 3}
+    specialAttackAudioClip: {fileID: 8300000, guid: 9496feb530c6bc647a5d5a9208e8eaa3, type: 3}
 --- !u!1 &6248123922513919638
 GameObject:
   m_ObjectHideFlags: 0
@@ -3080,6 +3127,7 @@ MonoBehaviour:
   - {fileID: 0}
   event_Merchant:
   - {fileID: 0}
+  eventUpgrade: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 8
