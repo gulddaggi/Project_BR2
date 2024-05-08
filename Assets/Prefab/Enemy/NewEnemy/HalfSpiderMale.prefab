@@ -15039,10 +15039,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   hudDamageText: {fileID: 3633019515484952853, guid: f1f58f0c33dac47578475642e9f6730a, type: 3}
   hudPos: {fileID: 0}
-  death: {fileID: 0}
-  hit: {fileID: 0}
-  Attack: {fileID: 0}
-  PlaySound: {fileID: 0}
 --- !u!114 &1290976681295311491
 MonoBehaviour:
   m_ObjectHideFlags: 0

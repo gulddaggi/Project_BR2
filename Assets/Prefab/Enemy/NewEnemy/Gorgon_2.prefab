@@ -1005,10 +1005,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   hudDamageText: {fileID: 3633019515484952853, guid: f1f58f0c33dac47578475642e9f6730a, type: 3}
   hudPos: {fileID: 6724146332873938799}
-  death: {fileID: 0}
-  hit: {fileID: 0}
-  Attack: {fileID: 0}
-  PlaySound: {fileID: 0}
   bulletPrefab: {fileID: 102920571250306707, guid: e73dd4495bb3f4bcd990785ac6e81257, type: 3}
   bulletSpawnPoint: {fileID: 966237943061851854}
   bulletSpeed: 10

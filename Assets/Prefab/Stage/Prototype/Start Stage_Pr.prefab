@@ -828,7 +828,6 @@ MonoBehaviour:
   spawnPoints: []
   enemyPrefabs: []
   curEnemy: {fileID: 0}
-  curWaveCount: 0
   curEnemyCount: 2
   spawnCount: 0000000000000000
 --- !u!1 &1224999481615851488
