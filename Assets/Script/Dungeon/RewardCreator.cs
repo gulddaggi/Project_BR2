@@ -14,7 +14,7 @@ public class RewardCreator : MonoBehaviour
     // 보상 생성
     public GameObject CreateReward()
     {
-        int index = Random.Range(0, rewardPrefs.Count); // 무작위 난수 생성
+        int index = Random.Range(0, rewardPrefs.Count-1); // 무작위 난수 생성
         GameObject reward;
         //Debug.Log("reward index : " + index);
         if (index == 0) // 0은 능력 
@@ -34,10 +34,6 @@ public class RewardCreator : MonoBehaviour
     // CreateReward 오버로딩. 시작 스테이지에서 
     public GameObject CreateReward(int max)
     {
-        if (SceneManager.GetActiveScene().name == "BossStage")
-        {
-            return null;
-        }
         int index = Random.Range(0, max); // 무작위 난수 생성
         GameObject reward;
         if (index == 0) // 0은 능력 
@@ -50,8 +46,6 @@ public class RewardCreator : MonoBehaviour
             reward = rewardPrefs[index];
         }
 
-        //rewardprefs.Remove(rewardprefs[index]);
-        //rewardprefs.Sort();
         return reward;
     }
 

@@ -14,6 +14,7 @@ public class Exit : MonoBehaviour
     [SerializeField]
     GameObject rewardSocket;
 
+    [SerializeField]
     GameObject reward;
     
     bool moveTrigger = false;

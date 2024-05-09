@@ -21,6 +21,9 @@ TagManager:
   - PlayerFieldAttack
   - Upgrade
   - Boss
+  - Stage
+  - Boss Stage
+  - Event_BossClear
   layers:
   - Default
   - TransparentFX

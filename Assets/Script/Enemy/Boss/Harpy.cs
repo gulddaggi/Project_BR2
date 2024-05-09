@@ -568,15 +568,16 @@ public class Harpy : MonoBehaviour
 
         if (EnemyHP <= 0)
         {
+            EnemyHP = 0;
             if (!isDead)
             {
                 isDead = true;
+                GameManager_JS.Instance.AddBossKillCount();
+                transform.parent.GetComponent<Dungeon>().CreateReward();
                 gameObject.SetActive(false);
             }
             gameObject.SetActive(false);
         }
-
-        // 체력 바 업데이
     }
 
     public void SetHpBar_Boss()

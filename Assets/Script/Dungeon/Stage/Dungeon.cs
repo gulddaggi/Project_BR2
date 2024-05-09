@@ -45,9 +45,6 @@ public class Dungeon : Stage
             SetNextReward();
         }
 
-        // 보상 테스트
-        CreateReward();
-
     }
 
     private void OnEnable()
@@ -62,13 +59,16 @@ public class Dungeon : Stage
         curReward = Obj;
     }
 
-    void CreateReward()
+    public void CreateReward()
     {
         if (curReward != null)
         {
             GameObject rewardObj = Instantiate(curReward, rewardPos);
             rewardObj.transform.SetParent(this.gameObject.transform);
-            reward.gameObject.SetActive(true);
+            if (reward != null)
+            {
+                reward.gameObject.SetActive(true);
+            }
             //rewardObj.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
@@ -77,17 +77,31 @@ public class Dungeon : Stage
     // 출구에 표시하기 위한 다음 보상을 생성.
     protected void SetNextReward()
     {
-        // 출구 개수만큼 다음 보상 생성.
-        for (int i = 0; i < exitObjects.Length; i++)
+        string nextStage = GameManager_JS.Instance.GetNextStageName();
+        if (nextStage == "Boss Stage")
         {
-            // 랜덤 보상 생성 후 변수 저장.
-            reward = rewardCreator.CreateReward();
-            
-            // 테스트용 보상 생성 함수 실행.
-            //reward = rewardCreator.CreateReward(0, true);
-            // 생성된 보상을 해당 인덱스 출구에 표시
-            exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
+            reward = rewardCreator.CreateReward(4, true);
+
+            for (int i = 0; i < exitObjects.Length; i++)
+            {
+                // 생성된 보상을 해당 인덱스 출구에 표시
+                exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
+            }
         }
+        else
+        {
+            // 출구 개수만큼 다음 보상 생성.
+            for (int i = 0; i < exitObjects.Length; i++)
+            {
+                // 랜덤 보상 생성 후 변수 저장.
+                reward = rewardCreator.CreateReward();
+
+                // 생성된 보상을 해당 인덱스 출구에 표시
+                exitObjects[i].GetComponent<Exit>().CreateSampleReward(reward);
+            }
+        }
+
+
     }
 
     // 클리어 시 실행 함수. 스테이지 이동 허용 및 보상 생성.

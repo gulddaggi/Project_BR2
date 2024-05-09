@@ -503,4 +503,20 @@ public class GameManager_JS : MonoBehaviour
     {
         isLoad = false;
     }
+
+    public string GetNextStageName()
+    {
+        string name = " ";
+        if (stageQueue.Count >= 1)
+        {
+            name = stageQueue.Peek().transform.tag;
+
+        }
+        return name;
+    }
+
+    public void AddBossKillCount()
+    {
+        ++bossKillCount;
+    }
 }
