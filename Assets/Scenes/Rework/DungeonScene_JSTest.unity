@@ -12200,6 +12200,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stageSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.data[2]
+      value: 
+      objectReference: {fileID: 4716351489442860770, guid: ce0b0dfef564c9e49af9ff81a2ad9f92, type: 3}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.data[3]
+      value: 
+      objectReference: {fileID: 4716351489442860770, guid: 014825e3fe97f034bb79775faaf82ef9, type: 3}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.data[4]
+      value: 
+      objectReference: {fileID: 4716351489442860770, guid: 6e4d1bbde5fa0f74286a96baf72bfaa0, type: 3}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.data[5]
+      value: 
+      objectReference: {fileID: 4716351489442860770, guid: 33f0321195e7b1b41be68d98437349af, type: 3}
+    - target: {fileID: 1547524083604306644, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
+      propertyPath: stages.Array.data[6]
+      value: 
+      objectReference: {fileID: 4716351489442860770, guid: e5585253cacd111499fd0d58afe47d90, type: 3}
     - target: {fileID: 3226988034429083152, guid: c0e55ce289dfe024fb3d55fb38f53d42, type: 3}
       propertyPath: playerPos
       value: 
