@@ -10,7 +10,10 @@ public class AbilityController : MonoBehaviour
 
     void Start()
     {
-        EventManager.Instance.AssignAbManager(aLObject.GetComponentInChildren<AbilityListManager>());
+        if (aLObject != null)
+        {
+            EventManager.Instance.AssignAbManager(aLObject.GetComponentInChildren<AbilityListManager>());
+        }
     }
 
     void Update()

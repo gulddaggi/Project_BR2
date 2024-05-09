@@ -21,6 +21,9 @@ public class EventController : MonoBehaviour
     LayerMask layerMask;
 
     [SerializeField]
+    GameObject event_BossClear;
+
+    [SerializeField]
     GameObject player;
 
     public List<Transform> texts = new List<Transform>();
@@ -105,6 +108,10 @@ public class EventController : MonoBehaviour
                     // 이벤트 : 잼
                     case 3:
                         GemEvent(tmpTypeIndex);
+                        break;
+                    // 이벤트 : 보스 클리어
+                    case 4:
+                        BossClearEvent();
                         break;
                     default:
                         break;
@@ -278,6 +285,11 @@ public class EventController : MonoBehaviour
         GameManager_JS.Instance.Gem = GameManager_JS.Instance.Gem + value;
         eventOn = false;
         GameManager_JS.Instance.isEventOn = false;
+    }
+
+    void BossClearEvent()
+    {
+        event_BossClear.SetActive(true);
     }
 
     void MerchantEventStart()
