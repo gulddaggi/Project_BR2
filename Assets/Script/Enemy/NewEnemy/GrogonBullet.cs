@@ -7,18 +7,15 @@ public class GrogonBullet : MonoBehaviour
     public float speed = 10.0f; // 총알의 속도
     public int damage = 10; // 총알의 피해량
     public Enemy enemy;
+    Rigidbody rb;
 
     void Start()
     {
         // 일정 시간 후에 총알 파괴 
+        transform.rotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
         Destroy(gameObject, 5.0f);
-        transform.Translate(Vector3.up * 1.0f);
-    }
-
-    void Update()
-    {
-        // 총알을 앞으로 이동시킴
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.forward * speed);
     }
 
     void OnCollisionEnter(Collision collision)
