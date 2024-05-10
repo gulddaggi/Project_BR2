@@ -149,7 +149,7 @@ public class Harpy : MonoBehaviour
         FullHP = EnemyHP;
         isBoss = true;
         hitEffectManager = this.gameObject.GetComponent<HitEffectManager>();
-        CutScene = true;
+        GameManager_JS.Instance.isCutScene = true;
     }
 
     private void OnEnable()
