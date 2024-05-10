@@ -168,7 +168,7 @@ public class GameManager_JS : MonoBehaviour
     public void GetGuage()
     {
         Debug.Log("특수공격 게이지 판정 시작.");
-        if(SceneManager.GetActiveScene().name != "HomeScene" && attackGuage.SpecialAttackGuage == null)
+        if (SceneManager.GetActiveScene().name != "HomeScene" && attackGuage.SpecialAttackGuage == null)
         {
             Debug.Log("확인 불가. 특수 공격 UI를 가져옵니다.");
             GameObject specialAttackUI = GameObject.Find("SpecialAttackUI");

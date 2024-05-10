@@ -36,6 +36,7 @@ public class Attack : MonoBehaviour
         public float[] AttackDelay;
     }
 
+
     [Header("하기 요소들은 플레이어의 공격 범위를 지정함.")]
     [Header("공격 범위를 수정하려면 해당 요소들을 바꿔끼우면 됨.")]
     [Header("플레이어 무기 태그 번호는 AnimationEventEffect.cs를 참조할 것.")]
@@ -45,6 +46,7 @@ public class Attack : MonoBehaviour
     public class DamameRange
     {
         public GameObject[] WeaponDamageRange;
+        public float AttackRangeDisableTime;
     }
 
     public Vector3 MouseDirection { get; private set; }
@@ -112,7 +114,7 @@ public class Attack : MonoBehaviour
     #region * New Input System Invoke Events 관련 코드. !!잘못 건들면 인풋시스템 다 망가짐!!
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene")
+        if (context.performed && Time.timeScale != 0 && SceneManager.GetActiveScene().name != "HomeScene" && GameManager_JS.Instance.isCutScene == false)
         {
             MouseDirection = GetMouseWorldPosition();
             transform.LookAt(MouseDirection);
@@ -205,7 +207,7 @@ public class Attack : MonoBehaviour
     void FirstAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
-        ManageAttackRange(0, true);
+        ManageAttackRange(0);
         TransitionToState(AttackState.FirstAttack);
         ProcessBufferedInput();
         soundManager.PlayWeaponSound(0);
@@ -215,7 +217,6 @@ public class Attack : MonoBehaviour
     {
         // PlayerAnimator.applyRootMotion = false;
         // player.AttackManagement_Start();
-        ManageAttackRange(0, false);
 
         StartCoroutine(ManageAttackDelay());
         OnComboEnd();
@@ -226,8 +227,7 @@ public class Attack : MonoBehaviour
     void SecondAttack_Sword_Start()
     {
         // PlayerAnimator.applyRootMotion = true;
-        ManageAttackRange(0, false);
-        ManageAttackRange(1, true);
+        ManageAttackRange(1);
 
         TransitionToState(AttackState.SecondAttack);
         ProcessBufferedInput();
@@ -243,7 +243,6 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = false;
 
-        ManageAttackRange(1, false);
 
         StartCoroutine(ManageAttackDelay());
         OnComboEnd();
@@ -255,8 +254,7 @@ public class Attack : MonoBehaviour
     {
         PlayerAnimator.applyRootMotion = true;
 
-        ManageAttackRange(1, false);
-        ManageAttackRange(2, true);
+        ManageAttackRange(2);
 
         TransitionToState(AttackState.ThirdAttack);
         ProcessBufferedInput();
@@ -270,7 +268,6 @@ public class Attack : MonoBehaviour
     void ThirdAttack_Sword_End()
     {
         PlayerAnimator.applyRootMotion = false;
-        ManageAttackRange(2, false);
 
         OnComboEnd();
         StartCoroutine(ManageAttackDelay());
@@ -278,10 +275,17 @@ public class Attack : MonoBehaviour
         Debug.Log("Third Combo End");
     }
 
-    public void ManageAttackRange(int ComboNum, bool able)
+    public void ManageAttackRange(int ComboNum)
     {
         // Debug.Log("Player Attack!");
-        Weapon_Damage_Range[GameManager_JS.Instance.PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(able);
+        Weapon_Damage_Range[GameManager_JS.Instance.PlayerWeaponCheck()].WeaponDamageRange[ComboNum].SetActive(true);
+        StartCoroutine(ManageAttackRangeDelays(GameManager_JS.Instance.PlayerWeaponCheck(), ComboNum));
+    }
+
+    IEnumerator ManageAttackRangeDelays(int Weapon, int ComboNum)
+    {
+        yield return new WaitForSeconds(Weapon_Damage_Range[Weapon].AttackRangeDisableTime);
+        Weapon_Damage_Range[Weapon].WeaponDamageRange[ComboNum].SetActive(false); ;
     }
 
     IEnumerator ManageAttackDelay()
