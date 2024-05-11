@@ -21,7 +21,7 @@ public class FlameAbilityField : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(this.gameObject.transform.parent.position, 10f, layerMask);
         for (int i = 0; i < cols.Length; i++)
         {
-            if (cols[i].tag == "Enemy")
+            if (cols[i].tag == "Enemy" || cols[i].tag == "Boss")
             {
                 cols[i].GetComponent<Enemy>().playerdata = this.GetComponentInParent<Player>();
                 cols[i].GetComponent<Enemy>().TakeDamage(damage);

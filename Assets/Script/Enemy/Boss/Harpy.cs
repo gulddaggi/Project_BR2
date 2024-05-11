@@ -150,6 +150,7 @@ public class Harpy : MonoBehaviour
         isBoss = true;
         hitEffectManager = this.gameObject.GetComponent<HitEffectManager>();
         GameManager_JS.Instance.isCutScene = true;
+        debuffChecker = this.gameObject.GetComponent<DebuffChecker>();
     }
 
     private void OnEnable()
@@ -171,6 +172,10 @@ public class Harpy : MonoBehaviour
             transform.LookAt(Player.transform.position + LookVec);
         }
         Boss_Overdrive_Check(); // 폭주 패턴 체크
+    }
+    private void FixedUpdate()
+    {
+        TakeTimeDamage();
     }
 
     IEnumerator Check_Camera() // 하피 패턴관리
@@ -334,18 +339,20 @@ public class Harpy : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        if (other.transform.GetComponentInParent<Player>() != null)
+        {
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            playerdata = other.transform.GetComponentInParent<Player>();
+        }
+
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
             Debug.Log("Damaged!");
-            // EnemyAnimator.SetTrigger("Damaged");
-            // attackRangeObj.SetActive(false);
             damaged = true;
 
             hitEffectManager.ShowHitEffect(transform.position, 0);
 
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
@@ -356,17 +363,24 @@ public class Harpy : MonoBehaviour
             GameManager_JS.Instance.Guage();
 
             OnBossHPUpdated.Invoke(maxHP, EnemyHP);
+
+            // 디버프 적용
+            if (EnemyHP <= (FullHP * 0.3f))
+            {
+                excutionArray = playerdata.GetExecutionAbilityArray();
+                debuffChecker.DebuffCheckJS(debuffArray, excutionArray);
+            }
+            else
+            {
+                debuffChecker.DebuffCheckJS(debuffArray);
+            }
         }
 
         if (other.tag == "StrongPlayerAttack")
         {
             Debug.Log("Strongly Damaged!");
-            // EnemyAnimator.SetTrigger("Damaged");
-            // attackRangeObj.SetActive(false);
             damaged = true;
 
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -418,7 +432,7 @@ public class Harpy : MonoBehaviour
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.GetComponent<PlayerProjectile>().player;
             float damage = playerdata.PlayerAttackDamage;
-            debuffArray = playerdata.GetStAttackDebuff();
+            debuffArray = playerdata.GetAttackDebuff();
 
             if (GameManager_JS.Instance != null)
             {
@@ -435,8 +449,8 @@ public class Harpy : MonoBehaviour
             // 피격 시 체력 감소 계산
             EnemyHP -= damage;
 
-            // 디버프 적용
-            ApplyDamage(damage, 5);
+            // 데미지 적용
+            ApplyDamage(damage, 0);
 
             Destroy(other.gameObject);
 
@@ -461,14 +475,10 @@ public class Harpy : MonoBehaviour
         if (other.tag == "PlayerDodgeAttack" && playerdata.PlayerDodgeAttackDamage != 0)
         {
             Debug.Log("Dodge damaged!");
-            // EnemyAnimator.SetTrigger("Damaged");
-            // attackRangeObj.SetActive(false);
             damaged = true;
 
             hitEffectManager.ShowHitEffect(transform.position, 0);
 
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -506,8 +516,7 @@ public class Harpy : MonoBehaviour
         if (other.tag == "PlayerFieldAttack")
         {
             Debug.Log("Field damaged!");
-            // EnemyAnimator.SetTrigger("Damaged");
-            // attackRangeObj.SetActive(false);
+
             damaged = true;
 
             // 플레이어로부터 데미지, 디버프 배열 반환
@@ -600,6 +609,7 @@ public class Harpy : MonoBehaviour
         {
             timeDamageList[i].time += Time.deltaTime;
             TakeDamage(timeDamageList[i].calcDamage);
+            OnBossHPUpdated.Invoke(maxHP, EnemyHP);
         }
 
         // 지정된 시간 초과 시 해당 객체 삭제
