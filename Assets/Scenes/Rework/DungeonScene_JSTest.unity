@@ -3108,7 +3108,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-202148
+  m_Name: pb_Mesh-1792
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6372,6 +6372,22 @@ PrefabInstance:
       propertyPath: aLObject
       value: 
       objectReference: {fileID: 184758344}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[0].AttackRangeDisableTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[1].AttackRangeDisableTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[2].AttackRangeDisableTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402893141203149793, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
+      propertyPath: Weapon_Damage_Range.Array.data[3].AttackRangeDisableTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6402893141203149823, guid: 59fe83ff3e2e180469eb1c201892176e, type: 3}
       propertyPath: OnPlayerHPUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
