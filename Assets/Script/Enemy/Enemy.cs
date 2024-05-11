@@ -148,15 +148,37 @@ public class Enemy : MonoBehaviour
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
             if (dis <= EnemyPlayerAttackDistance && isAttack == false)
             {
-                EnemyAttackOn();
+                //EnemyAttackOn();
+                animator.SetBool("isAttack", true);
             }
             else
             {
-                //animator.SetBool("isAttack", false);
+                animator.SetBool("isAttack", false);
             }
         }
     }
 
+    protected virtual void EnemyAttackOn()
+    {
+        isAttack = true;
+        attackRangeObj.SetActive(true);
+        PlaySound.PlayOneShot(Attack);
+    }
+    
+    protected virtual void EnemyAttackOff()
+    {
+        Invoke("ChangeAttack", AttackDelay);
+        attackRangeObj.SetActive(false);
+        animator.SetBool("isAttack", false);
+    }
+
+    void ChangeAttack()
+    {
+        isAttack = false;
+    }
+    
+
+    
     private void FixedUpdate()
     {
         TakeTimeDamage();
@@ -199,31 +221,7 @@ public class Enemy : MonoBehaviour
             EnemyAnimator.SetTrigger("Idle");
         }
     }
-
-    protected virtual void EnemyAttackOn()
-    {
-        isAttack = true;
-        if(damaged == false)
-        {
-            animator.SetBool("isAttack", true);
-            Invoke("EnemyAttackRangeON", 0.3f);
-            Invoke("EnemyAttackOff", AttackDelay);
-        }
-    }
-
-    protected virtual void EnemyAttackOff()
-    {
-        attackRangeObj.SetActive(false);
-        isAttack = false;
-        animator.SetBool("isAttack", false);
-    }
-
-    protected virtual void EnemyAttackRangeON()
-    {
-        attackRangeObj.SetActive(true);
-        PlaySound.PlayOneShot(Attack);
-    }
-
+    
     public void CounterAttacked(float _damage, Player _player)
     {
         playerdata = _player;

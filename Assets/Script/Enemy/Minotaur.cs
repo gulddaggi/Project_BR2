@@ -17,23 +17,29 @@ public class Minotaur : Enemy
 
     protected override void Update()
     {
-        base.Update();
+        if (player != null)
+        {
+            animator.SetBool("isWalk", true);
+            nvAgent.destination = player.position;
+            float dis = Vector3.Distance(player.position, gameObject.transform.position);
+            if (dis <= EnemyPlayerAttackDistance && isAttack == false)
+            {
+                //EnemyAttackOn();
+                animator.SetBool("isAttack", true);
+            }
+            else
+            {
+                animator.SetBool("isAttack", false);
+            }
+        }
     }
 
     protected override void EnemyAttackOn()
     {
-        isAttack = true;
-        animator.SetBool("isAttack", true);
         nvAgent.enabled = false;
-        Invoke("EnemyAttackRangeON", 0.3f);
-        Invoke("EnemyAttackOff", 1.3f);
-    }
-
-    protected override void EnemyAttackRangeON()
-    {
+        isAttack = true;
         attackRangeObj.SetActive(true);
         nvAgent.enabled = true;
-        delay = 1f;
     }
 
     protected override void EnemyAttackOff()
