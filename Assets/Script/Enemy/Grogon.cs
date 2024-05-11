@@ -27,20 +27,19 @@ public class Grogon : Enemy
     protected override void EnemyAttackOn()
     {
         isAttack = true;
-        animator.SetBool("isAttack", true);
-        Invoke("EnemyAttackRangeON", 0.2f);
-        Invoke("EnemyAttackOff", 1.5f);
-    }
-
-    protected override void EnemyAttackRangeON()
-    {
+        PlaySound.PlayOneShot(Attack);
         LaunchBullet();
     }
-
+    
     protected override void EnemyAttackOff()
     {
-        isAttack = false;
+        Invoke("ChangeAttack", AttackDelay);
         animator.SetBool("isAttack", false);
+    }
+    
+    void ChangeAttack()
+    {
+        isAttack = false;
     }
 
 
