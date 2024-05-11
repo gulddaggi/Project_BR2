@@ -120,6 +120,11 @@ public class Harpy : MonoBehaviour
     public UnityEngine.AI.NavMeshAgent nvAgent;
     public Animator animator;
 
+    public delegate void DestroyProjectileDelegate(GameObject projectile);
+
+    // 델리게이트 인스턴스 생성
+    public DestroyProjectileDelegate destroyProjectileDelegate;
+
     protected void Start()
     {
         EnemyHP = 300;
