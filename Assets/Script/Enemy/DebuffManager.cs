@@ -28,7 +28,10 @@ public class DebuffManager : MonoBehaviour
     void Start()
     {
         // 초기 속도 초기화
-        originvelocity = this.gameObject.GetComponentInParent<NavMeshAgent>().speed;
+        if (this.gameObject.GetComponent<Enemy>() != null)
+        {
+            originvelocity = this.gameObject.GetComponentInParent<NavMeshAgent>().speed;
+        }
     }
 
     // 물 디버프 적용
@@ -199,27 +202,48 @@ public class DebuffManager : MonoBehaviour
     void WaterDebuffSlowOn()
     {
         isSlowOn = true;
-        // 적의 이동속도를 30% 늦춘다
-        this.gameObject.GetComponentInParent<NavMeshAgent>().speed *= 0.7f;
+        if (this.gameObject.GetComponent<Enemy>() != null)
+        {
+            // 적의 이동속도를 30% 늦춘다
+            this.gameObject.GetComponentInParent<NavMeshAgent>().speed *= 0.7f;
+        }
     }
 
     // 둔화 해제
     void WaterDebuffSlowOff()
     {
         isSlowOn = false;
-        this.gameObject.GetComponentInParent<NavMeshAgent>().speed = originvelocity;
+        if (this.gameObject.GetComponent<Enemy>() != null)
+        {
+            this.gameObject.GetComponentInParent<NavMeshAgent>().speed = originvelocity;
+        }
     }
 
     // 중첩 데미지 적용
     void WaterDebuffStackOn(float _targetTime)
     {
-        this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
+        if (this.gameObject.GetComponent<Enemy>() != null)
+        {
+            this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_targetTime);
+        }
+        else
+        {
+            this.gameObject.GetComponentInParent<Harpy>().SetStackDamageOn(_targetTime);
+        }
+
         isWaterStackOn = false;
     }
 
     void StackDamageOn(int _index, float _targetTime)
     {
-        this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_index, _targetTime);
+        if (this.gameObject.GetComponent<Enemy>() != null)
+        {
+            this.gameObject.GetComponentInParent<Enemy>().SetStackDamageOn(_index, _targetTime);
+        }
+        else
+        {
+            this.gameObject.GetComponentInParent<Harpy>().SetStackDamageOn(_index, _targetTime);
+        }
         isWaterStackOn = false;
     }
 }

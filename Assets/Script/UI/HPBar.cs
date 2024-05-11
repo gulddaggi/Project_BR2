@@ -13,7 +13,9 @@ public class HPBar : MonoBehaviour
 
     public void HPUpdate(float _fullHp, float _curHP)
     {
-        text.text = _curHP.ToString() + " / " + _fullHp.ToString();
+        int fullHP = Mathf.RoundToInt(_fullHp);
+        int curHP = Mathf.RoundToInt(_curHP);
+        text.text = curHP.ToString() + " / " + fullHP.ToString();
         image.fillAmount = _curHP / _fullHp;
     }
 }
