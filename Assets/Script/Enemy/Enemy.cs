@@ -245,6 +245,12 @@ public class Enemy : MonoBehaviour
 
     public virtual void OnTriggerEnter(Collider other)
     {
+        if (other.transform.GetComponentInParent<Player>() != null)
+        {
+            // 플레이어로부터 데미지, 디버프 배열 반환
+            playerdata = other.transform.GetComponentInParent<Player>();
+        }
+
         // 공격 종류에 따른 피격 관련 기능 수행
         if (other.tag == "PlayerAttack")
         {
@@ -255,9 +261,6 @@ public class Enemy : MonoBehaviour
             damaged = true;
 
             hitEffectManager.ShowHitEffect(transform.position, 0);
-
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerAttackDamage;
             debuffArray = playerdata.GetAttackDebuff();
 
@@ -287,8 +290,6 @@ public class Enemy : MonoBehaviour
             attackRangeObj.SetActive(false);
             damaged = true;
 
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerStrongAttackDamage;
             debuffArray = playerdata.GetStAttackDebuff();
 
@@ -394,8 +395,6 @@ public class Enemy : MonoBehaviour
 
             hitEffectManager.ShowHitEffect(transform.position, 0);
 
-            // 플레이어로부터 데미지, 디버프 배열 반환
-            playerdata = other.transform.GetComponentInParent<Player>();
             float damage = playerdata.PlayerDodgeAttackDamage;
             debuffArray = playerdata.GetDodgeAttackDebuff();
 
@@ -497,11 +496,14 @@ public class Enemy : MonoBehaviour
         int damage = Mathf.RoundToInt(_damage);
         
         EnemyHP -= damage;
-        
-        GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
-        hudText.transform.position = hudPos.position; // 표시될 위치
-        hudText.GetComponent<DamageText>().damage = damage; // 데미지 전달
-        
+
+        if (_damage != 0)
+        {
+            GameObject hudText = Instantiate(hudDamageText); // 생성할 텍스트 오브젝트
+            hudText.transform.position = hudPos.position; // 표시될 위치
+            hudText.GetComponent<DamageText>().damage = damage; // 데미지 전달
+        }
+
         if (EnemyHP <= 0)
         {
             if (!isDead)
