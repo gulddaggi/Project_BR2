@@ -43,6 +43,11 @@ public class PlayerController : MonoBehaviour
         PlayerRigid = GetComponent<Rigidbody>();
         PlayerAnimator = GetComponent<Animator>();
         attack = GetComponent<Attack>();
+
+        // 사망 후 설정
+
+        player.SetisPlayerDead();
+
     }
 
 

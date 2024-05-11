@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 8741914948528896336}
   - component: {fileID: -4543805186101601984}
   m_Layer: 0
-  m_Name: Minotaur
+  m_Name: Minotaur_BossZako
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2059,7 +2059,7 @@ MonoBehaviour:
   time: 0
   playerdata: {fileID: 0}
   AttackDelay: 2
-  range: 20
+  range: 200
   EnemyPlayerAttackDistance: 20
   player: {fileID: 0}
   nvAgent: {fileID: 0}

@@ -26,6 +26,9 @@ public class Harpy : MonoBehaviour
     [SerializeField]
     private GameObject bossHPUI;
 
+    [SerializeField] Transform[] ZacoSpawnPoint;
+    [SerializeField] GameObject ZacoPrefab;
+
     #region * 하피 투사체 오브젝트 풀링
 
     public BossBullet BossBullet1_Harpy;
@@ -190,11 +193,10 @@ public class Harpy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        int RAD_ACT = Random.Range(0, 3); // 패턴 처리 위해서 난수 부여
+        int RAD_ACT = Random.Range(0, 4); // 패턴 처리 위해서 난수 부여
         Debug.Log(RAD_ACT);
 
         // 하드모드 패턴 추가시 Range를 늘리는 방향으로 구현 가능. 아니면 break문을 없애서 조건을 늘리던가..
-
 
         switch (RAD_ACT)
         {
@@ -209,11 +211,17 @@ public class Harpy : MonoBehaviour
             case 2:
                 StartCoroutine(Harpy_Fire_3());
                 break;
+
+            case 3:
+                StartCoroutine(Harpy_Fire_4());
+                break;
         }
     }
 
     IEnumerator Harpy_Fire_1() // 무작위 방향으로 투사체 난사
     {
+
+        HarpyTeleporting();
 
         for (int j = 0; j < BossBulletMaxCount; j++)
         {
@@ -247,15 +255,11 @@ public class Harpy : MonoBehaviour
         else{ yield return new WaitForSeconds((2 * Boss_Pattern_Waiting_Time) / 3); } // 폭주 패턴
         StartCoroutine(Harpy_Pattern_Management());
     }
-
     IEnumerator Harpy_Fire_2() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
     {
         Debug.Log("Pattern 2 Activated!");
-        int ran = Random.Range(0, 360); //랜덤으로 0~360도
-        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
-        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
 
-        gameObject.transform.position = new Vector3(0f, 0f, 0f) + new Vector3(x, 0f, z);
+        HarpyTeleporting();
 
         yield return new WaitForSeconds(0.5f);
         GameObject Big_Projecter = Instantiate(Harpy_Big_Projecter, gameObject.transform.position, gameObject.transform.rotation);
@@ -268,9 +272,12 @@ public class Harpy : MonoBehaviour
         } // 폭주 패턴
         StartCoroutine(Harpy_Pattern_Management());
     }
-    IEnumerator Harpy_Fire_3() // 중앙에서 일정 거리동안 순간이동하고 큰 투사체 발사
+    IEnumerator Harpy_Fire_3() // 중앙에서 일정 거리동안 순간이동하고 투사체 난사
     {
         Debug.Log("Pattern 3 Activated!");
+
+        HarpyTeleporting();
+
         for (int i = 0; i < 9; i++)
         {
             GameObject BossBullet2 = Instantiate(BossBullet2_Harpy, gameObject.transform.position, Quaternion.identity);
@@ -307,6 +314,28 @@ public class Harpy : MonoBehaviour
         StartCoroutine(Harpy_Pattern_Management());
     }
 
+    IEnumerator Harpy_Fire_4() // 잡몹 소환
+    {
+        Debug.Log("Pattern 4 Activated!");
+
+        HarpyTeleporting();
+
+        if (ZacoSpawnPoint != null && ZacoPrefab != null)
+        {
+            foreach (Transform spawnPoint in ZacoSpawnPoint)
+            {
+                // 각각의 spawnPoint에서 Zaco를 소환하는 코드
+                Instantiate(ZacoPrefab, spawnPoint.position, spawnPoint.rotation);
+            }
+        }
+        else
+        {
+            Debug.Log("보스 소환 몹 혹은 보스 소환 몹 스폰위치가 null입니다!");
+        }
+        yield return new WaitForSeconds(Boss_Pattern_Waiting_Time);
+        StartCoroutine(Harpy_Pattern_Management());
+    }
+
     void Boss_Overdrive_Check()
     {
         if (EnemyHP <= PrimitiveHP / 2)
@@ -314,6 +343,15 @@ public class Harpy : MonoBehaviour
             isOverdriving = true;
             // Debug.Log("하피 폭주 패턴 개시");
         }
+    }
+
+    void HarpyTeleporting()
+    {
+        int ran = Random.Range(0, 360); //랜덤으로 0~360도
+        float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+        float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 8f; // 정해진 위치에서 5만큼 떨어진 원형 랜덤 방향으로 생성
+
+        gameObject.transform.position = new Vector3(0f, 0f, 0f) + new Vector3(x, 0f, z);
     }
 
 
