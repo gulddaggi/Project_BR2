@@ -343,7 +343,7 @@ public class Enemy : MonoBehaviour
             // 플레이어로부터 데미지, 디버프 배열 반환
             playerdata = other.GetComponent<PlayerProjectile>().player;            
             float damage = playerdata.PlayerAttackDamage;
-            debuffArray = playerdata.GetStAttackDebuff();
+            debuffArray = playerdata.GetAttackDebuff();
 
             if (GameManager_JS.Instance != null)
             {

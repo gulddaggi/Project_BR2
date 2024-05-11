@@ -411,8 +411,6 @@ public class Harpy : MonoBehaviour
             }
 
             Debug.Log("Damaged by Player Projectile");
-            // EnemyAnimator.SetTrigger("Damaged");
-            // attackRangeObj.SetActive(false);
             damaged = true;
 
             hitEffectManager.ShowHitEffect(transform.position, 0);
