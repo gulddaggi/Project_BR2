@@ -24,7 +24,7 @@ public class Minotaur : Enemy
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
             if (dis <= EnemyPlayerAttackDistance && isAttack == false)
             {
-                //EnemyAttackOn();
+                EnemyAttackOn();
                 animator.SetBool("isAttack", true);
             }
             else
@@ -40,6 +40,7 @@ public class Minotaur : Enemy
         isAttack = true;
         attackRangeObj.SetActive(true);
         nvAgent.enabled = true;
+        Invoke("EnemyAttackOff", 1f);
     }
 
     protected override void EnemyAttackOff()
