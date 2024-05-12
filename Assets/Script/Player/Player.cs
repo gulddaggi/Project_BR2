@@ -173,7 +173,7 @@ public class Player : MonoBehaviour, IListener
 
     public void BeforeDie()
     {
-        if (playerResurrectionCount == 0)
+        if (playerResurrectionCount == 0 && isPlayerDead == false)
         {
             isPlayerDead = true;
             this.gameObject.GetComponent<PlayerController>().PlayerAnimator.SetTrigger("Dead");
@@ -196,6 +196,11 @@ public class Player : MonoBehaviour, IListener
     void Die()
     {
         GameManager_JS.Instance.InitStage();
+    }
+
+    public void SetisPlayerDead()
+    {
+        isPlayerDead = false;
     }
 
     // 삭제 예정.

@@ -1454,7 +1454,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1555,6 +1555,8 @@ Transform:
   - {fileID: 6942841369091704030}
   - {fileID: 2940081544408951118}
   - {fileID: 9123638215769945991}
+  - {fileID: 7618055197405782339}
+  - {fileID: 6157751758437683082}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
@@ -1629,6 +1631,37 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 3d0d1f9d12b0e5b458da2b62a4cb3157, type: 2}
+--- !u!1 &5078017520696071087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7618055197405782339}
+  m_Layer: 0
+  m_Name: ZacoSpawnPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7618055197405782339
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5078017520696071087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.1, y: -6.673, z: 22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3927398029359685523}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5208530381990412867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,6 +1984,37 @@ Transform:
   m_Father: {fileID: 3927398029359685523}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6566164110243490774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6157751758437683082}
+  m_Layer: 0
+  m_Name: ZacoSpawnPoint2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6157751758437683082
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566164110243490774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -21.8, y: -6.673, z: 22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3927398029359685523}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7028326852457684568
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2161,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &8334122049610364576
 Transform:
@@ -4353,6 +4417,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7715421428655112191}
     - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
+      propertyPath: ZacoPrefab
+      value: 
+      objectReference: {fileID: 3795605212863643116, guid: 46679e5c2ab0bd8419d86967582cff74, type: 3}
+    - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
       propertyPath: Harpy_point
       value: 
       objectReference: {fileID: 8968675458120182419}
@@ -4360,6 +4428,14 @@ PrefabInstance:
       propertyPath: Harpy_Big_Projecter
       value: 
       objectReference: {fileID: 6287953604210959080, guid: 6c96bdc4f3164844e9c89e013d712640, type: 3}
+    - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
+      propertyPath: ZacoSpawnPoint.Array.data[0]
+      value: 
+      objectReference: {fileID: 7618055197405782339}
+    - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
+      propertyPath: ZacoSpawnPoint.Array.data[1]
+      value: 
+      objectReference: {fileID: 6157751758437683082}
     - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
       propertyPath: OnBossHPUpdated.m_PersistentCalls.m_Calls.Array.size
       value: 1

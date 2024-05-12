@@ -6,9 +6,17 @@ public class ArrowScript : PlayerProjectile
 {
     protected override void Start()
     {
-        base.Start();  
+        base.Start();
 
-        FindObjectOfType<Enemy>().destroyProjectileDelegate += DestroyProjectile;
+
+        if (GameManager_JS.Instance.curStage.ToString().StartsWith("Boss"))
+        {
+            FindObjectOfType<Harpy>().destroyProjectileDelegate += DestroyProjectile;
+        }
+        else
+        {
+            FindObjectOfType<Enemy>().destroyProjectileDelegate += DestroyProjectile;
+        }
     }
 
     protected override void OnTriggerEnter(Collider other)
