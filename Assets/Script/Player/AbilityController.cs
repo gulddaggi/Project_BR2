@@ -19,7 +19,7 @@ public class AbilityController : MonoBehaviour
     void Update()
     {
         // 키입력 확인
-        if (!GameManager_JS.Instance.isEventOn)
+        if (aLObject != null && !GameManager_JS.Instance.isEventOn)
         {
             AbilityKeyCheck();
         }
@@ -37,11 +37,13 @@ public class AbilityController : MonoBehaviour
 
     void AbilityListOn()
     {
+        Time.timeScale = 0f;
         aLObject.SetActive(true);
     }
 
     public void AbilityListOff()
     {
+        Time.timeScale = 1f;
         GameManager_JS.Instance.isEventOn = false;
     }
 

@@ -120,6 +120,9 @@ public class GameManager_JS : MonoBehaviour
     private bool isLoad = false;
 
     public bool isCutScene = false;
+    
+    // 튜토리얼 재생을 위한 변수
+    private bool Tutorial = false;
 
     private void Awake()
     {
@@ -168,7 +171,7 @@ public class GameManager_JS : MonoBehaviour
     public void GetGuage()
     {
         Debug.Log("특수공격 게이지 판정 시작.");
-        if(SceneManager.GetActiveScene().name != "HomeScene" && attackGuage.SpecialAttackGuage == null)
+        if (SceneManager.GetActiveScene().name != "HomeScene" && attackGuage.SpecialAttackGuage == null)
         {
             Debug.Log("확인 불가. 특수 공격 UI를 가져옵니다.");
             GameObject specialAttackUI = GameObject.Find("SpecialAttackUI");
@@ -203,15 +206,31 @@ public class GameManager_JS : MonoBehaviour
 
     public void InitStage()
     {
-        StartCoroutine(FadeInPanel());
-        stageQueue.Clear();
-        dungeonCount = 0;
-        SceneManager.LoadScene("HomeScene");
-        Coin = 0;
-        coinText_Play.transform.gameObject.SetActive(false);
-        isMoveOn = true;
-        isEventOn = false;
-        ResetEncounter();
+        if(Tutorial == true)
+        {
+            StartCoroutine(FadeInPanel());
+            stageQueue.Clear();
+            dungeonCount = 0;
+            SceneManager.LoadScene("HomeScene");
+            Coin = 0;
+            coinText_Play.transform.gameObject.SetActive(false);
+            isMoveOn = true;
+            isEventOn = false;
+            ResetEncounter();
+        }
+        else
+        {
+            Tutorial = true;
+            StartCoroutine(FadeInPanel());
+            stageQueue.Clear();
+            dungeonCount = 0;
+            SceneManager.LoadScene("Tutorial");
+            Coin = 0;
+            coinText_Play.transform.gameObject.SetActive(false);
+            isMoveOn = true;
+            isEventOn = false;
+            ResetEncounter();
+        }
     }
 
     void ResetEncounter()
