@@ -143,16 +143,17 @@ public class Enemy : MonoBehaviour
 
         if (player != null)
         {
-            animator.SetBool("isWalk", true);
             nvAgent.destination = player.position;
             float dis = Vector3.Distance(player.position, gameObject.transform.position);
             if (dis <= EnemyPlayerAttackDistance && isAttack == false)
             {
                 //EnemyAttackOn();
+                animator.SetBool("isWalk", false);
                 animator.SetBool("isAttack", true);
             }
             else
             {
+                animator.SetBool("isWalk", true);
                 animator.SetBool("isAttack", false);
             }
         }
