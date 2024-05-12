@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.Events;
 
 
@@ -28,6 +30,7 @@ public class Harpy : MonoBehaviour
 
     [SerializeField] Transform[] ZacoSpawnPoint;
     [SerializeField] GameObject ZacoPrefab;
+    [SerializeField] TextMeshProUGUI HarpyDialogue;
 
     #region * 하피 투사체 오브젝트 풀링
 
@@ -128,6 +131,8 @@ public class Harpy : MonoBehaviour
     // 델리게이트 인스턴스 생성
     public DestroyProjectileDelegate destroyProjectileDelegate;
 
+    bool OverdriveDialogueBoolean = false;
+
     protected void Start()
     {
         EnemyHP = 300;
@@ -158,6 +163,8 @@ public class Harpy : MonoBehaviour
         isBoss = true;
         hitEffectManager = this.gameObject.GetComponent<HitEffectManager>();
         CutScene = true;
+
+    
     }
 
     private void OnEnable()
@@ -166,7 +173,6 @@ public class Harpy : MonoBehaviour
     }
 
     #endregion
-
 
     // Update is called once per frame
     void Update()
@@ -179,6 +185,12 @@ public class Harpy : MonoBehaviour
             transform.LookAt(Player.transform.position + LookVec);
         }
         Boss_Overdrive_Check(); // 폭주 패턴 체크
+
+        if (OverdriveDialogueBoolean == false && EnemyHP < FullHP / 2)
+        {
+            OverdriveDialogueBoolean = true;
+            StartCoroutine(bossText.BossDialogue());
+        }
     }
 
     IEnumerator Check_Camera() // 하피 패턴관리
@@ -186,6 +198,7 @@ public class Harpy : MonoBehaviour
         GameManager_JS.Instance.isCutScene = true;
         yield return new WaitForSeconds(14f);
         GameManager_JS.Instance.isCutScene = false;
+        StartCoroutine(bossText.BossDialogue()); 
         StartCoroutine("Harpy_Pattern_Management");
     }
 

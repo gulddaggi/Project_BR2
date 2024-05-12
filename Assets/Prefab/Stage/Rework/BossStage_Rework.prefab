@@ -1454,7 +1454,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2161,7 +2161,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 119
   m_IsActive: 1
 --- !u!4 &8334122049610364576
 Transform:
@@ -4380,6 +4380,10 @@ PrefabInstance:
       propertyPath: AttackPO1
       value: 
       objectReference: {fileID: 7715421428655112191}
+    - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
+      propertyPath: ZacoPrefab
+      value: 
+      objectReference: {fileID: 3795605212863643116, guid: 46679e5c2ab0bd8419d86967582cff74, type: 3}
     - target: {fileID: 5989579093108966914, guid: b0e554c3b242cc843918f8c720737acf, type: 3}
       propertyPath: Harpy_point
       value: 

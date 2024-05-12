@@ -2055,6 +2055,7 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
+  isZako: 0
   totalStackDamage: 0
   time: 0
   playerdata: {fileID: 0}
@@ -2064,7 +2065,7 @@ MonoBehaviour:
   player: {fileID: 0}
   nvAgent: {fileID: 0}
   animator: {fileID: 0}
-  hudDamageText: {fileID: 0}
+  hudDamageText: {fileID: 3633019515484952853, guid: f1f58f0c33dac47578475642e9f6730a, type: 3}
   hudPos: {fileID: 0}
   death: {fileID: 0}
   hit: {fileID: 0}

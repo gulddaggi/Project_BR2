@@ -61,6 +61,9 @@ public class Enemy : MonoBehaviour
     public bool HPOn = false;
     public bool isBoss = false;
 
+    [SerializeField] 
+    bool isZako = false;
+
     // 스택 데미지. 단위 %로 전달. 
     public float totalStackDamage = 0f;
 
@@ -481,9 +484,17 @@ public class Enemy : MonoBehaviour
     {
         PlaySound.PlayOneShot(death);
         isDead = true;
-        enemySpawner.EnemyDead();
-        hpBar.SetActive(false);
-        gameObject.SetActive(false);
+        if(!isZako) {
+            enemySpawner.EnemyDead();
+            hpBar.SetActive(false);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Destroy(hpBar);
+            Destroy(gameObject);
+        }
+
     }
 
     public void TakeDamage(float _damage)
@@ -711,7 +722,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Enemy lost Target");
+            Debug.Log("Enemy lost Target");
 
             //animator.SetBool("isAttack", false);
             player = null;

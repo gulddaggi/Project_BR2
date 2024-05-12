@@ -60,6 +60,7 @@ public class SoundManager : MonoBehaviour
         if (availableAudioSources.Count > 0)
         {
             AudioSource audioSource = availableAudioSources.Dequeue();
+            audioSource.volume = 0.3f;
             audioSource.clip = clip;
             audioSource.Play();
             StartCoroutine(ManagePool(audioSource));

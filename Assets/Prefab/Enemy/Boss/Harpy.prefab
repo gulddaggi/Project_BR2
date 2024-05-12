@@ -10232,6 +10232,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ZacoPrefab: {fileID: 2157474359228210181, guid: 83fc293c1efe48641aa36e3fda4b4b03, type: 3}
+  HarpyDialogue: {fileID: 0}
   BossBullet1_Harpy: {fileID: 1824428269083792000, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
   BossBullet2_Harpy: {fileID: 1830583763896258589, guid: 93343edbbf1538c41b5a338c82bf2f5d, type: 3}
   BossBullet2Speed: 10

@@ -6232,6 +6232,7 @@ MonoBehaviour:
   hpBarFrame: {fileID: 0}
   HPOn: 0
   isBoss: 0
+  isZako: 0
   totalStackDamage: 0
   time: 0
   playerdata: {fileID: 0}
