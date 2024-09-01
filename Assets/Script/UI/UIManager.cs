@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
         }
         else if (currentSceneName == "Title")
         {
-            uiText.text = "Project";
+            uiText.text = "Blowing Spring";
         }
         else if (currentSceneName == "DungeonScene_JSTest")
         {
